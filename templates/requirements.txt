@@ -107,9 +107,6 @@ pydantic>=2.5.0
 # Python-dotenv - Environment variables
 python-dotenv>=1.0.0
 
-# PyYAML - YAML parsing
-pyyaml>=6.0.1
-
 # Click - CLI building
 click>=8.1.7
 

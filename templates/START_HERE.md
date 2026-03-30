@@ -13,11 +13,11 @@ Chào mừng bạn! Đây là bộ tài liệu hoàn chỉnh để xây dựng h
 
 ### 🛠️ Templates & Config
 
-1. **templates/skill-template/SKILL.md** - Template để tạo skill mới
-2. **templates/PROMPT_TEMPLATES.md** - Thư viện prompt templates
-3. **templates/config.template.yaml** - Configuration file mẫu
-4. **templates/.env.template** - Environment variables template
-5. **templates/requirements.txt** - Python dependencies
+1. **skills/examples/skill-template/SKILL.md** - Template để tạo skill mới
+2. **templates/PROMPT_TEMPLATES.md** - Thư viện prompt templates (Markdown)
+3. **config.example.md** (thư mục gốc repo) - Cấu hình mẫu cho KB/RAG
+4. **templates/config.template.md** - Bản nhắc cấu hình Markdown
+5. **requirements.txt** (gốc repo hoặc `templates/requirements.txt`) - Python dependencies
 
 ### 🚀 Scripts
 
@@ -44,9 +44,9 @@ chmod +x quick-start.sh
 # 4. Edit API keys
 nano .env  # Thêm ANTHROPIC_API_KEY hoặc OPENAI_API_KEY
 
-# 5. Xong! Bắt đầu sử dụng
+# 5. Xong! Kiểm tra KB (dry-run)
 source venv/bin/activate
-python scripts/test.py
+python scripts/build_kb.py --dry-run
 ```
 
 ### Cách 2: Manual Setup
@@ -56,16 +56,12 @@ python scripts/test.py
 python3 -m venv venv
 source venv/bin/activate
 
-# 2. Install dependencies
-pip install -r templates/requirements.txt
+# 2. Install dependencies (từ thư mục gốc repo)
+pip install -r requirements.txt
 
-# 3. Setup config
-cp templates/config.template.yaml config.yaml
-cp templates/.env.template .env
-
-# 4. Edit config files
-nano .env        # Add your API keys
-nano config.yaml # Customize settings
+# 3. Setup config (Markdown)
+cp config.example.md config.md
+nano config.md   # chỉnh khối kb-config nếu cần
 
 # 5. Create directory structure
 mkdir -p skills/{public,private,examples}
@@ -81,7 +77,7 @@ mkdir -p prompts/templates
 
 ```bash
 # Copy template
-cp -r templates/skill-template skills/public/my-first-skill
+cp -r skills/examples/skill-template skills/public/my-first-skill
 
 # Edit SKILL.md
 cd skills/public/my-first-skill
@@ -129,14 +125,7 @@ response = llm.complete(prompt)
 
 ### 4. Setup MCP Server (Optional)
 
-```yaml
-# mcp-servers/configs/my-api.yaml
-name: my-internal-api
-url: https://api.mycompany.com/mcp
-authentication:
-  type: bearer
-  token_env: MY_API_TOKEN
-```
+Ghi cấu hình MCP trong tài liệu Markdown (bảng: URL, auth, biến môi trường). Repo gốc không bắt buộc file `.yaml` cho MCP.
 
 ---
 
@@ -177,18 +166,7 @@ review = use_skill(
 
 ### Use Case 3: Multi-Step Research
 
-```yaml
-# Create workflow: prompts/chains/research.yaml
-workflow:
-  - skill: web-search
-    query: {{topic}}
-  - skill: content-extraction
-    input: {{search_results}}
-  - skill: summarization
-    input: {{extracted_content}}
-  - skill: report-generation
-    output: final_report.md
-```
+Tạo file workflow **Markdown**, ví dụ xem `workflows/examples/research-synthesize.md`: mỗi bước gọi skill hoặc mẫu prompt, nối output tuần tự.
 
 ---
 
@@ -215,23 +193,14 @@ git push -u origin main
 
 ### 3. Test As You Go
 ```bash
-# Test individual skill
-python scripts/test_skill.py --skill data-analysis
-
-# Test prompt template
-python scripts/test_template.py --template code-review
-
-# Test knowledge base
+# Knowledge base / RAG
+python scripts/build_kb.py --dry-run
 python scripts/query_kb.py "test query"
 ```
 
 ### 4. Monitor From Day 1
-```yaml
-# config.yaml
-monitoring:
-  helicone:
-    enabled: true  # Track costs and performance
-```
+
+Ghi chú monitoring (Helicone, v.v.) trong tài liệu Markdown hoặc `config.md` phần mô tả — không bắt buộc định dạng YAML.
 
 ---
 
@@ -250,25 +219,11 @@ pip install -r requirements.txt --no-cache-dir
 
 ### Issue 2: Embeddings Too Slow
 
-```python
-# Use smaller model
-config.yaml:
-  embedding:
-    model: sentence-transformers/all-MiniLM-L6-v2  # Faster
-    # vs all-mpnet-base-v2  # Slower but better
-```
+Trong `config.md`, khối `kb-config`, giảm tải bằng cách đặt `embedding_model = sentence-transformers/all-MiniLM-L6-v2` (nhanh hơn so với model lớn hơn).
 
 ### Issue 3: Out of Memory
 
-```python
-# Chunk processing
-chunking:
-  chunk_size: 500  # Reduce from 1000
-  
-# Or use disk-based vector store
-vector_store:
-  type: chroma  # Uses disk
-```
+Trong `config.md`, khối `kb-config`, giảm `chunk_size` (ví dụ 500 thay vì 1000). Index RAG đã lưu trên đĩa (`.npy` + `.json`).
 
 ---
 
@@ -341,7 +296,7 @@ Tuần 4: Advanced
 - [ ] Virtual environment activated
 - [ ] Dependencies installed
 - [ ] .env file configured với API key
-- [ ] config.yaml customized
+- [ ] config.md customized (hoặc dùng config.example.md)
 - [ ] Test script chạy thành công
 - [ ] First skill created
 - [ ] Knowledge base initialized (optional)
@@ -366,12 +321,12 @@ my-ai-toolkit/
 │   └── embeddings/
 ├── prompts/
 │   └── templates/
-│       ├── code-review.yaml
-│       └── data-analysis.yaml
+│       ├── code-review.md
+│       └── data-analysis.md
 ├── mcp-servers/
 │   └── configs/
 ├── venv/
-├── config.yaml
+├── config.example.md
 ├── .env
 ├── requirements.txt
 └── README.md
@@ -423,12 +378,10 @@ my-ai-toolkit/
 | Task | Command |
 |------|---------|
 | Activate env | `source venv/bin/activate` |
-| List skills | `python scripts/list_skills.py` |
-| Test skill | `python scripts/test_skill.py --skill NAME` |
+| Dry-run KB | `python scripts/build_kb.py --dry-run` |
 | Query KB | `python scripts/query_kb.py "question"` |
 | Build KB | `python scripts/build_kb.py` |
-| Create skill | `cp -r templates/skill-template skills/public/NAME` |
-| Package skill | `python scripts/package_skill.py skills/public/NAME` |
+| Create skill | `cp -r skills/examples/skill-template skills/public/NAME` |
 
 ---
 

@@ -2,48 +2,46 @@
 
 Thư viện các prompt templates có thể tái sử dụng cho nhiều task khác nhau.
 
-## Cấu trúc YAML Template
+**Quy ước repo:** lưu template dưới dạng **Markdown** (file `.md` trong `prompts/templates/`). Các khối dưới đây minh họa *cùng thông tin*; phần còn lại của file có thể vẫn dùng khối code kiểu “key: value” trong fence — khi tạo mới hãy ưu tiên cấu trúc Markdown (tiêu đề + bảng biến + phần System/User).
 
-```yaml
-name: template-identifier
-version: 1.0
-category: task-type
-description: Brief description
-tags: [tag1, tag2]
+## Cấu trúc template (Markdown)
 
-metadata:
-  complexity: low|medium|high
-  estimated_tokens: 100-500
-  language: any|python|javascript|etc
+```markdown
+# template-identifier
 
-variables:
-  - name: variable_name
-    type: string|array|object|number
-    required: true|false
-    default: default_value
-    description: What this variable is for
+## Metadata
 
-system_prompt: |
-  System instructions that set context and persona
+| Thuộc tính | Giá trị |
+|------------|---------|
+| version | 1.0 |
+| category | task-type |
+| description | Mô tả ngắn |
+| tags | tag1, tag2 |
 
-prompt_template: |
-  Main prompt with {{variable_name}} placeholders
+## Biến
 
-examples:
-  - input:
-      var1: value1
-    output: expected output
+| Tên | Bắt buộc | Mô tả |
+|-----|----------|--------|
+| variable_name | Có/Không | … |
 
-post_processing:
-  - validation_step_1
-  - validation_step_2
+## System prompt
+
+… hướng dẫn cho model …
+
+## User prompt (template)
+
+Nội dung chính với {{variable_name}}.
+
+## Ví dụ
+
+**Input:** … → **Output mong đợi:** …
 ```
 
 ---
 
 ## Template 1: Code Review
 
-```yaml
+```markdown
 name: code-review-comprehensive
 version: 1.2
 category: development
@@ -224,7 +222,7 @@ post_processing:
 
 ## Template 2: Data Analysis
 
-```yaml
+```markdown
 name: data-analysis-comprehensive
 version: 1.0
 category: data-science
@@ -371,7 +369,7 @@ post_processing:
 
 ## Template 3: Creative Writing
 
-```yaml
+```markdown
 name: creative-story-writer
 version: 1.0
 category: creative-writing
@@ -500,7 +498,7 @@ post_processing:
 
 ## Template 4: Technical Documentation
 
-```yaml
+```markdown
 name: technical-documentation
 version: 1.0
 category: documentation
@@ -826,4 +824,4 @@ python scripts/use_template.py \
 
 ---
 
-Lưu các templates vào `prompts/templates/` với format `category-name.yaml`
+Lưu các templates vào `prompts/templates/` với format `category-name.md` (Markdown)

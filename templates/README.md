@@ -1,5 +1,7 @@
 # AI Toolkit - Hệ Thống Skills, Knowledge Base & Prompts
 
+> **Repo `own-skills`:** nguồn đúng về cấu trúc thư mục và lệnh thật là [README.md ở thư mục gốc](../README.md). Cấu hình dùng **Markdown** (`config.example.md`), workflow mô tả bằng file **`.md`**; không dùng `.yaml`/`.yml` cho config hay workflow trong repo gốc.
+
 🚀 **Bộ công cụ hoàn chỉnh để xây dựng và quản lý AI skills, knowledge bases, và prompt templates có thể tái sử dụng**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -70,24 +72,19 @@ pip install -r requirements.txt
 ### 3. Configure
 
 ```bash
-# Copy config template
-cp config.template.yaml config.yaml
+# Copy config template (Markdown)
+cp config.example.md config.md
 
-# Edit với API keys của bạn
-nano config.yaml
+# Chỉnh khối kb-config trong config.md (xem [config.example.md](../config.example.md))
+nano config.md
 ```
 
-### 4. Test
+### 4. Test (knowledge base + RAG)
 
 ```bash
-# Test xem mọi thứ đã hoạt động
-python scripts/test.py
-
-# List available skills
-python scripts/list_skills.py
-
-# Try a skill
-python scripts/use_skill.py --skill data-analysis --file sample.csv
+python scripts/build_kb.py --dry-run
+python scripts/build_kb.py
+python scripts/query_kb.py "câu hỏi thử"
 ```
 
 ---
@@ -111,10 +108,9 @@ ai-toolkit/
 │   └── schemas/              # Data schemas
 │
 ├── prompts/                  # 🎨 Prompt library
-│   ├── templates/            # Reusable templates
-│   │   ├── code-review.yaml
-│   │   ├── data-analysis.yaml
-│   │   └── creative-writing.yaml
+│   ├── templates/            # Reusable templates (.md)
+│   │   ├── code-review.md
+│   │   └── …
 │   ├── chains/               # Multi-step workflows
 │   └── components/           # Reusable components
 │
@@ -130,7 +126,7 @@ ai-toolkit/
 │
 ├── docs/                     # 📖 Documentation
 ├── tests/                    # ✅ Test suite
-├── config.yaml               # ⚙️ Configuration
+├── config.example.md         # ⚙️ Cấu hình mẫu (Markdown)
 └── requirements.txt          # 📦 Dependencies
 ```
 
@@ -190,18 +186,7 @@ python scripts/query_kb.py "What is our refund policy?"
 
 ### Setup MCP Server
 
-```yaml
-# mcp-servers/configs/my-api.yaml
-name: my-api
-type: sse
-url: https://api.mycompany.com/mcp
-authentication:
-  type: bearer
-  token_env: MY_API_TOKEN
-tools:
-  - name: get_data
-    description: Fetch company data
-```
+Mô tả cấu hình MCP bằng **Markdown** (bảng, danh sách) trong `docs/` hoặc tài liệu nội bộ; không bắt buộc file `.yaml` trong repo này.
 
 ---
 
@@ -354,25 +339,7 @@ response = query_engine.query("What is X?")
 
 ### 1. Skill Chaining
 
-```yaml
-# skills/workflows/research-report.yaml
-workflow:
-  - skill: web-search
-    input: {{topic}}
-    output: search_results
-    
-  - skill: content-extraction
-    input: {{search_results}}
-    output: raw_content
-    
-  - skill: summarization
-    input: {{raw_content}}
-    output: summary
-    
-  - skill: report-generation
-    input: {{summary}}
-    output: final_report
-```
+Workflow mô tả bằng Markdown, ví dụ [workflows/examples/research-synthesize.md](../workflows/examples/research-synthesize.md): từng bước gọi skill hoặc mẫu prompt, nối output bước trước làm input bước sau.
 
 ### 2. Conditional Logic
 

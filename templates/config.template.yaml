@@ -1,0 +1,339 @@
+# Configuration Template for AI Toolkit
+# Copy this file to config.yaml and fill in your values
+
+# Project Information
+project:
+  name: my-ai-toolkit
+  version: 1.0.0
+  description: Custom AI toolkit for my projects
+
+# Skill Configuration
+skills:
+  # Directories to scan for skills
+  directories:
+    - skills/public
+    - skills/private
+    - skills/examples
+  
+  # Auto-discover skills on startup
+  auto_discover: true
+  
+  # Skill loading strategy
+  loading:
+    lazy: true  # Load skills only when needed
+    cache: true  # Cache loaded skills
+
+# Knowledge Base Configuration
+knowledge_base:
+  # Path to documents
+  documents_path: knowledge-base/documents
+  
+  # Embedding configuration
+  embedding:
+    model: sentence-transformers/all-MiniLM-L6-v2
+    # Options: 
+    # - sentence-transformers/all-MiniLM-L6-v2 (fast, good quality)
+    # - sentence-transformers/all-mpnet-base-v2 (slower, better quality)
+    # - text-embedding-ada-002 (OpenAI, requires API key)
+    
+    # Cache embeddings to disk
+    cache_path: knowledge-base/embeddings/.cache
+    
+  # Vector store configuration
+  vector_store:
+    type: chroma  # Options: chroma, pinecone, weaviate, qdrant
+    
+    # Chroma config (local)
+    chroma:
+      persist_directory: .chromadb
+      collection_name: knowledge_base
+    
+    # Pinecone config (cloud)
+    pinecone:
+      api_key_env: PINECONE_API_KEY
+      environment: us-west1-gcp
+      index_name: knowledge-base
+      dimension: 384
+    
+    # Weaviate config
+    weaviate:
+      url: http://localhost:8080
+      class_name: Document
+    
+    # Qdrant config
+    qdrant:
+      host: localhost
+      port: 6333
+      collection_name: knowledge_base
+  
+  # Update embeddings when files change
+  auto_update: true
+  
+  # Chunk configuration for documents
+  chunking:
+    strategy: recursive  # Options: recursive, sentence, paragraph
+    chunk_size: 1000
+    chunk_overlap: 200
+
+# Prompt Template Configuration
+prompts:
+  # Path to templates
+  templates_path: prompts/templates
+  chains_path: prompts/chains
+  components_path: prompts/components
+  
+  # Template loading
+  cache_templates: true
+  
+  # Default parameters
+  defaults:
+    temperature: 0.7
+    max_tokens: 2000
+
+# MCP Servers Configuration
+mcp_servers:
+  # Enable MCP support
+  enabled: true
+  
+  # Registered servers
+  servers:
+    - name: custom-api
+      url: https://api.example.com/mcp
+      type: sse  # or http
+      enabled: false
+      authentication:
+        type: bearer
+        token_env: CUSTOM_API_TOKEN
+    
+    - name: notion
+      url: https://mcp.notion.com/mcp
+      type: sse
+      enabled: false
+      authentication:
+        type: bearer
+        token_env: NOTION_TOKEN
+    
+    - name: asana
+      url: https://mcp.asana.com/sse
+      type: sse
+      enabled: false
+      authentication:
+        type: bearer
+        token_env: ASANA_TOKEN
+
+# LLM API Configuration
+apis:
+  # Anthropic (Claude)
+  anthropic:
+    api_key_env: ANTHROPIC_API_KEY
+    default_model: claude-sonnet-4-20250514
+    # Available models:
+    # - claude-opus-4-6
+    # - claude-sonnet-4-6
+    # - claude-haiku-4-5
+    max_tokens: 4096
+    temperature: 0.7
+  
+  # OpenAI
+  openai:
+    api_key_env: OPENAI_API_KEY
+    default_model: gpt-4-turbo-preview
+    # Available models:
+    # - gpt-4-turbo-preview
+    # - gpt-4
+    # - gpt-3.5-turbo
+    max_tokens: 4096
+    temperature: 0.7
+  
+  # Azure OpenAI
+  azure_openai:
+    enabled: false
+    api_key_env: AZURE_OPENAI_KEY
+    api_base: https://YOUR-RESOURCE.openai.azure.com/
+    api_version: 2023-05-15
+    deployment_name: your-deployment
+  
+  # Local models (Ollama)
+  ollama:
+    enabled: false
+    base_url: http://localhost:11434
+    default_model: llama2
+    # Available models (need to pull first):
+    # - llama2
+    # - mistral
+    # - codellama
+    # - phi
+  
+  # OpenRouter (multi-provider)
+  openrouter:
+    enabled: false
+    api_key_env: OPENROUTER_API_KEY
+    default_model: anthropic/claude-3-opus
+
+# Logging Configuration
+logging:
+  # Log level: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  level: INFO
+  
+  # Log file
+  file:
+    enabled: true
+    path: logs/toolkit.log
+    max_size_mb: 10
+    backup_count: 5
+  
+  # Console logging
+  console:
+    enabled: true
+    format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  
+  # Structured logging (JSON)
+  structured:
+    enabled: false
+    path: logs/structured.jsonl
+
+# Performance & Caching
+performance:
+  # Cache LLM responses
+  cache:
+    enabled: true
+    type: memory  # Options: memory, redis, disk
+    ttl_seconds: 3600
+    max_size_mb: 100
+    
+    # Redis config (if type: redis)
+    redis:
+      host: localhost
+      port: 6379
+      db: 0
+  
+  # Rate limiting
+  rate_limit:
+    enabled: true
+    requests_per_minute: 60
+    burst_size: 10
+  
+  # Batch processing
+  batch:
+    enabled: true
+    max_batch_size: 10
+    timeout_seconds: 30
+
+# Monitoring & Observability
+monitoring:
+  # Helicone integration
+  helicone:
+    enabled: false
+    api_key_env: HELICONE_API_KEY
+  
+  # Langfuse integration
+  langfuse:
+    enabled: false
+    public_key_env: LANGFUSE_PUBLIC_KEY
+    secret_key_env: LANGFUSE_SECRET_KEY
+    host: https://cloud.langfuse.com
+  
+  # Prometheus metrics
+  prometheus:
+    enabled: false
+    port: 9090
+  
+  # Custom metrics
+  metrics:
+    track_token_usage: true
+    track_latency: true
+    track_errors: true
+    track_costs: true
+
+# Security
+security:
+  # API key validation
+  validate_api_keys: true
+  
+  # Input sanitization
+  sanitize_inputs: true
+  
+  # Output filtering
+  filter_sensitive_data: true
+  
+  # Allowed domains for web scraping
+  allowed_domains:
+    - example.com
+    - docs.example.com
+  
+  # Blocked domains
+  blocked_domains:
+    - malicious.com
+
+# Development
+development:
+  # Debug mode
+  debug: false
+  
+  # Auto-reload on file changes
+  auto_reload: false
+  
+  # Verbose errors
+  verbose_errors: true
+  
+  # Test mode (use mocks instead of real APIs)
+  test_mode: false
+
+# Deployment
+deployment:
+  # Environment
+  environment: development  # Options: development, staging, production
+  
+  # Server configuration
+  server:
+    host: 0.0.0.0
+    port: 8000
+    workers: 4
+  
+  # CORS settings
+  cors:
+    enabled: true
+    allowed_origins:
+      - http://localhost:3000
+      - https://yourdomain.com
+  
+  # Health check
+  health_check:
+    enabled: true
+    endpoint: /health
+
+# Feature Flags
+features:
+  # Enable/disable features
+  web_search: true
+  code_execution: true
+  file_upload: true
+  mcp_integration: true
+  rag_search: true
+  skill_chaining: true
+  multi_modal: true
+  
+# Custom Settings
+custom:
+  # Add your own custom settings here
+  company_name: My Company
+  department: Engineering
+  contact_email: support@example.com
+  
+  # Custom paths
+  paths:
+    temp_dir: /tmp/ai-toolkit
+    upload_dir: uploads/
+    output_dir: outputs/
+
+# Environment Variables Reference
+# Copy these to your .env file:
+#
+# ANTHROPIC_API_KEY=your-anthropic-key
+# OPENAI_API_KEY=your-openai-key
+# PINECONE_API_KEY=your-pinecone-key
+# NOTION_TOKEN=your-notion-token
+# ASANA_TOKEN=your-asana-token
+# HELICONE_API_KEY=your-helicone-key
+# LANGFUSE_PUBLIC_KEY=your-langfuse-public-key
+# LANGFUSE_SECRET_KEY=your-langfuse-secret-key

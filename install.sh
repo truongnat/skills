@@ -236,6 +236,7 @@ if [ "$OWN_SKILLS_INNER" = "1" ]; then
     show_status "Installing skills from bundle..."
     install_all_skills_from_dir "$SCRIPT_DIR/skills" symlink
     show_success "Done — bundle: $PROJECT_DIR/vendor/own-skills/"
+    show_status "Verify: python3 vendor/own-skills/scripts/verify_bundle_install.py"
     exit 0
 fi
 

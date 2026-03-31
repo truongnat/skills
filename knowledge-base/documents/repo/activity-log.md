@@ -16,6 +16,7 @@
 ### 2026-04-01
 
 - **Source:** user + agent
+- **Change:** Added **`scripts/verify_bundle_install.py`** to sanity-check full bundle installs in a target project; README + `install.sh` hint.
 - **Change:** Normalized user-facing docs to **English** (README Quick start, activity log, KB INDEX, documentation persistence policy + Cursor rules, `formatting-common.mdc`, prompts, `external-review-mapping.md`, `web-research-pro` related-skills row; aligned `config.md` with `config.example.md`).
 - **Change:** Simplified **remote** docs: two `curl` lines (install/uninstall) in README; removed zx / `install-remote.mjs` / `package.json`; streamlined `install-remote.sh` / `uninstall-remote.sh`; re-run install = **update** (messages in `install.sh`); removed `install-bundle-layout.md`.
 - **Change:** Bundled skill **`cli-pro`** (advanced CLI: argv, exit/stderr, pipes/TTY, completion); updated §8 (`README`, `AGENTS`, `skills-layout`, `SKILL_AUTHORING_RULES` §1).

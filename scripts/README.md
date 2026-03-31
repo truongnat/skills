@@ -12,6 +12,7 @@ Python helpers for this **skills template** repo: knowledge base (RAG) and **fas
 | **`verify_kb.py`** | Structural checks + optional smoke query. |
 | **`list_skills.py`** | No ML — instant list of `skills/*/SKILL.md` names. |
 | **`validate_skills.py`** | CI: `name` in YAML matches folder name. |
+| **`verify_bundle_install.py`** | After **full** install into another project: check `vendor/own-skills`, `.cursor/skills` symlinks, run `validate_skills` in the bundle. |
 | **`analyze_skills.py`** | Heuristic report: automation vs `scripts/`; **`--self-review`** = full repo Markdown (tiers, all skills, checklist); **`--markdown`** / **`--only-actionable`**. See **`skills-self-review-pro`**. |
 | **`install_skill.py`** | Install a skill into `.cursor/skills` (default), and optionally `.claude/skills` + `.agent/skills` via `--all-ides` (`symlink` + `.git/info/exclude`). |
 | **`uninstall.sh`** | Remove skills from `.cursor/skills`, matching `.claude/skills`, `.agent/skills`, manifests, and exclude entries. |

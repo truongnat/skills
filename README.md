@@ -85,6 +85,14 @@ curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-rem
 
 The full bundle lives under `./vendor/own-skills/` (workflows, prompts, KB, scripts, …). Advanced: `bash -s -- --help` (`--repo`, `--skills-only`, `--cursor-only`).
 
+**Check that install worked** (from the **target project root**, after a **full** install — not `--skills-only`):
+
+```bash
+python3 vendor/own-skills/scripts/verify_bundle_install.py
+```
+
+This checks for `vendor/own-skills/.own-skills-bundle`, `.cursor/skills`, that skill symlinks resolve into the vendor tree, and runs `validate_skills.py` inside the bundle. Use `--project-dir /path` if needed.
+
 ### Working **in this repo** (venv, KB, scripts)
 
 ```bash

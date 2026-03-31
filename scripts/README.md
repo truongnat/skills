@@ -76,11 +76,13 @@ python scripts/install_skill.py \
 ./uninstall.sh
 ./uninstall.sh --project-dir /path/to/project
 ./uninstall.sh --force  # No confirmation prompt
+./uninstall.sh --nuclear  # ⚠️ DANGER: Remove ENTIRE .cursor directory
 
 # Remote uninstall (download and run from any GitHub repo):
 curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash
 curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash -s -- --repo https://github.com/other/repo.git
 curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash -s -- --force
+curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash -s -- --nuclear  # ⚠️ DANGER: Remove ENTIRE .cursor directory
 
 # Build skill index (for /route, /find-skill, /run-workflow slash commands)
 python scripts/build_skill_index.py

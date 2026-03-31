@@ -136,6 +136,12 @@ python scripts/install_skill.py --skill-dir skills/git-operations-pro --project-
 #* force uninstall without confirmation:
 ./uninstall.sh --force
 
+#* NUCLEAR uninstall - remove ENTIRE .cursor directory (⚠️ DANGER):
+./uninstall.sh --nuclear
+#  - removes ALL skills AND the entire .cursor directory
+#  - ⚠️ WARNING: This removes all Cursor configuration files and rules!
+#  - Use with caution - this will delete .cursor/rules/ and other config
+
 # 🚀 REMOTE UNINSTALL (for external users - no need to clone this repo!)
 # Uninstall ALL skills from this repo from your project (1 command):
 curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash
@@ -150,6 +156,11 @@ curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-rem
 
 # Force remote uninstall without confirmation:
 curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash -s -- --force
+
+# Nuclear remote uninstall - remove ENTIRE .cursor directory:
+curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash -s -- --nuclear
+#  - removes ALL skills AND the entire .cursor directory from remote
+#  - ⚠️ WARNING: This removes all Cursor configuration files and rules!
 
 # Knowledge base — dry-run, build, query
 python scripts/build_kb.py --dry-run

@@ -45,6 +45,7 @@ trap cleanup EXIT
 # Parse arguments
 REPO_URL="$DEFAULT_REPO"
 FORCE=false
+NUCLEAR=false
 PROJECT_DIR="$(pwd)"
 
 while [[ $# -gt 0 ]]; do
@@ -57,6 +58,10 @@ while [[ $# -gt 0 ]]; do
             FORCE=true
             shift
             ;;
+        --nuclear)
+            NUCLEAR=true
+            shift
+            ;;
         --project-dir)
             PROJECT_DIR="$2"
             shift 2
@@ -66,12 +71,13 @@ while [[ $# -gt 0 ]]; do
             echo ""
             echo "Usage:"
             echo "  curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash"
-            echo "  curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash -s -- --force"
+            echo "  curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash -s -- --force --nuclear"
             echo ""
             echo "Options:"
             echo "  --repo URL        Uninstall skills from a different repository (default: $DEFAULT_REPO)"
             echo "  --project-dir DIR Uninstall from specified project directory (default: current directory)"
             echo "  --force           Force removal without confirmation"
+            echo "  --nuclear         Remove entire .cursor directory (⚠️  DANGER: removes all Cursor config)"
             echo "  --help, -h        Show this help message"
             exit 0
             ;;
@@ -131,6 +137,9 @@ cd "$TEMP_DIR"
 UNINSTALL_ARGS=()
 if [ "$FORCE" = true ]; then
     UNINSTALL_ARGS+=(--force)
+fi
+if [ "$NUCLEAR" = true ]; then
+    UNINSTALL_ARGS+=(--nuclear)
 fi
 UNINSTALL_ARGS+=(--project-dir "$PROJECT_DIR")
 

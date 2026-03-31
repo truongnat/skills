@@ -125,14 +125,20 @@ def main() -> int:
         description="Install a custom Cursor skill into an existing project."
     )
     parser.add_argument(
+        "skill_path",
+        nargs="?",
+        default=None,
+        help="Optional path to your skill folder (must contain SKILL.md). If given, overrides --skill-dir."
+    )
+    parser.add_argument(
         "--skill-dir",
-        required=True,
-        help="Path to your skill folder (must contain SKILL.md).",
+        default=".",
+        help="Path to your skill folder (must contain SKILL.md). Defaults to current directory.",
     )
     parser.add_argument(
         "--project-dir",
-        required=True,
-        help="Path to existing target project.",
+        default=".",
+        help="Path to existing target project. Defaults to current directory.",
     )
     parser.add_argument(
         "--name",
@@ -156,8 +162,9 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    skill_dir = Path(args.skill_dir).expanduser().resolve()
-    project_dir = Path(args.project_dir).expanduser().resolve()
+    selected_skill_dir = args.skill_path if args.skill_path is not None else args.skill_dir
+    skill_dir = Path(selected_skill_dir or ".").expanduser().resolve()
+    project_dir = Path(args.project_dir or ".").expanduser().resolve()
     if not project_dir.is_dir():
         print(f"Project directory does not exist: {project_dir}", file=sys.stderr)
         return 1

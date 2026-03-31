@@ -81,6 +81,45 @@ pip install -r requirements.txt
 cp config.example.md config.md
 nano config.md
 
+# 🚀 REMOTE INSTALL (for external users - no need to clone this repo!)
+# Install ALL skills from this repo into your project (1 command):
+curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/install-remote.sh | bash
+#  - downloads and installs all skills from https://github.com/truongnat/skills
+#  - works from any directory in your project
+#  - no git clone required!
+
+# Install from a different remote repository:
+curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/install-remote.sh | bash -s -- --repo https://github.com/other/repo.git
+
+# LOCAL INSTALL (if you have cloned this repo)
+#* easiest: install ALL skills from default repo (https://github.com/truongnat/skills):
+./install.sh
+#  - installs all skills into current folder as the target project
+#  - uses symlink mode and force replace by default
+
+#* install specific skill from local repo:
+./install.sh skills/git-operations-pro
+#  - installs into current folder as the target project
+#  - uses symlink mode and force replace by default
+
+#* install from remote repository (no need to clone first):
+./install.sh https://github.com/username/repo.git
+#  - downloads directly from GitHub (no git clone needed!)
+#  - works with GitHub shorthand: ./install.sh username/repo
+#  - supports both individual skills and full skill repositories
+
+#* install ALL skills from ANY remote repository:
+./install.sh --remote https://github.com/username/repo.git
+#  - downloads and installs all skills from the remote repo
+#  - works with any GitHub repo containing a skills/ directory
+#  - no need to clone the entire repo first
+
+#* from a skill directory (if you are in skills/<name>):
+python scripts/install_skill.py --project-dir /path/to/existing-project
+
+#* explicit paths:
+python scripts/install_skill.py --skill-dir skills/git-operations-pro --project-dir /path/to/existing-project --mode symlink
+
 # Knowledge base — dry-run, build, query
 python scripts/build_kb.py --dry-run
 python scripts/build_kb.py

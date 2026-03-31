@@ -45,6 +45,26 @@ python scripts/analyze_skills.py --self-review
 python scripts/analyze_skills.py --with-references --only-actionable --markdown
 
 # Install custom skill into another existing project (isolated)
+# Easiest: use ./install.sh wrapper (installs all skills from default repo if no args)
+./install.sh                    # Install ALL skills from https://github.com/truongnat/skills
+./install.sh skills/git-ops     # Install specific skill
+./install.sh https://github.com/user/repo.git  # Download directly from GitHub (no clone!)
+./install.sh user/repo          # GitHub shorthand
+./install.sh --remote https://github.com/user/repo.git  # Install ALL skills from ANY remote repo
+
+# Or use Python directly (from within a skill folder or give explicit paths)
+python scripts/install_skill.py --project-dir /path/to/existing-project --mode symlink
+
+# Or use the one-command wrapper (supports remote URLs):
+./install.sh skills/git-operations-pro                    # local skill
+./install.sh https://github.com/user/repo.git            # remote repo
+./install.sh user/repo                                   # GitHub shorthand
+./install.sh --remote https://github.com/anyuser/anyrepo.git  # ALL skills from remote
+
+# One-liner, no option flags (from anywhere):
+python scripts/install_skill.py skills/git-operations-pro
+
+# Explicit path (still easy):
 python scripts/install_skill.py \
   --skill-dir skills/git-operations-pro \
   --project-dir /path/to/existing-project \

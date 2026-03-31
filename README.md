@@ -136,6 +136,21 @@ python scripts/install_skill.py --skill-dir skills/git-operations-pro --project-
 #* force uninstall without confirmation:
 ./uninstall.sh --force
 
+# 🚀 REMOTE UNINSTALL (for external users - no need to clone this repo!)
+# Uninstall ALL skills from this repo from your project (1 command):
+curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash
+#  - downloads and runs uninstaller from https://github.com/truongnat/skills
+#  - removes all skills installed by this project
+#  - shows progress bars and asks for confirmation (unless --force)
+#  - works from any directory in your project
+#  - no git clone required!
+
+# Uninstall from a different remote repository:
+curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash -s -- --repo https://github.com/other/repo.git
+
+# Force remote uninstall without confirmation:
+curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash -s -- --force
+
 # Knowledge base — dry-run, build, query
 python scripts/build_kb.py --dry-run
 python scripts/build_kb.py

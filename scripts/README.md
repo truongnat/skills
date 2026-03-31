@@ -15,6 +15,7 @@ Python helpers for this **skills template** repo: knowledge base (RAG) and **fas
 | **`analyze_skills.py`** | Heuristic report: automation vs `scripts/`; **`--self-review`** = full repo Markdown (tiers, all skills, checklist); **`--markdown`** / **`--only-actionable`**. See **`skills-self-review-pro`**. |
 | **`install_skill.py`** | Install your own skill into existing project with isolation (`symlink` + `.git/info/exclude`). |
 | **`uninstall.sh`** | Remove all skills installed by this project from a target project directory. |
+| **`uninstall-remote.sh`** | Remote uninstaller: download and run uninstaller from any GitHub repo (no clone needed). |
 | **`build_skill_index.py`** | Pre-build searchable skill index (triggers, descriptions) as JSON; optional `--with-embeddings` for semantic vectors. Used by `/route`, `/find-skill`, `/run-workflow` slash commands. |
 
 ## Commands
@@ -75,6 +76,11 @@ python scripts/install_skill.py \
 ./uninstall.sh
 ./uninstall.sh --project-dir /path/to/project
 ./uninstall.sh --force  # No confirmation prompt
+
+# Remote uninstall (download and run from any GitHub repo):
+curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash
+curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash -s -- --repo https://github.com/other/repo.git
+curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash -s -- --force
 
 # Build skill index (for /route, /find-skill, /run-workflow slash commands)
 python scripts/build_skill_index.py

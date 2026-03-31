@@ -71,121 +71,32 @@ flowchart LR
 
 ## Quick start
 
+### Cài / gỡ trong **dự án khác** (chỉ remote — không cần clone repo này)
+
+Chạy trong **thư mục gốc dự án đích**. Cài lại cùng lệnh = **cập nhật** bundle và skills.
+
 ```bash
-cd own-skills
-python3 -m venv .venv
-source .venv/bin/activate   # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-
-# Config (optional): copy and edit the <!-- kb-config --> block
-cp config.example.md config.md
-nano config.md
-
-# 🚀 REMOTE INSTALL (one command — rustup / Homebrew style)
-# From your *target project* root — installs the **full repo** into ./vendor/own-skills (workflows,
-# scripts, knowledge-base, prompts, templates, …), links .cursor/rules, then installs every skill into
-# Cursor + Claude Code + Antigravity paths (same SKILL.md, multiple symlinks).
 curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/install-remote.sh | bash
-#  - If Node + npx exist: [google/zx](https://github.com/google/zx) runs scripts/install-remote.mjs (clearer steps + git progress); else pure bash.
-#  - From a clone: npm install && npm run install-remote -- --project-dir /path/to/project
-#  - Skills-only (no vendor copy):  curl … | bash -s -- --skills-only
-#  - Cursor skills path only:       curl … | bash -s -- --cursor-only
-#  - Other upstream:                 curl … | bash -s -- --repo https://github.com/other/repo.git
-
-# Install from a different remote repository:
-curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/install-remote.sh | bash -s -- --repo https://github.com/other/repo.git
-
-# LOCAL INSTALL (if you have cloned this repo)
-#* Full bundle into another project (recommended):
-./install.sh . --project-dir /path/to/your/project --full
-#  - copies this repo to <project>/vendor/own-skills, links rules, installs all skills
-#* Skills only from this clone (no vendor/):
-./install.sh
-#  - Cursor only unless: ./install.sh --all-ides
-#  - installs all skills into current folder as the target project
-#  - shows progress bars: [████████████] 75% (26/35) Installing: skill-name
-#  - uses symlink mode and force replace by default
-
-#* install specific skill from local repo:
-./install.sh skills/git-operations-pro
-#  - installs into current folder as the target project
-#  - uses symlink mode and force replace by default
-
-#* install from remote repository (no need to clone first):
-./install.sh https://github.com/username/repo.git
-#  - downloads directly from GitHub (no git clone needed!)
-#  - works with GitHub shorthand: ./install.sh username/repo
-#  - supports both individual skills and full skill repositories
-
-#* install ALL skills from ANY remote repository:
-./install.sh --remote https://github.com/username/repo.git
-#  - downloads and installs all skills from the remote repo
-#  - works with any GitHub repo containing a skills/ directory
-#  - no need to clone the entire repo first
-
-#* from a skill directory (if you are in skills/<name>):
-python scripts/install_skill.py --project-dir /path/to/existing-project
-
-#* explicit paths:
-python scripts/install_skill.py --skill-dir skills/git-operations-pro --project-dir /path/to/existing-project --mode symlink
-
-# 🗑️ UNINSTALL (remove all skills from project)
-./uninstall.sh
-#  - removes ALL skills installed by this project
-#  - cleans up .cursor/skills/, matching .claude/skills/, .agent/skills/, manifests
-#  - removes git exclude entries
-#  - shows progress bars and asks for confirmation (unless --force)
-#  - works from any project directory
-
-#* uninstall from specific project directory:
-./uninstall.sh --project-dir /path/to/project
-
-#* force uninstall without confirmation:
-./uninstall.sh --force
-
-#* NUCLEAR uninstall - remove ENTIRE .cursor directory (⚠️ DANGER):
-./uninstall.sh --nuclear
-#  - removes ALL skills AND the entire .cursor directory
-#  - ⚠️ WARNING: This removes all Cursor configuration files and rules!
-#  - Use with caution - this will delete .cursor/rules/ and other config
-
-# 🚀 REMOTE UNINSTALL (for external users - no need to clone this repo!)
-# Uninstall ALL skills from this repo from your project (1 command):
-curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash
-#  - downloads and runs uninstaller from https://github.com/truongnat/skills
-#  - removes all skills installed by this project
-#  - piped / non-interactive: no prompt (uninstall.sh skips read); optional: bash -s -- --force
-#  - works from any directory in your project
-#  - no git clone required!
-
-# Uninstall from a different remote repository:
-curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash -s -- --repo https://github.com/other/repo.git
-
-# Force remote uninstall without confirmation:
-curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash -s -- --force
-
-# Nuclear remote uninstall - remove ENTIRE .cursor directory:
-curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash -s -- --nuclear
-#  - removes ALL skills AND the entire .cursor directory from remote
-#  - ⚠️ WARNING: This removes all Cursor configuration files and rules!
-
-# Knowledge base — dry-run, build, query
-python scripts/build_kb.py --dry-run
-python scripts/build_kb.py
-python scripts/query_kb.py "text to search" -k 5
-
-# Multiple queries — one model load (faster than repeated query_kb.py)
-python scripts/query_kb_batch.py -q "first question" -q "second question" -k 5
-
-# Skill inventory / CI
-python scripts/list_skills.py
-python scripts/validate_skills.py
-
-# Full bundle self-review (Markdown report)
-python scripts/analyze_skills.py --self-review
 ```
 
-**Python:** 3.10–3.13 recommended. First build downloads an embedding model (network, RAM). See [`scripts/README.md`](scripts/README.md) and skill **`repo-tooling-pro`** for script usage.
+```bash
+curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash
+```
+
+Bundle đầy đủ nằm tại `./vendor/own-skills/` (workflows, prompts, KB, scripts, …). Tùy chọn nâng cao: `bash -s -- --help` (xem `--repo`, `--skills-only`, `--cursor-only`).
+
+### Làm việc **trong repo này** (venv, KB, script)
+
+```bash
+cd own-skills
+python3 -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+cp config.example.md config.md   # optional: chỉnh <!-- kb-config -->
+python scripts/build_kb.py
+python scripts/query_kb.py "…" -k 5
+```
+
+**Python:** 3.10–3.13; lần đầu `build_kb` tải model (mạng, RAM). Chi tiết: [`scripts/README.md`](scripts/README.md). Skill **`repo-tooling-pro`** (batch query, CI).
 
 ## Knowledge base & RAG
 

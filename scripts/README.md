@@ -13,7 +13,6 @@ Python helpers for this **skills template** repo: knowledge base (RAG) and **fas
 | **`list_skills.py`** | No ML — instant list of `skills/*/SKILL.md` names. |
 | **`validate_skills.py`** | CI: `name` in YAML matches folder name. |
 | **`analyze_skills.py`** | Heuristic report: automation vs `scripts/`; **`--self-review`** = full repo Markdown (tiers, all skills, checklist); **`--markdown`** / **`--only-actionable`**. See **`skills-self-review-pro`**. |
-| **`install-remote.mjs`** | Remote install UI via [google/zx](https://github.com/google/zx): clone + `install.sh` (same flags as `install-remote.sh`). Used automatically when `install-remote.sh` finds Node + `npx`. |
 | **`install_skill.py`** | Install a skill into `.cursor/skills` (default), and optionally `.claude/skills` + `.agent/skills` via `--all-ides` (`symlink` + `.git/info/exclude`). |
 | **`uninstall.sh`** | Remove skills from `.cursor/skills`, matching `.claude/skills`, `.agent/skills`, manifests, and exclude entries. |
 | **`uninstall-remote.sh`** | Remote uninstaller: download and run uninstaller from any GitHub repo (no clone needed). |
@@ -47,8 +46,9 @@ python scripts/analyze_skills.py
 python scripts/analyze_skills.py --self-review
 python scripts/analyze_skills.py --with-references --only-actionable --markdown
 
-# Install custom skill into another existing project (isolated)
-# Full bundle (entire repo → vendor/own-skills + rules + skills) into another project:
+# Remote install into another project: root README — two curl commands (install / uninstall). Re-run install = update.
+#
+# From this clone — full bundle into another project:
 ./install.sh . --project-dir /path/to/project --full
 
 # Easiest: use ./install.sh wrapper (installs all skills from default repo if no args)

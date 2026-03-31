@@ -233,18 +233,23 @@ if [ "$OWN_SKILLS_INNER" = "1" ]; then
         show_error "No skills/ directory in $SCRIPT_DIR"
         exit 1
     fi
-    show_status "Installing skills from bundle (inner step)..."
+    show_status "Installing skills from bundle..."
     install_all_skills_from_dir "$SCRIPT_DIR/skills" symlink
+    show_success "Done — bundle: $PROJECT_DIR/vendor/own-skills/"
     exit 0
 fi
 
 # --- Local full bundle: copy repo to vendor, link rules, re-exec inner ---
 if [ "$SKILL_INPUT" = "." ] && [ -d "$SCRIPT_DIR/skills" ] && [ "$FULL_INSTALL" = true ]; then
     VENDOR="$PROJECT_DIR/vendor/own-skills"
-    show_status "Full bundle: copying repository to $VENDOR ..."
+    if [ -f "$VENDOR/.own-skills-bundle" ]; then
+        show_status "Updating bundle at $VENDOR ..."
+    else
+        show_status "Installing bundle to $VENDOR ..."
+    fi
     sync_to_vendor "$SCRIPT_DIR" "$VENDOR"
     link_cursor_rules "$VENDOR" "$PROJECT_DIR"
-    show_success "Bundle installed. Linking skills into IDE paths..."
+    show_status "Linking skills..."
     export OWN_SKILLS_INNER=1
     if [ ${#INSTALL_EXTRA[@]} -gt 0 ]; then
         exec /bin/bash "$VENDOR/install.sh" . --project-dir "$PROJECT_DIR" "${INSTALL_EXTRA[@]}"
@@ -267,13 +272,17 @@ if is_remote_url "$SKILL_INPUT"; then
 
     if [ "$FULL_INSTALL" = true ]; then
         VENDOR="$PROJECT_DIR/vendor/own-skills"
-        show_status "Full bundle: copying to $VENDOR ..."
+        if [ -f "$VENDOR/.own-skills-bundle" ]; then
+            show_status "Updating bundle at $VENDOR ..."
+        else
+            show_status "Installing bundle to $VENDOR ..."
+        fi
         sync_to_vendor "$TEMP_DIR" "$VENDOR"
         link_cursor_rules "$VENDOR" "$PROJECT_DIR"
         rm -rf "$TEMP_DIR"
         CLEANUP_TEMP=false
         TEMP_DIR=""
-        show_success "Starting skill install from vendor tree..."
+        show_status "Linking skills..."
         export OWN_SKILLS_INNER=1
         if [ ${#INSTALL_EXTRA[@]} -gt 0 ]; then
             exec /bin/bash "$VENDOR/install.sh" . --project-dir "$PROJECT_DIR" "${INSTALL_EXTRA[@]}"

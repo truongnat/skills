@@ -1,14 +1,14 @@
-# Cấu hình — mẫu (Markdown)
+# Configuration — template (Markdown)
 
-Đây là bản mẫu tương đương [config.example.md](../config.example.md) tại root repo. **Nguồn đúng** để chạy script là `config.md` hoặc `config.example.md` ở thư mục gốc project.
+Equivalent to [config.example.md](../config.example.md) at the repo root. **Source of truth** for running scripts is `config.md` or `config.example.md` at the project root.
 
-Sao chép nội dung cần thiết vào `config.md` tại root (hoặc chỉnh trực tiếp `config.example.md` khi fork template).
+Copy what you need into root `config.md` (or edit `config.example.md` directly when forking this template).
 
 ---
 
-## Knowledge base (khối cho scripts)
+## Knowledge base (block for scripts)
 
-Giữ hai dòng comment `kb-config-start` / `kb-config-end`; scripts `build_kb.py` và `query_kb.py` chỉ đọc phần này.
+Keep the `kb-config-start` / `kb-config-end` comment lines; `build_kb.py` and `query_kb.py` only read this section.
 
 <!-- kb-config-start -->
 documents_path = knowledge-base/documents
@@ -19,6 +19,6 @@ chunk_size = 1000
 chunk_overlap = 200
 <!-- kb-config-end -->
 
-## Mở rộng
+## Extensions
 
-Các tùy chọn khác (API keys, MCP, logging, …) có thể ghi thêm **bằng Markdown** trong cùng file (bảng, mục) — scripts hiện tại không đọc các mục đó; chỉ dùng cho tài liệu người hoặc tooling tương lai.
+Other options (API keys, MCP, logging, …) can be added **in Markdown** in the same file (tables, sections) — current scripts do not parse those; they are for human docs or future tooling.

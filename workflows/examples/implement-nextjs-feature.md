@@ -1,47 +1,47 @@
 # Workflow: implement-nextjs-feature
 
-Triển khai feature Next.js (App Router: page, layout, data, Server Action / Route Handler) từ spec đến review (RSC boundary + caching), tham chiếu skill **`nextjs-pro`** và **`react-pro`** cho phần React thuần.
+Implement a Next.js feature (App Router: page, layout, data, Server Action / Route Handler) from spec through review (RSC boundary + caching), using **`nextjs-pro`** and **`react-pro`** for plain React parts.
 
 ## Metadata
 
-| Thuộc tính | Giá trị |
-|------------|---------|
+| Field | Value |
+|-------|-------|
 | **id** | `implement-nextjs-feature` |
 | **version** | 1.0 |
 
-## Đầu vào
+## Inputs
 
-| Biến | Bắt buộc | Mô tả |
-|------|----------|--------|
-| `feature_spec` | Có | Route, UI, data, auth (Markdown hoặc bullet) |
-| `stack` | Không | Next major, App vs Pages, deploy (Vercel/self-host) |
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `feature_spec` | Yes | Route, UI, data, auth (Markdown or bullets) |
+| `stack` | No | Next major, App vs Pages, deploy (Vercel/self-host) |
 
-## Đầu ra
+## Outputs
 
-| Biến | Mô tả |
-|------|--------|
-| `implementation` | File `app/...` + snippet gợi ý + checklist |
-| `review_notes` | Rủi ro caching, RSC, middleware |
+| Variable | Description |
+|----------|-------------|
+| `implementation` | Suggested `app/...` files + snippets + checklist |
+| `review_notes` | Caching, RSC, middleware risks |
 
-## Các bước
+## Steps
 
-### Bước 1 — `spec-to-plan`
+### Step 1 — `spec-to-plan`
 
-- **Loại:** skill
+- **Type:** skill
 - **Skill:** `nextjs-pro`
-- **Đầu vào:** Chuẩn hóa `feature_spec`: segment tree, server vs client, cache/revalidate, middleware.
-- **Đầu ra:** `plan` (đường dẫn file, boundaries)
+- **Input:** Normalize `feature_spec`: segment tree, server vs client, cache/revalidate, middleware.
+- **Output:** `plan` (file paths, boundaries)
 
-### Bước 2 — `implement`
+### Step 2 — `implement`
 
-- **Loại:** skill
-- **Skill:** `nextjs-pro` (+ `react-pro` cho component client thuần)
-- **Đầu vào:** `plan` + `feature_spec`
-- **Đầu ra:** `code` — theo [references/app-router-and-layouts.md](../../skills/public/nextjs-pro/references/app-router-and-layouts.md), [references/server-client-boundaries.md](../../skills/public/nextjs-pro/references/server-client-boundaries.md), [references/tips-and-tricks.md](../../skills/public/nextjs-pro/references/tips-and-tricks.md)
+- **Type:** skill
+- **Skill:** `nextjs-pro` (+ `react-pro` for pure client components)
+- **Input:** `plan` + `feature_spec`
+- **Output:** `code` — follow [references/app-router-and-layouts.md](../../skills/public/nextjs-pro/references/app-router-and-layouts.md), [references/server-client-boundaries.md](../../skills/public/nextjs-pro/references/server-client-boundaries.md), [references/tips-and-tricks.md](../../skills/public/nextjs-pro/references/tips-and-tricks.md)
 
-### Bước 3 — `edge-and-cache-review`
+### Step 3 — `edge-and-cache-review`
 
-- **Loại:** skill
+- **Type:** skill
 - **Skill:** `nextjs-pro`
-- **Đầu vào:** `code`
-- **Đầu ra:** `review_notes` — đối chiếu [references/edge-cases.md](../../skills/public/nextjs-pro/references/edge-cases.md) và checklist trong `SKILL.md`
+- **Input:** `code`
+- **Output:** `review_notes` — check [references/edge-cases.md](../../skills/public/nextjs-pro/references/edge-cases.md) and the checklist in `SKILL.md`

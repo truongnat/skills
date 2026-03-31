@@ -1,21 +1,21 @@
-| Thuộc tính | Giá trị |
-|------------|---------|
-| title | Runbook mẫu |
-| summary | Các bước xử lý sự cố hoặc triển khai — thay bằng runbook thật |
+| Field | Value |
+|-------|-------|
+| title | Sample runbook |
+| summary | Incident or deployment steps — replace with a real runbook |
 | tags | sample, runbook, ops |
 | updated | 2026-03-30 |
 
-# Runbook mẫu
+# Sample runbook
 
-## Khi nào dùng
+## When to use
 
-- Điều kiện kích hoạt: …
+- Trigger conditions: …
 
-## Các bước
+## Steps
 
-1. Kiểm tra …
-2. Nếu … thì …
-3. Ghi log / ticket …
+1. Check …
+2. If … then …
+3. Log / ticket …
 
 ## Rollback
 

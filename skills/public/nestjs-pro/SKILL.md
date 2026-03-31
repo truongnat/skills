@@ -24,8 +24,15 @@ Use official [NestJS docs](https://docs.nestjs.com) for API truth; this skill en
 - Debugging lifecycle, shutdown, transactions, queues, or multi-instance behavior.
 - Aligning APIs with predictable errors, DTO contracts, versioning, and documentation (OpenAPI).
 - Wiring **PostgreSQL RLS** from Nest: per-request tenant context, Prisma/TypeORM transaction boundaries, pooling (PgBouncer).
+- Trigger keywords: `NestJS`, `Guard`, `ValidationPipe`, `Prisma`, `RLS`, `Interceptor`, …
 
-## Operating principles
+## Workflow
+
+1. Confirm Nest version and ORM/transport; read official docs when APIs change across majors.
+2. Apply module/DTO/exception patterns; for RLS combine with `postgresql-pro` for SQL policies.
+3. Respond using **Suggested response format**; note transaction/pool/multi-instance risks.
+
+### Operating principles
 
 1. **Module boundaries** — Feature modules own their domain; shared kernel stays minimal; avoid god modules.
 2. **Explicit contracts** — DTOs + `class-validator` / `class-transformer` at the edge; services work with domain types, not raw `any`.
@@ -34,7 +41,7 @@ Use official [NestJS docs](https://docs.nestjs.com) for API truth; this skill en
 5. **Verify versions in-repo** — Check `package.json` and Nest migration guides before suggesting APIs that changed across majors.
 6. **RLS is enforced in Postgres** — Nest guards are not enough if the policy requires `current_setting`; set context in the same transaction as queries; see [references/postgresql-rls-integration.md](references/postgresql-rls-integration.md) and SQL details in **`postgresql-pro`**.
 
-## API design and DX (summary)
+### API design and DX (summary)
 
 - Consistent **error shape** (status, code, message, optional `details`) for clients and observability.
 - **Pagination / filtering** conventions documented once (query DTOs, max limits).
@@ -44,7 +51,7 @@ Use official [NestJS docs](https://docs.nestjs.com) for API truth; this skill en
 
 Details: [references/api-design-and-dx.md](references/api-design-and-dx.md)
 
-## Tips and tricks (summary)
+### Tips and tricks (summary)
 
 - Prefer **`@Injectable()`** with explicit constructor injection; use **`@Inject(TOKEN)`** for custom providers and dynamic modules.
 - **`ValidationPipe`** with `whitelist`, `forbidNonWhitelisted`, `transform` globally — strip unknown fields early.
@@ -54,7 +61,7 @@ Details: [references/api-design-and-dx.md](references/api-design-and-dx.md)
 
 Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
-## Edge cases (summary)
+### Edge cases (summary)
 
 - **Circular dependencies** — `forwardRef()` between modules; prefer restructuring boundaries first.
 - **Shutdown** — `enableShutdownHooks()` and close DB/queue connections; drain Bull workers gracefully.
@@ -64,7 +71,7 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
-## PostgreSQL RLS with NestJS (summary)
+### PostgreSQL RLS with NestJS (summary)
 
 - **Policies** are defined in PostgreSQL — use skill **`postgresql-pro`** for `CREATE POLICY`, `USING` / `WITH CHECK`, and performance.
 - In Nest, **set tenant (or actor) context** after auth, **before** queries: `SET LOCAL` or `set_config` inside the **same transaction** as ORM work when using transaction pooling.
@@ -74,24 +81,16 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 
 Details: [references/postgresql-rls-integration.md](references/postgresql-rls-integration.md) — deep link to SQL policies: [postgresql-pro row-level-security.md](../postgresql-pro/references/row-level-security.md)
 
-## Suggested response format (implement / review)
+### Suggested response format (implement / review)
 
 1. **Issue or goal** — What is wrong or what we are building.
 2. **Recommendation** — Nest patterns, module placement, security or DX impact.
 3. **Code** — Minimal module/controller/service/DTO snippets or diff-style blocks.
 4. **Residual risks** — Migration steps, load testing, or ops follow-up.
 
-## Pre-merge checklist
+## Resources in this skill
 
-- [ ] DTOs validated at boundary; sensitive fields never exposed in responses (`@Exclude` / serializers).
-- [ ] Authn/authz applied consistently (global guard or per-route metadata).
-- [ ] Errors mapped to HTTP semantics; no raw DB errors to clients in production.
-- [ ] Logging structured (request id) where applicable; PII redaction policy respected.
-- [ ] Database migrations or schema changes reviewed; transactions for multi-step writes.
-- [ ] **RLS**: if using Postgres RLS, tenant context is set correctly for pool + ORM; policies tested as app DB role (see `postgresql-pro`).
-- [ ] Tests cover happy path + at least one failure mode for critical flows.
-
-## References
+- `references/` — API design, tips, edge cases, Postgres RLS integration.
 
 | Topic | File |
 |-------|------|
@@ -100,3 +99,18 @@ Details: [references/postgresql-rls-integration.md](references/postgresql-rls-in
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
 | **PostgreSQL RLS + Nest** | [references/postgresql-rls-integration.md](references/postgresql-rls-integration.md) |
 | RLS SQL (PostgreSQL) | [postgresql-pro row-level-security.md](../postgresql-pro/references/row-level-security.md) |
+
+## Quick example
+
+**Input:** Need to set `app.tenant_id` before every Prisma query in a multi-tenant request; using PgBouncer transaction mode.  
+**Expected output:** Suggest `.$transaction()` + `SET LOCAL`, warn about session vs transaction pool, and link `postgresql-rls-integration.md` / `postgresql-pro`.
+
+## Checklist before calling the skill done
+
+- [ ] DTOs validated at boundary; sensitive fields never exposed in responses (`@Exclude` / serializers).
+- [ ] Authn/authz applied consistently (global guard or per-route metadata).
+- [ ] Errors mapped to HTTP semantics; no raw DB errors to clients in production.
+- [ ] Logging structured (request id) where applicable; PII redaction policy respected.
+- [ ] Database migrations or schema changes reviewed; transactions for multi-step writes.
+- [ ] **RLS**: if using Postgres RLS, tenant context is set correctly for pool + ORM; policies tested as app DB role (see `postgresql-pro`).
+- [ ] Tests cover happy path + at least one failure mode for critical flows.

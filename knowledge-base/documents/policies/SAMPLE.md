@@ -1,16 +1,16 @@
-| Thuộc tính | Giá trị |
-|------------|---------|
-| title | Chính sách mẫu |
-| summary | Ví dụ file trong knowledge base — thay bằng tài liệu thật |
+| Field | Value |
+|-------|-------|
+| title | Sample policy |
+| summary | Example knowledge-base file — replace with real content |
 | tags | sample, policy |
 | updated | 2026-03-30 |
 
-# Chính sách mẫu
+# Sample policy
 
-Đây là file minh họa. Nội dung thật có thể gồm: hoàn tiền, bảo mật, SLA, v.v.
+This is a placeholder. Real content might cover refunds, security, SLAs, etc.
 
-## Nguyên tắc
+## Principles
 
-1. Một ý một đoạn rõ ràng.
-2. Trích dẫn số hiệu quy định nếu có.
-3. Giữ `INDEX.md` đồng bộ khi đổi tên file.
+1. One idea per clear paragraph.
+2. Cite regulation IDs when applicable.
+3. Keep `INDEX.md` in sync when renaming files.

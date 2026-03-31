@@ -1,44 +1,44 @@
 # Workflow: research-synthesize
 
-Định dạng workflow trong repo này là **Markdown**: mô tả đầu vào/đầu ra và từng bước bằng tiêu đề và danh sách. Agent (hoặc bạn) đọc file và thực hiện tuần tự — không cần engine YAML.
+Workflows in this repo use **Markdown**: inputs/outputs and steps are headings and lists. An agent (or you) reads the file and runs it in order — no YAML engine required.
 
 ## Metadata
 
-| Thuộc tính | Giá trị |
-|------------|---------|
+| Field | Value |
+|-------|-------|
 | **id** | `research-synthesize` |
-| **name** | Nghiên cứu rồi tóm tắt |
+| **name** | Research then summarize |
 | **version** | 1.0 |
 
-## Mô tả
+## Description
 
-Luồng minh họa: bước 1 thu thập/ngữ cảnh, bước 2 tổng hợp. Thay tên skill và mẫu prompt bằng skill/prompt thật trong repo của bạn.
+Illustrative flow: step 1 gathers context; step 2 synthesizes. Replace skill and prompt names with real ones from your repo.
 
-## Đầu vào
+## Inputs
 
-| Biến | Kiểu | Bắt buộc | Mô tả |
-|------|------|----------|--------|
-| `topic` | string | Có | Chủ đề cần làm rõ |
+| Variable | Type | Required | Description |
+|----------|------|----------|-------------|
+| `topic` | string | Yes | Topic to clarify |
 
-## Đầu ra
+## Outputs
 
-| Biến | Kiểu | Mô tả |
-|------|------|--------|
-| `summary` | markdown | Bản tóm tắt cuối |
+| Variable | Type | Description |
+|----------|------|-------------|
+| `summary` | markdown | Final summary |
 
-## Các bước
+## Steps
 
-### Bước 1 — `gather-context`
+### Step 1 — `gather-context`
 
-- **Loại:** skill
-- **Skill:** `skill-template` (đổi thành skill thật, ví dụ tra knowledge-base, đọc `knowledge-base/INDEX.md`)
-- **Đầu vào:** `query` = nội dung chủ đề từ biến `topic`
-- **Đầu ra:** `gather_notes`
+- **Type:** skill
+- **Skill:** `skill-template` (replace with a real skill, e.g. knowledge-base lookup, read `knowledge-base/INDEX.md`)
+- **Input:** `query` = subject from `topic`
+- **Output:** `gather_notes`
 
-### Bước 2 — `synthesize`
+### Step 2 — `synthesize`
 
-- **Loại:** mẫu prompt (tham chiếu theo id trong [templates/PROMPT_TEMPLATES.md](../../templates/PROMPT_TEMPLATES.md))
-- **Mẫu:** `code-review-comprehensive` — chỉ là ví dụ; đổi sang mẫu phù hợp tóm tắt
-- **Đầu vào:** nội dung từ `gather_notes` (trong mẫu có thể map vào biến như `code` hoặc đổi sang section “nội dung nguồn”)
-- **Ngôn ngữ nội dung:** markdown
-- **Đầu ra:** `final_summary`
+- **Type:** prompt template (id in [templates/PROMPT_TEMPLATES.md](../../templates/PROMPT_TEMPLATES.md))
+- **Template:** `code-review-comprehensive` — example only; pick one suited to summarization
+- **Input:** content from `gather_notes` (map into template vars like `code` or a “source content” section)
+- **Content language:** markdown
+- **Output:** `final_summary`

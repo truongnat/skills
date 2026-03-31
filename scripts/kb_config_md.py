@@ -1,6 +1,6 @@
 """
-Đọc cấu hình knowledge base từ Markdown: khối giữa
-<!-- kb-config-start --> và <!-- kb-config-end --> với dòng key = value.
+Read knowledge-base settings from Markdown: the block between
+<!-- kb-config-start --> and <!-- kb-config-end --> with key = value lines.
 """
 from __future__ import annotations
 

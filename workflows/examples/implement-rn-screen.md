@@ -1,47 +1,47 @@
 # Workflow: implement-rn-screen
 
-Triển khai một màn hình React Native / Expo từ spec đến review (UI/UX + edge cases), tham chiếu skill **`react-native-pro`**.
+Implement a React Native / Expo screen from spec through review (UI/UX + edge cases), using skill **`react-native-pro`**.
 
 ## Metadata
 
-| Thuộc tính | Giá trị |
-|------------|---------|
+| Field | Value |
+|-------|-------|
 | **id** | `implement-rn-screen` |
 | **version** | 1.0 |
 
-## Đầu vào
+## Inputs
 
-| Biến | Bắt buộc | Mô tả |
-|------|----------|--------|
-| `screen_spec` | Có | Mô tả UI, luồng, dữ liệu (Markdown hoặc bullet) |
-| `stack` | Không | Ví dụ: Expo SDK 51, React Navigation 6, v.v. nếu biết |
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `screen_spec` | Yes | UI, flow, data (Markdown or bullets) |
+| `stack` | No | e.g. Expo SDK 51, React Navigation 6, if known |
 
-## Đầu ra
+## Outputs
 
-| Biến | Mô tả |
-|------|--------|
-| `implementation` | Code / diff gợi ý + checklist đã xử lý |
-| `review_notes` | Rủi ro còn lại (thiết bị, native) |
+| Variable | Description |
+|----------|-------------|
+| `implementation` | Suggested code / diff + checklist addressed |
+| `review_notes` | Remaining risks (devices, native) |
 
-## Các bước
+## Steps
 
-### Bước 1 — `spec-to-plan`
+### Step 1 — `spec-to-plan`
 
-- **Loại:** skill
+- **Type:** skill
 - **Skill:** `react-native-pro`
-- **Đầu vào:** Chuẩn hóa spec: layout, trạng thái loading/empty/error, navigation, dữ liệu async. Ghi rõ iOS vs Android nếu có khác biệt.
-- **Đầu ra:** `plan` (cấu trúc component, hooks, file cần tạo/sửa)
+- **Input:** Normalize spec: layout, loading/empty/error, navigation, async data. Note iOS vs Android differences if any.
+- **Output:** `plan` (component structure, hooks, files to add/edit)
 
-### Bước 2 — `implement`
+### Step 2 — `implement`
 
-- **Loại:** skill
+- **Type:** skill
 - **Skill:** `react-native-pro`
-- **Đầu vào:** `plan` + `screen_spec`
-- **Đầu ra:** `code` — triển khai theo [references/ui-ux-design.md](../../skills/public/react-native-pro/references/ui-ux-design.md) và [references/tips-and-tricks.md](../../skills/public/react-native-pro/references/tips-and-tricks.md)
+- **Input:** `plan` + `screen_spec`
+- **Output:** `code` — follow [references/ui-ux-design.md](../../skills/public/react-native-pro/references/ui-ux-design.md) and [references/tips-and-tricks.md](../../skills/public/react-native-pro/references/tips-and-tricks.md)
 
-### Bước 3 — `edge-and-a11y-review`
+### Step 3 — `edge-and-a11y-review`
 
-- **Loại:** skill
+- **Type:** skill
 - **Skill:** `react-native-pro`
-- **Đầu vào:** `code`
-- **Đầu ra:** `review_notes` — đối chiếu [references/edge-cases.md](../../skills/public/react-native-pro/references/edge-cases.md) và checklist trong `SKILL.md` (keyboard, SafeArea, back, lists)
+- **Input:** `code`
+- **Output:** `review_notes` — check [references/edge-cases.md](../../skills/public/react-native-pro/references/edge-cases.md) and the checklist in `SKILL.md` (keyboard, SafeArea, back, lists)

@@ -497,15 +497,15 @@ python server.py
 
 ### Learning Path
 
-1. **Beginner**: Start với simple skills
+1. **Beginner**: Start with simple skills
    - Clone template
    - Modify description
    - Add test prompts
    
-2. **Intermediate**: Tạo knowledge base
+2. **Intermediate**: Create a knowledge base
    - Organize documents
    - Setup RAG system
-   - Integrate với skills
+   - Integrate with skills
    
 3. **Advanced**: Build MCP servers
    - Custom integrations
@@ -514,9 +514,9 @@ python server.py
 
 ### Community & Support
 
-- GitHub Discussions: Q&A và feature requests
+- GitHub Discussions: Q&A and feature requests
 - Issue Tracker: Bug reports
-- Wiki: Detailed guides và examples
+- Wiki: Detailed guides and examples
 - Discord/Slack: Real-time support (if applicable)
 
 ### Recommended Tools
@@ -532,9 +532,9 @@ python server.py
   - `httpie` for API testing
   
 - **Monitoring**:
-  - Logging với `structlog`
-  - Metrics với `prometheus-client`
-  - Tracing với `opentelemetry`
+  - Logging with `structlog`
+  - Metrics with `prometheus-client`
+  - Tracing with `opentelemetry`
 
 ---
 
@@ -546,12 +546,12 @@ python server.py
    - Use secret management (AWS Secrets Manager, etc.)
 
 2. **Validate inputs**
-   - Sanitize user inputs trong prompts
+   - Sanitize user inputs in prompts
    - Validate file uploads
-   - Rate limiting cho API calls
+   - Rate limiting for API calls
 
 3. **Access control**
-   - Role-based permissions cho skills
+   - Role-based permissions for skills
    - API key rotation
    - Audit logs
 

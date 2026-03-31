@@ -1,47 +1,47 @@
 # Workflow: implement-nest-feature
 
-Triển khai một feature NestJS (module/controller/service/DTO) từ spec đến review (API/DX + edge cases), tham chiếu skill **`nestjs-pro`**.
+Implement a NestJS feature (module/controller/service/DTO) from spec through review (API/DX + edge cases), using skill **`nestjs-pro`**.
 
 ## Metadata
 
-| Thuộc tính | Giá trị |
-|------------|---------|
+| Field | Value |
+|-------|-------|
 | **id** | `implement-nest-feature` |
 | **version** | 1.0 |
 
-## Đầu vào
+## Inputs
 
-| Biến | Bắt buộc | Mô tả |
-|------|----------|--------|
-| `feature_spec` | Có | Endpoint, domain rules, auth, persistence, PostgreSQL RLS / tenant context (nếu có) (Markdown hoặc bullet) |
-| `stack` | Không | Nest major, ORM (Prisma/TypeORM/…), transport nếu có |
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `feature_spec` | Yes | Endpoints, domain rules, auth, persistence, PostgreSQL RLS / tenant context if any (Markdown or bullets) |
+| `stack` | No | Nest major, ORM (Prisma/TypeORM/…), transport if any |
 
-## Đầu ra
+## Outputs
 
-| Biến | Mô tả |
-|------|--------|
-| `implementation` | Module + code gợi ý + checklist |
-| `review_notes` | Rủi ro (migration, security, scale) |
+| Variable | Description |
+|----------|-------------|
+| `implementation` | Module + suggested code + checklist |
+| `review_notes` | Risks (migration, security, scale) |
 
-## Các bước
+## Steps
 
-### Bước 1 — `spec-to-plan`
+### Step 1 — `spec-to-plan`
 
-- **Loại:** skill
+- **Type:** skill
 - **Skill:** `nestjs-pro`
-- **Đầu vào:** Chuẩn hóa `feature_spec`: module boundaries, DTOs, guards, lỗi HTTP, transaction boundaries, RLS (`SET LOCAL` / pool + ORM).
-- **Đầu ra:** `plan` (file tạo/sửa, providers, tokens)
+- **Input:** Normalize `feature_spec`: module boundaries, DTOs, guards, HTTP errors, transaction boundaries, RLS (`SET LOCAL` / pool + ORM).
+- **Output:** `plan` (files to add/edit, providers, tokens)
 
-### Bước 2 — `implement`
+### Step 2 — `implement`
 
-- **Loại:** skill
+- **Type:** skill
 - **Skill:** `nestjs-pro`
-- **Đầu vào:** `plan` + `feature_spec`
-- **Đầu ra:** `code` — theo [references/api-design-and-dx.md](../../skills/public/nestjs-pro/references/api-design-and-dx.md), [references/tips-and-tricks.md](../../skills/public/nestjs-pro/references/tips-and-tricks.md), và [references/postgresql-rls-integration.md](../../skills/public/nestjs-pro/references/postgresql-rls-integration.md) khi dùng RLS
+- **Input:** `plan` + `feature_spec`
+- **Output:** `code` — follow [references/api-design-and-dx.md](../../skills/public/nestjs-pro/references/api-design-and-dx.md), [references/tips-and-tricks.md](../../skills/public/nestjs-pro/references/tips-and-tricks.md), and [references/postgresql-rls-integration.md](../../skills/public/nestjs-pro/references/postgresql-rls-integration.md) when using RLS
 
-### Bước 3 — `edge-and-security-review`
+### Step 3 — `edge-and-security-review`
 
-- **Loại:** skill
+- **Type:** skill
 - **Skill:** `nestjs-pro`
-- **Đầu vào:** `code`
-- **Đầu ra:** `review_notes` — đối chiếu [references/edge-cases.md](../../skills/public/nestjs-pro/references/edge-cases.md), [references/postgresql-rls-integration.md](../../skills/public/nestjs-pro/references/postgresql-rls-integration.md) và skill **`postgresql-pro`** ([row-level-security.md](../../skills/public/postgresql-pro/references/row-level-security.md)) khi có RLS; checklist trong `SKILL.md`
+- **Input:** `code`
+- **Output:** `review_notes` — check [references/edge-cases.md](../../skills/public/nestjs-pro/references/edge-cases.md), [references/postgresql-rls-integration.md](../../skills/public/nestjs-pro/references/postgresql-rls-integration.md), skill **`postgresql-pro`** ([row-level-security.md](../../skills/public/postgresql-pro/references/row-level-security.md)) when RLS applies; checklist in `SKILL.md`

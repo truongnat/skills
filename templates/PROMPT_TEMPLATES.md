@@ -1,40 +1,40 @@
 # Prompt Template Library
 
-Thư viện các prompt templates có thể tái sử dụng cho nhiều task khác nhau.
+Reusable prompt templates for many tasks.
 
-**Quy ước repo:** lưu template dưới dạng **Markdown** (file `.md` trong `prompts/templates/`). Các khối dưới đây minh họa *cùng thông tin*; phần còn lại của file có thể vẫn dùng khối code kiểu “key: value” trong fence — khi tạo mới hãy ưu tiên cấu trúc Markdown (tiêu đề + bảng biến + phần System/User).
+**Repo convention:** store templates as **Markdown** (`.md` files under `prompts/templates/`). The blocks below illustrate the *same information*; the rest of the file may still use fenced `key: value` blocks — for new templates prefer Markdown (headings + variable table + System/User sections).
 
-## Cấu trúc template (Markdown)
+## Template structure (Markdown)
 
 ```markdown
 # template-identifier
 
 ## Metadata
 
-| Thuộc tính | Giá trị |
-|------------|---------|
+| Field | Value |
+|-------|-------|
 | version | 1.0 |
 | category | task-type |
-| description | Mô tả ngắn |
+| description | Short description |
 | tags | tag1, tag2 |
 
-## Biến
+## Variables
 
-| Tên | Bắt buộc | Mô tả |
-|-----|----------|--------|
-| variable_name | Có/Không | … |
+| Name | Required | Description |
+|------|----------|-------------|
+| variable_name | Yes/No | … |
 
 ## System prompt
 
-… hướng dẫn cho model …
+… model instructions …
 
 ## User prompt (template)
 
-Nội dung chính với {{variable_name}}.
+Main content with {{variable_name}}.
 
-## Ví dụ
+## Example
 
-**Input:** … → **Output mong đợi:** …
+**Input:** … → **Expected output:** …
 ```
 
 ---
@@ -760,22 +760,22 @@ post_processing:
 
 ---
 
-## Cách Sử Dụng Templates
+## Using templates
 
-### 1. Command Line
+### 1. Command line
 
 ```bash
-# Sử dụng script
+# Example script usage
 python scripts/use_template.py \
     --template code-review-comprehensive \
     --code "$(cat myfile.py)" \
     --language python \
     --focus-areas "security,performance"
 
-# Output sẽ được generate theo template
+# Output is generated from the template
 ```
 
-### 2. Trong Code
+### 2. In code
 
 ```python
 from prompt_templates import load_template, render
@@ -783,7 +783,7 @@ from prompt_templates import load_template, render
 # Load template
 template = load_template("code-review-comprehensive")
 
-# Render với variables
+# Render with variables
 prompt = render(template, {
     "code": code_content,
     "language": "python",
@@ -791,11 +791,11 @@ prompt = render(template, {
     "context": "API endpoint handling payments"
 })
 
-# Gửi đến LLM
+# Send to LLM
 response = llm.complete(prompt)
 ```
 
-### 3. Trong Skill
+### 3. In a skill
 
 ```markdown
 # SKILL.md
@@ -814,14 +814,14 @@ python scripts/use_template.py \
 
 ---
 
-## Tips Tạo Template Hiệu Quả
+## Tips for effective templates
 
-1. **Specific instructions**: Càng cụ thể càng tốt
-2. **Examples**: Luôn include ít nhất 1 example
-3. **Output format**: Chỉ rõ format mong muốn
-4. **Edge cases**: Handle edge cases trong template
-5. **Post-processing**: Validate output
+1. **Specific instructions**: be as concrete as possible
+2. **Examples**: include at least one example
+3. **Output format**: state the desired format clearly
+4. **Edge cases**: handle edge cases in the template
+5. **Post-processing**: validate output
 
 ---
 
-Lưu các templates vào `prompts/templates/` với format `category-name.md` (Markdown)
+Save templates under `prompts/templates/` as `category-name.md` (Markdown)

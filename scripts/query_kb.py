@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Truy vấn index cục bộ (cùng model embedding với build_kb.py), in top-k đoạn + metadata.
-Cấu hình đọc từ config.md / config.example.md (Markdown).
+Query the local index (same embedding model as build_kb.py); print top-k chunks + metadata.
+Config is read from config.md / config.example.md (Markdown).
 """
 from __future__ import annotations
 

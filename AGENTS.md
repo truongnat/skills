@@ -1,28 +1,28 @@
-# AGENTS — gợi ý cho Cursor / công cụ agent
+# AGENTS — hints for Cursor / agent tools
 
 ## Skills
 
-Cursor đọc skill từ thư mục cấu hình (thường là `.cursor/skills` hoặc project rules). Bạn có thể:
+Cursor loads skills from your IDE config (often `.cursor/skills` or project rules). You can:
 
-- **Copy** một skill từ `skills/public/<tên>/` hoặc `skills/examples/skill-template/` vào thư mục skill mà IDE bạn dùng; hoặc
+- **Copy** a skill from `skills/public/<name>/` or `skills/examples/skill-template/` into your IDE’s skills folder; or
 - **Symlink** (Unix): `ln -s "$(pwd)/skills/public/my-skill" ~/.cursor/skills/my-skill`
 
-Ví dụ skill có sẵn: `skills/public/react-pro/` (React web), `skills/public/nextjs-pro/` (Next.js), `skills/public/react-native-pro/` (React Native), `skills/public/flutter-pro/` (Flutter), `skills/public/nestjs-pro/` (NestJS), `skills/public/postgresql-pro/` (PostgreSQL).
+Bundled examples: `skills/public/react-pro/` (React web), `skills/public/nextjs-pro/` (Next.js), `skills/public/react-native-pro/` (React Native), `skills/public/flutter-pro/` (Flutter), `skills/public/nestjs-pro/` (NestJS), `skills/public/postgresql-pro/` (PostgreSQL).
 
-Mỗi skill cần file `SKILL.md` với frontmatter `name` và `description` rõ ràng.
+Each skill needs a `SKILL.md` with clear frontmatter `name` and `description`.
 
 ## Knowledge base
 
-Agent nên ưu tiên:
+Agents should prefer:
 
-1. Đọc `knowledge-base/INDEX.md` để định vị tài liệu.
-2. Mở file `.md` trong `knowledge-base/documents/` khi cần chi tiết.
-3. Khi cần truy vấn ngữ nghĩa trên toàn bộ corpus đã index, chạy `python scripts/query_kb.py "…"` (sau khi đã `build_kb`).
+1. Read `knowledge-base/INDEX.md` to locate documents.
+2. Open `.md` files under `knowledge-base/documents/` for detail.
+3. For semantic search over the indexed corpus, run `python scripts/query_kb.py "…"` (after `build_kb`).
 
 ## Workflows
 
-Đọc file `.md` trong `workflows/examples/` hoặc workflow tự định nghĩa; thực hiện từng bước theo mục **Các bước**.
+Read `.md` files under `workflows/examples/` or your own workflows; execute steps under **Steps**.
 
-## Cấu hình
+## Configuration
 
-Chỉnh `config.md` (sao chép từ `config.example.md`) — khối `kb-config` trong Markdown, không dùng `.yaml`.
+Edit `config.md` (copy from `config.example.md`) — the `kb-config` block in Markdown, not `.yaml`.

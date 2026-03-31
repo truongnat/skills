@@ -1,47 +1,47 @@
 # Workflow: implement-postgres-change
 
-Thiết kế hoặc chỉnh sửa PostgreSQL (schema, index, migration, query) từ spec đến review rủi ro vận hành, tham chiếu skill **`postgresql-pro`**.
+Design or change PostgreSQL (schema, index, migration, query) from spec through operational risk review, using skill **`postgresql-pro`**.
 
 ## Metadata
 
-| Thuộc tính | Giá trị |
-|------------|---------|
+| Field | Value |
+|-------|-------|
 | **id** | `implement-postgres-change` |
 | **version** | 1.0 |
 
-## Đầu vào
+## Inputs
 
-| Biến | Bắt buộc | Mô tả |
-|------|----------|--------|
-| `change_spec` | Có | Bảng/cột/index, ràng buộc, RLS/policies (nếu có), volume ước lượng, cửa sổ bảo trì (nếu có) |
-| `pg_version` | Không | Major PostgreSQL nếu biết (ảnh hưởng cú pháp / planner) |
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `change_spec` | Yes | Tables/columns/indexes, constraints, RLS/policies if any, estimated volume, maintenance window if any |
+| `pg_version` | No | PostgreSQL major if known (syntax / planner differences) |
 
-## Đầu ra
+## Outputs
 
-| Biến | Mô tả |
-|------|--------|
-| `migration_plan` | Thứ tự bước SQL/migration + rollback gợi ý |
-| `review_notes` | Lock, backfill, vacuum, replica |
+| Variable | Description |
+|----------|-------------|
+| `migration_plan` | Ordered SQL/migration steps + suggested rollback |
+| `review_notes` | Ops and locking notes |
 
-## Các bước
+## Steps
 
-### Bước 1 — `spec-to-plan`
+### Step 1 — `spec-to-plan`
 
-- **Loại:** skill
+- **Type:** skill
 - **Skill:** `postgresql-pro`
-- **Đầu vào:** Chuẩn hóa `change_spec`: additive vs breaking, FK, index `CONCURRENTLY`, quyền role, RLS (`ENABLE ROW LEVEL SECURITY`, policy `USING`/`WITH CHECK`, tenant context).
-- **Đầu ra:** `migration_plan` (thứ tự an toàn)
+- **Input:** Normalize `change_spec`: additive vs breaking, FKs, `CONCURRENTLY` indexes, role grants, RLS (`ENABLE ROW LEVEL SECURITY`, policy `USING`/`WITH CHECK`, tenant context).
+- **Output:** `migration_plan` (safe ordering)
 
-### Bước 2 — `implement-sql`
+### Step 2 — `implement-sql`
 
-- **Loại:** skill
+- **Type:** skill
 - **Skill:** `postgresql-pro`
-- **Đầu vào:** `migration_plan` + `change_spec`
-- **Đầu ra:** SQL / file migration — theo [references/schema-and-query-design.md](../../skills/public/postgresql-pro/references/schema-and-query-design.md) và [references/tips-and-tricks.md](../../skills/public/postgresql-pro/references/tips-and-tricks.md)
+- **Input:** `migration_plan` + `change_spec`
+- **Output:** SQL / migration files — follow [references/schema-and-query-design.md](../../skills/public/postgresql-pro/references/schema-and-query-design.md) and [references/tips-and-tricks.md](../../skills/public/postgresql-pro/references/tips-and-tricks.md)
 
-### Bước 3 — `ops-and-edge-review`
+### Step 3 — `ops-and-edge-review`
 
-- **Loại:** skill
+- **Type:** skill
 - **Skill:** `postgresql-pro`
-- **Đầu vào:** SQL đã soạn
-- **Đầu ra:** `review_notes` — đối chiếu [references/edge-cases.md](../../skills/public/postgresql-pro/references/edge-cases.md), [references/row-level-security.md](../../skills/public/postgresql-pro/references/row-level-security.md) (nếu bật RLS), và checklist trong `SKILL.md`
+- **Input:** Draft SQL
+- **Output:** `review_notes` — check [references/edge-cases.md](../../skills/public/postgresql-pro/references/edge-cases.md), [references/row-level-security.md](../../skills/public/postgresql-pro/references/row-level-security.md) if RLS is enabled, and the checklist in `SKILL.md`

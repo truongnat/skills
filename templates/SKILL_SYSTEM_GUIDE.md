@@ -1,28 +1,28 @@
-# Hướng Dẫn Xây Dựng Skill System, Knowledge Base & Prompt Framework
+# Building a skill system, knowledge base & prompt framework
 
-## 📋 Mục Lục
-1. [Tổng Quan Kiến Trúc](#tổng-quan-kiến-trúc)
+## 📋 Contents
+1. [Architecture overview](#architecture-overview)
 2. [Skill System Structure](#skill-system-structure)
 3. [Knowledge Base Structure](#knowledge-base-structure)
 4. [Prompt Engineering Framework](#prompt-engineering-framework)
-5. [Công Nghệ Hỗ Trợ](#công-nghệ-hỗ-trợ)
+5. [Supporting technologies](#supporting-technologies)
 6. [GitHub Structure & Deployment](#github-structure--deployment)
 
 ---
 
-## 🏗️ Tổng Quan Kiến Trúc
+## 🏗️ Architecture overview
 
-### Mô Hình Tổng Thể
+### High-level layout
 
 ```
 your-ai-toolkit/
 ├── skills/                    # Skill modules
-│   ├── public/               # Skills có thể share công khai
-│   ├── private/              # Skills riêng tư cho dự án
-│   └── examples/             # Examples và templates
+│   ├── public/               # Shareable public skills
+│   ├── private/              # Project-private skills
+│   └── examples/             # Examples and templates
 ├── knowledge-base/           # Knowledge repository
-│   ├── documents/            # Tài liệu tham khảo
-│   ├── vectors/              # Vector embeddings (nếu dùng RAG)
+│   ├── documents/            # Reference documents
+│   ├── vectors/              # Vector embeddings (if using RAG)
 │   └── schemas/              # Data schemas
 ├── prompts/                  # Prompt library
 │   ├── templates/            # Reusable prompt templates
@@ -37,7 +37,7 @@ your-ai-toolkit/
 
 ## 🎯 Skill System Structure
 
-### 1. Cấu Trúc Cơ Bản Của Một Skill
+### 1. Basic structure of a skill
 
 ```
 skill-name/
@@ -62,7 +62,7 @@ skill-name/
 ---
 name: skill-identifier
 description: |
-  Mô tả chi tiết khi nào skill nên được trigger.
+  When this skill should trigger.
   Include: use cases, keywords, contexts.
   
   Example: "Use this skill when user mentions 'data analysis', 
@@ -101,26 +101,26 @@ Common issues and solutions
 ### 3. Progressive Disclosure Strategy
 
 **Level 1: Metadata** (Always in context ~100 words)
-- Tên skill + mô tả ngắn gọn
-- Khi nào nên trigger
+- Skill name + short description
+- When to trigger
 
 **Level 2: SKILL.md Body** (<500 lines)
-- Hướng dẫn chi tiết
+- Detailed guidance
 - Workflow
 - Examples
 
 **Level 3: Bundled Resources** (Unlimited)
-- Scripts (có thể execute mà không cần load vào context)
-- Reference docs (load theo nhu cầu)
+- Scripts (executable without loading into context)
+- Reference docs (load on demand)
 - Assets
 
-### 4. Best Practices Cho Skill Description
+### 4. Best practices for skill descriptions
 
 ```yaml
-# ❌ VÍ DỤ KHÔNG TốT (quá chung chung)
+# ❌ BAD (too vague)
 description: "Helps with data analysis tasks"
 
-# ✅ VÍ DỤ TỐT (cụ thể, pushy)
+# ✅ GOOD (specific)
 description: |
   Analyzes CSV/Excel data, creates visualizations, and generates reports.
   
@@ -143,20 +143,20 @@ description: |
 
 ```
 knowledge-base/
-├── domains/                  # Theo lĩnh vực
+├── domains/                  # By domain
 │   ├── finance/
 │   │   ├── overview.md
 │   │   ├── regulations.md
 │   │   └── calculations.md
 │   ├── healthcare/
 │   └── legal/
-├── products/                 # Theo sản phẩm
+├── products/                 # By product
 │   ├── product-a/
 │   └── product-b/
-├── processes/                # Quy trình nghiệp vụ
+├── processes/                # Business processes
 │   ├── onboarding.md
 │   └── deployment.md
-└── references/               # Tài liệu tham khảo
+└── references/               # Reference docs
     ├── apis/
     ├── libraries/
     └── standards/
@@ -405,13 +405,13 @@ prompt_template: |
 
 ---
 
-## 🚀 Công Nghệ Hỗ Trợ
+## 🚀 Supporting technologies
 
 ### 1. MCP (Model Context Protocol)
 
-MCP cho phép Claude kết nối với external services và data sources.
+MCP lets Claude connect to external services and data sources.
 
-**Cấu trúc MCP Server:**
+**MCP server layout:**
 ```
 mcp-servers/
 ├── custom-server/
@@ -447,7 +447,7 @@ tools:
 
 ### 2. RAG (Retrieval-Augmented Generation)
 
-Kết hợp retrieval với generation để truy cập knowledge base lớn.
+Combine retrieval with generation to query a large knowledge base.
 
 **RAG Architecture:**
 ```python
@@ -484,7 +484,7 @@ class RAGSystem:
         return [self.documents[i] for i in top_indices]
 ```
 
-**Integrated với Skill:**
+**Integrated with skills:**
 ```markdown
 # skills/rag-assistant/SKILL.md
 ---
@@ -506,7 +506,7 @@ description: Use RAG to answer questions from large knowledge base
 
 ### 3. Vector Databases
 
-Cho production RAG systems với scale lớn.
+For production RAG at large scale.
 
 **Popular Options:**
 
@@ -581,7 +581,7 @@ result = client.query.get("Document", ["content", "source"])\
 
 ### 4. Langchain / LlamaIndex
 
-Frameworks để build complex AI applications.
+Frameworks for building complex AI applications.
 
 **LangChain Example:**
 ```python

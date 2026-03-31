@@ -24,8 +24,15 @@ Use official [PostgreSQL documentation](https://www.postgresql.org/docs/) for ve
 - Planning zero-downtime or low-risk migrations (backfills, `CONCURRENTLY` indexes).
 - Debugging vacuum bloat, replication lag, connection exhaustion, or deadlocks.
 - **`ALTER TABLE … ENABLE ROW LEVEL SECURITY`**, writing or reviewing **policies**, tenant isolation, Supabase-style JWT policies, or **RLS performance** (indexes on policy predicates).
+- Trigger keywords: `PostgreSQL`, `EXPLAIN`, `RLS`, `migration`, `index`, `VACUUM`, …
 
-## Operating principles
+## Workflow
+
+1. Confirm server version; check docs when behavior differs between releases.
+2. Design schema/index/migrations deliberately; for RLS test with the real application role.
+3. Respond using **Suggested response format**; note downtime and locking risks.
+
+### Operating principles
 
 1. **Explicit types and constraints** — Prefer `NOT NULL` + defaults where domain implies; document intentional nullable columns.
 2. **Indexes with a reason** — Every index costs write amplification; match access patterns; verify with `EXPLAIN`.
@@ -34,7 +41,7 @@ Use official [PostgreSQL documentation](https://www.postgresql.org/docs/) for ve
 5. **RLS is not optional magic** — Test every policy as the **real app role**; superuser bypass hides bugs; index columns used in `USING` / `WITH CHECK`.
 6. **Observability** — Correlate slow queries with `pg_stat_statements` (when enabled) and application logs.
 
-## Schema and query design (summary)
+### Schema and query design (summary)
 
 - Normalize until it hurts for correctness; denormalize selectively for read paths with clear tradeoffs.
 - **Primary keys**: prefer `bigint`/`uuid` strategies consistent across the system; document `uuid` generation (v4 vs v7).
@@ -43,7 +50,7 @@ Use official [PostgreSQL documentation](https://www.postgresql.org/docs/) for ve
 
 Details: [references/schema-and-query-design.md](references/schema-and-query-design.md)
 
-## Tips and tricks (summary)
+### Tips and tricks (summary)
 
 - **`CREATE INDEX CONCURRENTLY`** for large tables in production; handle failures (invalid index) and retry patterns.
 - **Partial indexes** — smaller and faster when predicates match a hot subset.
@@ -53,7 +60,7 @@ Details: [references/schema-and-query-design.md](references/schema-and-query-des
 
 Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
-## Edge cases (summary)
+### Edge cases (summary)
 
 - **MVCC** — long transactions block vacuum; table bloat; monitor `xmin` horizons.
 - **Serialization / deadlocks** — retry idempotent transactions; consistent lock ordering across app layers.
@@ -63,7 +70,7 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
-## Row Level Security (summary)
+### Row Level Security (summary)
 
 - Enable with **`ALTER TABLE … ENABLE ROW LEVEL SECURITY`**; define explicit **`CREATE POLICY`** for each command + role that needs access; without policies, non-owner roles often see **no rows** for `SELECT`.
 - **`USING`** filters existing rows; **`WITH CHECK`** constrains inserts/updates — both must match your tenant model.
@@ -73,23 +80,16 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 
 Details: [references/row-level-security.md](references/row-level-security.md)
 
-## Suggested response format (implement / review)
+### Suggested response format (implement / review)
 
 1. **Issue or goal** — Schema change, slow query, or incident context.
 2. **Recommendation** — SQL or migration steps; locking and rollback notes.
 3. **Artifacts** — SQL snippets, `EXPLAIN` interpretation, or migration ordering.
 4. **Residual risks** — Downtime window, data backfill duration, or monitoring to add.
 
-## Pre-merge checklist
+## Resources in this skill
 
-- [ ] Migration tested on a copy of production-like volume; rollback or feature flag documented.
-- [ ] Indexes justified; `EXPLAIN` for critical paths; no accidental sequential scans at scale.
-- [ ] Constraints and FKs match application expectations; no silent data loss on delete.
-- [ ] Privileges for app role reviewed; no superuser in app code.
-- [ ] **RLS**: policies tested as app role; `WITH CHECK` on writes; tenant context documented for poolers; indexes on policy predicates where needed.
-- [ ] Long-running DDL or DML batched; lock timeouts or `lock_timeout` considered where appropriate.
-
-## References
+- `references/` — schema, tips, ops, detailed RLS.
 
 | Topic | File |
 |-------|------|
@@ -97,3 +97,17 @@ Details: [references/row-level-security.md](references/row-level-security.md)
 | Tips and patterns | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases and ops | [references/edge-cases.md](references/edge-cases.md) |
 | **Row Level Security (RLS)** | [references/row-level-security.md](references/row-level-security.md) |
+
+## Quick example
+
+**Input:** After enabling RLS, the app role cannot `SELECT` any rows — missing policy or `FORCE` issue?  
+**Expected output:** Check `CREATE POLICY` per command/role, owner vs BYPASSRLS, and a minimal `USING`/`WITH CHECK` example.
+
+## Checklist before calling the skill done
+
+- [ ] Migration tested on a copy of production-like volume; rollback or feature flag documented.
+- [ ] Indexes justified; `EXPLAIN` for critical paths; no accidental sequential scans at scale.
+- [ ] Constraints and FKs match application expectations; no silent data loss on delete.
+- [ ] Privileges for app role reviewed; no superuser in app code.
+- [ ] **RLS**: policies tested as app role; `WITH CHECK` on writes; tenant context documented for poolers; indexes on policy predicates where needed.
+- [ ] Long-running DDL or DML batched; lock timeouts or `lock_timeout` considered where appropriate.

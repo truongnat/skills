@@ -1,10 +1,10 @@
-# Cấu hình (ví dụ)
+# Configuration (example)
 
-Sao chép file này thành `config.md` và chỉnh giá trị. `config.md` có thể thêm vào `.gitignore` nếu chứa đường dẫn nhạy cảm.
+Copy this file to `config.md` and adjust values. Add `config.md` to `.gitignore` if it contains sensitive paths.
 
-## Knowledge base (cho `scripts/build_kb.py` và `scripts/query_kb.py`)
+## Knowledge base (for `scripts/build_kb.py` and `scripts/query_kb.py`)
 
-Các script chỉ đọc khối **machine-readable** dưới đây (giữ nguyên hai dòng comment đánh dấu).
+Scripts only read the **machine-readable** block below (keep the two marker comment lines).
 
 <!-- kb-config-start -->
 documents_path = knowledge-base/documents
@@ -15,16 +15,16 @@ chunk_size = 1000
 chunk_overlap = 200
 <!-- kb-config-end -->
 
-## Ghi chú
+## Notes
 
-- `documents_path`: thư mục gốc chứa file `.md` để index.
-- `embedding_model`: tên model Hugging Face / sentence-transformers.
-- `embeddings_path` / `manifest_path`: file sinh ra sau khi chạy build (đã gitignore).
-- `chunk_size` / `chunk_overlap`: độ dài chunk khi cắt tài liệu.
+- `documents_path`: root directory of `.md` files to index.
+- `embedding_model`: Hugging Face / sentence-transformers model name.
+- `embeddings_path` / `manifest_path`: files produced by the build (gitignored).
+- `chunk_size` / `chunk_overlap`: chunking parameters when splitting documents.
 
-## Dự án (tham khảo — không bắt buộc cho scripts)
+## Project (reference — not required for scripts)
 
-| Thuộc tính | Giá trị ví dụ |
-|------------|----------------|
-| Tên repo | own-skills |
-| Phiên bản | 1.0.0 |
+| Field | Example value |
+|-------|-----------------|
+| Repo name | own-skills |
+| Version | 1.0.0 |

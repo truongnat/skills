@@ -1,39 +1,39 @@
 ---
 name: skill-template
 description: |
-  Mẫu skill để nhân bản. Thay name/description bằng giá trị cụ thể.
-  Mô tả phải nêu rõ KHI NÀO skill được dùng (từ khóa, ngữ cảnh, ví dụ câu hỏi).
+  Template skill to copy. Replace name/description with concrete values.
+  The description must state WHEN the skill applies (keywords, context, example questions).
 metadata:
-  short-description: Template skill — copy và đổi tên
+  short-description: Template skill — copy and rename
 ---
 
-# Tên skill (đổi theo skill của bạn)
+# Skill name (replace with yours)
 
-## Khi nào dùng
+## When to use
 
-- Tình huống 1: …
-- Tình huống 2: …
-- Từ khóa gợi ý: `…`, `…`
+- Scenario 1: …
+- Scenario 2: …
+- Trigger keywords: `…`, `…`
 
-## Cách làm (workflow)
+## Workflow
 
-1. Thu thập input / xác nhận mục tiêu
+1. Gather input / confirm the goal
 2. …
-3. Trả output theo định dạng đã chọn
+3. Return output in the chosen format
 
-## Tài nguyên trong skill (tùy chọn)
+## Resources in this skill (optional)
 
-- `references/` — tài liệu dài, chỉ đọc khi cần (API, policy, schema)
-- `scripts/` — lệnh chạy xác định (Python/bash)
-- `assets/` — file đính kèm output (template HTML, logo, …)
+- `references/` — long-form docs; read only when needed (API, policy, schema)
+- `scripts/` — deterministic commands (Python/bash)
+- `assets/` — output attachments (HTML templates, logos, …)
 
-## Ví dụ nhanh
+## Quick example
 
 **Input:** …  
-**Output mong đợi:** …
+**Expected output:** …
 
-## Checklist trước khi coi skill là xong
+## Checklist before calling the skill done
 
-- [ ] `description` trong frontmatter đủ cụ thể để agent biết khi nào trigger
-- [ ] Không nhồi toàn bộ tài liệu tham khảo vào đây — chuyển sang `references/`
-- [ ] Đã thử với 1–2 prompt thật
+- [ ] Frontmatter `description` is specific enough for the agent to know when to trigger
+- [ ] Reference material is not pasted wholesale here — move it to `references/`
+- [ ] Tried with 1–2 real prompts

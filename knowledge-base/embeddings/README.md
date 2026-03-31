@@ -1,9 +1,9 @@
 # embeddings (generated)
 
-Thư mục này chứa **chỉ số RAG cục bộ** do `scripts/build_kb.py` tạo:
+This directory holds the **local RAG index** produced by `scripts/build_kb.py`:
 
-- `rag_embeddings.npy` — ma trận vector (NumPy)
-- `rag_manifest.json` — metadata + nội dung từng chunk
-- `.cache/` — cache Hugging Face / model (nếu có)
+- `rag_embeddings.npy` — NumPy vector matrix
+- `rag_manifest.json` — metadata + chunk text
+- `.cache/` — Hugging Face / model cache (if present)
 
-Không chỉnh sửa thủ công. Các file tạo bởi build đã nằm trong `.gitignore` ở root repo.
+Do not edit by hand. Generated artifacts are listed in the root `.gitignore`.

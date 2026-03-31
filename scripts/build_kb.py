@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Đọc Markdown trong knowledge-base/documents/, chunk, embed bằng sentence-transformers,
-lưu vector + manifest JSON tại knowledge-base/embeddings/ (gitignored).
-Cấu hình đọc từ config.md / config.example.md (khối <!-- kb-config --> trong Markdown).
+Read Markdown under knowledge-base/documents/, chunk, embed with sentence-transformers,
+save vectors + JSON manifest under knowledge-base/embeddings/ (gitignored).
+Config is read from config.md / config.example.md (<!-- kb-config --> block in Markdown).
 """
 from __future__ import annotations
 

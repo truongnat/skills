@@ -1,13 +1,13 @@
 # skills/public
 
-Đặt các skill có thể chia sẻ (team, open source) tại đây. Mỗi skill là một thư mục con chứa `SKILL.md` (bắt buộc).
+Put shareable skills (team, open source) here. Each skill is a subdirectory containing `SKILL.md` (required).
 
-Tạo skill mới: sao chép `skills/examples/skill-template/` và đổi tên thư mục.
+To create a new skill: copy `skills/examples/skill-template/` and rename the folder.
 
-## Skills có sẵn (ví dụ)
+## Bundled examples
 
-| Thư mục | Mô tả ngắn |
-|---------|------------|
+| Directory | Short description |
+|-----------|-------------------|
 | [react-pro](react-pro/) | React (web) — components, hooks, UI/a11y, SSR, edge cases |
 | [react-native-pro](react-native-pro/) | React Native / Expo — UI/UX, performance, edge cases |
 | [nestjs-pro](nestjs-pro/) | NestJS — API/DX, PostgreSQL RLS integration, edge cases |

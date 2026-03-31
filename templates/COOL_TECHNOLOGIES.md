@@ -1,10 +1,10 @@
-# Công Nghệ Hay Ho Trong AI Ecosystem 🚀
+# Cool technologies in the AI ecosystem 🚀
 
-Danh sách các công nghệ, tools, và frameworks thú vị bạn nên biết khi xây dựng AI applications.
+Tools and frameworks worth knowing when building AI applications.
 
 ---
 
-## 📚 Mục Lục
+## 📚 Contents
 1. [AI Frameworks & Libraries](#ai-frameworks--libraries)
 2. [Vector Databases](#vector-databases)
 3. [LLM Tools & Platforms](#llm-tools--platforms)
@@ -19,7 +19,7 @@ Danh sách các công nghệ, tools, và frameworks thú vị bạn nên biết 
 ## 🤖 AI Frameworks & Libraries
 
 ### 1. **LangChain** ⭐⭐⭐⭐⭐
-**Purpose**: Framework để build LLM applications
+**Purpose**: Framework for building LLM applications
 
 ```python
 from langchain.llms import OpenAI
@@ -35,8 +35,8 @@ chain = LLMChain(llm=llm, prompt=prompt)
 chain.run("colorful socks")
 ```
 
-**Tại sao nên dùng:**
-- ✅ Huge ecosystem với 100+ integrations
+**Why use it:**
+- ✅ Huge ecosystem with 100+ integrations
 - ✅ Built-in agents, chains, memory
 - ✅ Great documentation
 - ✅ Active community
@@ -55,7 +55,7 @@ chain.run("colorful socks")
 ---
 
 ### 2. **LlamaIndex (GPT Index)** ⭐⭐⭐⭐⭐
-**Purpose**: Data framework cho LLM applications
+**Purpose**: Data framework for LLM applications
 
 ```python
 from llama_index import VectorStoreIndex, SimpleDirectoryReader
@@ -71,11 +71,11 @@ query_engine = index.as_query_engine()
 response = query_engine.query("What did the author do growing up?")
 ```
 
-**Tại sao nên dùng:**
-- ✅ Specialized cho data ingestion và indexing
+**Why use it:**
+- ✅ Specialized for data ingestion and indexing
 - ✅ Multiple index types (Vector, Tree, Keyword, etc.)
 - ✅ Advanced retrieval strategies
-- ✅ Works với nhiều vector stores
+- ✅ Works with many vector stores
 
 **Use cases:**
 - Document Q&A systems
@@ -90,7 +90,7 @@ response = query_engine.query("What did the author do growing up?")
 ---
 
 ### 3. **Semantic Kernel** (Microsoft) ⭐⭐⭐⭐
-**Purpose**: SDK để integrate AI vào apps
+**Purpose**: SDK to integrate AI into apps
 
 ```csharp
 // C# example
@@ -102,7 +102,7 @@ var result = await kernel.InvokePromptAsync("Tell me a joke about {{$input}}",
     new() { ["input"] = "chickens" });
 ```
 
-**Tại sao nên dùng:**
+**Why use it:**
 - ✅ Enterprise-ready (Microsoft support)
 - ✅ Multi-language (C#, Python, Java)
 - ✅ Plugin system
@@ -130,10 +130,10 @@ pipeline.add_node(component=PDFToTextConverter(), name="PdfConverter", inputs=["
 pipeline.add_node(component=PreProcessor(), name="PreProcessor", inputs=["PdfConverter"])
 ```
 
-**Tại sao nên dùng:**
+**Why use it:**
 - ✅ Production-ready
 - ✅ Modular pipeline architecture
-- ✅ Support nhiều models (OpenAI, Cohere, HF, etc.)
+- ✅ Supports many models (OpenAI, Cohere, HF, etc.)
 - ✅ Strong on document processing
 
 **Use cases:**
@@ -328,7 +328,7 @@ results = collection.search([[0.1, 0.2]], "embeddings", {"metric_type": "L2"}, l
 ## 🛠️ LLM Tools & Platforms
 
 ### 1. **OpenRouter** ⭐⭐⭐⭐⭐
-**Purpose**: Unified API cho nhiều LLM providers
+**Purpose**: Unified API for many LLM providers
 
 ```python
 import openai
@@ -342,7 +342,7 @@ response = openai.ChatCompletion.create(
 )
 ```
 
-**Tại sao nên dùng:**
+**Why use it:**
 - ✅ Access 100+ models qua 1 API
 - ✅ Fallback logic (if model fails, use another)
 - ✅ Cost optimization
@@ -353,7 +353,7 @@ response = openai.ChatCompletion.create(
 - Anthropic (Claude 3)
 - Google (PaLM, Gemini)
 - Meta (Llama)
-- Mistral, Cohere, và nhiều hơn
+- Mistral, Cohere, and more
 
 **Link:** https://openrouter.ai
 
@@ -378,7 +378,7 @@ curl http://localhost:11434/api/generate -d '{
 }'
 ```
 
-**Tại sao nên dùng:**
+**Why use it:**
 - ✅ Completely local (privacy!)
 - ✅ No API costs
 - ✅ Fast inference
@@ -394,7 +394,7 @@ curl http://localhost:11434/api/generate -d '{
 ---
 
 ### 3. **LocalAI** ⭐⭐⭐⭐
-**Purpose**: Drop-in replacement cho OpenAI API (self-hosted)
+**Purpose**: Drop-in replacement for OpenAI API (self-hosted)
 
 ```bash
 # Run with Docker
@@ -433,7 +433,7 @@ sampling_params = SamplingParams(temperature=0.8, top_p=0.95)
 outputs = llm.generate(prompts, sampling_params)
 ```
 
-**Tại sao nên dùng:**
+**Why use it:**
 - ✅ 24x faster than HuggingFace Transformers
 - ✅ Optimized for high throughput
 - ✅ Supports PagedAttention
@@ -448,7 +448,7 @@ outputs = llm.generate(prompts, sampling_params)
 ## ✍️ Prompt Engineering
 
 ### 1. **LangSmith** ⭐⭐⭐⭐⭐
-**Purpose**: Debug, test, evaluate, và monitor LLM apps
+**Purpose**: Debug, test, evaluate, and monitor LLM apps
 
 ```python
 from langsmith import Client
@@ -469,7 +469,7 @@ client.evaluate(
 ```
 
 **Features:**
-- Tracing và debugging
+- Tracing and debugging
 - Dataset management
 - A/B testing
 - Prompt versioning
@@ -480,7 +480,7 @@ client.evaluate(
 ---
 
 ### 2. **PromptLayer** ⭐⭐⭐⭐
-**Purpose**: Prompt version control và collaboration
+**Purpose**: Prompt version control and collaboration
 
 ```python
 import promptlayer
@@ -507,7 +507,7 @@ response = openai.ChatCompletion.create(
 ---
 
 ### 3. **Anthropic Workbench (Claude Console)** ⭐⭐⭐⭐⭐
-**Purpose**: Test và optimize prompts
+**Purpose**: Test and optimize prompts
 
 ```
 # In Console UI:
@@ -593,7 +593,7 @@ agent.run()
 ---
 
 ### 3. **n8n** ⭐⭐⭐⭐⭐
-**Purpose**: Workflow automation với AI nodes
+**Purpose**: Workflow automation with AI nodes
 
 ```
 Visual workflow builder:
@@ -636,12 +636,12 @@ Visual workflow builder:
 ## 🔧 Development Tools
 
 ### 1. **LiteLLM** ⭐⭐⭐⭐⭐
-**Purpose**: Unified API cho 100+ LLMs
+**Purpose**: Unified API for 100+ LLMs
 
 ```python
 from litellm import completion
 
-# Works với bất kỳ provider nào
+# Works with any provider
 response = completion(
     model="claude-3-opus-20240229",  # Or gpt-4, palm-2, llama-2, etc.
     messages=[{"role": "user", "content": "Hello"}]
@@ -684,18 +684,18 @@ user = client.chat.completions.create(
 # user is a validated Pydantic object!
 ```
 
-**Tại sao nên dùng:**
+**Why use it:**
 - ✅ Type-safe LLM outputs
 - ✅ Automatic validation
 - ✅ Retry logic
-- ✅ Works với OpenAI, Anthropic, etc.
+- ✅ Works with OpenAI, Anthropic, etc.
 
 **Link:** https://github.com/jxnl/instructor
 
 ---
 
 ### 3. **DSPy** ⭐⭐⭐⭐
-**Purpose**: Programming framework cho LLMs
+**Purpose**: Programming framework for LLMs
 
 ```python
 import dspy
@@ -708,7 +708,7 @@ class CoT(dspy.Module):
     def forward(self, question):
         return self.prog(question=question)
 
-# Compile với optimizer
+# Compile with optimizer
 cot = CoT()
 compiled_cot = dspy.teleprompt.BootstrapFewShot(metric=exact_match).compile(
     cot,
@@ -726,7 +726,7 @@ compiled_cot = dspy.teleprompt.BootstrapFewShot(metric=exact_match).compile(
 ---
 
 ### 4. **Guardrails** ⭐⭐⭐⭐
-**Purpose**: Add validation và structure to LLM outputs
+**Purpose**: Add validation and structure to LLM outputs
 
 ```python
 from guardrails import Guard
@@ -771,7 +771,7 @@ openai.default_headers = {
     "Helicone-Auth": f"Bearer {HELICONE_API_KEY}"
 }
 
-# All requests automatically logged và tracked
+# All requests automatically logged and tracked
 response = openai.ChatCompletion.create(...)
 ```
 
@@ -807,7 +807,7 @@ generation = trace.generation(
 **Features:**
 - Open source
 - Self-hostable
-- Tracing và debugging
+- Tracing and debugging
 - Cost analytics
 - Prompt management
 
@@ -843,12 +843,12 @@ LangChainInstrumentor().instrument()
 ## 🎯 Specialized Tools
 
 ### 1. **Unstructured** ⭐⭐⭐⭐⭐
-**Purpose**: Parse bất kỳ file type nào (PDF, Word, HTML, etc.)
+**Purpose**: Parse any file type (PDF, Word, HTML, etc.)
 
 ```python
 from unstructured.partition.auto import partition
 
-# Automatically detects type và parses
+# Automatically detects type and parses
 elements = partition("example.pdf")
 
 # Get text
@@ -866,7 +866,7 @@ text = "\n".join([str(el) for el in elements])
 ---
 
 ### 2. **LlamaHub** ⭐⭐⭐⭐
-**Purpose**: Data loaders cho LlamaIndex
+**Purpose**: Data loaders for LlamaIndex
 
 ```python
 from llama_index import download_loader
@@ -939,7 +939,7 @@ print(result["text"])
 ---
 
 ### 5. **ElevenLabs** ⭐⭐⭐⭐⭐
-**Purpose**: Text-to-speech với realistic voices
+**Purpose**: Text-to-speech with realistic voices
 
 ```python
 from elevenlabs import generate, play
@@ -1007,19 +1007,19 @@ for resp in answers:
 ## 🚀 Getting Started Checklist
 
 **For Beginners:**
-- [ ] Start với LangChain
+- [ ] Start with LangChain
 - [ ] Setup Chroma locally
-- [ ] Try Ollama cho local models
+- [ ] Try Ollama for local models
 - [ ] Build a simple chatbot
 
 **For Intermediate:**
-- [ ] Implement RAG với LlamaIndex
+- [ ] Implement RAG with LlamaIndex
 - [ ] Try vector database (Pinecone/Weaviate)
 - [ ] Add monitoring (Helicone)
-- [ ] Build an agent với AutoGPT
+- [ ] Build an agent with AutoGPT
 
 **For Advanced:**
-- [ ] Deploy với vLLM
+- [ ] Deploy with vLLM
 - [ ] Setup observability (Langfuse)
 - [ ] Custom fine-tuning
 - [ ] Production infrastructure
@@ -1030,7 +1030,7 @@ for resp in answers:
 
 1. **Start Simple**: Don't over-engineer
 2. **Use Managed Services**: Save time on ops
-3. **Monitor từ đầu**: Debugging sẽ dễ hơn
+3. **Monitor from day one**: debugging is easier
 4. **Version Control Prompts**: Treat them like code
 5. **Test with Real Data**: Synthetic data ≠ production
 
@@ -1038,4 +1038,4 @@ for resp in answers:
 
 **Happy Building! 🚀**
 
-*Cập nhật: March 2024*
+*Updated: March 2024*

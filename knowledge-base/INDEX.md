@@ -1,8 +1,8 @@
-# Mục lục Knowledge base
+# Knowledge base index
 
-Cập nhật bảng này khi thêm tài liệu mới để agent/đồng đội định vị nhanh.
+Update this table when adding documents so agents/teammates can find them quickly.
 
-| Topic | Đường dẫn | Mô tả ngắn |
-|-------|-----------|------------|
-| Mẫu | [documents/policies/SAMPLE.md](documents/policies/SAMPLE.md) | Ví dụ cấu trúc tài liệu + frontmatter |
-| Runbook mẫu | [documents/runbooks/SAMPLE_RUNBOOK.md](documents/runbooks/SAMPLE_RUNBOOK.md) | Ví dụ quy trình vận hành |
+| Topic | Path | Short description |
+|-------|------|-------------------|
+| Sample | [documents/policies/SAMPLE.md](documents/policies/SAMPLE.md) | Example document structure + frontmatter |
+| Sample runbook | [documents/runbooks/SAMPLE_RUNBOOK.md](documents/runbooks/SAMPLE_RUNBOOK.md) | Example operational runbook |

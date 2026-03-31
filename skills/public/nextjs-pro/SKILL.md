@@ -25,8 +25,15 @@ Generic React patterns (hooks, JSX discipline): skill **`react-pro`**.
 - **Mutations**: Server Actions vs Route Handlers; form handling and progressive enhancement.
 - **Middleware**, auth redirects, matchers, Edge vs Node runtime.
 - **Deployment**: environment variables, `output: standalone`, image domains, region/runtime constraints.
+- Trigger keywords: `Next.js`, `App Router`, `RSC`, `Server Action`, `middleware`, `revalidate`, `edge runtime`, …
 
-## Operating principles
+## Workflow
+
+1. Confirm Next.js version and App vs Pages Router; use official docs for version-specific APIs.
+2. Default to the server; keep the client bundle small; make caching/revalidation explicit.
+3. Respond using **Suggested response format**; note cache/env/runtime risks.
+
+### Operating principles
 
 1. **Default to the server** — Push data fetching and heavy IO to Server Components unless interactivity requires client.
 2. **Minimize client bundle** — `use client` only for subtrees that need hooks or browser APIs.
@@ -34,7 +41,7 @@ Generic React patterns (hooks, JSX discipline): skill **`react-pro`**.
 4. **Secrets never in client** — API keys and tokens stay server-side (RSC, Route Handlers, env without `NEXT_PUBLIC_`).
 5. **Colocate route concerns** — `loading`/`error` per segment; avoid global catch-alls when segment-level UX is better.
 
-## App Router and layouts (summary)
+### App Router and layouts (summary)
 
 - **Layouts** persist across navigations; **templates** remount — pick based on whether state should reset.
 - **`page.tsx`** is a Server Component by default; leaf client components import `"use client"` at top of file.
@@ -42,7 +49,7 @@ Generic React patterns (hooks, JSX discipline): skill **`react-pro`**.
 
 Details: [references/app-router-and-layouts.md](references/app-router-and-layouts.md)
 
-## Server and client boundaries (summary)
+### Server and client boundaries (summary)
 
 - No `useState` / `useEffect` in Server Components; move UI state to a client child.
 - **Pass serializable props** from server to client (no functions unless documented patterns like Server Actions).
@@ -50,7 +57,7 @@ Details: [references/app-router-and-layouts.md](references/app-router-and-layout
 
 Details: [references/server-client-boundaries.md](references/server-client-boundaries.md)
 
-## Tips and tricks (summary)
+### Tips and tricks (summary)
 
 - **`next/link`** — client navigation; prefetch behavior differs from `<a>`; use for in-app routes.
 - **`next/image`** — configure `remotePatterns` / `domains`; know layout vs fill and LCP impact.
@@ -59,7 +66,7 @@ Details: [references/server-client-boundaries.md](references/server-client-bound
 
 Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
-## Edge cases (summary)
+### Edge cases (summary)
 
 - **Hydration mismatches** — client-only data in SSR HTML; use `suppressHydrationWarning` only with reason.
 - **Dynamic APIs** in static routes — accidentally pulling `headers()` into a page that should be static.
@@ -68,22 +75,16 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
-## Suggested response format (implement / review)
+### Suggested response format (implement / review)
 
 1. **Issue or goal** — Route, data, or deploy context.
 2. **Recommendation** — Next pattern + server/client split.
 3. **Code** — File paths (`app/...`) and snippets aligned with App Router.
 4. **Residual risks** — Caching surprises, env, or runtime limits.
 
-## Pre-merge checklist
+## Resources in this skill
 
-- [ ] `"use client"` only where needed; no accidental client boundary too high in tree.
-- [ ] Fetch/cache behavior matches product (stale data vs freshness).
-- [ ] Secrets and DB credentials only on server.
-- [ ] `next/image` and remote patterns configured for production domains.
-- [ ] Middleware matcher does not over-run on static assets.
-
-## References
+- `references/` — App Router, server/client, tips, edge cases.
 
 | Topic | File |
 |-------|------|
@@ -91,3 +92,16 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Server / client boundaries | [references/server-client-boundaries.md](references/server-client-boundaries.md) |
 | Tips and patterns | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases and ops | [references/edge-cases.md](references/edge-cases.md) |
+
+## Quick example
+
+**Input:** Page needs `headers()` but the team wants static generation — errors or unwanted dynamic behavior.  
+**Expected output:** Explain dynamic APIs; split client, opt into `dynamic`, or refactor so headers are not read on a static path.
+
+## Checklist before calling the skill done
+
+- [ ] `"use client"` only where needed; no accidental client boundary too high in tree.
+- [ ] Fetch/cache behavior matches product (stale data vs freshness).
+- [ ] Secrets and DB credentials only on server.
+- [ ] `next/image` and remote patterns configured for production domains.
+- [ ] Middleware matcher does not over-run on static assets.

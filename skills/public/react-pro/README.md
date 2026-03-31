@@ -6,4 +6,4 @@ Professional **React (web)** skill: component composition, hooks and performance
 - **Components / JSX:** [references/components-and-jsx.md](references/components-and-jsx.md)
 - **Other:** [references/](references/)
 
-*Gợi ý:* Skill **`react-native-pro`** dùng cho React Native; skill này tập trung **web** (DOM, hydration, Next/Vite).
+*Tip:* Use **`react-native-pro`** for React Native; this skill focuses on **web** (DOM, hydration, Next/Vite).

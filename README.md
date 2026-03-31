@@ -1,42 +1,42 @@
-# own-skills — Skills, workflows & knowledge base (Markdown)
+# SKILLS — Skills, workflows & knowledge base (Markdown)
 
-Repo template để tự tạo **skill** (theo quy ước `SKILL.md`), **workflow** (file Markdown mô tả bước), và **knowledge base** (tài liệu `.md` + RAG cục bộ tối thiểu). **Cấu hình và workflow không dùng file `.yaml`/`.yml`** — chỉ Markdown (và JSON do script sinh cho manifest vector).
+Template repo for **skills** (per `SKILL.md` convention), **workflows** (Markdown step files), and a **knowledge base** (`.md` files + minimal local RAG). **Configuration and workflows do not use `.yaml`/`.yml`** — Markdown only (plus JSON emitted by scripts for the vector manifest).
 
-## Mục lục
+## Contents
 
-- [Cấu trúc thư mục](#cấu-trúc-thư-mục)
+- [Directory layout](#directory-layout)
 - [Quick start](#quick-start)
 - [Knowledge base & RAG](#knowledge-base--rag)
 - [Skills](#skills)
 - [Workflows](#workflows)
 - [Prompt templates](#prompt-templates)
 - [Cursor / Agent](#cursor--agent)
-- [Tài liệu thêm trong `templates/`](#tài-liệu-thêm-trong-templates)
+- [More docs under `templates/`](#more-docs-under-templates)
 
-## Cấu trúc thư mục
+## Directory layout
 
 ```
 own-skills/
-├── config.example.md          # Cấu hình mẫu (khối kb-config cho scripts)
+├── config.example.md          # Sample config (kb-config block for scripts)
 ├── requirements.txt           # Python: numpy, sentence-transformers
 ├── skills/
 │   ├── examples/skill-template/SKILL.md
 │   ├── public/
 │   └── private/
 ├── workflows/
-│   ├── README.md              # Quy ước workflow (.md)
+│   ├── README.md              # Workflow convention (.md)
 │   └── examples/*.md
 ├── knowledge-base/
 │   ├── INDEX.md
-│   ├── documents/             # Nguồn sự thật (.md)
-│   └── embeddings/            # rag_*.npy / .json (generated, gitignored)
+│   ├── documents/             # Source-of-truth (.md)
+│   └── embeddings/          # rag_*.npy / .json (generated, gitignored)
 ├── prompts/
 │   └── README.md
 ├── scripts/
-│   ├── kb_config_md.py        # Đọc cấu hình từ Markdown
+│   ├── kb_config_md.py        # Read config from Markdown
 │   ├── build_kb.py
 │   └── query_kb.py
-└── templates/                 # Tài liệu & mẫu bổ sung (xem bên dưới)
+└── templates/                 # Extra docs & samples (see below)
 ```
 
 ## Quick start
@@ -47,53 +47,53 @@ python3 -m venv .venv
 source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 
-# Cấu hình (tùy chọn): sao chép và chỉnh khối <!-- kb-config -->
+# Config (optional): copy and edit the <!-- kb-config --> block
 cp config.example.md config.md
 nano config.md
 
 # Knowledge base — dry-run, build, query
 python scripts/build_kb.py --dry-run
 python scripts/build_kb.py
-python scripts/query_kb.py "nội dung cần tìm" -k 5
+python scripts/query_kb.py "text to search" -k 5
 ```
 
-**Python:** khuyến nghị 3.10–3.13. Lần đầu chạy build sẽ tải model embedding (cần mạng, tốn RAM).
+**Python:** 3.10–3.13 recommended. First build downloads an embedding model (network, RAM).
 
 ## Knowledge base & RAG
 
-1. Thêm hoặc sửa file `.md` trong [`knowledge-base/documents/`](knowledge-base/documents/).
-2. Cập nhật [`knowledge-base/INDEX.md`](knowledge-base/INDEX.md) để tra cứu nhanh.
-3. Chạy `scripts/build_kb.py` để tạo `rag_embeddings.npy` + `rag_manifest.json` trong `knowledge-base/embeddings/` (đã gitignore).
-4. `scripts/query_kb.py` truy vấn cosine trên vector cục bộ (NumPy), không cần Chroma/PyYAML.
+1. Add or edit `.md` files under [`knowledge-base/documents/`](knowledge-base/documents/).
+2. Update [`knowledge-base/INDEX.md`](knowledge-base/INDEX.md) for quick lookup.
+3. Run `scripts/build_kb.py` to produce `rag_embeddings.npy` + `rag_manifest.json` in `knowledge-base/embeddings/` (gitignored).
+4. `scripts/query_kb.py` runs cosine similarity locally (NumPy); no Chroma/PyYAML required.
 
-Cấu hình đường dẫn và model nằm trong **khối** `<!-- kb-config-start -->` … `<!-- kb-config-end -->` của [`config.example.md`](config.example.md) hoặc `config.md`.
+Paths and model live in the `<!-- kb-config-start -->` … `<!-- kb-config-end -->` block in [`config.example.md`](config.example.md) or `config.md`.
 
 ## Skills
 
-- Sao chép [`skills/examples/skill-template/`](skills/examples/skill-template/) → `skills/public/<tên-skill>/`.
-- Sửa `SKILL.md`: frontmatter `name` và `description` (mô tả rõ khi nào trigger).
-- Skill công khai / riêng tư: xem [`skills/public/README.md`](skills/public/README.md) và [`skills/private/README.md`](skills/private/README.md).
-- Ví dụ có sẵn: [`skills/public/react-pro/`](skills/public/react-pro/) (React web), [`skills/public/nextjs-pro/`](skills/public/nextjs-pro/) (Next.js), [`skills/public/react-native-pro/`](skills/public/react-native-pro/) (React Native / Expo), [`skills/public/flutter-pro/`](skills/public/flutter-pro/) (Flutter), [`skills/public/nestjs-pro/`](skills/public/nestjs-pro/) (NestJS), [`skills/public/postgresql-pro/`](skills/public/postgresql-pro/) (PostgreSQL).
+- Copy [`skills/examples/skill-template/`](skills/examples/skill-template/) → `skills/public/<skill-name>/`.
+- Edit `SKILL.md`: frontmatter `name` and `description` (state clearly when it triggers).
+- Public vs private: see [`skills/public/README.md`](skills/public/README.md) and [`skills/private/README.md`](skills/private/README.md).
+- Bundled examples: [`skills/public/react-pro/`](skills/public/react-pro/) (React web), [`skills/public/nextjs-pro/`](skills/public/nextjs-pro/) (Next.js), [`skills/public/react-native-pro/`](skills/public/react-native-pro/) (React Native / Expo), [`skills/public/flutter-pro/`](skills/public/flutter-pro/) (Flutter), [`skills/public/nestjs-pro/`](skills/public/nestjs-pro/) (NestJS), [`skills/public/postgresql-pro/`](skills/public/postgresql-pro/) (PostgreSQL).
 
 ## Workflows
 
-- Quy ước: [`workflows/README.md`](workflows/README.md).
-- Ví dụ: [`workflows/examples/research-synthesize.md`](workflows/examples/research-synthesize.md), [`workflows/examples/implement-react-feature.md`](workflows/examples/implement-react-feature.md) (React + `react-pro`), [`workflows/examples/implement-nextjs-feature.md`](workflows/examples/implement-nextjs-feature.md) (Next.js + `nextjs-pro`), [`workflows/examples/implement-rn-screen.md`](workflows/examples/implement-rn-screen.md) (RN + `react-native-pro`), [`workflows/examples/implement-flutter-screen.md`](workflows/examples/implement-flutter-screen.md) (Flutter + `flutter-pro`), [`workflows/examples/implement-nest-feature.md`](workflows/examples/implement-nest-feature.md) (NestJS + `nestjs-pro`), [`workflows/examples/implement-postgres-change.md`](workflows/examples/implement-postgres-change.md) (Postgres + `postgresql-pro`).
-- Workflow là **hợp đồng Markdown** cho người/agent thực hiện tuần tự; không bắt buộc runner tự động.
+- Convention: [`workflows/README.md`](workflows/README.md).
+- Examples: [`workflows/examples/research-synthesize.md`](workflows/examples/research-synthesize.md), [`workflows/examples/implement-react-feature.md`](workflows/examples/implement-react-feature.md) (React + `react-pro`), [`workflows/examples/implement-nextjs-feature.md`](workflows/examples/implement-nextjs-feature.md) (Next.js + `nextjs-pro`), [`workflows/examples/implement-rn-screen.md`](workflows/examples/implement-rn-screen.md) (RN + `react-native-pro`), [`workflows/examples/implement-flutter-screen.md`](workflows/examples/implement-flutter-screen.md) (Flutter + `flutter-pro`), [`workflows/examples/implement-nest-feature.md`](workflows/examples/implement-nest-feature.md) (NestJS + `nestjs-pro`), [`workflows/examples/implement-postgres-change.md`](workflows/examples/implement-postgres-change.md) (Postgres + `postgresql-pro`).
+- A workflow is a **Markdown contract** for humans/agents to follow sequentially; an automated runner is optional.
 
 ## Prompt templates
 
-- Hướng dẫn đặt file: [`prompts/README.md`](prompts/README.md).
-- Thư viện ví dụ: [`templates/PROMPT_TEMPLATES.md`](templates/PROMPT_TEMPLATES.md) (định dạng mô tả bằng Markdown).
+- Where to put files: [`prompts/README.md`](prompts/README.md).
+- Example library: [`templates/PROMPT_TEMPLATES.md`](templates/PROMPT_TEMPLATES.md) (format described in Markdown).
 
 ## Cursor / Agent
 
-- File [`AGENTS.md`](AGENTS.md): gợi ý dùng skill với Cursor (copy/symlink vào thư mục skills của Cursor).
+- See [`AGENTS.md`](AGENTS.md): how to use skills with Cursor (copy/symlink into Cursor’s skills folder).
 
-## Tài liệu thêm trong `templates/`
+## More docs under `templates/`
 
-- [`templates/START_HERE.md`](templates/START_HERE.md), [`templates/SKILL_SYSTEM_GUIDE.md`](templates/SKILL_SYSTEM_GUIDE.md), [`templates/config.template.md`](templates/config.template.md) — một số đoạn mang tính lịch sử; **chuẩn repo** lấy từ README này và `config.example.md`.
+- [`templates/START_HERE.md`](templates/START_HERE.md), [`templates/SKILL_SYSTEM_GUIDE.md`](templates/SKILL_SYSTEM_GUIDE.md), [`templates/config.template.md`](templates/config.template.md) — some sections are historical; **this repo’s source of truth** is this README and `config.example.md`.
 
 ## License
 
-MIT (thêm file `LICENSE` nếu bạn công khai repo).
+MIT (add a `LICENSE` file if you publish the repo).

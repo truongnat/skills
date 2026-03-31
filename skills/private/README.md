@@ -1,3 +1,3 @@
 # skills/private
 
-Skill nội bộ / nhạy cảm (API nội bộ, quy trình công ty). Không push lên remote công khai nếu policy yêu cầu — có thể dùng `.gitignore` cho từng thư mục con.
+Internal or sensitive skills (internal APIs, company workflows). Do not push to a public remote if policy requires — you can use `.gitignore` per subdirectory.

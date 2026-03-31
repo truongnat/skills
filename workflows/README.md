@@ -1,44 +1,44 @@
 # Workflows
 
-Workflow là **hợp đồng Markdown** (file `.md`) mô tả chuỗi bước: mỗi bước gọi một **skill** (theo `name` trong `SKILL.md`) hoặc tham chiếu **mẫu prompt** trong `prompts/` / [templates/PROMPT_TEMPLATES.md](../templates/PROMPT_TEMPLATES.md).
+A workflow is a **Markdown contract** (`.md` file) describing a sequence of steps: each step invokes a **skill** (by `name` in `SKILL.md`) or references a **prompt template** in `prompts/` / [templates/PROMPT_TEMPLATES.md](../templates/PROMPT_TEMPLATES.md).
 
-Repo này **không** bắt buộc có engine chạy tự động: agent (hoặc bạn) đọc file và thực hiện tuần tự; sau này có thể thêm runner riêng nếu cần.
+This repo does **not** require an automated engine: an agent (or you) reads the file and executes steps in order; you can add a dedicated runner later.
 
-## Quy ước (Markdown)
+## Convention (Markdown)
 
-Mỗi workflow nên có:
+Each workflow should include:
 
-1. **Tiêu đề** `# Workflow: <id>`
-2. **Bảng hoặc danh sách metadata** — `id`, `name`, `version`
-3. **Mục Đầu vào / Đầu ra** — bảng biến
-4. **Mục Các bước** — mỗi bước là `###` với:
-   - Loại: `skill` hoặc mẫu prompt / tài liệu
-   - Tên skill hoặc id mẫu
-   - Input/output (có thể tham chiếu biến bằng `` `topic` ``)
+1. **Title** `# Workflow: <id>`
+2. **Metadata table or list** — `id`, `name`, `version`
+3. **Inputs / Outputs** — variable table
+4. **Steps** — each step is `###` with:
+   - Type: `skill` or prompt template / doc reference
+   - Skill name or template id
+   - Input/output (variables may use `` `topic` ``)
 
-## Ví dụ (rút gọn)
+## Short example
 
 ```markdown
 # Workflow: my-flow
 
 ## Metadata
-| Thuộc tính | Giá trị |
-|------------|---------|
+| Field | Value |
+|-------|-------|
 | **id** | `my-flow` |
 | **version** | 1.0 |
 
-## Đầu vào
-| Biến | Bắt buộc |
-|------|----------|
-| `topic` | Có |
+## Inputs
+| Variable | Required |
+|----------|----------|
+| `topic` | Yes |
 
-## Các bước
-### Bước 1 — collect
-- **Loại:** skill
+## Steps
+### Step 1 — collect
+- **Type:** skill
 - **Skill:** `my-skill`
-- **Đầu vào:** `query` = `topic`
+- **Input:** `query` = `topic`
 ```
 
-## Thư mục
+## Directories
 
-- `examples/` — workflow mẫu để nhân bản (`.md`).
+- `examples/` — sample workflows to copy (`.md`).

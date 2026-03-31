@@ -1,47 +1,47 @@
 # Workflow: implement-flutter-screen
 
-Triển khai màn hình / flow Flutter từ spec đến review (UI/UX + edge cases đa nền tảng), tham chiếu skill **`flutter-pro`**.
+Implement a Flutter screen / flow from spec through review (UI/UX + cross-platform edge cases), using skill **`flutter-pro`**.
 
 ## Metadata
 
-| Thuộc tính | Giá trị |
-|------------|---------|
+| Field | Value |
+|-------|-------|
 | **id** | `implement-flutter-screen` |
 | **version** | 1.0 |
 
-## Đầu vào
+## Inputs
 
-| Biến | Bắt buộc | Mô tả |
-|------|----------|--------|
-| `screen_spec` | Có | UI, state, navigation, platform targets (mobile/web/desktop) |
-| `stack` | Không | Flutter SDK, state package (Riverpod/Bloc/…), router |
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `screen_spec` | Yes | UI, state, navigation, platform targets (mobile/web/desktop) |
+| `stack` | No | Flutter SDK, state package (Riverpod/Bloc/…), router |
 
-## Đầu ra
+## Outputs
 
-| Biến | Mô tả |
-|------|--------|
-| `implementation` | Widget tree + state gợi ý + checklist |
-| `review_notes` | Rủi ro (async context, platform, a11y) |
+| Variable | Description |
+|----------|-------------|
+| `implementation` | Suggested widget tree + state + checklist |
+| `review_notes` | Risks (async context, platform, a11y) |
 
-## Các bước
+## Steps
 
-### Bước 1 — `spec-to-plan`
+### Step 1 — `spec-to-plan`
 
-- **Loại:** skill
+- **Type:** skill
 - **Skill:** `flutter-pro`
-- **Đầu vào:** Chuẩn hóa `screen_spec`: theme, responsive breakpoints, loading/error/empty, navigation.
-- **Đầu ra:** `plan` (widget breakdown, state ownership, files)
+- **Input:** Normalize `screen_spec`: theme, responsive breakpoints, loading/error/empty, navigation.
+- **Output:** `plan` (widget breakdown, state ownership, files)
 
-### Bước 2 — `implement`
+### Step 2 — `implement`
 
-- **Loại:** skill
+- **Type:** skill
 - **Skill:** `flutter-pro`
-- **Đầu vào:** `plan` + `screen_spec`
-- **Đầu ra:** `code` — theo [references/widgets.md](../../skills/public/flutter-pro/references/widgets.md), [references/ui-ux-design.md](../../skills/public/flutter-pro/references/ui-ux-design.md) và [references/tips-and-tricks.md](../../skills/public/flutter-pro/references/tips-and-tricks.md)
+- **Input:** `plan` + `screen_spec`
+- **Output:** `code` — follow [references/widgets.md](../../skills/public/flutter-pro/references/widgets.md), [references/ui-ux-design.md](../../skills/public/flutter-pro/references/ui-ux-design.md), [references/tips-and-tricks.md](../../skills/public/flutter-pro/references/tips-and-tricks.md)
 
-### Bước 3 — `edge-and-a11y-review`
+### Step 3 — `edge-and-a11y-review`
 
-- **Loại:** skill
+- **Type:** skill
 - **Skill:** `flutter-pro`
-- **Đầu vào:** `code`
-- **Đầu ra:** `review_notes` — đối chiếu [references/edge-cases.md](../../skills/public/flutter-pro/references/edge-cases.md) và checklist trong `SKILL.md`
+- **Input:** `code`
+- **Output:** `review_notes` — check [references/edge-cases.md](../../skills/public/flutter-pro/references/edge-cases.md) and the checklist in `SKILL.md`

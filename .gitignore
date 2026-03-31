@@ -31,7 +31,7 @@ knowledge-base/embeddings/rag_manifest.json
 # OS
 .DS_Store
 
-# Bản sao local (tùy chọn; dùng config.example.md làm mẫu)
+# Local copy (optional; use config.example.md as template)
 config.md
 
 # Logs

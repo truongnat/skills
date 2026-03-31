@@ -30,7 +30,7 @@ Generic React patterns (hooks, JSX discipline): skill **`react-pro`**.
 ## Workflow
 
 1. Confirm Next.js version and App vs Pages Router; use official docs for version-specific APIs.
-2. Default to the server; keep the client bundle small; make caching/revalidation explicit.
+2. Apply the principles and topic summaries below; open `references/` when you need depth.
 3. Respond using **Suggested response format**; note cache/env/runtime risks.
 
 ### Operating principles

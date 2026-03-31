@@ -1,0 +1,18 @@
+---
+description: Before creating or renaming any skill under skills/, follow SKILL_AUTHORING_RULES.md; do not add a new skill if mandatory rules are not met.
+globs:
+  - "skills/**/SKILL.md"
+  - "skills/**/README.md"
+  - "skills/examples/**"
+alwaysApply: false
+---
+
+# Skills — mandatory authoring
+
+1. **Read** `skills/SKILL_AUTHORING_RULES.md` in full before creating a **new** skill directory.
+2. **Do not** create `skills/<new-name>/` unless every **mandatory** checklist in that file is satisfied (structure, frontmatter, workflow steps, suggested response labels).
+3. New `SKILL.md` files must match the **canonical section order** and **Workflow** / **Suggested response format** defined there.
+4. Prefer extending **`references/`** or an existing `*-pro` skill over adding overlapping skills.
+5. After adding a bundled skill, update **`skills/README.md`** and root **`README.md`** / **`AGENTS.md`** as described in `SKILL_AUTHORING_RULES.md` §7.
+
+If the user asks for a new skill that violates these rules (duplicate scope, missing references strategy, etc.), **refuse to add the folder** and suggest consolidation or a `references/` update instead.

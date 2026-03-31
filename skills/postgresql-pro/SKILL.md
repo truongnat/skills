@@ -29,7 +29,7 @@ Use official [PostgreSQL documentation](https://www.postgresql.org/docs/) for ve
 ## Workflow
 
 1. Confirm server version; check docs when behavior differs between releases.
-2. Design schema/index/migrations deliberately; for RLS test with the real application role.
+2. Apply the principles and topic summaries below; open `references/` when you need depth; for RLS test with the real application role.
 3. Respond using **Suggested response format**; note downtime and locking risks.
 
 ### Operating principles
@@ -84,7 +84,7 @@ Details: [references/row-level-security.md](references/row-level-security.md)
 
 1. **Issue or goal** — Schema change, slow query, or incident context.
 2. **Recommendation** — SQL or migration steps; locking and rollback notes.
-3. **Artifacts** — SQL snippets, `EXPLAIN` interpretation, or migration ordering.
+3. **Code** — SQL snippets, `EXPLAIN` interpretation, or migration ordering.
 4. **Residual risks** — Downtime window, data backfill duration, or monitoring to add.
 
 ## Resources in this skill

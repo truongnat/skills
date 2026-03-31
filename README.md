@@ -72,15 +72,16 @@ Paths and model live in the `<!-- kb-config-start -->` … `<!-- kb-config-end -
 
 ## Skills
 
+- **Authoring rules (mandatory for new skills):** [`skills/SKILL_AUTHORING_RULES.md`](skills/SKILL_AUTHORING_RULES.md) — do not add a skill folder until every mandatory item is satisfied.
 - Copy [`skills/examples/skill-template/`](skills/examples/skill-template/) → `skills/<skill-name>/`.
 - Edit `SKILL.md`: frontmatter `name` and `description` (state clearly when it triggers).
 - Layout and bundled examples: [`skills/README.md`](skills/README.md).
-- Bundled examples: [`skills/react-pro/`](skills/react-pro/) (React web), [`skills/nextjs-pro/`](skills/nextjs-pro/) (Next.js), [`skills/react-native-pro/`](skills/react-native-pro/) (React Native / Expo), [`skills/flutter-pro/`](skills/flutter-pro/) (Flutter), [`skills/nestjs-pro/`](skills/nestjs-pro/) (NestJS), [`skills/postgresql-pro/`](skills/postgresql-pro/) (PostgreSQL).
+- Bundled examples: [`skills/react-pro/`](skills/react-pro/) (React web), [`skills/nextjs-pro/`](skills/nextjs-pro/) (Next.js), [`skills/react-native-pro/`](skills/react-native-pro/) (React Native / Expo), [`skills/flutter-pro/`](skills/flutter-pro/) (Flutter), [`skills/nestjs-pro/`](skills/nestjs-pro/) (NestJS), [`skills/postgresql-pro/`](skills/postgresql-pro/) (PostgreSQL), [`skills/testing-pro/`](skills/testing-pro/) (testing & automation).
 
 ## Workflows
 
 - Convention: [`workflows/README.md`](workflows/README.md).
-- Examples: [`workflows/examples/research-synthesize.md`](workflows/examples/research-synthesize.md), [`workflows/examples/implement-react-feature.md`](workflows/examples/implement-react-feature.md) (React + `react-pro`), [`workflows/examples/implement-nextjs-feature.md`](workflows/examples/implement-nextjs-feature.md) (Next.js + `nextjs-pro`), [`workflows/examples/implement-rn-screen.md`](workflows/examples/implement-rn-screen.md) (RN + `react-native-pro`), [`workflows/examples/implement-flutter-screen.md`](workflows/examples/implement-flutter-screen.md) (Flutter + `flutter-pro`), [`workflows/examples/implement-nest-feature.md`](workflows/examples/implement-nest-feature.md) (NestJS + `nestjs-pro`), [`workflows/examples/implement-postgres-change.md`](workflows/examples/implement-postgres-change.md) (Postgres + `postgresql-pro`).
+- Examples: [`workflows/examples/research-synthesize.md`](workflows/examples/research-synthesize.md), [`workflows/examples/implement-react-feature.md`](workflows/examples/implement-react-feature.md) (React + `react-pro`), [`workflows/examples/implement-nextjs-feature.md`](workflows/examples/implement-nextjs-feature.md) (Next.js + `nextjs-pro`), [`workflows/examples/implement-rn-screen.md`](workflows/examples/implement-rn-screen.md) (RN + `react-native-pro`), [`workflows/examples/implement-flutter-screen.md`](workflows/examples/implement-flutter-screen.md) (Flutter + `flutter-pro`), [`workflows/examples/implement-nest-feature.md`](workflows/examples/implement-nest-feature.md) (NestJS + `nestjs-pro`), [`workflows/examples/implement-postgres-change.md`](workflows/examples/implement-postgres-change.md) (Postgres + `postgresql-pro`), [`workflows/examples/implement-testing-suite.md`](workflows/examples/implement-testing-suite.md) (testing + `testing-pro`).
 - A workflow is a **Markdown contract** for humans/agents to follow sequentially; an automated runner is optional.
 
 ## Prompt templates

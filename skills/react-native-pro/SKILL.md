@@ -26,7 +26,7 @@ Use official React Native and Expo docs for API details; this skill encodes **pr
 ## Workflow
 
 1. Confirm Expo vs bare and SDK/RN version from the repo when available.
-2. Apply the foundation principles and topic summaries; open `references/` as needed.
+2. Apply the principles and topic summaries below; open `references/` when you need depth.
 3. Respond using **Suggested response format**; note iOS vs Android differences when relevant.
 
 ### Operating principles

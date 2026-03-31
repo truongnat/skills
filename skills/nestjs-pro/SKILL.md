@@ -29,7 +29,7 @@ Use official [NestJS docs](https://docs.nestjs.com) for API truth; this skill en
 ## Workflow
 
 1. Confirm Nest version and ORM/transport; read official docs when APIs change across majors.
-2. Apply module/DTO/exception patterns; for RLS combine with `postgresql-pro` for SQL policies.
+2. Apply the principles and topic summaries below; open `references/` when you need depth; for RLS combine with `postgresql-pro` for SQL policies.
 3. Respond using **Suggested response format**; note transaction/pool/multi-instance risks.
 
 ### Operating principles

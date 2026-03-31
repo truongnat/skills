@@ -29,7 +29,7 @@ Use official [Flutter](https://docs.flutter.dev/) and [Dart](https://dart.dev/) 
 ## Workflow
 
 1. Confirm SDK/channel and target platforms; read official APIs when needed.
-2. Apply the principles below; open `references/` by topic for depth.
+2. Apply the principles and topic summaries below; open `references/` when you need depth.
 3. Respond using **Suggested response format**; note residual risks and follow-up tests.
 
 ### Operating principles

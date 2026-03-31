@@ -13,6 +13,7 @@ Python helpers for this **skills template** repo: knowledge base (RAG) and **fas
 | **`list_skills.py`** | No ML — instant list of `skills/*/SKILL.md` names. |
 | **`validate_skills.py`** | CI: `name` in YAML matches folder name. |
 | **`analyze_skills.py`** | Heuristic report: automation vs `scripts/`; **`--self-review`** = full repo Markdown (tiers, all skills, checklist); **`--markdown`** / **`--only-actionable`**. See **`skills-self-review-pro`**. |
+| **`install_skill.py`** | Install your own skill into existing project with isolation (`symlink` + `.git/info/exclude`). |
 
 ## Commands
 
@@ -41,6 +42,12 @@ python scripts/validate_skills.py
 python scripts/analyze_skills.py
 python scripts/analyze_skills.py --self-review
 python scripts/analyze_skills.py --with-references --only-actionable --markdown
+
+# Install custom skill into another existing project (isolated)
+python scripts/install_skill.py \
+  --skill-dir skills/git-operations-pro \
+  --project-dir /path/to/existing-project \
+  --mode symlink
 ```
 
 ## Config

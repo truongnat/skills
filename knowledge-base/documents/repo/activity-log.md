@@ -18,6 +18,8 @@
 - **Nguồn:** agent + user request
 - **Việc:** Thêm rule **documentation-persistence**, policy + activity log; mở rộng **skills-self-review-pro** (tech refresh + **web-research-pro**).
 - **Follow-up:** Chạy `build_kb` sau khi corpus KB đổi; định kỳ dùng self-review + tra cứu docs chính thức cho stack.
+- **Việc:** Tạo skill mới **`market-research-pro`** (SKILL + references) và cập nhật README/AGENTS/skills-layout theo quy tắc §8.
+- **Việc:** Tạo skill mới **`strategic-consulting-pro`** (SKILL + references) và cập nhật README/AGENTS/skills-layout/SKILL_AUTHORING_RULES theo quy tắc §8.
 
 ### YYYY-MM-DD (mẫu)
 

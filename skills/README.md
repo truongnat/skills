@@ -44,6 +44,8 @@ Skill **`skills-self-review-pro`** describes the workflow. Repo scripts index: *
 | [data-analysis-pro](data-analysis-pro/) | Data analysis — EDA, pandas, viz, Parquet/SQLite, Excel charts & validation |
 | [image-processing-pro](image-processing-pro/) | Image processing — Pillow, resize, crop, formats, compositing |
 | [web-research-pro](web-research-pro/) | Web research — sources, citations, recency, stale docs |
+| [market-research-pro](market-research-pro/) | Market research — TAM/SAM/SOM, competitors, ICP, positioning |
+| [strategic-consulting-pro](strategic-consulting-pro/) | Strategic consulting — options, prioritization, scenarios, decision memos |
 | [code-packaging-pro](code-packaging-pro/) | Code packaging — pyproject, Docker, GitHub Actions, build & publish |
 | [git-operations-pro](git-operations-pro/) | Git — commits, branches, PRs, collaboration |
 | [sql-data-access-pro](sql-data-access-pro/) | SQL data access — SQLite, safety, export, PG handoff |

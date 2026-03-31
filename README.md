@@ -46,6 +46,29 @@ own-skills/
 └── templates/                 # Extra docs & samples (see below)
 ```
 
+## Architecture overview
+
+```mermaid
+flowchart LR
+  USER[User / Agent] --> SKILLS[skills/*-pro]
+  USER --> WF[workflows/examples]
+  USER --> PROMPTS[prompts/templates]
+
+  SKILLS --> DOCS[knowledge-base/documents]
+  WF --> DOCS
+  PROMPTS --> DOCS
+
+  DOCS --> BUILD[scripts/build_kb.py]
+  BUILD --> EMB[knowledge-base/embeddings/rag_manifest.json + rag_embeddings.npy]
+  EMB --> QUERY[scripts/query_kb.py / query_kb_batch.py]
+  QUERY --> USER
+
+  SKILLS --> VALIDATE[scripts/validate_skills.py]
+  SKILLS --> ANALYZE[scripts/analyze_skills.py --self-review]
+  VALIDATE --> USER
+  ANALYZE --> USER
+```
+
 ## Quick start
 
 ```bash
@@ -92,7 +115,7 @@ Paths and model live in the `<!-- kb-config-start -->` … `<!-- kb-config-end -
 - Copy [`skills/examples/skill-template/`](skills/examples/skill-template/) → `skills/<skill-name>/`.
 - Edit `SKILL.md`: frontmatter `name` and `description` (state clearly when it triggers).
 - Layout and bundled examples: [`skills/README.md`](skills/README.md).
-- Bundled examples: [`skills/react-pro/`](skills/react-pro/) (React web), [`skills/nextjs-pro/`](skills/nextjs-pro/) (Next.js), [`skills/react-native-pro/`](skills/react-native-pro/) (React Native / Expo), [`skills/flutter-pro/`](skills/flutter-pro/) (Flutter), [`skills/nestjs-pro/`](skills/nestjs-pro/) (NestJS), [`skills/postgresql-pro/`](skills/postgresql-pro/) (PostgreSQL), [`skills/sql-data-access-pro/`](skills/sql-data-access-pro/) (SQLite, SQL access), [`skills/testing-pro/`](skills/testing-pro/) (testing & automation), [`skills/security-pro/`](skills/security-pro/) (cross-platform security), [`skills/electron-pro/`](skills/electron-pro/) (Electron desktop), [`skills/tauri-pro/`](skills/tauri-pro/) (Tauri desktop), [`skills/deployment-pro/`](skills/deployment-pro/) (deployment & release), [`skills/seo-pro/`](skills/seo-pro/) (SEO & organic search), [`skills/design-system-pro/`](skills/design-system-pro/) (design system & UI/UX), [`skills/mobile-design-pro/`](skills/mobile-design-pro/) (mobile UX & patterns), [`skills/business-analysis-pro/`](skills/business-analysis-pro/) (business analysis & requirements), [`skills/content-analysis-pro/`](skills/content-analysis-pro/) (documents, images, video analysis), [`skills/data-analysis-pro/`](skills/data-analysis-pro/) (EDA, pandas, spreadsheets), [`skills/image-processing-pro/`](skills/image-processing-pro/) (Pillow, raster ops), [`skills/web-research-pro/`](skills/web-research-pro/) (sources, citations, stale docs), [`skills/code-packaging-pro/`](skills/code-packaging-pro/) (pyproject, Docker, GitHub Actions), [`skills/git-operations-pro/`](skills/git-operations-pro/) (Git, PRs, commits), [`skills/skills-self-review-pro/`](skills/skills-self-review-pro/) (skill bundle self-review, gap reports), [`skills/bug-discovery-pro/`](skills/bug-discovery-pro/) (bug hunting, GitNexus), [`skills/repo-tooling-pro/`](skills/repo-tooling-pro/) (scripts, KB batch query, validate skills).
+- Bundled examples: [`skills/react-pro/`](skills/react-pro/) (React web), [`skills/nextjs-pro/`](skills/nextjs-pro/) (Next.js), [`skills/react-native-pro/`](skills/react-native-pro/) (React Native / Expo), [`skills/flutter-pro/`](skills/flutter-pro/) (Flutter), [`skills/nestjs-pro/`](skills/nestjs-pro/) (NestJS), [`skills/postgresql-pro/`](skills/postgresql-pro/) (PostgreSQL), [`skills/sql-data-access-pro/`](skills/sql-data-access-pro/) (SQLite, SQL access), [`skills/testing-pro/`](skills/testing-pro/) (testing & automation), [`skills/security-pro/`](skills/security-pro/) (cross-platform security), [`skills/electron-pro/`](skills/electron-pro/) (Electron desktop), [`skills/tauri-pro/`](skills/tauri-pro/) (Tauri desktop), [`skills/deployment-pro/`](skills/deployment-pro/) (deployment & release), [`skills/seo-pro/`](skills/seo-pro/) (SEO & organic search), [`skills/design-system-pro/`](skills/design-system-pro/) (design system & UI/UX), [`skills/mobile-design-pro/`](skills/mobile-design-pro/) (mobile UX & patterns), [`skills/business-analysis-pro/`](skills/business-analysis-pro/) (business analysis & requirements), [`skills/content-analysis-pro/`](skills/content-analysis-pro/) (documents, images, video analysis), [`skills/data-analysis-pro/`](skills/data-analysis-pro/) (EDA, pandas, spreadsheets), [`skills/image-processing-pro/`](skills/image-processing-pro/) (Pillow, raster ops), [`skills/web-research-pro/`](skills/web-research-pro/) (sources, citations, stale docs), [`skills/market-research-pro/`](skills/market-research-pro/) (market sizing, competitors, positioning), [`skills/strategic-consulting-pro/`](skills/strategic-consulting-pro/) (strategy options, prioritization, scenarios), [`skills/code-packaging-pro/`](skills/code-packaging-pro/) (pyproject, Docker, GitHub Actions), [`skills/git-operations-pro/`](skills/git-operations-pro/) (Git, PRs, commits), [`skills/skills-self-review-pro/`](skills/skills-self-review-pro/) (skill bundle self-review, gap reports), [`skills/bug-discovery-pro/`](skills/bug-discovery-pro/) (bug hunting, GitNexus), [`skills/repo-tooling-pro/`](skills/repo-tooling-pro/) (scripts, KB batch query, validate skills).
 
 ## Workflows
 

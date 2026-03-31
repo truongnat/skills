@@ -37,6 +37,8 @@ skills/
   data-analysis-pro/
   image-processing-pro/
   web-research-pro/
+  market-research-pro/
+  strategic-consulting-pro/
   code-packaging-pro/
   git-operations-pro/
   bug-discovery-pro/

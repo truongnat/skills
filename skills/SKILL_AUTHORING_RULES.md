@@ -5,7 +5,7 @@ If a proposed skill cannot meet these rules, **stop** — extend an existing `*-
 
 ## 1. When you may add a new skill
 
-- [ ] The topic is **not** already covered by an existing bundled skill (`react-pro`, `nextjs-pro`, `react-native-pro`, `flutter-pro`, `nestjs-pro`, `postgresql-pro`, `testing-pro`, `security-pro`, `electron-pro`, `tauri-pro`, `deployment-pro`, `seo-pro`, `design-system-pro`, `mobile-design-pro`, `business-analysis-pro`, `content-analysis-pro`).
+- [ ] The topic is **not** already covered by an existing bundled skill (`react-pro`, `nextjs-pro`, `react-native-pro`, `flutter-pro`, `nestjs-pro`, `postgresql-pro`, `testing-pro`, `security-pro`, `electron-pro`, `tauri-pro`, `deployment-pro`, `seo-pro`, `design-system-pro`, `mobile-design-pro`, `business-analysis-pro`, `content-analysis-pro`, `bug-discovery-pro`).
 - [ ] The topic is **distinct** enough that merging into an existing skill would blur scope (document the reason in the PR or commit message).
 - [ ] You have (or will add) at least **`SKILL.md`** and, for non-trivial domains, a **`references/`** folder — not a dump of all docs inside `SKILL.md`.
 

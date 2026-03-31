@@ -73,11 +73,12 @@ Cấu hình đường dẫn và model nằm trong **khối** `<!-- kb-config-sta
 - Sao chép [`skills/examples/skill-template/`](skills/examples/skill-template/) → `skills/public/<tên-skill>/`.
 - Sửa `SKILL.md`: frontmatter `name` và `description` (mô tả rõ khi nào trigger).
 - Skill công khai / riêng tư: xem [`skills/public/README.md`](skills/public/README.md) và [`skills/private/README.md`](skills/private/README.md).
+- Ví dụ có sẵn: [`skills/public/react-pro/`](skills/public/react-pro/) (React web), [`skills/public/nextjs-pro/`](skills/public/nextjs-pro/) (Next.js), [`skills/public/react-native-pro/`](skills/public/react-native-pro/) (React Native / Expo), [`skills/public/flutter-pro/`](skills/public/flutter-pro/) (Flutter), [`skills/public/nestjs-pro/`](skills/public/nestjs-pro/) (NestJS), [`skills/public/postgresql-pro/`](skills/public/postgresql-pro/) (PostgreSQL).
 
 ## Workflows
 
 - Quy ước: [`workflows/README.md`](workflows/README.md).
-- Ví dụ: [`workflows/examples/research-synthesize.md`](workflows/examples/research-synthesize.md).
+- Ví dụ: [`workflows/examples/research-synthesize.md`](workflows/examples/research-synthesize.md), [`workflows/examples/implement-react-feature.md`](workflows/examples/implement-react-feature.md) (React + `react-pro`), [`workflows/examples/implement-nextjs-feature.md`](workflows/examples/implement-nextjs-feature.md) (Next.js + `nextjs-pro`), [`workflows/examples/implement-rn-screen.md`](workflows/examples/implement-rn-screen.md) (RN + `react-native-pro`), [`workflows/examples/implement-flutter-screen.md`](workflows/examples/implement-flutter-screen.md) (Flutter + `flutter-pro`), [`workflows/examples/implement-nest-feature.md`](workflows/examples/implement-nest-feature.md) (NestJS + `nestjs-pro`), [`workflows/examples/implement-postgres-change.md`](workflows/examples/implement-postgres-change.md) (Postgres + `postgresql-pro`).
 - Workflow là **hợp đồng Markdown** cho người/agent thực hiện tuần tự; không bắt buộc runner tự động.
 
 ## Prompt templates

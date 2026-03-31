@@ -7,6 +7,8 @@ Cursor đọc skill từ thư mục cấu hình (thường là `.cursor/skills` 
 - **Copy** một skill từ `skills/public/<tên>/` hoặc `skills/examples/skill-template/` vào thư mục skill mà IDE bạn dùng; hoặc
 - **Symlink** (Unix): `ln -s "$(pwd)/skills/public/my-skill" ~/.cursor/skills/my-skill`
 
+Ví dụ skill có sẵn: `skills/public/react-pro/` (React web), `skills/public/nextjs-pro/` (Next.js), `skills/public/react-native-pro/` (React Native), `skills/public/flutter-pro/` (Flutter), `skills/public/nestjs-pro/` (NestJS), `skills/public/postgresql-pro/` (PostgreSQL).
+
 Mỗi skill cần file `SKILL.md` với frontmatter `name` và `description` rõ ràng.
 
 ## Knowledge base

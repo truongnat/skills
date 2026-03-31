@@ -152,7 +152,7 @@ python scripts/install_skill.py --skill-dir skills/git-operations-pro --project-
 curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash
 #  - downloads and runs uninstaller from https://github.com/truongnat/skills
 #  - removes all skills installed by this project
-#  - shows progress bars and asks for confirmation (unless --force)
+#  - stdin is not a TTY when piped: remote script applies --force (no prompt); use bash -s -- --force explicitly if you prefer
 #  - works from any directory in your project
 #  - no git clone required!
 

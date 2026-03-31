@@ -76,7 +76,7 @@ while [[ $# -gt 0 ]]; do
             echo "Options:"
             echo "  --repo URL        Uninstall skills from a different repository (default: $DEFAULT_REPO)"
             echo "  --project-dir DIR Uninstall from specified project directory (default: current directory)"
-            echo "  --force           Force removal without confirmation"
+            echo "  --force           Force removal without confirmation (required if stdin is not a TTY)"
             echo "  --nuclear         Remove entire .cursor directory (⚠️  DANGER: removes all Cursor config)"
             echo "  --help, -h        Show this help message"
             exit 0
@@ -88,6 +88,14 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
 done
+
+# curl | bash leaves stdin non-interactive; uninstall.sh uses `read` for confirmation.
+# Without this, `read` hits EOF → exit 1 → set -e aborts before removing anything.
+if [ ! -t 0 ] && [ "$FORCE" = false ]; then
+    FORCE=true
+    print_warning "Non-interactive stdin (e.g. curl | bash): using --force — no confirmation prompt."
+    print_warning "To confirm interactively, run: bash uninstall.sh --project-dir \"\$PWD\"   (from a clone)"
+fi
 
 print_info "Uninstalling skills from $REPO_URL"
 

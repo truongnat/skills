@@ -127,6 +127,11 @@ if [ $TOTAL_SKILLS -gt 0 ]; then
 
     # Confirm uninstallation unless --force is used
     if [ "$FORCE" = false ]; then
+        if [ ! -t 0 ]; then
+            show_error "stdin is not a terminal (e.g. piped or CI). Re-run with --force to uninstall."
+            show_error "Example: ./uninstall.sh --project-dir \"$PROJECT_DIR\" --force"
+            exit 1
+        fi
         echo ""
         echo "⚠️  This will remove the following skills from $PROJECT_DIR:"
         for skill in "${INSTALLED_SKILLS[@]}"; do
@@ -149,7 +154,7 @@ if [ $TOTAL_SKILLS -gt 0 ]; then
     # Remove skills with progress
     removed_count=0
     for skill_name in "${INSTALLED_SKILLS[@]}"; do
-        ((removed_count++))
+        removed_count=$((removed_count + 1))
         show_progress "$removed_count" "$TOTAL_SKILLS"
         show_status "Removing: $skill_name"
 

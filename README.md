@@ -86,6 +86,7 @@ nano config.md
 curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/install-remote.sh | bash
 #  - downloads and installs all skills from https://github.com/truongnat/skills
 #  - works from any directory in your project
+#  - shows progress bars and status for each step
 #  - no git clone required!
 
 # Install from a different remote repository:
@@ -95,6 +96,7 @@ curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/install-remot
 #* easiest: install ALL skills from default repo (https://github.com/truongnat/skills):
 ./install.sh
 #  - installs all skills into current folder as the target project
+#  - shows progress bars: [████████████] 75% (26/35) Installing: skill-name
 #  - uses symlink mode and force replace by default
 
 #* install specific skill from local repo:

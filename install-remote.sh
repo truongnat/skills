@@ -73,6 +73,7 @@ done
 print_info "Installing skills from $REPO_URL"
 
 # Check if git is available
+print_info "Checking system requirements..."
 if ! command -v git &> /dev/null; then
     print_error "Git is required but not installed. Please install git first."
     exit 1
@@ -83,29 +84,38 @@ if ! command -v python3 &> /dev/null; then
     print_error "Python 3 is required but not installed. Please install python3 first."
     exit 1
 fi
+print_success "System requirements met"
 
 # Create temporary directory
+print_info "Creating temporary directory..."
 TEMP_DIR=$(mktemp -d)
 CLEANUP_TEMP=true
+print_success "Temporary directory created: $TEMP_DIR"
 
-print_info "Cloning repository to temporary directory..."
+print_info "Cloning repository..."
 if ! git clone --depth 1 "$REPO_URL" "$TEMP_DIR" 2>/dev/null; then
     print_error "Failed to clone repository: $REPO_URL"
     exit 1
 fi
+print_success "Repository cloned successfully"
 
 # Check if the cloned repo has the install script
+print_info "Validating repository structure..."
 INSTALL_SCRIPT="$TEMP_DIR/install.sh"
 if [ ! -f "$INSTALL_SCRIPT" ]; then
     print_error "Install script not found in repository. This doesn't appear to be a valid skills repository."
     exit 1
 fi
+print_success "Repository structure validated"
 
 # Make the install script executable
+print_info "Preparing installer..."
 chmod +x "$INSTALL_SCRIPT"
+print_success "Installer prepared"
 
 # Change to the project directory (where this script was run from)
 PROJECT_DIR="$(pwd)"
+print_info "Installing to project directory: $PROJECT_DIR"
 
 print_info "Running installer..."
 cd "$TEMP_DIR"

@@ -46,7 +46,7 @@ python scripts/analyze_skills.py --with-references --only-actionable --markdown
 
 # Install custom skill into another existing project (isolated)
 # Easiest: use ./install.sh wrapper (installs all skills from default repo if no args)
-./install.sh                    # Install ALL skills from https://github.com/truongnat/skills
+./install.sh                    # Install ALL skills from https://github.com/truongnat/skills (shows progress bars)
 ./install.sh skills/git-ops     # Install specific skill
 ./install.sh https://github.com/user/repo.git  # Download directly from GitHub (no clone!)
 ./install.sh user/repo          # GitHub shorthand

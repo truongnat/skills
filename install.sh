@@ -15,9 +15,51 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(pwd)"
 REMOTE_MODE=false
 REMOTE_URL=""
-SKILL_INPUT="${1:-https://github.com/truongnat/skills.git}"
+SKILL_INPUT="${1:-}"
+# If no argument provided and we're in a skills repo, install all local skills
+if [ -z "$SKILL_INPUT" ] && [ -d "skills" ]; then
+    SKILL_INPUT="."
+fi
+# Default to remote repo if still empty
+SKILL_INPUT="${SKILL_INPUT:-https://github.com/truongnat/skills.git}"
 TEMP_DIR=""
 CLEANUP_TEMP=false
+
+# Progress bar function
+show_progress() {
+    local current=$1
+    local total=$2
+    local width=50
+    local percentage=$((current * 100 / total))
+    local completed=$((current * width / total))
+
+    printf "\rProgress: [%-${width}s] %d%% (%d/%d)" "$(printf '█%.0s' $(seq 1 $completed))" "$percentage" "$current" "$total"
+}
+
+# Complete progress bar
+complete_progress() {
+    local total=$1
+    show_progress "$total" "$total"
+    echo ""  # New line after progress bar
+}
+
+# Show status message with timestamp
+show_status() {
+    local message="$1"
+    echo "ℹ️  $message"
+}
+
+# Show success message
+show_success() {
+    local message="$1"
+    echo "✅ $message"
+}
+
+# Show error message
+show_error() {
+    local message="$1"
+    echo "❌ $message" >&2
+}
 
 # Parse arguments
 while [[ $# -gt 0 ]]; do
@@ -67,8 +109,9 @@ fi
 # Function to cleanup temp directory on exit
 cleanup() {
     if [ "$CLEANUP_TEMP" = true ] && [ -n "$TEMP_DIR" ] && [ -d "$TEMP_DIR" ]; then
-        echo "Cleaning up temporary directory..."
+        show_status "Cleaning up temporary directory..."
         rm -rf "$TEMP_DIR"
+        show_success "Cleanup completed"
     fi
 }
 trap cleanup EXIT
@@ -76,148 +119,150 @@ trap cleanup EXIT
 # Detect if input is a remote URL
 is_remote_url() {
     local input="$1"
-    echo "DEBUG: Checking if '$input' is remote URL"
-    # Check for full URLs
     if [[ "$input" =~ ^https?:// ]] || [[ "$input" =~ ^git@ ]]; then
-        echo "DEBUG: Detected as full URL"
         return 0
     fi
     # Check for GitHub shorthand (user/repo)
     if [[ "$input" =~ ^[^/]+/[^/]+$ ]] && [[ ! "$input" =~ ^\. ]] && [[ ! -d "$input" ]]; then
-        echo "DEBUG: Detected as GitHub shorthand"
         return 0
     fi
-    echo "DEBUG: Not detected as remote URL"
     return 1
 }
 
-# Resolve skill path - handle remote URLs
-resolve_skill_path() {
-    local input="$1"
-    echo "DEBUG: Resolving skill path for input: '$input'"
-
-    if is_remote_url "$input"; then
-        echo "DEBUG: Detected as remote URL"
-        # Create temp directory
-        TEMP_DIR=$(mktemp -d)
-        CLEANUP_TEMP=true
-
-        # Check if it's a GitHub URL for direct download (no git clone needed)
-        if [[ "$input" =~ ^https://github\.com/([^/]+)/([^/]+)(\.git)?$ ]]; then
-            local user="${BASH_REMATCH[1]}"
-            local repo="${BASH_REMATCH[2]}"
-            # Remove .git extension if present
-            repo="${repo%.git}"
-            echo "DEBUG: Matched GitHub URL - user: $user, repo: $repo"
-            echo "Detected GitHub repository: $user/$repo"
-            echo "Attempting direct download (no git clone needed)..."
-
-            # Try to download SKILL.md directly from repo root
-            local raw_url="https://raw.githubusercontent.com/$user/$repo/main/SKILL.md"
-            if curl -s -f "$raw_url" -o "$TEMP_DIR/SKILL.md" 2>/dev/null; then
-                echo "Found SKILL.md in repository root"
-                echo "$TEMP_DIR"
-                return
-            fi
-
-            # Try to find skills in skills/ directory
-            local skills_url="https://api.github.com/repos/$user/$repo/contents/skills"
-            echo "Checking skills URL: $skills_url"
-            local api_response=$(curl -s "$skills_url")
-            if echo "$api_response" | grep -q '"name"'; then
-                echo "Repository contains skills directory. Downloading all skills..."
-                # Download all skills
-                local skills_list=$(echo "$api_response" | grep '"name"' | sed 's/.*"name": "\([^"]*\)".*/\1/')
-                echo "Found skills: $skills_list"
-                for skill_name in $skills_list; do
-                    if [[ "$skill_name" =~ \.md$ ]]; then
-                        continue  # Skip markdown files
-                    fi
-                    local skill_dir="$TEMP_DIR/skills/$skill_name"
-                    mkdir -p "$skill_dir"
-
-                    # Download SKILL.md for this skill
-                    local skill_md_url="https://raw.githubusercontent.com/$user/$repo/main/skills/$skill_name/SKILL.md"
-                    if curl -s -f "$skill_md_url" -o "$skill_dir/SKILL.md" 2>/dev/null; then
-                        echo "Downloaded skill: $skill_name"
-                    fi
-
-                    # Download references/ directory if it exists
-                    local refs_url="https://api.github.com/repos/$user/$repo/contents/skills/$skill_name/references"
-                    if curl -s -f "$refs_url" | grep -q '"name"' 2>/dev/null; then
-                        mkdir -p "$skill_dir/references"
-                        local ref_files=$(curl -s "$refs_url" | grep '"name"' | sed 's/.*"name": "\([^"]*\)".*/\1/')
-                        for ref_file in $ref_files; do
-                            local ref_url="https://raw.githubusercontent.com/$user/$repo/main/skills/$skill_name/references/$ref_file"
-                            curl -s -f "$ref_url" -o "$skill_dir/references/$ref_file" 2>/dev/null || true
-                        done
-                    fi
-                done
-                echo "$TEMP_DIR"
-                return
-            fi
-
-            echo "Error: Could not find SKILL.md or skills/ directory in repository" >&2
-            exit 1
-        fi
-
-        # Convert GitHub shorthand to full URL
-        if [[ "$input" =~ ^[^/]+/[^/]+$ ]]; then
-            input="https://github.com/$input.git"
-        fi
-
-        echo "Falling back to git clone for: $input"
-        if ! git clone --depth 1 "$input" "$TEMP_DIR" 2>/dev/null; then
-            echo "Error: Failed to clone repository from $input" >&2
-            exit 1
-        fi
-
-        # If it's a full repo, look for skills directory
-        if [ -d "$TEMP_DIR/skills" ]; then
-            # Check if this is the default repo (truongnat/skills) or --remote flag was used
-            if [[ "$input" =~ truongnat/skills ]] || [ "$REMOTE_MODE" = true ]; then
-                echo "Installing all skills from repository..."
-                # Install all skills from the skills directory
-                for skill_dir in "$TEMP_DIR/skills"/*/; do
-                    if [ -d "$skill_dir" ] && [ -f "$skill_dir/SKILL.md" ]; then
-                        skill_name=$(basename "$skill_dir")
-                        echo "Installing skill: $skill_name"
-                        python3 "$SCRIPT_DIR/scripts/install_skill.py" "$skill_dir" --project-dir "$PROJECT_DIR" --mode symlink --force
-                    fi
-                done
-                echo "All skills installed successfully!"
-                exit 0
-            else
-                echo "Repository contains skills directory. Please specify which skill to install:" >&2
-                ls -1 "$TEMP_DIR/skills" | sed 's/^/  - /' >&2
-                echo "Usage: ./install.sh <skill-name> (from the skills/ directory)" >&2
-                echo "Or use: ./install.sh --remote <repo-url> to install all skills" >&2
-                exit 1
-            fi
-        fi
-
-        echo "$TEMP_DIR"
-    else
-        # Local path
-        if [ "$input" = "." ]; then
-            echo "$input"
-        elif [ -d "$input" ]; then
-            echo "$input"
-        else
-            echo "Error: Local path '$input' does not exist or is not a directory." >&2
-            exit 1
-        fi
-    fi
-}
-
 if [ ! -d "$SCRIPT_DIR/scripts" ]; then
-  echo "Error: this script must be run from the repository root where scripts/install_skill.py exists." >&2
+  show_error "This script must be run from the repository root where scripts/install_skill.py exists."
   exit 1
 fi
 
-SKILL_PATH=$(resolve_skill_path "$SKILL_INPUT")
+# Handle remote installation separately
+if is_remote_url "$SKILL_INPUT"; then
+    show_status "Detected remote repository: $SKILL_INPUT"
+    TEMP_DIR=$(mktemp -d)
+    CLEANUP_TEMP=true
+    show_status "Created temporary directory"
 
-echo "Installing skill from '$SKILL_INPUT' into project '$PROJECT_DIR'..."
+    # For GitHub URLs, try direct download first
+    if [[ "$SKILL_INPUT" =~ ^https://github\.com/([^/]+)/([^/]+)(\.git)?$ ]]; then
+        user="${BASH_REMATCH[1]}"
+        repo="${BASH_REMATCH[2]}"
+        repo="${repo%.git}"
+        show_status "Attempting direct download from GitHub..."
 
-python3 "$SCRIPT_DIR/scripts/install_skill.py" "$SKILL_PATH" --project-dir "$PROJECT_DIR" --mode symlink --force
+        skills_url="https://api.github.com/repos/$user/$repo/contents/skills"
+        api_response=$(curl -s "$skills_url" 2>/dev/null)
+        if echo "$api_response" | grep -q '"name"'; then
+            show_status "Repository contains skills. Downloading..."
+            skills_list=$(echo "$api_response" | grep '"name"' | sed 's/.*"name": "\([^"]*\)".*/\1/')
+            total_skills=$(echo "$skills_list" | wc -w)
+            show_status "Found $total_skills skills to download"
+
+            skill_count=0
+            for skill_name in $skills_list; do
+                if [[ "$skill_name" =~ \.md$ ]]; then
+                    continue
+                fi
+                ((skill_count++))
+                show_progress "$skill_count" "$total_skills"
+
+                skill_dir="$TEMP_DIR/skills/$skill_name"
+                mkdir -p "$skill_dir"
+                skill_url="https://raw.githubusercontent.com/$user/$repo/main/skills/$skill_name/SKILL.md"
+                curl -s -f "$skill_url" -o "$skill_dir/SKILL.md" 2>/dev/null || true
+            done
+            complete_progress "$total_skills"
+            SKILL_PATH="$TEMP_DIR"
+        else
+            show_status "Falling back to git clone..."
+            if git clone --depth 1 "$SKILL_INPUT" "$TEMP_DIR" 2>/dev/null; then
+                show_success "Repository cloned"
+                SKILL_PATH="$TEMP_DIR"
+            else
+                show_error "Failed to clone repository"
+                exit 1
+            fi
+        fi
+    else
+        # Non-GitHub remote
+        if git clone --depth 1 "$SKILL_INPUT" "$TEMP_DIR" 2>/dev/null; then
+            show_success "Repository cloned"
+            SKILL_PATH="$TEMP_DIR"
+        else
+            show_error "Failed to clone repository"
+            exit 1
+        fi
+    fi
+
+    # Check if this is a skills repo that should install all
+    if [ -d "$SKILL_PATH/skills" ] && { [[ "$SKILL_INPUT" =~ truongnat/skills ]] || [ "$REMOTE_MODE" = true ]; }; then
+        show_status "Installing all skills from repository..."
+        skill_dirs=("$SKILL_PATH/skills"/*/)
+        valid_skills=()
+        for skill_dir in "${skill_dirs[@]}"; do
+            if [ -d "$skill_dir" ] && [ -f "$skill_dir/SKILL.md" ]; then
+                valid_skills+=("$skill_dir")
+            fi
+        done
+        total_skills=${#valid_skills[@]}
+        show_status "Found $total_skills skills to install"
+
+        installed_count=0
+        for skill_dir in "${valid_skills[@]}"; do
+            skill_name=$(basename "$skill_dir")
+            ((installed_count++))
+            show_progress "$installed_count" "$total_skills"
+            show_status "Installing: $skill_name"
+
+            if python3 "$SCRIPT_DIR/scripts/install_skill.py" "$skill_dir" --project-dir "$PROJECT_DIR" --mode symlink --force >/dev/null 2>&1; then
+                show_success "✓ $skill_name"
+            else
+                show_error "✗ $skill_name"
+            fi
+        done
+        complete_progress "$total_skills"
+        show_success "All skills installed successfully!"
+        exit 0
+    fi
+else
+    # Local installation
+    SKILL_PATH="$SKILL_INPUT"
+    if [ "$SKILL_PATH" = "." ] && [ -d "skills" ]; then
+        # Install all local skills
+        show_status "Installing all local skills..."
+        skill_dirs=("skills"/*/)
+        valid_skills=()
+        for skill_dir in "${skill_dirs[@]}"; do
+            if [ -d "$skill_dir" ] && [ -f "$skill_dir/SKILL.md" ]; then
+                valid_skills+=("$skill_dir")
+            fi
+        done
+        total_skills=${#valid_skills[@]}
+        show_status "Found $total_skills skills to install"
+
+        installed_count=0
+        for skill_dir in "${valid_skills[@]}"; do
+            skill_name=$(basename "$skill_dir")
+            ((installed_count++))
+            show_progress "$installed_count" "$total_skills"
+            show_status "Installing: $skill_name"
+
+            if python3 "$SCRIPT_DIR/scripts/install_skill.py" "$skill_dir" --project-dir "$PROJECT_DIR" --mode symlink --force >/dev/null 2>&1; then
+                show_success "✓ $skill_name"
+            else
+                show_error "✗ $skill_name"
+            fi
+        done
+        complete_progress "$total_skills"
+        show_success "All skills installed successfully!"
+        exit 0
+    fi
+fi
+
+# Single skill installation
+show_status "Installing skill from '$SKILL_INPUT' into project '$PROJECT_DIR'..."
+if python3 "$SCRIPT_DIR/scripts/install_skill.py" "$SKILL_PATH" --project-dir "$PROJECT_DIR" --mode symlink --force; then
+    show_success "Installation completed successfully!"
+else
+    show_error "Installation failed. Please check the error messages above."
+    exit 1
+fi
 

@@ -65,8 +65,21 @@ Do not use **Artifacts** or **Goal** alone as a section title here.
 1. Copy `skills/examples/skill-template/` → `skills/<new-skill-name>/`.
 2. Replace placeholders following this document.
 3. Run through the **checklist** in the template `SKILL.md`.
-4. Add the skill row to **`skills/README.md`** and root **`README.md`** / **`AGENTS.md`** if the skill is bundled.
+4. Complete **§8** for the same trigger (do not stop at `SKILL.md` only).
 
-## 8. Review
+## 8. Mandatory repository documentation (required with the same change)
 
-Before merge: section order matches §2; Workflow steps match §4; Suggested response labels match §5; no duplicate scope with existing skills without **Related skills** table explaining boundaries.
+When you **add**, **remove**, or **rename** a bundled skill, or **add** a workflow under `workflows/examples/`, or **add** a new file under `knowledge-base/documents/`, update **every** applicable item below in the **same PR or commit** as the skill/workflow/KB change.
+
+| Trigger | Required updates |
+|---------|------------------|
+| **Add** a bundled skill (`skills/<name>/`) | `skills/README.md` (table row); root **`README.md`** (Skills → Bundled examples); **`AGENTS.md`** (Bundled examples line); **§1** above (parenthesized skill list); **`knowledge-base/documents/repo/skills-layout.md`** (tree or folder list must include the new skill) |
+| **Remove** or **rename** a bundled skill | Same locations: delete or fix all mentions; **§1** list; **`skills-layout.md`** |
+| **Add** a workflow under `workflows/examples/` | Root **`README.md`** (Workflows → Examples list) |
+| **Add** a new document under `knowledge-base/documents/**` | **`knowledge-base/INDEX.md`** (new row with path and short description) |
+
+**Rationale:** Discovery for humans and agents depends on **`README.md`** / **`AGENTS.md`**; **§1** avoids duplicate skill proposals; **`skills-layout`** is indexed for RAG and must reflect the real tree.
+
+## 9. Review
+
+Before merge: section order matches §2; Workflow steps match §4; Suggested response labels match §5; no duplicate scope with existing skills without **Related skills** table explaining boundaries; **§8** is satisfied for any trigger in this change.

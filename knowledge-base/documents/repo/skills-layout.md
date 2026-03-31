@@ -1,7 +1,7 @@
 | Field | Value |
 |-------|-------|
 | title | Skills directory layout |
-| summary | Flat `skills/` tree: one folder per skill plus `examples/skill-template` |
+| summary | Flat `skills/` tree: one folder per bundled skill plus `examples/skill-template` |
 | tags | repo, skills, convention |
 | updated | 2026-03-31 |
 
@@ -9,17 +9,28 @@
 
 All skills live directly under **`skills/`**. There is no `public/` vs `private/` split; add sensitive skills in a private fork or `.gitignore` if needed.
 
+**Maintenance:** When bundled skills change, update this file in the **same change** as `skills/README.md` — see `skills/SKILL_AUTHORING_RULES.md` §8.
+
 ```
 skills/
-  README.md              # index of bundled examples
+  README.md
+  SKILL_AUTHORING_RULES.md
   examples/
-    skill-template/      # copy to create a new skill
+    skill-template/
   react-pro/
   nextjs-pro/
   react-native-pro/
   flutter-pro/
   nestjs-pro/
   postgresql-pro/
+  testing-pro/
+  security-pro/
+  electron-pro/
+  tauri-pro/
+  deployment-pro/
+  seo-pro/
+  design-system-pro/
+  mobile-design-pro/
 ```
 
 Each skill requires **`SKILL.md`** with YAML frontmatter (`name`, `description`, optional `metadata.short-description`). Optional folders: `references/`, `scripts/`, `assets/`.

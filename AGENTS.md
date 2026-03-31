@@ -11,7 +11,7 @@ Bundled examples: `skills/react-pro/` (React web), `skills/nextjs-pro/` (Next.js
 
 Each skill needs a `SKILL.md` with clear frontmatter `name` and `description`.
 
-**New skills:** read [`skills/SKILL_AUTHORING_RULES.md`](skills/SKILL_AUTHORING_RULES.md) first. Do not create a new skill directory unless those mandatory rules are met.
+**New skills:** read [`skills/SKILL_AUTHORING_RULES.md`](skills/SKILL_AUTHORING_RULES.md) first. Do not create a new skill directory unless those mandatory rules are met. When you add, remove, or rename a bundled skill, update **§8** there (README files, **§1** list, **`knowledge-base/documents/repo/skills-layout.md`**) in the same change.
 
 
 ## Knowledge base

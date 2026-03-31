@@ -72,7 +72,7 @@ Paths and model live in the `<!-- kb-config-start -->` … `<!-- kb-config-end -
 
 ## Skills
 
-- **Authoring rules (mandatory for new skills):** [`skills/SKILL_AUTHORING_RULES.md`](skills/SKILL_AUTHORING_RULES.md) — do not add a skill folder until every mandatory item is satisfied.
+- **Authoring rules (mandatory for new skills):** [`skills/SKILL_AUTHORING_RULES.md`](skills/SKILL_AUTHORING_RULES.md) — do not add a skill folder until every mandatory item is satisfied. When you add/remove/rename a bundled skill or add a workflow/KB doc, follow **§8** (update `README`, `AGENTS`, `skills-layout.md`, `INDEX.md`, etc. in the same change).
 - Copy [`skills/examples/skill-template/`](skills/examples/skill-template/) → `skills/<skill-name>/`.
 - Edit `SKILL.md`: frontmatter `name` and `description` (state clearly when it triggers).
 - Layout and bundled examples: [`skills/README.md`](skills/README.md).

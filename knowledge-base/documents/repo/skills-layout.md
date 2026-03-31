@@ -21,6 +21,14 @@ skills/
   nextjs-pro/
   react-native-pro/
   flutter-pro/
+  javascript-pro/
+  performance-tuning-pro/
+  clean-code-architecture-pro/
+  api-design-pro/
+  graphql-pro/
+  websocket-pro/
+  microservices-pro/
+  stream-rtc-pro/
   nestjs-pro/
   postgresql-pro/
   sql-data-access-pro/

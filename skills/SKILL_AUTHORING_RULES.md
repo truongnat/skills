@@ -5,7 +5,7 @@ If a proposed skill cannot meet these rules, **stop** — extend an existing `*-
 
 ## 1. When you may add a new skill
 
-- [ ] The topic is **not** already covered by an existing bundled skill (`react-pro`, `nextjs-pro`, `react-native-pro`, `flutter-pro`, `nestjs-pro`, `postgresql-pro`, `sql-data-access-pro`, `testing-pro`, `security-pro`, `electron-pro`, `tauri-pro`, `deployment-pro`, `seo-pro`, `design-system-pro`, `mobile-design-pro`, `business-analysis-pro`, `content-analysis-pro`, `data-analysis-pro`, `image-processing-pro`, `web-research-pro`, `market-research-pro`, `strategic-consulting-pro`, `code-packaging-pro`, `git-operations-pro`, `skills-self-review-pro`, `bug-discovery-pro`, `repo-tooling-pro`).
+- [ ] The topic is **not** already covered by an existing bundled skill (`react-pro`, `nextjs-pro`, `react-native-pro`, `flutter-pro`, `javascript-pro`, `performance-tuning-pro`, `clean-code-architecture-pro`, `api-design-pro`, `graphql-pro`, `websocket-pro`, `microservices-pro`, `stream-rtc-pro`, `nestjs-pro`, `postgresql-pro`, `sql-data-access-pro`, `testing-pro`, `security-pro`, `electron-pro`, `tauri-pro`, `deployment-pro`, `seo-pro`, `design-system-pro`, `mobile-design-pro`, `business-analysis-pro`, `content-analysis-pro`, `data-analysis-pro`, `image-processing-pro`, `web-research-pro`, `market-research-pro`, `strategic-consulting-pro`, `code-packaging-pro`, `git-operations-pro`, `skills-self-review-pro`, `bug-discovery-pro`, `repo-tooling-pro`).
 - [ ] The topic is **distinct** enough that merging into an existing skill would blur scope (document the reason in the PR or commit message).
 - [ ] You have (or will add) at least **`SKILL.md`** and, for non-trivial domains, a **`references/`** folder — not a dump of all docs inside `SKILL.md`.
 

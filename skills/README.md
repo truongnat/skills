@@ -29,6 +29,14 @@ Skill **`skills-self-review-pro`** describes the workflow. Repo scripts index: *
 | [nextjs-pro](nextjs-pro/) | Next.js — App Router, RSC, caching, middleware |
 | [react-native-pro](react-native-pro/) | React Native / Expo — UI/UX, performance, edge cases |
 | [flutter-pro](flutter-pro/) | Flutter — Material 3, multi-platform edge cases |
+| [javascript-pro](javascript-pro/) | JavaScript — architecture, async behavior, tips/tricks, edge cases |
+| [performance-tuning-pro](performance-tuning-pro/) | Performance tuning — profiling, bottlenecks, optimization, edge cases |
+| [clean-code-architecture-pro](clean-code-architecture-pro/) | Clean code/architecture — boundaries, coupling, refactoring, maintainability |
+| [api-design-pro](api-design-pro/) | API design — contracts, versioning, consistency, idempotency, edge cases |
+| [graphql-pro](graphql-pro/) | GraphQL — schema design, resolvers, performance, security, edge cases |
+| [websocket-pro](websocket-pro/) | WebSocket — reliability, lifecycle, scaling, security, edge cases |
+| [microservices-pro](microservices-pro/) | Microservices — boundaries, communication, resilience, operations, edge cases |
+| [stream-rtc-pro](stream-rtc-pro/) | Stream/RTC — signaling, media QoS, scaling, security, edge cases |
 | [nestjs-pro](nestjs-pro/) | NestJS — API/DX, PostgreSQL RLS integration |
 | [postgresql-pro](postgresql-pro/) | PostgreSQL — schema, SQL, migrations, RLS, ops |
 | [testing-pro](testing-pro/) | Testing & automation — pyramid, CI, unit/integration/e2e, flakiness |

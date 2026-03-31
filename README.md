@@ -34,9 +34,14 @@ own-skills/
 ├── prompts/
 │   └── README.md
 ├── scripts/
+│   ├── README.md              # Script index (batch query, list/validate skills)
 │   ├── kb_config_md.py        # Read config from Markdown
 │   ├── build_kb.py
-│   └── query_kb.py
+│   ├── query_kb.py
+│   ├── query_kb_batch.py      # Multiple queries, one model load (perf)
+│   ├── verify_kb.py
+│   ├── list_skills.py
+│   └── validate_skills.py
 └── templates/                 # Extra docs & samples (see below)
 ```
 
@@ -56,16 +61,23 @@ nano config.md
 python scripts/build_kb.py --dry-run
 python scripts/build_kb.py
 python scripts/query_kb.py "text to search" -k 5
+
+# Multiple queries — one model load (faster than repeated query_kb.py)
+python scripts/query_kb_batch.py -q "first question" -q "second question" -k 5
+
+# Skill inventory / CI
+python scripts/list_skills.py
+python scripts/validate_skills.py
 ```
 
-**Python:** 3.10–3.13 recommended. First build downloads an embedding model (network, RAM).
+**Python:** 3.10–3.13 recommended. First build downloads an embedding model (network, RAM). See [`scripts/README.md`](scripts/README.md) and skill **`repo-tooling-pro`** for script usage.
 
 ## Knowledge base & RAG
 
 1. Add or edit `.md` files under [`knowledge-base/documents/`](knowledge-base/documents/).
 2. Update [`knowledge-base/INDEX.md`](knowledge-base/INDEX.md) for quick lookup.
 3. Run `scripts/build_kb.py` to produce `rag_embeddings.npy` + `rag_manifest.json` in `knowledge-base/embeddings/` (gitignored).
-4. `scripts/query_kb.py` runs cosine similarity locally (NumPy); no Chroma/PyYAML required.
+4. `scripts/query_kb.py` runs cosine similarity locally (NumPy); no Chroma/PyYAML required. For **many** queries, use **`scripts/query_kb_batch.py`** (loads the embedding model once).
 5. After building, run `python scripts/verify_kb.py` to check config, file counts, and index consistency (see [`knowledge-base/VERIFY.md`](knowledge-base/VERIFY.md)).
 
 Paths and model live in the `<!-- kb-config-start -->` … `<!-- kb-config-end -->` block in [`config.example.md`](config.example.md) or `config.md`.
@@ -76,7 +88,7 @@ Paths and model live in the `<!-- kb-config-start -->` … `<!-- kb-config-end -
 - Copy [`skills/examples/skill-template/`](skills/examples/skill-template/) → `skills/<skill-name>/`.
 - Edit `SKILL.md`: frontmatter `name` and `description` (state clearly when it triggers).
 - Layout and bundled examples: [`skills/README.md`](skills/README.md).
-- Bundled examples: [`skills/react-pro/`](skills/react-pro/) (React web), [`skills/nextjs-pro/`](skills/nextjs-pro/) (Next.js), [`skills/react-native-pro/`](skills/react-native-pro/) (React Native / Expo), [`skills/flutter-pro/`](skills/flutter-pro/) (Flutter), [`skills/nestjs-pro/`](skills/nestjs-pro/) (NestJS), [`skills/postgresql-pro/`](skills/postgresql-pro/) (PostgreSQL), [`skills/testing-pro/`](skills/testing-pro/) (testing & automation), [`skills/security-pro/`](skills/security-pro/) (cross-platform security), [`skills/electron-pro/`](skills/electron-pro/) (Electron desktop), [`skills/tauri-pro/`](skills/tauri-pro/) (Tauri desktop), [`skills/deployment-pro/`](skills/deployment-pro/) (deployment & release), [`skills/seo-pro/`](skills/seo-pro/) (SEO & organic search), [`skills/design-system-pro/`](skills/design-system-pro/) (design system & UI/UX), [`skills/mobile-design-pro/`](skills/mobile-design-pro/) (mobile UX & patterns), [`skills/business-analysis-pro/`](skills/business-analysis-pro/) (business analysis & requirements), [`skills/content-analysis-pro/`](skills/content-analysis-pro/) (documents, images, video analysis), [`skills/bug-discovery-pro/`](skills/bug-discovery-pro/) (bug hunting, GitNexus).
+- Bundled examples: [`skills/react-pro/`](skills/react-pro/) (React web), [`skills/nextjs-pro/`](skills/nextjs-pro/) (Next.js), [`skills/react-native-pro/`](skills/react-native-pro/) (React Native / Expo), [`skills/flutter-pro/`](skills/flutter-pro/) (Flutter), [`skills/nestjs-pro/`](skills/nestjs-pro/) (NestJS), [`skills/postgresql-pro/`](skills/postgresql-pro/) (PostgreSQL), [`skills/testing-pro/`](skills/testing-pro/) (testing & automation), [`skills/security-pro/`](skills/security-pro/) (cross-platform security), [`skills/electron-pro/`](skills/electron-pro/) (Electron desktop), [`skills/tauri-pro/`](skills/tauri-pro/) (Tauri desktop), [`skills/deployment-pro/`](skills/deployment-pro/) (deployment & release), [`skills/seo-pro/`](skills/seo-pro/) (SEO & organic search), [`skills/design-system-pro/`](skills/design-system-pro/) (design system & UI/UX), [`skills/mobile-design-pro/`](skills/mobile-design-pro/) (mobile UX & patterns), [`skills/business-analysis-pro/`](skills/business-analysis-pro/) (business analysis & requirements), [`skills/content-analysis-pro/`](skills/content-analysis-pro/) (documents, images, video analysis), [`skills/bug-discovery-pro/`](skills/bug-discovery-pro/) (bug hunting, GitNexus), [`skills/repo-tooling-pro/`](skills/repo-tooling-pro/) (scripts, KB batch query, validate skills).
 
 ## Workflows
 

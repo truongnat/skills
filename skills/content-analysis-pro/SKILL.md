@@ -59,6 +59,7 @@ Details: [references/analysis-methods-and-frames.md](references/analysis-methods
 ### Reporting and limitations (summary)
 
 - Report **sections**, **evidence map**, **confidence**; **hallucination** and **OCR** limits; PII handling.
+- **Repeatable** CLI steps (same FFmpeg/OCR every time) → document or add a **project script**; this repo’s shared helpers are under **`scripts/`** (see **`repo-tooling-pro`**).
 
 Details: [references/reporting-and-limitations.md](references/reporting-and-limitations.md)
 

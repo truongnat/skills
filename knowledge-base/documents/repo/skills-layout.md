@@ -34,6 +34,7 @@ skills/
   business-analysis-pro/
   content-analysis-pro/
   bug-discovery-pro/
+  repo-tooling-pro/
 ```
 
 Each skill requires **`SKILL.md`** with YAML frontmatter (`name`, `description`, optional `metadata.short-description`). Optional folders: `references/`, `scripts/`, `assets/`.

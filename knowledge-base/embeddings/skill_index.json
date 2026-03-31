@@ -1,0 +1,1365 @@
+[
+  {
+    "name": "api-design-pro",
+    "folder": "api-design-pro",
+    "description": "Professional API design guidance for building clear, evolvable, and secure service contracts across REST-style and RPC-style interfaces.\n\n  Use this skill when designing new APIs, reviewing API changes, improving contract consistency, or planning backward-compatible evolution.\n\n  Triggers: \"api design\", \"rest api\", \"endpoint\", \"contract\", \"versioning\", \"pagination\", \"error model\", \"idempotency\", \"backward compatibility\", \"schema evolution\".\n\n  Combine with `security-pro` for threat-focused hardening and `testing-pro` for contract and integration verification.",
+    "triggers": [
+      "api design",
+      "rest api",
+      "endpoint",
+      "contract",
+      "versioning",
+      "pagination",
+      "error model",
+      "idempotency",
+      "backward compatibility",
+      "schema evolution"
+    ],
+    "when_to_use": [
+      "Designing new public/internal APIs with clear request/response contracts.",
+      "Reviewing breaking-change risk in endpoint/schema updates.",
+      "Standardizing pagination, filtering, sorting, error handling, and idempotency behavior.",
+      "Planning API versioning and deprecation strategy without disrupting clients."
+    ],
+    "references": [
+      "edge-cases.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "bug-discovery-pro",
+    "folder": "bug-discovery-pro",
+    "description": "Professional defect discovery: deep repository analysis, triage of bug candidates (not false “100%” guarantees), finding related failures via blast-radius and call-graph reasoning, and integration with GitNexus (knowledge graph, query, impact, API shape) when available.\n\n  Use this skill when the user hunts bugs, traces regressions, asks what else could break, wants a structured **candidate** list with confidence, or uses **GitNexus** MCP (`query`, `context`, `impact`, `api_impact`, `shape_check`, `detect_changes`) after indexing. This skill does **not** claim exhaustive detection — combine with tests, runtime evidence, and **`security-pro`** for vulns.\n\n  Use **with** **`testing-pro`** (repro, coverage gaps), **`security-pro`** (abuse and trust boundaries), and **external GitNexus Cursor skills** (`gitnexus-cli`, `gitnexus-debugging`, `gitnexus-exploring`, `gitnexus-impact-analysis`) for CLI and deeper graph usage. This skill (`bug-discovery-pro`) owns **bug-hunting workflow and graph-assisted discovery**; stack **`*-pro`** skills own framework fixes.\n\n  Triggers: \"bug\", \"bugs\", \"find bug\", \"regression\", \"root cause\", \"blast radius\", \"who calls\", \"impact\", \"GitNexus\", \"knowledge graph\", \"related bug\", \"deep scan repo\", \"candidate defect\", \"shape mismatch\", \"API consumers\", \"stale index\".",
+    "triggers": [
+      "bug",
+      "bugs",
+      "find bug",
+      "regression",
+      "root cause",
+      "blast radius",
+      "who calls",
+      "impact",
+      "gitnexus",
+      "knowledge graph",
+      "related bug",
+      "deep scan repo",
+      "candidate defect",
+      "shape mismatch",
+      "api consumers",
+      "stale index"
+    ],
+    "when_to_use": [
+      "**Root-cause** and **related** breakage analysis (shared code paths).",
+      "**Deep repo** exploration when grep is not enough — **execution flows** and **impact**.",
+      "**API** response vs consumer **shape** mismatches (with `shape_check` / `api_impact`).",
+      "**Pre-commit** / **pre-PR** “what did I break?” (`detect_changes`).",
+      "Honest **candidate** lists — not a promise of total bug enumeration."
+    ],
+    "references": [
+      "bug-candidates-and-confidence.md",
+      "edge-cases.md",
+      "gitnexus-graph-workflow.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "business-analysis-pro",
+    "folder": "business-analysis-pro",
+    "description": "Professional business analysis: requirements elicitation, structured reasoning (systems-analyst style), prioritization, traceability, NFRs, and clear deliverables — BRD-style narratives, decision logs, and executive-ready reports.\n\n  Use this skill when the user clarifies business or product requirements, writes a BRD/FRD, analyzes gaps (as-is vs to-be), defines acceptance criteria, prioritizes with MoSCoW, maps stakeholders, or needs **detailed, report-quality** output with explicit assumptions and decisions — beyond informal SA notes.\n\n  Use **with** **`content-analysis-pro`** when **source documents or media** must be read in depth before structuring requirements; **`testing-pro`** (acceptance criteria and testability), **`security-pro`** (compliance and data sensitivity), **`design-system-pro`** / **`mobile-design-pro`** (UX requirements), stack skills when requirements imply technical constraints. This skill (`business-analysis-pro`) owns **analysis, reasoning trace, and communication artifacts**; implementation skills own **build details**.\n\n  Triggers: \"business analysis\", \"BA\", \"BRD\", \"FRD\", \"SRS\", \"requirements\", \"stakeholder\", \"MoSCoW\", \"acceptance criteria\", \"user story\", \"as-is\", \"to-be\", \"gap analysis\", \"RACI\", \"traceability\", \"NFR\", \"functional requirement\", \"systems analyst\", \"SA\", \"elicitation\", \"scope\", \"prioritization\", \"decision log\".",
+    "triggers": [
+      "business analysis",
+      "ba",
+      "brd",
+      "frd",
+      "srs",
+      "requirements",
+      "stakeholder",
+      "moscow",
+      "acceptance criteria",
+      "user story",
+      "as-is",
+      "to-be",
+      "gap analysis",
+      "raci",
+      "traceability",
+      "nfr",
+      "functional requirement",
+      "systems analyst",
+      "sa",
+      "elicitation",
+      "scope",
+      "prioritization",
+      "decision log"
+    ],
+    "when_to_use": [
+      "**Eliciting** and **structuring** requirements from vague asks.",
+      "**Prioritizing** and documenting **scope** (MVP vs phase 2).",
+      "**As-is / to-be** and **gap** analysis.",
+      "Writing or reviewing **BRD/FRD**, **user stories**, **RACI**, **decision logs**.",
+      "Producing **reports** for sponsors (executive summary + detail + appendix)."
+    ],
+    "references": [
+      "edge-cases.md",
+      "reporting-and-deliverables.md",
+      "requirements-and-reasoning.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "clean-code-architecture-pro",
+    "folder": "clean-code-architecture-pro",
+    "description": "Professional guidance for writing clean, maintainable code and designing boundaries with clean architecture principles.\n\n  Use this skill when implementing or reviewing features that need clear module boundaries, low coupling, high cohesion, and long-term maintainability.\n\n  Triggers: \"clean code\", \"clean architecture\", \"refactor\", \"separation of concerns\", \"dependency inversion\", \"layering\", \"module boundary\", \"maintainability\", \"tech debt\".\n\n  Combine with `testing-pro` for architecture-safe tests and `git-operations-pro` for safe incremental refactors.",
+    "triggers": [
+      "clean code",
+      "clean architecture",
+      "refactor",
+      "separation of concerns",
+      "dependency inversion",
+      "layering",
+      "module boundary",
+      "maintainability",
+      "tech debt"
+    ],
+    "when_to_use": [
+      "Designing or refactoring modules/services with unclear responsibilities.",
+      "Reducing coupling, cyclic dependencies, and business logic leakage into frameworks/adapters.",
+      "Reviewing PRs for readability, maintainability, and long-term changeability.",
+      "Applying incremental architecture improvements without full rewrites."
+    ],
+    "references": [
+      "edge-cases.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "code-packaging-pro",
+    "folder": "code-packaging-pro",
+    "description": "Professional code packaging and automation: pyproject.toml / setuptools-style metadata, Dockerfiles (multi-stage, slim runtime), GitHub Actions workflows for test matrices, build artifacts, and container or library publishing — complementing deployment strategy.\n\n  Use this skill when the user authors **`pyproject.toml`**, writes or refactors a **Dockerfile**, or wires **GitHub Actions** for **CI** (lint, test, build wheel/image) — not when choosing **Kubernetes** vs **serverless** **runtime** (see **`deployment-pro`**).\n\n  Use **with** **`deployment-pro`** when **images** must be **promoted** across environments; **`security-pro`** for **OIDC**, **secrets**, and **supply chain**; **`testing-pro`** for **what** runs in CI. This skill (`code-packaging-pro`) owns **build artifacts** and **workflow structure**; **`deployment-pro`** owns **release** and **runtime** promotion.\n\n  Triggers: \"pyproject.toml\", \"Dockerfile\", \"multi-stage\", \"GitHub Actions\", \"workflow yml\", \"build wheel\", \"publish PyPI\", \"container image\", \"CI matrix\", \"dockerignore\", \"hatchling\", \"setuptools\", \"trusted publishing\".",
+    "triggers": [
+      "pyproject.toml",
+      "dockerfile",
+      "multi-stage",
+      "github actions",
+      "workflow yml",
+      "build wheel",
+      "publish pypi",
+      "container image",
+      "ci matrix",
+      "dockerignore",
+      "hatchling",
+      "setuptools",
+      "trusted publishing"
+    ],
+    "when_to_use": [
+      "**`pyproject.toml`** — `project` metadata, optional deps, **build** backend choice.",
+      "**Dockerfile** — **multi-stage**, **slim** base, **non-root**, `.dockerignore`.",
+      "**GitHub Actions** — matrices, **cache**, **build** job vs **release** job.",
+      "**Publishing** — wheels, **container** push, **trusted publishing** patterns (overview)."
+    ],
+    "references": [
+      "edge-cases.md",
+      "github-actions-and-ci.md",
+      "python-packaging-and-containers.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "content-analysis-pro",
+    "folder": "content-analysis-pro",
+    "description": "Professional analysis of user-provided content: documents (text, PDF, slides), images (photos, screenshots, diagrams, charts), and video — structured extraction, summaries, timelines, and detailed reports with evidence references and explicit limitations.\n\n  Use this skill when the user supplies files or describes attached media and wants **deep analysis**, **comparison**, **summarization**, **entity/action extraction**, **chart reading**, **scene or transcript review**, or a **formal-style report** with sections, citations (page/time), and confidence notes. This skill encodes **methodology and report shape**; it does not replace domain experts for legal, medical, or forensic decisions.\n\n  Use **with** **`business-analysis-pro`** when findings must become requirements or BRD-style artifacts; **`security-pro`** when content may contain secrets or PII handling matters. This skill (`content-analysis-pro`) owns **multimodal analysis framing and reporting**; stack skills own **tooling implementation** (APIs, pipelines).\n\n  Triggers: \"analyze this image\", \"analyze video\", \"analyze PDF\", \"analyze document\", \"summarize attachment\", \"OCR\", \"transcript\", \"what is in this screenshot\", \"extract from doc\", \"compare these files\", \"timeline\", \"scene breakdown\", \"chart in image\", \"detailed report\", \"multimodal\", \"ffmpeg\", \"ffprobe\", \"extract frames\", \"video audio track\".",
+    "triggers": [
+      "analyze this image",
+      "analyze video",
+      "analyze pdf",
+      "analyze document",
+      "summarize attachment",
+      "ocr",
+      "transcript",
+      "what is in this screenshot",
+      "extract from doc",
+      "compare these files",
+      "timeline",
+      "scene breakdown",
+      "chart in image",
+      "detailed report",
+      "multimodal",
+      "ffmpeg",
+      "ffprobe",
+      "extract frames",
+      "video audio track"
+    ],
+    "when_to_use": [
+      "User provides **documents**, **images**, or **video** (or paste) and wants **detail**, not one-line answers.",
+      "**Extraction** — tables, entities, dates, action items, quotes with references.",
+      "**Synthesis** — Summary, timeline, comparison across sources.",
+      "**Quality** — Note **uncertainty**, **illegible** regions, **missing context**."
+    ],
+    "references": [
+      "analysis-methods-and-frames.md",
+      "edge-cases.md",
+      "file-formats-dispatch-and-scope.md",
+      "reporting-and-limitations.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "data-analysis-pro",
+    "folder": "data-analysis-pro",
+    "description": "Professional data analysis in Python: exploratory data analysis (EDA), cleaning, descriptive statistics, pandas workflows, Parquet/CSV/SQLite IO, visualization (matplotlib/seaborn-style), pivot-style summaries, and spreadsheet deliverables (openpyxl charts, freeze panes, validation).\n\n  Use this skill when the user asks to **analyze** CSV/Parquet/SQLite exports, profile a dataset, plot distributions or trends, build pivot-style tables, or **author** Excel features (charts, validation, frozen headers) — not for multimodal “what does this PDF/image mean?” interpretation.\n\n  Use **with** **`content-analysis-pro`** when the task mixes **narrative documents** and **tabular** extracts; **`postgresql-pro`** when analysis leads to **schema** or warehouse design; **`business-analysis-pro`** when outputs feed **requirements** or KPI definitions. This skill (`data-analysis-pro`) owns **tabular analytics and viz**; **`content-analysis-pro`** owns **semantic reading** of unstructured attachments.\n\n  Triggers: \"analyze CSV\", \"pandas\", \"EDA\", \"Parquet\", \"pivot table\", \"matplotlib\", \"seaborn\", \"describe()\", \"missing values\", \"outliers\", \"correlation\", \"histogram\", \"openpyxl\", \"BarChart\", \"data validation\", \"freeze panes\", \"SQLite analyze\", \"profiling\".",
+    "triggers": [
+      "analyze csv",
+      "pandas",
+      "eda",
+      "parquet",
+      "pivot table",
+      "matplotlib",
+      "seaborn",
+      "describe()",
+      "missing values",
+      "outliers",
+      "correlation",
+      "histogram",
+      "openpyxl",
+      "barchart",
+      "data validation",
+      "freeze panes",
+      "sqlite analyze",
+      "profiling"
+    ],
+    "when_to_use": [
+      "**EDA** — dtypes, missingness, duplicates, simple aggregates.",
+      "**Cleaning** — Imputation assumptions, outliers, string normalization (with documented trade-offs).",
+      "**Visualization** — Histograms, scatter, bar, time series with honest axes.",
+      "**Pivot-style** summaries — `pivot_table`, `groupby`, export to Excel.",
+      "**Spreadsheet authoring** — openpyxl **charts**, **freeze_panes**, **DataValidation**."
+    ],
+    "references": [
+      "eda-and-cleaning.md",
+      "edge-cases.md",
+      "spreadsheets-charts-and-validation.md",
+      "tips-and-tricks.md",
+      "visualization-and-communication.md"
+    ]
+  },
+  {
+    "name": "deployment-pro",
+    "folder": "deployment-pro",
+    "description": "Professional software deployment: hosting models (static, PaaS, containers, serverless, VM), CI/CD flows, release strategies (rolling, blue-green, canary, GitOps), environments, rollback, and operational edge cases.\n\n  Use this skill when the user designs or debugs deployment pipelines, chooses hosting, promotes builds across environments, configures Kubernetes/serverless releases, manages migrations with zero-downtime goals, or asks about GitHub Actions / GitLab CI / cloud deploy patterns at a cross-stack level.\n\n  Use **with** **`testing-pro`** for what runs **in** CI (tests, quality gates); **`deployment-pro`** owns **ship path**, **release strategy**, and **runtime promotion**. Use **`security-pro`** for secrets and supply chain; **`postgresql-pro`** for migration ordering; **`nextjs-pro`** / **`nestjs-pro`** for framework-specific deploy targets (e.g. Vercel, Node Docker); **`electron-pro`** / **`tauri-pro`** for desktop release channels.\n\n  Triggers: \"deploy\", \"deployment\", \"CI/CD\", \"CD\", \"pipeline\", \"release\", \"rollback\", \"blue-green\", \"canary\", \"rolling deploy\", \"Kubernetes\", \"K8s\", \"Helm\", \"GitOps\", \"Argo CD\", \"Flux\", \"Docker\", \"container\", \"image\", \"registry\", \"serverless\", \"Lambda\", \"Cloud Functions\", \"Terraform\", \"IaC\", \"staging\", \"production\", \"promote\", \"environment\", \"Vercel\", \"Netlify\", \"Railway\", \"Render\", \"Fly.io\", \"zero downtime\", \"migration deploy\".",
+    "triggers": [
+      "deploy",
+      "deployment",
+      "ci/cd",
+      "cd",
+      "pipeline",
+      "release",
+      "rollback",
+      "blue-green",
+      "canary",
+      "rolling deploy",
+      "kubernetes",
+      "k8s",
+      "helm",
+      "gitops",
+      "argo cd",
+      "flux",
+      "docker",
+      "container",
+      "image",
+      "registry",
+      "serverless",
+      "lambda",
+      "cloud functions",
+      "terraform",
+      "iac",
+      "staging",
+      "production",
+      "promote",
+      "environment",
+      "vercel",
+      "netlify",
+      "railway",
+      "render",
+      "fly.io",
+      "zero downtime",
+      "migration deploy"
+    ],
+    "when_to_use": [
+      "Choosing or comparing **deployment methods** (static, PaaS, containers, serverless, VM).",
+      "Designing **CI/CD flow**: stages, approvals, artifacts, environment promotion.",
+      "**Release strategies**: rolling, blue-green, canary, feature flags vs big-bang.",
+      "**Rollback**, **drift** (GitOps), and **zero-downtime** constraints with **DB** changes.",
+      "**Edge cases**: ordering (API vs clients), cold starts, readiness vs liveness, secret rotation during deploy."
+    ],
+    "references": [
+      "edge-cases.md",
+      "flows-and-pipelines.md",
+      "methods-and-environments.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "design-system-pro",
+    "folder": "design-system-pro",
+    "description": "Professional product UI design: design systems, visual foundations, accessibility baselines, data-dense interfaces, guidelines and consistency, web vs native vs desktop patterns, themes and visual direction, and trend-aware (judgment-first) styling.\n\n  Use this skill when the user asks about design tokens, component libraries, Figma variables, UI kits, WCAG contrast, typography and spacing scales, dashboards and data tables, dark/light themes, **semantic token mapping**, **AI/copilot/chat UI**, streaming assistant layouts, citations and tool-use UI, design documentation, visual trends, brand-consistent UI, or cross-platform UX patterns.\n\n  Use **with** **`mobile-design-pro`** for **mobile-native** touch, safe area, and iOS/Android UX depth; implementation skills: **`react-pro`** / **`nextjs-pro`** (web), **`react-native-pro`** / **`flutter-pro`** (mobile), **`electron-pro`** / **`tauri-pro`** (desktop), **`testing-pro`** (visual regression). This skill (`design-system-pro`) owns **design language, system rules, and UX patterns**; framework skills own **code APIs**.\n\n  Triggers: \"design system\", \"design tokens\", \"UI kit\", \"Figma\", \"component library\", \"style guide\", \"baseline\", \"WCAG\", \"accessibility\", \"dark mode\", \"semantic color\", \"CSS variables theme\", \"dashboard\", \"data table\", \"UX\", \"UI\", \"visual design\", \"consistency\", \"spacing\", \"typography\", \"color palette\", \"HIG\", \"Material\", \"Fluent\", \"brand\", \"handoff\", \"trend\", \"motion\", \"responsive\", \"copilot\", \"chat UI\", \"AI assistant\", \"streaming UI\", \"RAG UI\", \"citations\".",
+    "triggers": [
+      "design system",
+      "design tokens",
+      "ui kit",
+      "figma",
+      "component library",
+      "style guide",
+      "baseline",
+      "wcag",
+      "accessibility",
+      "dark mode",
+      "semantic color",
+      "css variables theme",
+      "dashboard",
+      "data table",
+      "ux",
+      "ui",
+      "visual design",
+      "consistency",
+      "spacing",
+      "typography",
+      "color palette",
+      "hig",
+      "material",
+      "fluent",
+      "brand",
+      "handoff",
+      "trend",
+      "motion",
+      "responsive",
+      "copilot",
+      "chat ui",
+      "ai assistant",
+      "streaming ui",
+      "rag ui",
+      "citations"
+    ],
+    "when_to_use": [
+      "Defining or evolving a **design system** (tokens, primitives, documentation).",
+      "Setting **baseline**: type scale, spacing, color roles, **WCAG** targets, **data** density.",
+      "**Web vs app vs desktop** — adapting patterns without cloning the wrong platform.",
+      "**Themes** (light/dark), **visual direction**, and **trend** evaluation (fit vs fad).",
+      "**Consistency** audits, handoff rules, governance anti-patterns."
+    ],
+    "references": [
+      "a11y-responsive-and-web-typography.md",
+      "ai-copilot-ui-patterns-deep-dive.md",
+      "dark-mode-and-semantic-theming-deep-dive.md",
+      "design-system-guidelines-and-consistency.md",
+      "edge-cases.md",
+      "foundations-baseline-and-data-ui.md",
+      "platforms-web-app-desktop.md",
+      "tips-and-tricks.md",
+      "trends-themes-and-visual-language.md",
+      "web-performance-basics.md"
+    ]
+  },
+  {
+    "name": "electron-pro",
+    "folder": "electron-pro",
+    "description": "Professional Electron desktop apps: main vs renderer, preload and contextBridge, secure IPC, packaging, auto-update, and cross-platform edge cases.\n\n  Use this skill when the user works on Electron (`BrowserWindow`, `ipcMain`/`ipcRenderer`, preload scripts, `contextIsolation`, `electron-builder`/`electron-forge`), desktop packaging, code signing, native Node addons in Electron, or asks about security boundaries between UI and Node.\n\n  Use **with** **`react-pro`** (or Vue/Svelte docs) for renderer UI patterns, **`security-pro`** for threat modeling and desktop-specific abuse cases, **`testing-pro`** for E2E (Playwright Electron) and CI. This skill (`electron-pro`) owns **Electron process model and IPC**; web-framework skills own **component-level UI**.\n\n  Triggers: \"Electron\", \"electron\", \"BrowserWindow\", \"ipcMain\", \"ipcRenderer\", \"preload\", \"contextBridge\", \"contextIsolation\", \"electron-builder\", \"electron-forge\", \"electron-updater\", \"Chromium\", \"desktop app\", \"main process\", \"renderer\".",
+    "triggers": [
+      "electron",
+      "browserwindow",
+      "ipcmain",
+      "ipcrenderer",
+      "preload",
+      "contextbridge",
+      "contextisolation",
+      "electron-builder",
+      "electron-forge",
+      "electron-updater",
+      "chromium",
+      "desktop app",
+      "main process",
+      "renderer"
+    ],
+    "when_to_use": [
+      "Designing **main / preload / renderer** boundaries and **IPC** contracts.",
+      "Hardening **security** defaults (`contextIsolation`, no `nodeIntegration` in renderer, narrow `contextBridge`).",
+      "**Packaging**, **code signing**, and **auto-update** behavior.",
+      "**Native modules** and Electron ABI rebuilds; **multi-window** and performance."
+    ],
+    "references": [
+      "edge-cases.md",
+      "main-preload-and-ipc.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "flutter-pro",
+    "folder": "flutter-pro",
+    "description": "Professional Flutter development: UI/UX quality (Material 3), performance, multi-platform edge cases, and Dart patterns.\n\n  Use this skill when the user works on Flutter, Dart, widgets, Material / Cupertino, theming, navigation (go_router, Navigator 2), state management (Provider, Riverpod, Bloc, GetIt), animations, platform channels, web, desktop (Windows/macOS/Linux), iOS/Android builds, Impeller/Skia, accessibility, or asks for Flutter code review, layout, lists, isolates, or compile-size concerns.\n\n  Widget-focused: composing StatelessWidget / StatefulWidget, pure `build`, `Key` (ValueKey, GlobalKey), `BuildContext` and InheritedWidget, widget lifecycle (`initState`, `dispose`, `mounted`), splitting widgets vs helper methods, const constructors, or refactoring widget trees.\n\n  Triggers: \"Flutter\", \"Dart\", \"Widget\", \"StatelessWidget\", \"StatefulWidget\", \"State\", \"build method\", \"const widget\", \"Key\", \"ValueKey\", \"GlobalKey\", \"InheritedWidget\", \"Theme.of\", \"Material 3\", \"Cupertino\", \"go_router\", \"Navigator\", \"Riverpod\", \"Provider\", \"Bloc\", \"BuildContext\", \"mounted\", \"async gap\", \"Sliver\", \"ListView\", \"CustomScrollView\", \"RepaintBoundary\", \"Impeller\", \"platform channel\", \"MethodChannel\", \"FFI\", \"web\", \"Flutter desktop\", \"semantics\", \"a11y\", \"Golden test\", \"integration_test\".",
+    "triggers": [
+      "flutter",
+      "dart",
+      "widget",
+      "statelesswidget",
+      "statefulwidget",
+      "state",
+      "build method",
+      "const widget",
+      "key",
+      "valuekey",
+      "globalkey",
+      "inheritedwidget",
+      "theme.of",
+      "material 3",
+      "cupertino",
+      "go_router",
+      "navigator",
+      "riverpod",
+      "provider",
+      "bloc",
+      "buildcontext",
+      "mounted",
+      "async gap",
+      "sliver",
+      "listview",
+      "customscrollview",
+      "repaintboundary",
+      "impeller",
+      "platform channel",
+      "methodchannel",
+      "ffi",
+      "web",
+      "flutter desktop",
+      "semantics",
+      "a11y",
+      "golden test",
+      "integration_test"
+    ],
+    "when_to_use": [
+      "Building or refactoring screens, navigation, theming, forms, lists, or animations.",
+      "Reviewing Flutter code for widget structure, state management boundaries, and performance.",
+      "Debugging iOS vs Android vs web vs desktop differences, async/`BuildContext`, or plugin behavior.",
+      "Aligning UI with Material 3 (or design system), accessibility, and responsive layouts.",
+      "Refactoring **widget trees**: keys, lifecycle, extracting widgets, `const`, and `build` purity."
+    ],
+    "references": [
+      "edge-cases.md",
+      "tips-and-tricks.md",
+      "ui-ux-design.md",
+      "widgets.md"
+    ]
+  },
+  {
+    "name": "git-operations-pro",
+    "folder": "git-operations-pro",
+    "description": "Professional Git workflow: conventional commits, branch strategies, merge vs rebase discipline, pull requests, useful log/diff/bisect patterns, and safe collaboration — without replacing CI/CD or deployment orchestration.\n\n  Use this skill when the user asks about **commit conventions**, **branch naming**, **feature vs trunk flow**, **resolving conflicts**, **review hygiene**, **git log** interpretation, **revert vs reset**, or **what not to commit** — high-frequency in day-to-day coding sessions.\n\n  Use **with** **`testing-pro`** for what runs in **CI**; **`security-pro`** for **secrets** and leaked keys; **`deployment-pro`** for **release** paths — not branch topology. This skill (`git-operations-pro`) owns **VCS** workflow; **`code-packaging-pro`** owns **artifact** build YAML when the task is “workflow file” not “merge strategy”.\n\n  Triggers: \"git\", \"commit\", \"conventional commits\", \"branch\", \"merge\", \"rebase\", \"pull request\", \"PR\", \"conflict\", \"git log\", \"bisect\", \"revert\", \"cherry-pick\", \"stash\", \"force push\", \"trunk\", \"Git Flow\", \"CODEOWNERS\".",
+    "triggers": [
+      "git",
+      "commit",
+      "conventional commits",
+      "branch",
+      "merge",
+      "rebase",
+      "pull request",
+      "pr",
+      "conflict",
+      "git log",
+      "bisect",
+      "revert",
+      "cherry-pick",
+      "stash",
+      "force push",
+      "trunk",
+      "git flow",
+      "codeowners"
+    ],
+    "when_to_use": [
+      "**Commit messages** — Conventional Commits, **scope**, **breaking** notation.",
+      "**Branches** — Naming, short-lived, **trunk** vs **long-lived** release branches.",
+      "**PRs** — Size, review, **draft**, **description** template.",
+      "**Recovery** — **Revert** on shared `main`, **reset** only on private branches.",
+      "**Inspection** — `log`, `blame`, **bisect** for regressions."
+    ],
+    "references": [
+      "collaboration-and-safety.md",
+      "commits-and-branching.md",
+      "edge-cases.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "graphql-pro",
+    "folder": "graphql-pro",
+    "description": "Professional GraphQL guidance for schema design, resolver architecture, performance optimization, and secure API evolution.\n\n  Use this skill when designing GraphQL schemas, implementing resolvers, reviewing query/mutation patterns, or stabilizing GraphQL behavior in production.\n\n  Triggers: \"graphql\", \"schema\", \"resolver\", \"query\", \"mutation\", \"subscription\", \"n+1\", \"dataloader\", \"federation\", \"persisted query\", \"graphql edge case\".\n\n  Combine with `api-design-pro` for contract governance and `security-pro` for GraphQL-specific hardening.",
+    "triggers": [
+      "graphql",
+      "schema",
+      "resolver",
+      "query",
+      "mutation",
+      "subscription",
+      "n+1",
+      "dataloader",
+      "federation",
+      "persisted query",
+      "graphql edge case"
+    ],
+    "when_to_use": [
+      "Designing new GraphQL schema types, fields, and mutation contracts.",
+      "Reviewing resolver implementation quality, N+1 risks, and batching strategies.",
+      "Improving GraphQL latency/cost and limiting abusive query patterns.",
+      "Planning backward-compatible schema evolution and deprecation."
+    ],
+    "references": [
+      "edge-cases.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "image-processing-pro",
+    "folder": "image-processing-pro",
+    "description": "Professional raster image processing with Pillow (PIL): open/save, resize, crop, rotate, format conversion (JPEG, PNG, WebP), compositing, thumbnails, EXIF orientation, and batch-oriented workflows.\n\n  Use this skill when the user needs **pixel-level** operations — not **semantic** description of image content (“what is in this screenshot?”). For **meaning**, **OCR**, or **chart reading**, use **`content-analysis-pro`** instead.\n\n  Use **with** **`content-analysis-pro`** when a pipeline **extracts** frames then **processes** them; **`security-pro`** when stripping EXIF or handling **sensitive** screenshots. This skill (`image-processing-pro`) owns **imaging transforms**; vision **interpretation** belongs elsewhere.\n\n  Triggers: \"Pillow\", \"PIL\", \"resize image\", \"crop\", \"convert to PNG\", \"WebP\", \"thumbnail\", \"composite\", \"alpha\", \"EXIF\", \"rotate image\", \"batch images\", \"strip metadata\".",
+    "triggers": [
+      "pillow",
+      "pil",
+      "resize image",
+      "crop",
+      "convert to png",
+      "webp",
+      "thumbnail",
+      "composite",
+      "alpha",
+      "exif",
+      "rotate image",
+      "batch images",
+      "strip metadata"
+    ],
+    "when_to_use": [
+      "**Resize**, **crop**, **rotate**, **thumbnail** for web or upload limits.",
+      "**Convert** formats (JPEG, PNG, WebP), mode (`RGB`, `RGBA`).",
+      "**Composite** watermarks or overlays; **alpha** masks.",
+      "**Batch** folders — consistent naming and no accidental overwrite."
+    ],
+    "references": [
+      "edge-cases.md",
+      "pillow-operations.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "javascript-pro",
+    "folder": "javascript-pro",
+    "description": "Professional JavaScript guidance for architecture-level decisions, runtime behavior, async flows, performance, and maintainability.\n\n  Use this skill when implementing or reviewing JavaScript/TypeScript application logic, debugging tricky runtime behavior, or handling language-level edge cases in browser/Node.js projects.\n\n  Triggers: \"javascript\", \"js\", \"event loop\", \"promise\", \"closure\", \"this\", \"prototype\", \"hoisting\", \"microtask\", \"edge case\", \"tip\", \"trick\".\n\n  Combine with `testing-pro` for coverage strategy and `security-pro` for threat-focused hardening.",
+    "triggers": [
+      "javascript",
+      "js",
+      "event loop",
+      "promise",
+      "closure",
+      "this",
+      "prototype",
+      "hoisting",
+      "microtask",
+      "edge case",
+      "tip",
+      "trick"
+    ],
+    "when_to_use": [
+      "Designing JavaScript logic at module/service level instead of only syntax fixes.",
+      "Reviewing JS code for runtime correctness, readability, and production safety.",
+      "Diagnosing hard bugs involving async ordering, object mutation, or scope capture.",
+      "Hardening browser/Node code against non-obvious language and runtime traps."
+    ],
+    "references": [
+      "edge-cases.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "market-research-pro",
+    "folder": "market-research-pro",
+    "description": "Professional market research: market sizing (TAM/SAM/SOM), competitor benchmarking, customer segmentation, pricing and positioning hypotheses, trend scanning, evidence quality scoring, and decision-ready synthesis.\n\n  Use this skill when the user asks to validate market opportunity, compare competitors, estimate market size with assumptions, identify ICP segments, prioritize country/vertical expansion, or produce an executive-style market brief with citations and explicit confidence levels.\n\n  Use **with** **`web-research-pro`** for official and current external sources, **`business-analysis-pro`** to convert findings into requirements/roadmaps, and **`data-analysis-pro`** when survey or tabular datasets need numeric analysis. This skill (`market-research-pro`) owns **research framing and synthesis quality**; other skills own deep implementation or analytics details.\n\n  Triggers: \"market research\", \"TAM\", \"SAM\", \"SOM\", \"competitor analysis\", \"ICP\", \"go-to-market\", \"positioning\", \"pricing\", \"market size\", \"industry trends\", \"benchmark\", \"category landscape\", \"entry strategy\".",
+    "triggers": [
+      "market research",
+      "tam",
+      "sam",
+      "som",
+      "competitor analysis",
+      "icp",
+      "go-to-market",
+      "positioning",
+      "pricing",
+      "market size",
+      "industry trends",
+      "benchmark",
+      "category landscape",
+      "entry strategy"
+    ],
+    "when_to_use": [
+      "Market sizing with transparent assumptions (TAM/SAM/SOM).",
+      "Competitor landscape and differentiated positioning.",
+      "ICP/segment prioritization and expansion hypotheses.",
+      "Pricing and packaging hypothesis framing (not final finance model).",
+      "Trend scan for strategic direction with citation discipline."
+    ],
+    "references": [
+      "competitor-and-positioning.md",
+      "edge-cases.md",
+      "market-sizing-and-assumptions.md",
+      "reporting-and-evidence-quality.md",
+      "segment-prioritization-and-gtm.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "microservices-pro",
+    "folder": "microservices-pro",
+    "description": "Professional microservices guidance for designing service boundaries, inter-service communication, resilience, and operational reliability at scale.\n\n  Use this skill when designing or reviewing microservices architecture, service decomposition, data ownership, integration patterns, and production operations.\n\n  Triggers: \"microservices\", \"service boundary\", \"distributed system\", \"saga\", \"event-driven\", \"service mesh\", \"api gateway\", \"resilience\", \"observability\", \"edge case\".\n\n  Combine with `api-design-pro` for service contracts and `performance-tuning-pro` for distributed latency/throughput optimization.",
+    "triggers": [
+      "microservices",
+      "service boundary",
+      "distributed system",
+      "saga",
+      "event-driven",
+      "service mesh",
+      "api gateway",
+      "resilience",
+      "observability",
+      "edge case"
+    ],
+    "when_to_use": [
+      "Splitting monolith domains into services with clear ownership boundaries.",
+      "Designing synchronous/asynchronous communication among services.",
+      "Handling distributed consistency, retries, partial failures, and resilience patterns.",
+      "Improving observability, incident isolation, and operational readiness in production."
+    ],
+    "references": [
+      "edge-cases.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "mobile-design-pro",
+    "folder": "mobile-design-pro",
+    "description": "Professional mobile product design: touch targets, safe areas, thumb reach, one-handed use, screen density, mobile navigation patterns, iOS vs Android conventions, keyboards and forms, accessibility on small screens, and platform-specific UX edge cases.\n\n  Use this skill when the user designs or reviews **mobile-native** UX (phone/tablet), touch and gesture patterns, bottom navigation vs tabs, sheets and modals, onboarding and permissions, offline states, foldables, or asks how iOS HIG differs from Material on mobile.\n\n  Use **with** **`design-system-pro`** (tokens, brand, dark mode), **`react-native-pro`** or **`flutter-pro`** (implementation: SafeArea, navigation APIs, keyboard avoiding). This skill (`mobile-design-pro`) owns **mobile-specific UX and layout rules**; framework skills own **code and APIs**.\n\n  Triggers: \"mobile design\", \"mobile UX\", \"iOS HIG\", \"Material Design mobile\", \"touch target\", \"safe area\", \"notch\", \"bottom navigation\", \"thumb zone\", \"one-handed\", \"mobile keyboard\", \"gesture\", \"bottom sheet\", \"mobile onboarding\", \"tablet layout\", \"foldable\", \"mobile a11y\", \"VoiceOver\", \"TalkBack\", \"dynamic type\".",
+    "triggers": [
+      "mobile design",
+      "mobile ux",
+      "ios hig",
+      "material design mobile",
+      "touch target",
+      "safe area",
+      "notch",
+      "bottom navigation",
+      "thumb zone",
+      "one-handed",
+      "mobile keyboard",
+      "gesture",
+      "bottom sheet",
+      "mobile onboarding",
+      "tablet layout",
+      "foldable",
+      "mobile a11y",
+      "voiceover",
+      "talkback",
+      "dynamic type"
+    ],
+    "when_to_use": [
+      "**Layout and touch** — Targets, spacing, **thumb-friendly** primary actions, safe areas, keyboard overlap.",
+      "**Navigation** — Tabs, stacks, sheets, **back** behavior expectations per platform.",
+      "**Patterns** — Onboarding, permissions timing, pull-to-refresh, empty/offline/error.",
+      "**Inclusivity** — Dynamic type, screen readers, RTL, reduce motion.",
+      "**Form factors** — Tablet split view, **foldable** hinge, landscape."
+    ],
+    "references": [
+      "edge-cases.md",
+      "navigation-and-platform-ios-android.md",
+      "tips-and-tricks.md",
+      "touch-layout-safe-areas-and-density.md"
+    ]
+  },
+  {
+    "name": "nestjs-pro",
+    "folder": "nestjs-pro",
+    "description": "Professional NestJS backend development: module design, API/DX quality, security patterns, and production edge cases.\n\n  Use this skill when the user works on NestJS, Node.js APIs, modules, providers, guards, pipes, interceptors, filters, Swagger/OpenAPI, Prisma/TypeORM, microservices, WebSockets, GraphQL, Bull queues, testing (unit/e2e), or asks for Nest code review, DTO validation, exception mapping, lifecycle, or deployment concerns.\n\n  PostgreSQL RLS with Nest: row-level security, tenant context per request, `SET LOCAL` / `set_config`, Prisma transaction + RLS, TypeORM QueryRunner + RLS, RLS with PgBouncer, middleware/interceptor setting tenant before DB, or when combining JWT guards with database policies.\n\n  Triggers: \"NestJS\", \"Nest\", \"@nestjs\", \"module\", \"provider\", \"inject\", \"Guard\", \"Pipe\", \"Interceptor\", \"ExceptionFilter\", \"ValidationPipe\", \"Swagger\", \"OpenAPI\", \"Prisma\", \"TypeORM\", \"MikroORM\", \"passport\", \"JWT\", \"microservice\", \"Kafka\", \"RabbitMQ\", \"Bull\", \"WebSocket\", \"GraphQL\", \"lifecycle\", \"OnModuleInit\", \"shutdown hook\", \"circular dependency\", \"e2e test\", \"Jest\", \"RLS\", \"row level security\", \"tenant\", \"PostgreSQL policy\", \"set_config\", \"SET LOCAL\".",
+    "triggers": [
+      "nestjs",
+      "nest",
+      "@nestjs",
+      "module",
+      "provider",
+      "inject",
+      "guard",
+      "pipe",
+      "interceptor",
+      "exceptionfilter",
+      "validationpipe",
+      "swagger",
+      "openapi",
+      "prisma",
+      "typeorm",
+      "mikroorm",
+      "passport",
+      "jwt",
+      "microservice",
+      "kafka",
+      "rabbitmq",
+      "bull",
+      "websocket",
+      "graphql",
+      "lifecycle",
+      "onmoduleinit",
+      "shutdown hook",
+      "circular dependency",
+      "e2e test",
+      "jest",
+      "rls",
+      "row level security",
+      "tenant",
+      "postgresql policy",
+      "set_config",
+      "set local"
+    ],
+    "when_to_use": [
+      "Designing or refactoring modules, controllers, services, and cross-cutting concerns.",
+      "Reviewing Nest code for DI clarity, validation, security (authz), and consistent HTTP responses.",
+      "Debugging lifecycle, shutdown, transactions, queues, or multi-instance behavior.",
+      "Aligning APIs with predictable errors, DTO contracts, versioning, and documentation (OpenAPI).",
+      "Wiring **PostgreSQL RLS** from Nest: per-request tenant context, Prisma/TypeORM transaction boundaries, pooling (PgBouncer)."
+    ],
+    "references": [
+      "api-design-and-dx.md",
+      "edge-cases.md",
+      "postgresql-rls-integration.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "nextjs-pro",
+    "folder": "nextjs-pro",
+    "description": "Professional Next.js development: App Router, Server Components, data fetching and caching, Route Handlers, middleware, and deployment-aware edge cases.\n\n  Use this skill when the user works on Next.js (Pages or App Router), `next.config`, `next/image`, `next/font`, `next/link`, layouts, `loading.tsx`, `error.tsx`, Server Actions, `fetch` caching and revalidation, `cookies()` / `headers()` in RSC, Middleware, Edge Runtime, Route Handlers, internationalization (next-intl / i18n), Turbopack, Vercel deployment, or asks for review of RSC boundaries, hydration, or API routes.\n\n  Triggers: \"Next.js\", \"Nextjs\", \"App Router\", \"Pages Router\", \"Server Component\", \"RSC\", \"use client\", \"Server Action\", \"next/navigation\", \"next/image\", \"middleware.ts\", \"revalidate\", \"fetch cache\", \"Route Handler\", \"edge runtime\", \"Turbopack\", \"next.config\", \"Vercel\", \"parallel routes\", \"intercepting routes\", \"generateStaticParams\", \"dynamic route\", \"metadata API\", \"next/font\".",
+    "triggers": [
+      "next.js",
+      "nextjs",
+      "app router",
+      "pages router",
+      "server component",
+      "rsc",
+      "use client",
+      "server action",
+      "next/navigation",
+      "next/image",
+      "middleware.ts",
+      "revalidate",
+      "fetch cache",
+      "route handler",
+      "edge runtime",
+      "turbopack",
+      "next.config",
+      "vercel",
+      "parallel routes",
+      "intercepting routes",
+      "generatestaticparams",
+      "dynamic route",
+      "metadata api",
+      "next/font"
+    ],
+    "when_to_use": [
+      "Structuring **App Router** trees: layouts, templates, loading/error boundaries, route groups.",
+      "Choosing **Server vs Client Components** and fixing boundary mistakes (`\"use client\"` placement).",
+      "**Data fetching**: `fetch` in RSC, caching, `revalidatePath` / `revalidateTag`, `unstable_cache` patterns.",
+      "**Mutations**: Server Actions vs Route Handlers; form handling and progressive enhancement.",
+      "**Middleware**, auth redirects, matchers, Edge vs Node runtime.",
+      "**Deployment**: environment variables, `output: standalone`, image domains, region/runtime constraints."
+    ],
+    "references": [
+      "app-router-and-layouts.md",
+      "edge-cases.md",
+      "server-client-boundaries.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "performance-tuning-pro",
+    "folder": "performance-tuning-pro",
+    "description": "Professional performance tuning guidance for diagnosing bottlenecks, selecting optimizations, and avoiding premature optimization across frontend, backend, and data flows.\n\n  Use this skill when improving application latency/throughput, reducing resource usage, investigating slow paths, or reviewing performance-sensitive changes.\n\n  Triggers: \"performance\", \"optimize\", \"bottleneck\", \"latency\", \"throughput\", \"cpu\", \"memory\", \"profiling\", \"slow query\", \"cache\", \"edge case\".\n\n  Combine with `testing-pro` for repeatable performance checks and `repo-tooling-pro` for script-driven diagnostics.",
+    "triggers": [
+      "performance",
+      "optimize",
+      "bottleneck",
+      "latency",
+      "throughput",
+      "cpu",
+      "memory",
+      "profiling",
+      "slow query",
+      "cache",
+      "edge case"
+    ],
+    "when_to_use": [
+      "Fixing slow endpoints/screens, long startup time, high CPU, memory growth, or unstable p95/p99.",
+      "Reviewing PRs where caching, batching, concurrency, or algorithmic complexity changes behavior.",
+      "Deciding whether to optimize code, queries, I/O, rendering, or infrastructure first.",
+      "Preventing regressions by defining baselines, budgets, and reproducible measurement."
+    ],
+    "references": [
+      "edge-cases.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "postgresql-pro",
+    "folder": "postgresql-pro",
+    "description": "Professional PostgreSQL: schema design, SQL performance, migrations, operational edge cases, and Row Level Security (RLS).\n\n  Use this skill when the user works on PostgreSQL, SQL, migrations (Flyway, Prisma, TypeORM, knex, raw SQL), indexing, EXPLAIN ANALYZE, transactions, isolation levels, replication, vacuum, connection pooling, partitioning, full-text search, JSONB, LISTEN/NOTIFY, or asks for DB review, slow query tuning, or deadlock investigation.\n\n  RLS-focused: row-level security, policies (USING / WITH CHECK), ENABLE ROW LEVEL SECURITY, FORCE ROW LEVEL SECURITY, BYPASSRLS, multi-tenant isolation, tenant_id policies, Supabase RLS, JWT claims in policies, session variables for tenant context, restrictive policies, or debugging \"no rows\" / wrong visibility after enabling RLS.\n\n  Triggers: \"PostgreSQL\", \"Postgres\", \"SQL\", \"migration\", \"EXPLAIN\", \"index\", \"VACUUM\", \"MVCC\", \"transaction\", \"isolation\", \"deadlock\", \"lock\", \"replication\", \"read replica\", \"JSONB\", \"CTE\", \"partition\", \"pg_stat\", \"autovacuum\", \"connection pool\", \"RLS\", \"row level security\", \"policy\", \"USING\", \"WITH CHECK\", \"BYPASSRLS\", \"tenant\", \"multi-tenant\", \"Supabase RLS\", \"listen notify\".",
+    "triggers": [
+      "postgresql",
+      "postgres",
+      "sql",
+      "migration",
+      "explain",
+      "index",
+      "vacuum",
+      "mvcc",
+      "transaction",
+      "isolation",
+      "deadlock",
+      "lock",
+      "replication",
+      "read replica",
+      "jsonb",
+      "cte",
+      "partition",
+      "pg_stat",
+      "autovacuum",
+      "connection pool",
+      "rls",
+      "row level security",
+      "policy",
+      "using",
+      "with check",
+      "bypassrls",
+      "tenant",
+      "multi-tenant",
+      "supabase rls",
+      "listen notify"
+    ],
+    "when_to_use": [
+      "Designing or evolving schemas, constraints, indexes, and migrations.",
+      "Tuning queries, interpreting `EXPLAIN (ANALYZE, BUFFERS)`, or reducing lock contention.",
+      "Planning zero-downtime or low-risk migrations (backfills, `CONCURRENTLY` indexes).",
+      "Debugging vacuum bloat, replication lag, connection exhaustion, or deadlocks.",
+      "**`ALTER TABLE … ENABLE ROW LEVEL SECURITY`**, writing or reviewing **policies**, tenant isolation, Supabase-style JWT policies, or **RLS performance** (indexes on policy predicates)."
+    ],
+    "references": [
+      "edge-cases.md",
+      "row-level-security.md",
+      "schema-and-query-design.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "react-native-pro",
+    "folder": "react-native-pro",
+    "description": "Professional React Native and Expo development: UI/UX quality, performance patterns, and platform edge cases.\n\n  Use this skill when the user works on React Native, Expo, mobile screens, navigation, lists, animations, native modules, EAS builds, Hermes, New Architecture, or asks for RN code review, styling, accessibility, keyboard handling, Safe Area, Android back behavior, deep linking, images, or FlatList/FlashList performance.\n\n  Triggers: \"React Native\", \"Expo\", \"RN\", \"FlatList\", \"FlashList\", \"SafeArea\", \"keyboard avoiding\", \"Android back\", \"Hermes\", \"Reanimated\", \"Expo Router\", \"EAS\", \"touch target\", \"a11y\", \"accessibility\", \"StatusBar\", \"notch\", \"pixel ratio\", \"deep link\", \"New Architecture\", \"performance\", \"re-render\", \"memo\".",
+    "triggers": [
+      "react native",
+      "expo",
+      "rn",
+      "flatlist",
+      "flashlist",
+      "safearea",
+      "keyboard avoiding",
+      "android back",
+      "hermes",
+      "reanimated",
+      "expo router",
+      "eas",
+      "touch target",
+      "a11y",
+      "accessibility",
+      "statusbar",
+      "notch",
+      "pixel ratio",
+      "deep link",
+      "new architecture",
+      "performance",
+      "re-render",
+      "memo"
+    ],
+    "when_to_use": [
+      "Building or refactoring screens, navigation, lists, forms, modals, or animations.",
+      "Reviewing RN/Expo code for performance, accessibility, or platform correctness.",
+      "Debugging iOS vs Android differences, keyboard, safe areas, linking, or build/runtime issues.",
+      "Aligning UI with sensible spacing, typography, loading/error/empty states, and touch targets."
+    ],
+    "references": [
+      "edge-cases.md",
+      "tips-and-tricks.md",
+      "ui-ux-design.md"
+    ]
+  },
+  {
+    "name": "react-pro",
+    "folder": "react-pro",
+    "description": "Professional React (web) development: component design, hooks and performance, UI/a11y, and framework edge cases (Vite, Next.js, SSR).\n\n  Use this skill when the user works on React, JSX/TSX, hooks (useState, useEffect, useMemo, useCallback, useRef, useReducer, useContext, useLayoutEffect), Server Components (Next/App Router), client boundaries, React Router / TanStack Router, TanStack Query, Zustand/Redux, forms (React Hook Form), testing (Vitest/Jest, RTL, Playwright), bundlers (Vite, webpack), or asks for review of effects, memoization, lists/keys, hydration, or bundle size.\n\n  Triggers: \"React\", \"JSX\", \"TSX\", \"hooks\", \"useEffect\", \"useMemo\", \"useCallback\", \"useRef\", \"memo\", \"React.memo\", \"re-render\", \"Strict Mode\", \"hydration\", \"SSR\", \"RSC\", \"Server Component\", \"use client\", \"Next.js\", \"Vite\", \"React Router\", \"TanStack Query\", \"React Hook Form\", \"forwardRef\", \"lazy\", \"Suspense\", \"Error Boundary\", \"key prop\", \"Virtual DOM\", \"flushSync\", \"a11y\", \"ARIA\", \"semantic HTML\".",
+    "triggers": [
+      "react",
+      "jsx",
+      "tsx",
+      "hooks",
+      "useeffect",
+      "usememo",
+      "usecallback",
+      "useref",
+      "memo",
+      "react.memo",
+      "re-render",
+      "strict mode",
+      "hydration",
+      "ssr",
+      "rsc",
+      "server component",
+      "use client",
+      "next.js",
+      "vite",
+      "react router",
+      "tanstack query",
+      "react hook form",
+      "forwardref",
+      "lazy",
+      "suspense",
+      "error boundary",
+      "key prop",
+      "virtual dom",
+      "flushsync",
+      "a11y",
+      "aria",
+      "semantic html"
+    ],
+    "when_to_use": [
+      "Building or refactoring components, hooks, context, and data-fetching boundaries.",
+      "Reviewing React code for effect correctness, memoization scope, list keys, and a11y.",
+      "Debugging hydration mismatches, double effects in Strict Mode, stale closures, or SSR/RSC boundaries.",
+      "Aligning UI with semantic HTML, keyboard support, and responsive layouts."
+    ],
+    "references": [
+      "components-and-jsx.md",
+      "edge-cases.md",
+      "tips-and-tricks.md",
+      "ui-ux-design.md"
+    ]
+  },
+  {
+    "name": "repo-tooling-pro",
+    "folder": "repo-tooling-pro",
+    "description": "Repository automation for this skills template: Python scripts under scripts/ for knowledge-base batch queries (performance), skill inventory, validation, and KB build/verify — when to use them vs reading Markdown only.\n\n  Use this skill when the user runs or wires CI for build_kb, query_kb, query_kb_batch, verify_kb, list_skills, validate_skills, analyze_skills; asks how to speed up multiple KB queries; or needs a JSON list of bundled skills — or a **report** on which skills should **link or add** helpers under `scripts/` (self-support automation). This skill (`repo-tooling-pro`) owns **script usage and performance**; other **`*-pro`** skills own domain content.\n\n  Triggers: \"scripts\", \"query_kb_batch\", \"batch query\", \"list_skills\", \"validate_skills\", \"analyze_skills\", \"skill analysis report\", \"script self support\", \"build_kb\", \"verify_kb\", \"CI skills\", \"RAG performance\", \"embeddings\", \"repo automation\".",
+    "triggers": [
+      "scripts",
+      "query_kb_batch",
+      "batch query",
+      "list_skills",
+      "validate_skills",
+      "analyze_skills",
+      "skill analysis report",
+      "script self support",
+      "build_kb",
+      "verify_kb",
+      "ci skills",
+      "rag performance",
+      "embeddings",
+      "repo automation"
+    ],
+    "when_to_use": [
+      "**Multiple** KB questions in one session — **`query_kb_batch.py`**.",
+      "**CI** — **`validate_skills.py`** after skill changes; **`verify_kb.py`** after KB build.",
+      "**Agent inventory** — **`list_skills.py --json`**.",
+      "**Authoring / audit** — **`analyze_skills.py`** (`--markdown` for paste-ready report; see **`skills-self-review-pro`**).",
+      "Explaining **performance** difference vs N× `query_kb.py`."
+    ],
+    "references": [
+      "edge-cases.md",
+      "kb-and-repo-scripts.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "security-pro",
+    "folder": "security-pro",
+    "description": "Professional application and platform security: threat modeling, secure design, authn/authz, secrets, crypto hygiene, API and client hardening, and operational security signals — cross-stack (web, mobile, API, backend, cloud).\n\n  Use this skill when the user asks about security review, OWASP-style risks, XSS, CSRF, SSRF, injection, IDOR/BOLA, JWT/session hardening, TLS, headers (CSP, HSTS), secrets management, rate limiting, audit logging, dependency/supply-chain risk, mobile secure storage, or hardening CI/CD pipelines.\n\n  Use this skill for **network-aware security**: OSI / TCP–IP mapping, DNS/TLS/segmentation concepts, and how attacks relate to layers. Use it for **attack-method literacy** (MITRE ATT&CK, OWASP testing mindset, kill-chain phases) from a **defender** perspective. Use it for **authorized** offensive simulation: internal pen-test style workflows, staging/lab self-assessment, purple-team exercises, and structured bug reporting — **never** for unauthorized testing.\n\n  Use **with** stack skills for implementation wiring: **`nestjs-pro`** (Guards, ValidationPipe, HTTP errors), **`nextjs-pro`** (middleware, Server Actions, env boundaries), **`postgresql-pro`** (RLS, least-privilege roles), **`react-pro`** / **`flutter-pro`** / **`react-native-pro`** (XSS-safe UI, WebView, deep links), **`testing-pro`** (security-focused tests, SAST/DAST hooks in CI). This skill (`security-pro`) owns **cross-platform security principles and threat framing**; framework skills own **framework-specific APIs**.\n\n  Triggers: \"security\", \"secure\", \"OWASP\", \"XSS\", \"CSRF\", \"SSRF\", \"injection\", \"SQL injection\", \"IDOR\", \"BOLA\", \"auth\", \"authorization\", \"JWT\", \"session\", \"cookie\", \"CSP\", \"HSTS\", \"TLS\", \"secrets\", \"vault\", \"rate limit\", \"penetration\", \"threat model\", \"STRIDE\", \"CWE\", \"ASVS\", \"SAST\", \"DAST\", \"Dependabot\", \"supply chain\", \"encryption\", \"PII\", \"audit log\", \"hardening\", \"OSI\", \"TCP/IP\", \"network security\", \"MITRE\", \"ATT&CK\", \"kill chain\", \"red team\", \"purple team\", \"bug bounty\", \"pentest\", \"self-assessment\", \"attack simulation\".",
+    "triggers": [
+      "security",
+      "secure",
+      "owasp",
+      "xss",
+      "csrf",
+      "ssrf",
+      "injection",
+      "sql injection",
+      "idor",
+      "bola",
+      "auth",
+      "authorization",
+      "jwt",
+      "session",
+      "cookie",
+      "csp",
+      "hsts",
+      "tls",
+      "secrets",
+      "vault",
+      "rate limit",
+      "penetration",
+      "threat model",
+      "stride",
+      "cwe",
+      "asvs",
+      "sast",
+      "dast",
+      "dependabot",
+      "supply chain",
+      "encryption",
+      "pii",
+      "audit log",
+      "hardening",
+      "osi",
+      "tcp/ip",
+      "network security",
+      "mitre",
+      "att&ck",
+      "kill chain",
+      "red team",
+      "purple team",
+      "bug bounty",
+      "pentest",
+      "self-assessment",
+      "attack simulation"
+    ],
+    "when_to_use": [
+      "**Threat modeling** or security review of a feature, API, or architecture.",
+      "Hardening **authn/authz**, **sessions**, or **tokens** across web/mobile/API.",
+      "**Secrets**, **TLS**, **headers**, **CORS**, **rate limiting**, **logging** (redaction).",
+      "**Dependency** / supply-chain and **CI** security gates.",
+      "**OSI / TCP–IP**, segmentation, DNS/TLS, and how **network** properties affect app threats (e.g. SSRF, MITM assumptions).",
+      "**Attack-method** literacy: mapping controls to **MITRE ATT&CK** / OWASP-style classes; prioritizing detections and tests.",
+      "**Authorized** self-assessment: staging/lab testing, purple-team collaboration, structured **findings** reports."
+    ],
+    "references": [
+      "attack-techniques-and-methods.md",
+      "edge-cases.md",
+      "fundamentals-and-threat-model.md",
+      "offensive-simulation-and-self-assessment.md",
+      "osi-and-networking.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "seo-pro",
+    "folder": "seo-pro",
+    "description": "Professional SEO: full lifecycle (audit, strategy, implementation, measurement), technical crawlability (indexing, canonicals, sitemaps, structured data, Core Web Vitals), on-page patterns, and search-quality edge cases.\n\n  Use this skill when the user asks about organic search visibility, Google Search Console, Bing Webmaster, robots.txt, XML sitemaps, canonical and hreflang, meta titles/descriptions, structured data (JSON-LD), E-E-A-T, internal linking, JavaScript SEO, duplicate content, pagination, international SEO, or Core Web Vitals vs SEO.\n\n  Use **with** **`nextjs-pro`** (Metadata API, `sitemap.ts`, `robots.ts`, RSC/SSR for crawlable HTML), **`react-pro`** (SPA rendering constraints, document head), **`deployment-pro`** (CDN, caching, TTFB). This skill (`seo-pro`) owns **search strategy and SEO mechanics**; framework skills own **framework-specific implementation**.\n\n  Triggers: \"SEO\", \"organic search\", \"Google Search Console\", \"GSC\", \"sitemap\", \"robots.txt\", \"canonical\", \"hreflang\", \"meta title\", \"meta description\", \"structured data\", \"schema\", \"JSON-LD\", \"Core Web Vitals\", \"LCP\", \"CLS\", \"INP\", \"indexing\", \"crawl\", \"noindex\", \"duplicate content\", \"international SEO\", \"E-E-A-T\", \"rich results\", \"Bing Webmaster\".",
+    "triggers": [
+      "seo",
+      "organic search",
+      "google search console",
+      "gsc",
+      "sitemap",
+      "robots.txt",
+      "canonical",
+      "hreflang",
+      "meta title",
+      "meta description",
+      "structured data",
+      "schema",
+      "json-ld",
+      "core web vitals",
+      "lcp",
+      "cls",
+      "inp",
+      "indexing",
+      "crawl",
+      "noindex",
+      "duplicate content",
+      "international seo",
+      "e-e-a-t",
+      "rich results",
+      "bing webmaster"
+    ],
+    "when_to_use": [
+      "Running or reviewing the **full SEO flow**: baseline → audit → strategy → ship → measure → iterate.",
+      "**Technical SEO**: indexing, robots, sitemaps, canonical, `hreflang`, structured data, CWV.",
+      "**On-page** templates: titles, headings, internal links, snippet-oriented copy.",
+      "**Edge cases**: SPAs, faceted nav, staging leaks, international, algorithm quality."
+    ],
+    "references": [
+      "edge-cases.md",
+      "seo-flow-and-lifecycle.md",
+      "technical-seo-and-crawl.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "skills-self-review-pro",
+    "folder": "skills-self-review-pro",
+    "description": "Self-review of the skills template: structured gap and improvement reports using repo scripts (analyze_skills Markdown output, validate_skills, list_skills), cross-checks against SKILL_AUTHORING_RULES.md, optional **tech refresh** via **`web-research-pro`** (official docs, release notes), and clear limits of automation vs human judgment.\n\n  Use this skill when the user wants a **periodic audit** of bundled skills, a **PR checklist** for skill changes, an **automation vs scripts** backlog, or asks to **find gaps** and **suggested improvements** without manually opening every `SKILL.md` — or to **align** stack skills with **current** upstream technology.\n\n  Use **with** **`repo-tooling-pro`** for script flags and CI wiring; **`web-research-pro`** for **internet / official** doc verification; **`git-operations-pro`** when the output becomes a **commit** or **PR** artifact. Persist decisions in **`knowledge-base/documents/`** per **`.cursor/rules/documentation-persistence.mdc`**. This skill (`skills-self-review-pro`) owns **review methodology and report shape**; scripts own **deterministic checks**.\n\n  Triggers: \"skill self review\", \"audit skills\", \"gap report\", \"improve bundled skills\", \"analyze_skills\", \"validate_skills inventory\", \"authoring checklist\", \"skill quality\", \"SKILL.md review\", \"tech refresh skills\", \"update skills for new React\", \"official docs check\".",
+    "triggers": [
+      "skill self review",
+      "audit skills",
+      "gap report",
+      "improve bundled skills",
+      "analyze_skills",
+      "validate_skills inventory",
+      "authoring checklist",
+      "skill quality",
+      "skill.md review",
+      "tech refresh skills",
+      "update skills for new react",
+      "official docs check"
+    ],
+    "when_to_use": [
+      "**Before merge** of large skill additions — run **`validate_skills`** + **`analyze_skills --markdown`**.",
+      "**Quarterly** or **milestone** hygiene — generate gap list for maintainers.",
+      "**Onboarding** — explain how bundled skills are **checked** in this repo.",
+      "**Tech refresh** — pair script audit with **`web-research-pro`** + official docs for stacks you maintain."
+    ],
+    "references": [
+      "authoring-rules-crosscheck.md",
+      "edge-cases.md",
+      "report-structure-and-scripts.md",
+      "tech-refresh-and-web-research.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "sql-data-access-pro",
+    "folder": "sql-data-access-pro",
+    "description": "Professional SQL data access for local and embedded workflows: SQLite (`sqlite3` stdlib), parameterized queries, schema discovery, safe read-only opens, export to CSV, and clear handoff to PostgreSQL for server-grade features.\n\n  Use this skill when the user works with **`.db` / `.sqlite`** files, writes **ad-hoc SQL** in scripts, **explores** schemas, or **exports** query results — not when tuning **PostgreSQL** servers, **RLS**, replication, or **migrations** at scale (use **`postgresql-pro`**).\n\n  Use **with** **`postgresql-pro`** when the task **outgrows** SQLite (multi-tenant server, RLS, `EXPLAIN`, ops); **`data-analysis-pro`** for **pandas**-heavy profiling on **exports**; **`content-analysis-pro`** only for **narrative** “what’s in this file” framing, not SQL tuning.\n\n  Triggers: \"SQLite\", \".db\", \"sqlite3\", \"SQL injection\", \"parameterized query\", \"SELECT\", \"schema\", \"export CSV\", \"read-only database\", \"embedded database\", \"local SQL\".",
+    "triggers": [
+      "sqlite",
+      ".db",
+      "sqlite3",
+      "sql injection",
+      "parameterized query",
+      "select",
+      "schema",
+      "export csv",
+      "read-only database",
+      "embedded database",
+      "local sql"
+    ],
+    "when_to_use": [
+      "**Open** and **query** `.db` / `.sqlite` files (stdlib or CLI).",
+      "**Discover** tables/columns; **sample** rows; **aggregate** safely.",
+      "**Export** results for **CSV** / **analysis**.",
+      "**Explain** **parameterized** queries vs string interpolation."
+    ],
+    "references": [
+      "edge-cases.md",
+      "sql-safety-and-postgresql-handoff.md",
+      "sqlite-and-stdlib.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "strategic-consulting-pro",
+    "folder": "strategic-consulting-pro",
+    "description": "Professional strategic consulting: problem framing, strategic options, scenario planning, portfolio and capability fit, prioritization, and decision-ready recommendations for leadership.\n\n  Use this skill when the user needs board/executive-level strategy support: growth choices, market-entry sequencing, build/partner/buy decisions, operating model trade-offs, strategic risks, or a concise strategy memo with assumptions and confidence levels.\n\n  Use **with** **`market-research-pro`** for market and competitor evidence, **`business-analysis-pro`** for requirements and execution planning, and **`web-research-pro`** for external source validation. This skill (`strategic-consulting-pro`) owns **strategy framing and option evaluation**; other skills own deep domain analysis and implementation detail.\n\n  Triggers: \"strategy\", \"strategic consulting\", \"go-to-market strategy\", \"market entry\", \"prioritization\", \"portfolio strategy\", \"build vs buy\", \"partner strategy\", \"operating model\", \"scenario planning\", \"decision memo\", \"north star\".",
+    "triggers": [
+      "strategy",
+      "strategic consulting",
+      "go-to-market strategy",
+      "market entry",
+      "prioritization",
+      "portfolio strategy",
+      "build vs buy",
+      "partner strategy",
+      "operating model",
+      "scenario planning",
+      "decision memo",
+      "north star"
+    ],
+    "when_to_use": [
+      "Clarifying strategic problem statements before jumping to solutions.",
+      "Evaluating options with explicit criteria and trade-offs.",
+      "Prioritizing initiatives under limited resources.",
+      "Building leadership-facing strategy memos and recommendations.",
+      "Scenario planning under uncertainty and risk."
+    ],
+    "references": [
+      "edge-cases.md",
+      "prioritization-and-resource-allocation.md",
+      "problem-framing-and-options.md",
+      "reporting-and-executive-communication.md",
+      "scenario-planning-and-risk.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "stream-rtc-pro",
+    "folder": "stream-rtc-pro",
+    "description": "Professional realtime streaming and RTC guidance for designing low-latency media systems with reliable signaling, adaptive quality, and secure operation.\n\n  Use this skill when building or reviewing WebRTC/RTC streaming architecture, call/session lifecycle, media transport behavior, and production scaling strategy.\n\n  Triggers: \"webrtc\", \"rtc\", \"streaming\", \"rtp\", \"sfu\", \"turn\", \"stun\", \"signaling\", \"jitter\", \"packet loss\", \"media edge case\".\n\n  Combine with `websocket-pro` for signaling channels and `performance-tuning-pro` for realtime quality/latency optimization.",
+    "triggers": [
+      "webrtc",
+      "rtc",
+      "streaming",
+      "rtp",
+      "sfu",
+      "turn",
+      "stun",
+      "signaling",
+      "jitter",
+      "packet loss",
+      "media edge case"
+    ],
+    "when_to_use": [
+      "Designing realtime audio/video architecture for conferencing, live rooms, or interactive streaming.",
+      "Reviewing signaling flow, ICE negotiation, reconnect, and media session lifecycle.",
+      "Improving quality under packet loss, jitter, bandwidth fluctuation, and device variability.",
+      "Scaling SFU-based systems while preserving stability and user experience."
+    ],
+    "references": [
+      "edge-cases.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "tauri-pro",
+    "folder": "tauri-pro",
+    "description": "Professional Tauri desktop (and mobile) apps: Rust core, invoke/commands, capabilities/permissions, webview integration, bundling, and cross-platform edge cases.\n\n  Use this skill when the user works on Tauri (`src-tauri`, `#[tauri::command]`, `invoke`, `tauri.conf`, plugins, updater, sidecars), Rust–frontend boundaries, or packaging Tauri for Windows/macOS/Linux.\n\n  Use **with** **`react-pro`** (or Vue/Svelte) for SPA patterns in the webview, **`security-pro`** for capability/CSP/shell hardening, **`testing-pro`** for CI and E2E. This skill (`tauri-pro`) owns **Tauri + Rust integration**; front-end framework skills own **component UI** details.\n\n  Triggers: \"Tauri\", \"tauri\", \"src-tauri\", \"tauri.conf\", \"invoke\", \"tauri::command\", \"WebView\", \"WebView2\", \"Rust desktop\", \"Tauri plugin\", \"Tauri updater\".",
+    "triggers": [
+      "tauri",
+      "src-tauri",
+      "tauri.conf",
+      "invoke",
+      "tauri::command",
+      "webview",
+      "webview2",
+      "rust desktop",
+      "tauri plugin",
+      "tauri updater"
+    ],
+    "when_to_use": [
+      "Designing **Rust commands** and **`invoke`** contracts; error handling to the UI.",
+      "Configuring **capabilities** / permissions (Tauri 2) or legacy allowlists — least privilege.",
+      "**Bundling**, **updater**, **sidecars**, and **cross-platform** webview quirks.",
+      "**Performance**: async commands, large payloads, blocking work off the main path."
+    ],
+    "references": [
+      "edge-cases.md",
+      "rust-core-and-commands.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "testing-pro",
+    "folder": "testing-pro",
+    "description": "Professional software testing and test automation: test design, unit/integration/e2e layers, CI pipelines, flakiness, and quality signals.\n\n  Use this skill when the user writes or reviews tests, sets up automation (CI/CD), uses Jest/Vitest/Mocha, React Testing Library, Playwright, Cypress, pytest, JUnit, TestNG, xUnit, Detox, XCTest, Espresso, k6/Gatling, Pact/contract tests, Testcontainers, or asks about coverage, mocks, stubs, TDD, BDD, test data, parallel runs, selectors, snapshots, visual regression, API testing, load/performance tests, or debugging flaky tests.\n\n  Use **with** the relevant framework skill when tests are product-specific: **`react-pro`** / **`nextjs-pro`** (RTL, SSR/hydration test setup), **`nestjs-pro`** (TestingModule, e2e HTTP), **`flutter-pro`** (widget_test, integration_test), **`react-native-pro`** (Detox/Jest RN), **`postgresql-pro`** (DB fixtures, migration tests). This skill (`testing-pro`) owns **strategy, layers, CI, and flakiness**; framework skills own **APIs and project conventions** for that stack.\n\n  Triggers: \"test\", \"testing\", \"unit test\", \"integration test\", \"e2e\", \"end-to-end\", \"automation\", \"CI\", \"CD\", \"GitHub Actions\", \"Jest\", \"Vitest\", \"Playwright\", \"Cypress\", \"pytest\", \"RTL\", \"React Testing Library\", \"mock\", \"stub\", \"spy\", \"fixture\", \"coverage\", \"flaky\", \"assertion\", \"TDD\", \"BDD\", \"Gherkin\", \"snapshot\", \"visual regression\", \"contract test\", \"Pact\", \"Load test\", \"k6\", \"Testcontainers\", \"MSW\", \"test harness\", \"arrange act assert\", \"given when then\".",
+    "triggers": [
+      "test",
+      "testing",
+      "unit test",
+      "integration test",
+      "e2e",
+      "end-to-end",
+      "automation",
+      "ci",
+      "cd",
+      "github actions",
+      "jest",
+      "vitest",
+      "playwright",
+      "cypress",
+      "pytest",
+      "rtl",
+      "react testing library",
+      "mock",
+      "stub",
+      "spy",
+      "fixture",
+      "coverage",
+      "flaky",
+      "assertion",
+      "tdd",
+      "bdd",
+      "gherkin",
+      "snapshot",
+      "visual regression",
+      "contract test",
+      "pact",
+      "load test",
+      "k6",
+      "testcontainers",
+      "msw",
+      "test harness",
+      "arrange act assert",
+      "given when then"
+    ],
+    "when_to_use": [
+      "Designing or refactoring a test suite (layers, naming, folder layout).",
+      "**Automation**: CI workflows, parallel jobs, reports, artifacts, retries policy.",
+      "Choosing tools (runner vs e2e vs browser vs API vs load).",
+      "**Debugging** flaky tests, timeouts, async races, or environment drift.",
+      "Reviewing **coverage** and what it does *not* prove."
+    ],
+    "references": [
+      "automation-and-ci.md",
+      "edge-cases.md",
+      "test-pyramid-and-strategy.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "web-research-pro",
+    "folder": "web-research-pro",
+    "description": "Professional multi-step web and technical research: query decomposition, source hierarchy (official docs first), cross-checking, recency/version awareness, citation habits, and handling stale or moved documentation URLs.\n\n  Use this skill when the user needs **reliable** answers from **external** sources (framework docs, APIs, standards), **not** only local Markdown — or when combining **local KB** with **web** verification. Complements **`repo-tooling-pro`** (local RAG scripts) but does not replace **reading** `knowledge-base/documents/` when the answer is already in-repo.\n\n  Use **with** **`repo-tooling-pro`** when the corpus is **this** repo’s KB; **`security-pro`** when sources might touch **secrets** or **unsafe** links. This skill (`web-research-pro`) owns **research method and citations**; stack skills own **implementation details**.\n\n  Triggers: \"search the docs\", \"official documentation\", \"404\", \"source evaluation\", \"citation\", \"compare sources\", \"multi-step research\", \"API reference\", \"changelog\", \"is this still true\", \"link rot\".",
+    "triggers": [
+      "search the docs",
+      "official documentation",
+      "404",
+      "source evaluation",
+      "citation",
+      "compare sources",
+      "multi-step research",
+      "api reference",
+      "changelog",
+      "is this still true",
+      "link rot"
+    ],
+    "when_to_use": [
+      "**Framework** or **API** behavior **not** in the local project.",
+      "**Comparing** multiple sources or **resolving** a **404** / moved doc path.",
+      "**Version-specific** questions (requires **release notes** or **changelog**).",
+      "**Citations** — user wants **links** and **traceable** claims."
+    ],
+    "references": [
+      "citations-and-stale-urls.md",
+      "edge-cases.md",
+      "tips-and-tricks.md",
+      "workflow-sources-and-evaluation.md"
+    ]
+  },
+  {
+    "name": "websocket-pro",
+    "folder": "websocket-pro",
+    "description": "Professional WebSocket guidance for designing reliable, secure, and scalable realtime communication in production systems.\n\n  Use this skill when implementing or reviewing WebSocket architecture, message contracts, connection lifecycle, reconnection behavior, and realtime operational reliability.\n\n  Triggers: \"websocket\", \"realtime\", \"ws\", \"connection lifecycle\", \"heartbeat\", \"reconnect\", \"backpressure\", \"pubsub\", \"socket auth\", \"delivery guarantee\", \"edge case\".\n\n  Combine with `security-pro` for hardening realtime channels and `performance-tuning-pro` for throughput/latency optimization.",
+    "triggers": [
+      "websocket",
+      "realtime",
+      "ws",
+      "connection lifecycle",
+      "heartbeat",
+      "reconnect",
+      "backpressure",
+      "pubsub",
+      "socket auth",
+      "delivery guarantee",
+      "edge case"
+    ],
+    "when_to_use": [
+      "Designing realtime features with persistent client-server socket connections.",
+      "Reviewing WebSocket reliability (heartbeat, reconnect, ordering, duplicate handling).",
+      "Scaling pub/sub fan-out across instances and regions.",
+      "Hardening WebSocket endpoints against abuse, leaks, and operational instability."
+    ],
+    "references": [
+      "edge-cases.md",
+      "tips-and-tricks.md"
+    ]
+  }
+]

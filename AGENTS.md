@@ -14,6 +14,23 @@ Each skill needs a `SKILL.md` with clear frontmatter `name` and `description`.
 **New skills:** read [`skills/SKILL_AUTHORING_RULES.md`](skills/SKILL_AUTHORING_RULES.md) first. Do not create a new skill directory unless those mandatory rules are met. When you add, remove, or rename a bundled skill, update **§8** there (README files, **§1** list, **`knowledge-base/documents/repo/skills-layout.md`**) in the same change.
 
 
+## Prompt routing (Claude Code slash commands)
+
+Use these commands to analyze, optimize, and route prompts to the best skills:
+
+| Command | Purpose |
+|---------|---------|
+| `/route <prompt>` | Full pipeline: analyze + optimize + match skills + suggest workflow |
+| `/optimize <prompt>` | Reduce prompt tokens while preserving meaning |
+| `/find-skill <prompt>` | Find best matching skill(s) for a prompt |
+| `/run-workflow <prompt>` | Match prompt to workflows and skills, guide execution |
+
+Commands read from `knowledge-base/embeddings/skill_index.json`. Rebuild after adding/changing skills:
+
+```bash
+python scripts/build_skill_index.py
+```
+
 ## Knowledge base
 
 Agents should prefer:

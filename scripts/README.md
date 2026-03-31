@@ -14,6 +14,7 @@ Python helpers for this **skills template** repo: knowledge base (RAG) and **fas
 | **`validate_skills.py`** | CI: `name` in YAML matches folder name. |
 | **`analyze_skills.py`** | Heuristic report: automation vs `scripts/`; **`--self-review`** = full repo Markdown (tiers, all skills, checklist); **`--markdown`** / **`--only-actionable`**. See **`skills-self-review-pro`**. |
 | **`install_skill.py`** | Install your own skill into existing project with isolation (`symlink` + `.git/info/exclude`). |
+| **`build_skill_index.py`** | Pre-build searchable skill index (triggers, descriptions) as JSON; optional `--with-embeddings` for semantic vectors. Used by `/route`, `/find-skill`, `/run-workflow` slash commands. |
 
 ## Commands
 
@@ -48,6 +49,11 @@ python scripts/install_skill.py \
   --skill-dir skills/git-operations-pro \
   --project-dir /path/to/existing-project \
   --mode symlink
+
+# Build skill index (for /route, /find-skill, /run-workflow slash commands)
+python scripts/build_skill_index.py
+python scripts/build_skill_index.py --dry-run
+python scripts/build_skill_index.py --with-embeddings
 ```
 
 ## Config

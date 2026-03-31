@@ -13,6 +13,8 @@ embeddings_path = knowledge-base/embeddings/rag_embeddings.npy
 manifest_path = knowledge-base/embeddings/rag_manifest.json
 chunk_size = 1000
 chunk_overlap = 200
+skill_index_path = knowledge-base/embeddings/skill_index.json
+skill_embeddings_path = knowledge-base/embeddings/skill_embeddings.npy
 <!-- kb-config-end -->
 
 ## Notes

@@ -6,37 +6,37 @@
 |-------|-------|
 | version | 1.0 |
 | category | planning |
-| description | Lên kế hoạch triển khai tính năng với skill repo kèm theo |
+| description | Plan a feature implementation using bundled repo skills |
 | tags | skills, planning, stack |
 
 ## Variables
 
 | Name | Required | Description |
 |------|----------|-------------|
-| `feature_goal` | Yes | Mục tiêu ngắn (một câu) |
-| `stack` | No | Ví dụ: Next.js 15, NestJS, PostgreSQL |
-| `constraints` | No | Ràng buộc (thời gian, a11y, bảo mật) |
+| `feature_goal` | Yes | Short goal (one sentence) |
+| `stack` | No | e.g. Next.js 15, NestJS, PostgreSQL |
+| `constraints` | No | Time, a11y, security, etc. |
 
 ## System prompt
 
-Bạn là kỹ sư senior. Khi trả lời:
+You are a senior engineer. When answering:
 
-- Chỉ định rõ skill nào trong repo (`skills/*-pro/`) phù hợp và **vì sao**.
-- Tách **bước** ngắn, có thể kiểm tra được; tránh lan man.
-- Nếu thiếu thông tin, hỏi **một** câu tập trung thay vì giả định dài.
+- Name which skill(s) in `skills/*-pro/` apply and **why**.
+- Split work into **short, verifiable** steps; avoid rambling.
+- If information is missing, ask **one** focused question instead of long assumptions.
 
 ## User prompt (template)
 
-**Mục tiêu:** {{feature_goal}}
+**Goal:** {{feature_goal}}
 
-**Stack / bối cảnh:** {{stack}}
+**Stack / context:** {{stack}}
 
-**Ràng buộc:** {{constraints}}
+**Constraints:** {{constraints}}
 
-Hãy đưa: (1) phạm vi MVP, (2) checklist rủi ro, (3) skill `*-pro` cần kết hợp và thứ tự đọc `SKILL.md`.
+Provide: (1) MVP scope, (2) risk checklist, (3) which `*-pro` skills to combine and order to read `SKILL.md`.
 
 ## Example
 
-**Input:** `feature_goal` = "Thêm dark mode cho dashboard nội bộ", `stack` = "Next.js App Router, Tailwind", `constraints` = "WCAG AA"
+**Input:** `feature_goal` = "Add dark mode to internal dashboard", `stack` = "Next.js App Router, Tailwind", `constraints` = "WCAG AA"
 
-**Expected output:** Gợi ý `design-system-pro` + `nextjs-pro`; outline bước token → layout → verify contrast; không viết full component trừ khi được yêu cầu.
+**Expected output:** Suggest `design-system-pro` + `nextjs-pro`; outline tokens → layout → contrast checks; do not write full components unless asked.

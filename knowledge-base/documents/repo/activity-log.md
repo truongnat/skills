@@ -5,33 +5,34 @@
 | tags | repo, activity, decisions |
 | updated | 2026-04-01 |
 
-# Nhat ky hoat dong / quyet dinh
+# Activity and decisions log
 
-**Muc dich:** Ghi lai **ngan** cac viec quan trong (khong thay the git log). Agent hoac nguoi bao tri them muc moi theo ngay khi co quyet dinh ro.
+**Purpose:** Record **short** notes on important decisions (not a substitute for git log). Maintainers or agents add a dated section when a decision is clear.
 
-**Quy tac:** Xem [documentation-persistence.md](../policies/documentation-persistence.md) va Cursor rule **`.cursor/rules/documentation-persistence.mdc`**.
+**Policy:** See [documentation-persistence.md](../policies/documentation-persistence.md) and Cursor rule **`.cursor/rules/documentation-persistence.mdc`**.
 
 ---
 
 ### 2026-04-01
 
-- **Nguồn:** user + agent
-- **Việc:** Đơn giản hóa **remote**: chỉ 2 lệnh curl install/uninstall trong README; bỏ zx/`install-remote.mjs`/`package.json`; `install-remote.sh` / `uninstall-remote.sh` gọn; chạy lại install = **update** (thông báo trong `install.sh`); xóa `install-bundle-layout.md`.
-- **Việc:** Bundled skill **`cli-pro`** (CLI nâng cao: argv, exit/stderr, pipes/TTY, completion); cập nhật §8 (`README`, `AGENTS`, `skills-layout`, `SKILL_AUTHORING_RULES` §1).
-- **Việc:** Một lệnh cài remote mặc định **đa IDE**: `install-remote.sh` gọi `install.sh --all-ides` (Cursor `.cursor/skills`, Claude Code `.claude/skills`, Antigravity `.agent/skills`); `install_skill.py` thêm `--ides` / `--all-ides`; `uninstall.sh` gỡ khớp cả ba path; cập nhật README/scripts README.
-- **Việc:** **Full bundle install**: `install.sh --full` / remote mặc định copy cả repo vào `<project>/vendor/own-skills`, symlink `.cursor/rules`, rồi cài skills từ vendor (tránh symlink gãy khi xóa temp clone); `--skills-only` giữ hành vi chỉ skills; `uninstall.sh` xóa `vendor/own-skills` + symlink rules liên quan.
-- **Việc:** **Remote uninstall qua pipe**: `uninstall-remote.sh` bật `--force` khi stdin không phải TTY (tránh `read` EOF + `set -e`); `uninstall.sh` khi không TTY thì **bỏ qua `read`** và tiếp tục (không cần `--force`); sửa `((removed_count++))` với `set -e`; README ghi chú hành vi non-interactive.
+- **Source:** user + agent
+- **Change:** Normalized user-facing docs to **English** (README Quick start, activity log, KB INDEX, documentation persistence policy + Cursor rules, `formatting-common.mdc`, prompts, `external-review-mapping.md`, `web-research-pro` related-skills row; aligned `config.md` with `config.example.md`).
+- **Change:** Simplified **remote** docs: two `curl` lines (install/uninstall) in README; removed zx / `install-remote.mjs` / `package.json`; streamlined `install-remote.sh` / `uninstall-remote.sh`; re-run install = **update** (messages in `install.sh`); removed `install-bundle-layout.md`.
+- **Change:** Bundled skill **`cli-pro`** (advanced CLI: argv, exit/stderr, pipes/TTY, completion); updated §8 (`README`, `AGENTS`, `skills-layout`, `SKILL_AUTHORING_RULES` §1).
+- **Change:** Remote install defaults to **multi-IDE**: `install-remote.sh` calls `install.sh --all-ides` (Cursor `.cursor/skills`, Claude Code `.claude/skills`, Antigravity `.agent/skills`); `install_skill.py` adds `--ides` / `--all-ides`; `uninstall.sh` removes all three paths; README / `scripts/README` updated.
+- **Change:** **Full bundle install**: `install.sh --full` / remote default copies the repo into `<project>/vendor/own-skills`, symlinks `.cursor/rules`, then installs skills from vendor (avoids broken symlinks after temp clone); `--skills-only` keeps skills-only behavior; `uninstall.sh` removes `vendor/own-skills` and related rule symlinks.
+- **Change:** **Remote uninstall via pipe**: `uninstall-remote.sh` sets `--force` when stdin is not a TTY (avoids `read` EOF + `set -e`); `uninstall.sh` skips `read` when non-TTY; fixed `((removed_count++))` with `set -e`; README notes non-interactive behavior.
 
 ### 2026-03-31
 
-- **Nguồn:** agent + user request
-- **Việc:** Thêm rule **documentation-persistence**, policy + activity log; mở rộng **skills-self-review-pro** (tech refresh + **web-research-pro**).
-- **Follow-up:** Chạy `build_kb` sau khi corpus KB đổi; định kỳ dùng self-review + tra cứu docs chính thức cho stack.
-- **Việc:** Tạo skill mới **`market-research-pro`** (SKILL + references) và cập nhật README/AGENTS/skills-layout theo quy tắc §8.
-- **Việc:** Tạo skill mới **`strategic-consulting-pro`** (SKILL + references) và cập nhật README/AGENTS/skills-layout/SKILL_AUTHORING_RULES theo quy tắc §8.
+- **Source:** agent + user request
+- **Change:** Added **documentation-persistence** rule, policy + activity log; extended **skills-self-review-pro** (tech refresh + **web-research-pro**).
+- **Follow-up:** Run `build_kb` after KB corpus changes; periodically self-review + official docs for the stack.
+- **Change:** New skill **`market-research-pro`** (SKILL + references) and README/AGENTS/skills-layout per §8.
+- **Change:** New skill **`strategic-consulting-pro`** (SKILL + references) and README/AGENTS/skills-layout/SKILL_AUTHORING_RULES per §8.
 
-### YYYY-MM-DD (mẫu)
+### YYYY-MM-DD (template)
 
-- **Nguồn:** (user / agent / CI)
-- **Việc:** (ví dụ: chạy `analyze_skills.py --self-review`, thêm skill X)
-- **Kết luận / follow-up:** (…)
+- **Source:** (user / agent / CI)
+- **Change:** (e.g. run `analyze_skills.py --self-review`, add skill X)
+- **Conclusion / follow-up:** (…)

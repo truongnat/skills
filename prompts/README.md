@@ -9,20 +9,20 @@ Example library and format notes: [templates/PROMPT_TEMPLATES.md](../templates/P
 
 ## Example prompt (minimal)
 
-File đầy đủ: [templates/example-skill-assisted-task.md](templates/example-skill-assisted-task.md). Bản rút gọn:
+Full file: [templates/example-skill-assisted-task.md](templates/example-skill-assisted-task.md). Short version:
 
 ```markdown
 ## System prompt
 
-Bạn là kỹ sư senior. Chỉ định skill `skills/*-pro/` phù hợp và lý do; tách bước kiểm chứng được.
+You are a senior engineer. Pick the right `skills/*-pro/` skill(s) and explain why; break work into verifiable steps.
 
 ## User prompt (template)
 
-**Mục tiêu:** {{feature_goal}}
+**Goal:** {{feature_goal}}
 **Stack:** {{stack}}
-**Ràng buộc:** {{constraints}}
+**Constraints:** {{constraints}}
 
-Đưa (1) phạm vi MVP, (2) checklist rủi ro, (3) skill cần kết hợp.
+Return (1) MVP scope, (2) risk checklist, (3) skills to combine.
 ```
 
-Thay `{{feature_goal}}`, `{{stack}}`, `{{constraints}}` bằng nội dung thật (hoặc để agent điền) trước khi gửi model.
+Replace `{{feature_goal}}`, `{{stack}}`, `{{constraints}}` with real values (or let the agent fill them) before sending to the model.

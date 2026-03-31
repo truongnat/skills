@@ -71,9 +71,9 @@ flowchart LR
 
 ## Quick start
 
-### Cài / gỡ trong **dự án khác** (chỉ remote — không cần clone repo này)
+### Install / uninstall into **another project** (remote only — no clone of this repo)
 
-Chạy trong **thư mục gốc dự án đích**. Cài lại cùng lệnh = **cập nhật** bundle và skills.
+Run from the **target project root**. Running **install** again **updates** the bundle and skills.
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/install-remote.sh | bash
@@ -83,20 +83,20 @@ curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/install-remot
 curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash
 ```
 
-Bundle đầy đủ nằm tại `./vendor/own-skills/` (workflows, prompts, KB, scripts, …). Tùy chọn nâng cao: `bash -s -- --help` (xem `--repo`, `--skills-only`, `--cursor-only`).
+The full bundle lives under `./vendor/own-skills/` (workflows, prompts, KB, scripts, …). Advanced: `bash -s -- --help` (`--repo`, `--skills-only`, `--cursor-only`).
 
-### Làm việc **trong repo này** (venv, KB, script)
+### Working **in this repo** (venv, KB, scripts)
 
 ```bash
 cd own-skills
 python3 -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-cp config.example.md config.md   # optional: chỉnh <!-- kb-config -->
+cp config.example.md config.md   # optional: edit <!-- kb-config -->
 python scripts/build_kb.py
 python scripts/query_kb.py "…" -k 5
 ```
 
-**Python:** 3.10–3.13; lần đầu `build_kb` tải model (mạng, RAM). Chi tiết: [`scripts/README.md`](scripts/README.md). Skill **`repo-tooling-pro`** (batch query, CI).
+**Python:** 3.10–3.13; first `build_kb` downloads the model (network, RAM). Details: [`scripts/README.md`](scripts/README.md). Skill **`repo-tooling-pro`** (batch query, CI).
 
 ## Knowledge base & RAG
 

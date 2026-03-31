@@ -1,28 +1,28 @@
 | Field | Value |
 |-------|-------|
 | title | Documentation persistence policy |
-| summary | Khi nao ghi file trong knowledge-base; cap nhat INDEX; lien ket rule Cursor |
+| summary | When to write under knowledge-base; update INDEX; link to Cursor rule |
 | tags | policy, knowledge-base, documentation |
 | updated | 2026-03-31 |
 
-# Chinh sach luu tai lieu
+# Documentation persistence policy
 
-## Pham vi
+## Scope
 
-- Moi **thay doi co y nghia** trong repo (skill, workflow, script, KB) nen co **dau vet** trong `knowledge-base/documents/` hoac log hoat dong.
-- **Khong** luu bi mat, token, PII.
+- Meaningful **changes** in the repo (skill, workflow, script, KB) should leave a **trace** in `knowledge-base/documents/` or the activity log.
+- **Do not** store secrets, tokens, or PII.
 
-## Vi tri
+## Where
 
-- **Log hoat dong:** [../repo/activity-log.md](../repo/activity-log.md)
-- **Chi muc tim kiem:** [../../INDEX.md](../../INDEX.md)
+- **Activity log:** [../repo/activity-log.md](../repo/activity-log.md)
+- **Search index:** [../../INDEX.md](../../INDEX.md)
 
-## Quy trinh
+## Process
 
-1. Them hoac sua file `.md` duoi `documents/` khi co noi dung on dinh.
-2. Cap nhat **INDEX.md** cung mot phien (commit) voi thay doi tai lieu.
-3. Sau khi them/sua nhieu tai lieu: `python scripts/build_kb.py` va `verify_kb.py` neu dung RAG.
+1. Add or edit stable `.md` files under `documents/` when content is ready.
+2. Update **INDEX.md** in the **same** commit as document changes.
+3. After adding/editing many documents: run `python scripts/build_kb.py` and `verify_kb.py` if using RAG.
 
-## Rule Cursor
+## Cursor rule
 
-- **`.cursor/rules/documentation-persistence.mdc`** — ap dung cho agent: tu dong ap dung khi luu quyet dinh.
+- **`.cursor/rules/documentation-persistence.mdc`** — applied to agents when persisting decisions.

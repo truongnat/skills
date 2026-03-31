@@ -122,6 +122,20 @@ python scripts/install_skill.py --project-dir /path/to/existing-project
 #* explicit paths:
 python scripts/install_skill.py --skill-dir skills/git-operations-pro --project-dir /path/to/existing-project --mode symlink
 
+# 🗑️ UNINSTALL (remove all skills from project)
+./uninstall.sh
+#  - removes ALL skills installed by this project
+#  - cleans up .cursor/skills/ directory and manifests
+#  - removes git exclude entries
+#  - shows progress bars and asks for confirmation (unless --force)
+#  - works from any project directory
+
+#* uninstall from specific project directory:
+./uninstall.sh --project-dir /path/to/project
+
+#* force uninstall without confirmation:
+./uninstall.sh --force
+
 # Knowledge base — dry-run, build, query
 python scripts/build_kb.py --dry-run
 python scripts/build_kb.py

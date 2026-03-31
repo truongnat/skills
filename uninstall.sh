@@ -71,7 +71,8 @@ while [[ $# -gt 0 ]]; do
             echo ""
             echo "Options:"
             echo "  --project-dir <dir>  Uninstall from specified project directory (default: current directory)"
-            echo "  --force              Force removal without confirmation"
+            echo "  --force              Force removal without confirmation (also skips listing)"
+            echo "                       Non-interactive stdin skips the prompt automatically; --force optional"
             echo "  --nuclear            Remove entire .cursor directory (⚠️  DANGER: removes all Cursor config)"
             echo "  --help, -h           Show this help message"
             exit 0
@@ -125,13 +126,9 @@ TOTAL_SKILLS=${#INSTALLED_SKILLS[@]}
 if [ $TOTAL_SKILLS -gt 0 ]; then
     show_status "Found $TOTAL_SKILLS skills to uninstall"
 
-    # Confirm uninstallation unless --force is used
+    # Confirm uninstallation unless --force is used (interactive TTY only).
+    # Non-interactive stdin (curl | bash, CI): skip read — same as --force for the prompt only.
     if [ "$FORCE" = false ]; then
-        if [ ! -t 0 ]; then
-            show_error "stdin is not a terminal (e.g. piped or CI). Re-run with --force to uninstall."
-            show_error "Example: ./uninstall.sh --project-dir \"$PROJECT_DIR\" --force"
-            exit 1
-        fi
         echo ""
         echo "⚠️  This will remove the following skills from $PROJECT_DIR:"
         for skill in "${INSTALLED_SKILLS[@]}"; do
@@ -143,11 +140,15 @@ if [ $TOTAL_SKILLS -gt 0 ]; then
             echo "   This includes all Cursor configuration files and rules."
         fi
         echo ""
-        read -p "Are you sure you want to continue? (y/N): " -n 1 -r
-        echo ""
-        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-            show_status "Uninstallation cancelled."
-            exit 0
+        if [ -t 0 ]; then
+            read -p "Are you sure you want to continue? (y/N): " -n 1 -r
+            echo ""
+            if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+                show_status "Uninstallation cancelled."
+                exit 0
+            fi
+        else
+            show_status "Non-interactive stdin: proceeding without confirmation."
         fi
     fi
 

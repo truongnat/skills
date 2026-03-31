@@ -27,6 +27,31 @@ while [[ $# -gt 0 ]]; do
             REMOTE_URL="$2"
             shift 2
             ;;
+        --project-dir)
+            PROJECT_DIR="$2"
+            shift 2
+            ;;
+        --help|-h)
+            echo "One-command installer for own-skills"
+            echo ""
+            echo "Usage:"
+            echo "  ./install.sh [<skill-path>] [--project-dir <dir>]"
+            echo "  ./install.sh --remote <repo-url> [--project-dir <dir>]"
+            echo ""
+            echo "<skill-path> can be:"
+            echo "  - Local path (relative/absolute to skill directory)"
+            echo "  - Remote URL (https://github.com/user/repo.git or git@github.com:user/repo.git)"
+            echo "  - GitHub shorthand (user/repo for github.com/user/repo)"
+            echo ""
+            echo "If <skill-path> is omitted, installs all skills from https://github.com/truongnat/skills"
+            echo "The project destination is always the current working directory where this script is executed."
+            echo ""
+            echo "Options:"
+            echo "  --remote <url>     Install all skills from remote repository"
+            echo "  --project-dir <dir> Install to specified project directory (default: current directory)"
+            echo "  --help, -h         Show this help message"
+            exit 0
+            ;;
         *)
             SKILL_INPUT="$1"
             shift

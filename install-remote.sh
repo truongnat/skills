@@ -111,7 +111,7 @@ print_info "Running installer..."
 cd "$TEMP_DIR"
 
 # Run the install script with current directory as project
-if ./install.sh --project-dir "$PROJECT_DIR"; then
+if ./install.sh "$REPO_URL" --project-dir "$PROJECT_DIR"; then
     print_success "All skills installed successfully!"
     print_info "Skills are now available in your project at $PROJECT_DIR/.cursor/skills/"
 else

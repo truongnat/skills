@@ -21,5 +21,6 @@ Each **skill** is a subdirectory with a required `SKILL.md` (frontmatter `name` 
 | [nestjs-pro](nestjs-pro/) | NestJS — API/DX, PostgreSQL RLS integration |
 | [postgresql-pro](postgresql-pro/) | PostgreSQL — schema, SQL, migrations, RLS, ops |
 | [testing-pro](testing-pro/) | Testing & automation — pyramid, CI, unit/integration/e2e, flakiness |
+| [security-pro](security-pro/) | Cross-platform security — threat model, auth, secrets, tips, edge cases |
 
 To use with Cursor: copy or symlink a skill folder into `.cursor/skills/<name>/` (see root [`AGENTS.md`](../AGENTS.md)).

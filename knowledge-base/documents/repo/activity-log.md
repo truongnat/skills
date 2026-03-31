@@ -3,7 +3,7 @@
 | title | Activity and decisions log |
 | summary | Dated entries: user/agent decisions, audits, follow-ups for this skills template repo |
 | tags | repo, activity, decisions |
-| updated | 2026-03-31 |
+| updated | 2026-04-01 |
 
 # Nhat ky hoat dong / quyet dinh
 
@@ -12,6 +12,12 @@
 **Quy tac:** Xem [documentation-persistence.md](../policies/documentation-persistence.md) va Cursor rule **`.cursor/rules/documentation-persistence.mdc`**.
 
 ---
+
+### 2026-04-01
+
+- **Nguồn:** user + agent
+- **Việc:** Một lệnh cài remote mặc định **đa IDE**: `install-remote.sh` gọi `install.sh --all-ides` (Cursor `.cursor/skills`, Claude Code `.claude/skills`, Antigravity `.agent/skills`); `install_skill.py` thêm `--ides` / `--all-ides`; `uninstall.sh` gỡ khớp cả ba path; cập nhật README/scripts README.
+- **Việc:** **Full bundle install**: `install.sh --full` / remote mặc định copy cả repo vào `<project>/vendor/own-skills`, symlink `.cursor/rules`, rồi cài skills từ vendor (tránh symlink gãy khi xóa temp clone); `--skills-only` giữ hành vi chỉ skills; `uninstall.sh` xóa `vendor/own-skills` + symlink rules liên quan.
 
 ### 2026-03-31
 

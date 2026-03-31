@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
 """
-Install a custom Cursor skill into an existing project, with isolation defaults.
+Install a custom skill into an existing project (one or more IDE/agent layouts).
 
-Isolation behavior:
-- installs into <project>/.cursor/skills/<skill-name>
-- records install metadata under <project>/.cursor/skills/.install-manifest/
-- adds installed path to <project>/.git/info/exclude (unless disabled)
+Default (backward compatible):
+- Cursor: <project>/.cursor/skills/<skill-name>
+
+Optional (same SKILL.md source, multiple symlinks/copies):
+- Claude Code: <project>/.claude/skills/<skill-name>
+- Antigravity: <project>/.agent/skills/<skill-name>
+
+Metadata:
+- records under <project>/.cursor/skills/.install-manifest/
+- adds installed paths to <project>/.git/info/exclude (unless disabled)
 """
 from __future__ import annotations
 
@@ -16,6 +22,13 @@ import shutil
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
+
+# IDE key -> relative path segments under project root (skills live under .../skills/<name>)
+IDE_TARGETS: dict[str, tuple[str, str]] = {
+    "cursor": (".cursor", "skills"),
+    "claude": (".claude", "skills"),
+    "antigravity": (".agent", "skills"),
+}
 
 
 def parse_skill_name(skill_md_text: str) -> str | None:
@@ -66,16 +79,20 @@ def remove_path(path: Path) -> None:
     shutil.rmtree(path)
 
 
-def install_skill(
+def _install_one_ide_target(
     *,
     skill_dir: Path,
     project_dir: Path,
     install_name: str,
     mode: str,
     force: bool,
-    isolate_git: bool,
+    ide_key: str,
 ) -> Path:
-    target_dir = project_dir / ".cursor" / "skills" / install_name
+    """Install or replace one skill directory under a single IDE layout."""
+    if ide_key not in IDE_TARGETS:
+        raise ValueError(f"Unknown IDE key: {ide_key}. Expected one of {sorted(IDE_TARGETS)}.")
+    a, b = IDE_TARGETS[ide_key]
+    target_dir = project_dir / a / b / install_name
     target_parent = target_dir.parent
     target_parent.mkdir(parents=True, exist_ok=True)
 
@@ -86,7 +103,6 @@ def install_skill(
             )
         remove_path(target_dir)
 
-    installed_mode = mode
     if mode == "symlink":
         try:
             target_dir.symlink_to(skill_dir.resolve(), target_is_directory=True)
@@ -98,15 +114,61 @@ def install_skill(
     else:
         shutil.copytree(skill_dir, target_dir)
 
-    manifest_dir = target_parent / ".install-manifest"
+    return target_dir
+
+
+def install_skill(
+    *,
+    skill_dir: Path,
+    project_dir: Path,
+    install_name: str,
+    mode: str,
+    force: bool,
+    isolate_git: bool,
+    ides: list[str],
+) -> Path:
+    """Install skill into one or more IDE paths. Returns Cursor path if installed, else first target."""
+    if not ides:
+        raise ValueError("ides must be non-empty.")
+
+    seen: set[str] = set()
+    ordered: list[str] = []
+    for ide_key in ides:
+        if ide_key not in seen:
+            seen.add(ide_key)
+            ordered.append(ide_key)
+    ides = ordered
+
+    installed_paths: dict[str, str] = {}
+
+    for ide_key in ides:
+        target_dir = _install_one_ide_target(
+            skill_dir=skill_dir,
+            project_dir=project_dir,
+            install_name=install_name,
+            mode=mode,
+            force=force,
+            ide_key=ide_key,
+        )
+        installed_paths[ide_key] = str(target_dir.resolve())
+
+    # Manifest always lives under .cursor/skills/.install-manifest (even if only Claude/Antigravity).
+    (project_dir / ".cursor" / "skills").mkdir(parents=True, exist_ok=True)
+    manifest_dir = project_dir / ".cursor" / "skills" / ".install-manifest"
     manifest_dir.mkdir(parents=True, exist_ok=True)
     manifest_path = manifest_dir / f"{install_name}.json"
     manifest = {
         "installed_at": datetime.now(timezone.utc).isoformat(),
-        "mode": installed_mode,
+        "mode": mode,
         "skill_name": install_name,
         "source": str(skill_dir.resolve()),
-        "target": str(target_dir.resolve()),
+        "ides": ides,
+        "targets": installed_paths,
+        "primary_cursor_target": str(
+            (project_dir / ".cursor" / "skills" / install_name).resolve()
+        )
+        if "cursor" in ides
+        else None,
     }
     manifest_path.write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
@@ -114,15 +176,19 @@ def install_skill(
     )
 
     if isolate_git:
-        rel_skill_path = f".cursor/skills/{install_name}"
-        ensure_git_exclude(project_dir, rel_skill_path)
+        for ide_key in ides:
+            a, b = IDE_TARGETS[ide_key]
+            rel_skill_path = f"{a}/{b}/{install_name}"
+            ensure_git_exclude(project_dir, rel_skill_path)
 
-    return target_dir
+    if "cursor" in ides:
+        return project_dir / ".cursor" / "skills" / install_name
+    return Path(installed_paths[ides[0]])
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Install a custom Cursor skill into an existing project."
+        description="Install a skill into Cursor / Claude Code / Antigravity project paths."
     )
     parser.add_argument(
         "skill_path",
@@ -158,7 +224,20 @@ def main() -> int:
     parser.add_argument(
         "--no-git-isolation",
         action="store_true",
-        help="Do not write .cursor/skills/<name>/ into .git/info/exclude.",
+        help="Do not write installed skill paths into .git/info/exclude.",
+    )
+    parser.add_argument(
+        "--ides",
+        default="cursor",
+        help=(
+            "Comma-separated IDE keys: cursor, claude, antigravity. "
+            "Default: cursor (backward compatible)."
+        ),
+    )
+    parser.add_argument(
+        "--all-ides",
+        action="store_true",
+        help="Install to Cursor, Claude Code (.claude/skills), and Antigravity (.agent/skills).",
     )
     args = parser.parse_args()
 
@@ -168,6 +247,20 @@ def main() -> int:
     if not project_dir.is_dir():
         print(f"Project directory does not exist: {project_dir}", file=sys.stderr)
         return 1
+
+    if args.all_ides:
+        ides_list = ["cursor", "claude", "antigravity"]
+    else:
+        raw = [x.strip() for x in args.ides.split(",") if x.strip()]
+        ides_list = raw or ["cursor"]
+        valid = set(IDE_TARGETS)
+        for ide in ides_list:
+            if ide not in valid:
+                print(
+                    f"Error: unknown IDE key '{ide}'. Use: {', '.join(sorted(valid))}.",
+                    file=sys.stderr,
+                )
+                return 2
 
     try:
         parsed_name, _skill_md = validate_skill_dir(skill_dir)
@@ -179,6 +272,7 @@ def main() -> int:
             mode=args.mode,
             force=args.force,
             isolate_git=not args.no_git_isolation,
+            ides=ides_list,
         )
     except ValueError as exc:
         print(f"Error: {exc}", file=sys.stderr)
@@ -186,8 +280,9 @@ def main() -> int:
 
     print(f"Installed skill '{install_name}' at: {target}")
     print(f"Mode: {args.mode}")
+    print(f"IDEs: {', '.join(ides_list)}")
     if not args.no_git_isolation:
-        print("Git isolation: added target path to .git/info/exclude")
+        print("Git isolation: added target path(s) to .git/info/exclude")
     return 0
 
 

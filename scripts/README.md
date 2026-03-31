@@ -13,8 +13,8 @@ Python helpers for this **skills template** repo: knowledge base (RAG) and **fas
 | **`list_skills.py`** | No ML — instant list of `skills/*/SKILL.md` names. |
 | **`validate_skills.py`** | CI: `name` in YAML matches folder name. |
 | **`analyze_skills.py`** | Heuristic report: automation vs `scripts/`; **`--self-review`** = full repo Markdown (tiers, all skills, checklist); **`--markdown`** / **`--only-actionable`**. See **`skills-self-review-pro`**. |
-| **`install_skill.py`** | Install your own skill into existing project with isolation (`symlink` + `.git/info/exclude`). |
-| **`uninstall.sh`** | Remove all skills installed by this project from a target project directory. |
+| **`install_skill.py`** | Install a skill into `.cursor/skills` (default), and optionally `.claude/skills` + `.agent/skills` via `--all-ides` (`symlink` + `.git/info/exclude`). |
+| **`uninstall.sh`** | Remove skills from `.cursor/skills`, matching `.claude/skills`, `.agent/skills`, manifests, and exclude entries. |
 | **`uninstall-remote.sh`** | Remote uninstaller: download and run uninstaller from any GitHub repo (no clone needed). |
 | **`build_skill_index.py`** | Pre-build searchable skill index (triggers, descriptions) as JSON; optional `--with-embeddings` for semantic vectors. Used by `/route`, `/find-skill`, `/run-workflow` slash commands. |
 
@@ -47,6 +47,9 @@ python scripts/analyze_skills.py --self-review
 python scripts/analyze_skills.py --with-references --only-actionable --markdown
 
 # Install custom skill into another existing project (isolated)
+# Full bundle (entire repo → vendor/own-skills + rules + skills) into another project:
+./install.sh . --project-dir /path/to/project --full
+
 # Easiest: use ./install.sh wrapper (installs all skills from default repo if no args)
 ./install.sh                    # Install ALL skills from https://github.com/truongnat/skills (shows progress bars)
 ./install.sh skills/git-ops     # Install specific skill
@@ -71,6 +74,12 @@ python scripts/install_skill.py \
   --skill-dir skills/git-operations-pro \
   --project-dir /path/to/existing-project \
   --mode symlink
+
+# Cursor + Claude Code + Antigravity (project-local paths):
+python scripts/install_skill.py \
+  --skill-dir skills/git-operations-pro \
+  --project-dir /path/to/existing-project \
+  --mode symlink --all-ides
 
 # Uninstall all skills from project (with confirmation):
 ./uninstall.sh

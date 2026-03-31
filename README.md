@@ -81,20 +81,25 @@ pip install -r requirements.txt
 cp config.example.md config.md
 nano config.md
 
-# 🚀 REMOTE INSTALL (for external users - no need to clone this repo!)
-# Install ALL skills from this repo into your project (1 command):
+# 🚀 REMOTE INSTALL (one command — rustup / Homebrew style)
+# From your *target project* root — installs the **full repo** into ./vendor/own-skills (workflows,
+# scripts, knowledge-base, prompts, templates, …), links .cursor/rules, then installs every skill into
+# Cursor + Claude Code + Antigravity paths (same SKILL.md, multiple symlinks).
 curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/install-remote.sh | bash
-#  - downloads and installs all skills from https://github.com/truongnat/skills
-#  - works from any directory in your project
-#  - shows progress bars and status for each step
-#  - no git clone required!
+#  - Skills-only (no vendor copy):  curl … | bash -s -- --skills-only
+#  - Cursor skills path only:       curl … | bash -s -- --cursor-only
+#  - Other upstream:                 curl … | bash -s -- --repo https://github.com/other/repo.git
 
 # Install from a different remote repository:
 curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/install-remote.sh | bash -s -- --repo https://github.com/other/repo.git
 
 # LOCAL INSTALL (if you have cloned this repo)
-#* easiest: install ALL skills from default repo (https://github.com/truongnat/skills):
+#* Full bundle into another project (recommended):
+./install.sh . --project-dir /path/to/your/project --full
+#  - copies this repo to <project>/vendor/own-skills, links rules, installs all skills
+#* Skills only from this clone (no vendor/):
 ./install.sh
+#  - Cursor only unless: ./install.sh --all-ides
 #  - installs all skills into current folder as the target project
 #  - shows progress bars: [████████████] 75% (26/35) Installing: skill-name
 #  - uses symlink mode and force replace by default
@@ -125,7 +130,7 @@ python scripts/install_skill.py --skill-dir skills/git-operations-pro --project-
 # 🗑️ UNINSTALL (remove all skills from project)
 ./uninstall.sh
 #  - removes ALL skills installed by this project
-#  - cleans up .cursor/skills/ directory and manifests
+#  - cleans up .cursor/skills/, matching .claude/skills/, .agent/skills/, manifests
 #  - removes git exclude entries
 #  - shows progress bars and asks for confirmation (unless --force)
 #  - works from any project directory

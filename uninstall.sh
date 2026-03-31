@@ -154,21 +154,35 @@ if [ $TOTAL_SKILLS -gt 0 ]; then
         show_status "Removing: $skill_name"
 
         skill_path="$CURSOR_SKILLS_DIR/$skill_name"
+        claude_skill_path="$PROJECT_DIR/.claude/skills/$skill_name"
+        agent_skill_path="$PROJECT_DIR/.agent/skills/$skill_name"
 
-        # Remove the skill directory/link
+        # Remove the skill directory/link (Cursor)
         if [ -L "$skill_path" ] || [ -d "$skill_path" ] || [ -f "$skill_path" ]; then
             rm -rf "$skill_path"
-            show_success "✓ Removed $skill_name"
+            show_success "✓ Removed $skill_name (Cursor)"
         else
-            show_error "✗ Could not find $skill_name to remove"
+            show_error "✗ Could not find $skill_name under .cursor/skills"
+        fi
+
+        # Same skill name under Claude Code / Antigravity (multi-IDE install)
+        if [ -L "$claude_skill_path" ] || [ -d "$claude_skill_path" ] || [ -f "$claude_skill_path" ]; then
+            rm -rf "$claude_skill_path"
+            show_success "✓ Removed .claude/skills/$skill_name"
+        fi
+        if [ -L "$agent_skill_path" ] || [ -d "$agent_skill_path" ] || [ -f "$agent_skill_path" ]; then
+            rm -rf "$agent_skill_path"
+            show_success "✓ Removed .agent/skills/$skill_name"
         fi
 
         # Remove from git exclude if it exists
         git_exclude_file="$PROJECT_DIR/.git/info/exclude"
         if [ -f "$git_exclude_file" ]; then
-            # Remove the line for this skill
-            sed -i.bak "/^\.cursor\/skills\/$skill_name\/$/d" "$git_exclude_file" 2>/dev/null || true
-            # Clean up backup file
+            sed -i.bak \
+                -e "/^\.cursor\/skills\/$skill_name\/$/d" \
+                -e "/^\.claude\/skills\/$skill_name\/$/d" \
+                -e "/^\.agent\/skills\/$skill_name\/$/d" \
+                "$git_exclude_file" 2>/dev/null || true
             rm -f "$git_exclude_file.bak" 2>/dev/null || true
         fi
     done
@@ -178,6 +192,30 @@ else
     if [ "$NUCLEAR" = false ]; then
         show_success "No installed skills found to remove."
     fi
+fi
+
+# Rule symlinks created by full bundle install (point into vendor/own-skills/.cursor/rules)
+if [ -d "$CURSOR_DIR/rules" ] && [ "$NUCLEAR" = false ]; then
+    show_status "Removing Cursor rules symlinks from bundle (if any)..."
+    for link in "$CURSOR_DIR/rules"/*.mdc; do
+        [ -L "$link" ] || continue
+        t=$(readlink "$link" || true)
+        if [[ "$t" == *"/vendor/own-skills/"* ]] || [[ "$t" == *"/.own-skills"* ]]; then
+            rm -f "$link"
+        fi
+    done
+fi
+
+# Full bundle copy (workflows, scripts, knowledge-base, prompts, etc.)
+VENDOR_DIR="$PROJECT_DIR/vendor/own-skills"
+if [ -d "$VENDOR_DIR" ] && [ "$NUCLEAR" = false ]; then
+    show_status "Removing vendor bundle: $VENDOR_DIR ..."
+    rm -rf "$VENDOR_DIR"
+    show_success "Vendor bundle removed"
+fi
+if [ -d "$PROJECT_DIR/vendor" ] && [ "$NUCLEAR" = false ]; then
+    find "$PROJECT_DIR/vendor" -type d -empty -delete 2>/dev/null || true
+    rmdir "$PROJECT_DIR/vendor" 2>/dev/null || true
 fi
 
 # Remove manifest directory if it exists and is empty
@@ -195,7 +233,14 @@ if [ -d "$CURSOR_DIR" ] && [ "$NUCLEAR" = false ]; then
     find "$CURSOR_DIR" -name ".DS_Store" -type f -delete 2>/dev/null || true
     # Remove empty directories recursively (skills, then .cursor if empty)
     find "$CURSOR_DIR" -type d -empty -delete 2>/dev/null || true
-    
+
+    for _ide_root in "$PROJECT_DIR/.claude" "$PROJECT_DIR/.agent"; do
+        if [ -d "$_ide_root" ]; then
+            find "$_ide_root" -name ".DS_Store" -type f -delete 2>/dev/null || true
+            find "$_ide_root" -type d -empty -delete 2>/dev/null || true
+        fi
+    done
+
     if [ ! -d "$CURSOR_DIR" ]; then
         show_success ".cursor directory cleaned up"
     else

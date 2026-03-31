@@ -44,11 +44,21 @@ trap cleanup EXIT
 
 # Parse arguments
 REPO_URL="$DEFAULT_REPO"
+CURSOR_ONLY=false
+SKILLS_ONLY_REMOTE=false
 while [[ $# -gt 0 ]]; do
     case $1 in
         --repo)
             REPO_URL="$2"
             shift 2
+            ;;
+        --cursor-only)
+            CURSOR_ONLY=true
+            shift
+            ;;
+        --skills-only)
+            SKILLS_ONLY_REMOTE=true
+            shift
             ;;
         --help|-h)
             echo "Remote installer for truongnat/skills"
@@ -58,8 +68,10 @@ while [[ $# -gt 0 ]]; do
             echo "  curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/install-remote.sh | bash -s -- --repo https://github.com/other/repo.git"
             echo ""
             echo "Options:"
-            echo "  --repo URL    Install from a different repository (default: $DEFAULT_REPO)"
-            echo "  --help, -h    Show this help message"
+            echo "  --repo URL       Install from a different repository (default: $DEFAULT_REPO)"
+            echo "  --cursor-only    Install only to .cursor/skills (skip Claude Code + Antigravity paths)"
+            echo "  --skills-only    Only install skills (no vendor/own-skills bundle; uses copy mode)"
+            echo "  --help, -h       Show this help message"
             exit 0
             ;;
         *)
@@ -117,13 +129,24 @@ print_success "Installer prepared"
 PROJECT_DIR="$(pwd)"
 print_info "Installing to project directory: $PROJECT_DIR"
 
-print_info "Running installer..."
-cd "$TEMP_DIR"
-
-# Run the install script with current directory as project
-if ./install.sh "$REPO_URL" --project-dir "$PROJECT_DIR"; then
-    print_success "All skills installed successfully!"
-    print_info "Skills are now available in your project at $PROJECT_DIR/.cursor/skills/"
+print_info "Running installer (full bundle → vendor/own-skills + skills + IDE links)..."
+# Same pattern as rustup/Homebrew: clone once, run project-local installer from the clone.
+ALL_IDES_ARG=()
+if [ "$CURSOR_ONLY" = false ]; then
+    ALL_IDES_ARG=(--all-ides)
+fi
+chmod +x "$TEMP_DIR/install.sh" 2>/dev/null || true
+REMOTE_INSTALL_ARGS=(bash "$TEMP_DIR/install.sh" . --project-dir "$PROJECT_DIR")
+if [ "$SKILLS_ONLY_REMOTE" = true ]; then
+    REMOTE_INSTALL_ARGS+=(--skills-only)
+else
+    REMOTE_INSTALL_ARGS+=(--full)
+fi
+REMOTE_INSTALL_ARGS+=("${ALL_IDES_ARG[@]}")
+if "${REMOTE_INSTALL_ARGS[@]}"; then
+    print_success "Full bundle and skills installed successfully!"
+    print_info "Vendor copy: $PROJECT_DIR/vendor/own-skills/"
+    print_info "Skills: $PROJECT_DIR/.cursor/skills/  |  $PROJECT_DIR/.claude/skills/  |  $PROJECT_DIR/.agent/skills/"
 else
     print_error "Installation failed. Please check the error messages above."
     exit 1

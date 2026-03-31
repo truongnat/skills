@@ -23,6 +23,7 @@ skills/
   flutter-pro/
   nestjs-pro/
   postgresql-pro/
+  sql-data-access-pro/
   testing-pro/
   security-pro/
   electron-pro/
@@ -37,6 +38,7 @@ skills/
   image-processing-pro/
   web-research-pro/
   code-packaging-pro/
+  git-operations-pro/
   bug-discovery-pro/
   repo-tooling-pro/
 ```

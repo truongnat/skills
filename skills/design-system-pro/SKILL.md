@@ -66,6 +66,12 @@ Details: [references/foundations-baseline-and-data-ui.md](references/foundations
 
 Details: [references/a11y-responsive-and-web-typography.md](references/a11y-responsive-and-web-typography.md)
 
+### Web performance basics (summary)
+
+- **Layout** thrash avoidance, **`will-change`** discipline, **lazy** images, **CLS** awareness — not a full **Core Web Vitals** audit (pair with **`seo-pro`** for CWV in search context).
+
+Details: [references/web-performance-basics.md](references/web-performance-basics.md)
+
 ### Design system guidelines and consistency (summary)
 
 - Tokens, primitives, **documentation**, governance, **design ↔ code** naming; fighting inconsistency.
@@ -123,6 +129,7 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 |-------|------|
 | Foundations & data UI | [references/foundations-baseline-and-data-ui.md](references/foundations-baseline-and-data-ui.md) |
 | **A11y, responsive web, fonts** | [references/a11y-responsive-and-web-typography.md](references/a11y-responsive-and-web-typography.md) |
+| Web performance (basics) | [references/web-performance-basics.md](references/web-performance-basics.md) |
 | Guidelines & consistency | [references/design-system-guidelines-and-consistency.md](references/design-system-guidelines-and-consistency.md) |
 | Web / app / desktop | [references/platforms-web-app-desktop.md](references/platforms-web-app-desktop.md) |
 | Trends & themes (overview) | [references/trends-themes-and-visual-language.md](references/trends-themes-and-visual-language.md) |

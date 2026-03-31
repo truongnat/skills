@@ -34,6 +34,8 @@ Each **skill** is a subdirectory with a required `SKILL.md` (frontmatter `name` 
 | [image-processing-pro](image-processing-pro/) | Image processing — Pillow, resize, crop, formats, compositing |
 | [web-research-pro](web-research-pro/) | Web research — sources, citations, recency, stale docs |
 | [code-packaging-pro](code-packaging-pro/) | Code packaging — pyproject, Docker, GitHub Actions, build & publish |
+| [git-operations-pro](git-operations-pro/) | Git — commits, branches, PRs, collaboration |
+| [sql-data-access-pro](sql-data-access-pro/) | SQL data access — SQLite, safety, export, PG handoff |
 | [bug-discovery-pro](bug-discovery-pro/) | Bug discovery — deep scan, GitNexus graph, candidates, impact |
 | [repo-tooling-pro](repo-tooling-pro/) | Repo scripts — KB batch query, list/validate/analyze skills, performance |
 

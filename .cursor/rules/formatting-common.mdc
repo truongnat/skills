@@ -1,0 +1,32 @@
+---
+description: Quy ước định dạng chung cho toàn repo (Markdown, Python, frontmatter) — áp dụng khi sửa hoặc tạo file.
+alwaysApply: true
+---
+
+# Định dạng chung (repo)
+
+Tuân theo **`.editorconfig`** ở root (UTF-8, LF, newline cuối file). Khi xung đột với skill cụ thể, ưu tiên **`skills/SKILL_AUTHORING_RULES.md`** cho `skills/**`.
+
+## Markdown (`.md`)
+
+- Một dòng trống giữa đoạn và giữa heading với nội dung.
+- **Code fence:** mở ``` **một mình một dòng**; chú thích ngôn ngữ khi có (` ```python `, ` ```bash `).
+- **Danh sách:** thụt nhất quán (thường 2 spaces); không trộn `-` và `*` trong cùng file nếu không cần.
+- **Bảng:** căn cột hợp lý; không xóa khoảng trắng cuối dòng trong `.md` nếu dùng **hard line break** (hai space cuối dòng) — `.editorconfig` đã `trim_trailing_whitespace = false` cho `*.md`.
+- Đường dẫn và URL: **chuỗi đầy đủ** trong doc (không rút gọn).
+
+## Python (`scripts/**/*.py`)
+
+- **4 spaces** thụt; không tab (trừ quy ước riêng file).
+- `from __future__ import annotations` khi dùng kiểu hiện đại; import chuẩn (stdlib → third party → local).
+- Dòng dài: ưu tiên xuống dòng rõ nghĩa; **~100** ký tự là mục tiêu mềm (khớp `.editorconfig`).
+
+## YAML frontmatter (ví dụ `skills/**/SKILL.md`)
+
+- Khối `---` đầu file; `name:` khớp tên thư mục skill.
+- `description:` dùng `|` cho nhiều dòng khi cần; thụt nội dung block nhất quán.
+
+## Không làm
+
+- Đổi hàng loạt end-of-line hoặc reformat **toàn repo** chỉ vì style — chỉ chạm file đang sửa.
+- Thêm công cụ formatter mới (Prettier/Ruff) vào repo **trừ khi** người dùng yêu cầu cấu hình rõ.

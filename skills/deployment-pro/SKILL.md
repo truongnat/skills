@@ -28,6 +28,7 @@ Use your cloud or platform **official docs** (AWS/GCP/Azure, Kubernetes, GitHub 
 | **`nestjs-pro`** | Node containers, health checks, graceful shutdown hooks |
 | **`electron-pro`** / **`tauri-pro`** | Desktop installers, auto-update, store-style releases |
 | **`code-packaging-pro`** | **Dockerfile**, **pyproject**, **GitHub Actions** that **build** images/wheels — before **where** they run |
+| **`git-operations-pro`** | **Tags**, **release branches**, **merge** hygiene — before **promotion** to environments |
 
 **Boundary:** **`testing-pro`** = quality **gates** in automation; **`deployment-pro`** = **build → publish → promote → observe → rollback** for runnable systems.
 

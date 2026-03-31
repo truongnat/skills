@@ -17,6 +17,16 @@ metadata:
 
 Use official [PostgreSQL documentation](https://www.postgresql.org/docs/) for version-specific behavior; this skill encodes **design discipline**, **query and index patterns**, and **operational awareness**. Confirm **server major version** (`SELECT version();`) when behavior differs across releases.
 
+## Related skills (this repo)
+
+| Skill | When to combine with `postgresql-pro` |
+|-------|----------------------------------------|
+| **`sql-data-access-pro`** | **SQLite** file scripts, **local** `.db` — **not** server Postgres |
+| **`nestjs-pro`** / **`nextjs-pro`** | ORM and app-layer SQL **integration** |
+| **`data-analysis-pro`** | **Export** → **pandas**; **not** DDL/RLS design |
+
+**Boundary:** **`postgresql-pro`** = **PostgreSQL server** product; **`sql-data-access-pro`** = **embedded SQLite** and portable SQL habits.
+
 ## When to use
 
 - Designing or evolving schemas, constraints, indexes, and migrations.

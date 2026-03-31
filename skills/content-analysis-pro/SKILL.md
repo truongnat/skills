@@ -26,6 +26,8 @@ Use this skill when **source material** (files, pasted text, described media) mu
 | **`seo-pro`** | Rare — only if analyzing **web** or **marketing** assets for search |
 | **`data-analysis-pro`** | CSV/Parquet/SQLite **numeric** profiling, pivots, charts — not “what does this PDF say?” |
 | **`image-processing-pro`** | Resize, convert, composite **images** — not semantic description of content |
+| **`sql-data-access-pro`** | **Query** attached `.db` / **SQL** exploration with **stdlib** — not Postgres **RLS** tuning |
+| **`postgresql-pro`** | **Server** PostgreSQL schema, migrations, **EXPLAIN**, ops |
 
 **Boundary:** **`content-analysis-pro`** = **read and report** on provided content (one skill for all modalities — avoid duplicating “read-only” PDF vs doc skills). **`business-analysis-pro`** = **business problem framing** and delivery artifacts. **Authoring** spreadsheets/charts or **pixel** image transforms → **`data-analysis-pro`** / **`image-processing-pro`**.
 

@@ -26,5 +26,7 @@ Each **skill** is a subdirectory with a required `SKILL.md` (frontmatter `name` 
 | [tauri-pro](tauri-pro/) | Tauri — Rust commands, capabilities, webview, bundle |
 | [deployment-pro](deployment-pro/) | Deployment — methods, CI/CD flows, release strategies, rollback |
 | [seo-pro](seo-pro/) | SEO — lifecycle, technical crawl, on-page, CWV, edge cases |
+| [design-system-pro](design-system-pro/) | Design system — baseline, guidelines, data UI, platforms, themes |
+| [mobile-design-pro](mobile-design-pro/) | Mobile design — touch, safe area, navigation, iOS/Android UX |
 
 To use with Cursor: copy or symlink a skill folder into `.cursor/skills/<name>/` (see root [`AGENTS.md`](../AGENTS.md)).

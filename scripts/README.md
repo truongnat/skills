@@ -12,7 +12,7 @@ Python helpers for this **skills template** repo: knowledge base (RAG) and **fas
 | **`verify_kb.py`** | Structural checks + optional smoke query. |
 | **`list_skills.py`** | No ML — instant list of `skills/*/SKILL.md` names. |
 | **`validate_skills.py`** | CI: `name` in YAML matches folder name. |
-| **`analyze_skills.py`** | Heuristic report: which skills imply automation (FFmpeg, CI, …) vs referencing `scripts/` — for authors (“script self-support”). |
+| **`analyze_skills.py`** | Heuristic report: automation signals vs `scripts/` refs; **`--markdown`** for a full report; see skill **`skills-self-review-pro`**. |
 
 ## Commands
 
@@ -40,6 +40,7 @@ python scripts/validate_skills.py
 # Skill authoring: automation vs repo scripts (report)
 python scripts/analyze_skills.py
 python scripts/analyze_skills.py --with-references --only-actionable
+python scripts/analyze_skills.py --with-references --markdown
 ```
 
 ## Config
@@ -48,4 +49,4 @@ All KB scripts read `<!-- kb-config -->` from `config.md` or `config.example.md`
 
 ## Skill
 
-For agent-oriented guidance on **when** to use these scripts vs skills-only Markdown, see bundled skill **`repo-tooling-pro`** (`skills/repo-tooling-pro/`).
+For agent-oriented guidance on **when** to use these scripts vs skills-only Markdown, see bundled skills **`repo-tooling-pro`** (`skills/repo-tooling-pro/`) and **`skills-self-review-pro`** (`skills/skills-self-review-pro/`) for bundle audits.

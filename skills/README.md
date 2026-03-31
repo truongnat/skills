@@ -37,6 +37,7 @@ Each **skill** is a subdirectory with a required `SKILL.md` (frontmatter `name` 
 | [git-operations-pro](git-operations-pro/) | Git — commits, branches, PRs, collaboration |
 | [sql-data-access-pro](sql-data-access-pro/) | SQL data access — SQLite, safety, export, PG handoff |
 | [bug-discovery-pro](bug-discovery-pro/) | Bug discovery — deep scan, GitNexus graph, candidates, impact |
+| [skills-self-review-pro](skills-self-review-pro/) | Skills self-review — gap reports, authoring cross-check, `analyze_skills` |
 | [repo-tooling-pro](repo-tooling-pro/) | Repo scripts — KB batch query, list/validate/analyze skills, performance |
 
 To use with Cursor: copy or symlink a skill folder into `.cursor/skills/<name>/` (see root [`AGENTS.md`](../AGENTS.md)).

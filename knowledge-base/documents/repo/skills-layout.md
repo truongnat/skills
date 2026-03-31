@@ -40,6 +40,7 @@ skills/
   code-packaging-pro/
   git-operations-pro/
   bug-discovery-pro/
+  skills-self-review-pro/
   repo-tooling-pro/
 ```
 

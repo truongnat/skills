@@ -8,7 +8,7 @@ description: |
   Triggers: "scripts", "query_kb_batch", "batch query", "list_skills", "validate_skills", "analyze_skills", "skill analysis report", "script self support", "build_kb", "verify_kb", "CI skills", "RAG performance", "embeddings", "repo automation".
 
 metadata:
-  short-description: Repo tooling — KB batch query, list/validate skills, scripts README
+  short-description: Repo tooling — KB batch query, list/validate/analyze skills, Markdown reports, scripts README
 ---
 
 # Repo tooling (professional)
@@ -19,14 +19,14 @@ Official script list: **[`scripts/README.md`](../../scripts/README.md)** at repo
 
 | Skill | When to combine with `repo-tooling-pro` |
 |-------|----------------------------------------|
-| *(none required)* | Domain skills are independent; this skill is **meta** for the template repo |
+| **`skills-self-review-pro`** | Full **bundle audit** narrative — combine **`analyze_skills --markdown`** with **`SKILL_AUTHORING_RULES.md`** checklist |
 
 ## When to use
 
 - **Multiple** KB questions in one session — **`query_kb_batch.py`**.
 - **CI** — **`validate_skills.py`** after skill changes; **`verify_kb.py`** after KB build.
 - **Agent inventory** — **`list_skills.py --json`**.
-- **Authoring / audit** — **`analyze_skills.py`** (which skills mention automation but not `scripts/`).
+- **Authoring / audit** — **`analyze_skills.py`** (`--markdown` for paste-ready report; see **`skills-self-review-pro`**).
 - Explaining **performance** difference vs N× `query_kb.py`.
 - Trigger keywords: `query_kb_batch`, `validate_skills`, `analyze_skills`, `list_skills`, `build_kb`, …
 
@@ -85,7 +85,7 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 **Expected output:** Use **`python scripts/query_kb_batch.py -f queries.txt`** (or repeated `-q`); one model load; point to **`scripts/README.md`**.
 
 **Input:** Which bundled skills should link or add helpers under **`scripts/`** (FFmpeg, CI, repeated steps)?  
-**Expected output:** Run **`python scripts/analyze_skills.py --with-references --only-actionable`**; summarize **strong** / **consider** tiers; remind that **`repo-tooling-pro`** is exempt and domain skills may add a repo script plus a one-line link in **`SKILL.md`**.
+**Expected output:** Run **`python scripts/analyze_skills.py --with-references --only-actionable --markdown`**; summarize **strong** / **consider** tiers; remind that **`repo-tooling-pro`** is exempt and domain skills may add a repo script plus a one-line link in **`SKILL.md`**; point to **`skills-self-review-pro`** for the full review workflow.
 
 ## Checklist before calling the skill done
 

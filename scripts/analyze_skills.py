@@ -4,6 +4,8 @@ Heuristic report: which bundled skills imply automation (CLI, batch, FFmpeg, CI)
 but do not reference repo scripts under scripts/. For authors and CI review.
 
 Scans skills/*/SKILL.md; optional --with-references includes references/*.md.
+Use --self-review for a full Markdown report (tier counts, all skills, manual checklist).
+
 No ML — fast.
 """
 from __future__ import annotations
@@ -12,6 +14,7 @@ import argparse
 import json
 import re
 import sys
+from collections import Counter
 from pathlib import Path
 
 
@@ -39,17 +42,33 @@ def iter_skill_dirs(skills_dir: Path, include_template: bool) -> list[Path]:
 
 
 # Weighted signals: (regex, weight, label)
+# Note: "ci/pipeline" is weight 1 — the word CI appears often in prose; avoid false positives.
 SIGNALS: list[tuple[re.Pattern[str], int, str]] = [
     (re.compile(r"\bffmpeg\b", re.I), 4, "ffmpeg"),
     (re.compile(r"\bffprobe\b", re.I), 4, "ffprobe"),
     (re.compile(r"\bocr\b", re.I), 2, "ocr"),
     (re.compile(r"\bbinary\b|\bcli\b|\bsubprocess\b", re.I), 2, "cli/subprocess"),
-    (re.compile(r"\bci\b|\bcron\b|\bgithub actions\b|\bpipeline\b", re.I), 3, "ci/pipeline"),
+    (re.compile(r"\bci\b|\bcron\b|\bgithub actions\b|\bpipeline\b", re.I), 1, "ci/pipeline"),
     (re.compile(r"\bbatch\b", re.I), 2, "batch"),
     (re.compile(r"\bautomate\b|\bautomation\b", re.I), 2, "automation"),
     (re.compile(r"\brun\s+(the\s+)?(script|tool|command)", re.I), 2, "run-script"),
     (re.compile(r"\bshell\b|\bbash\b|\bpowershell\b", re.I), 2, "shell"),
 ]
+
+# Skills whose job is CI/deploy/security/etc.; mention of CI in text is not a repo-script gap.
+DOMAIN_AUTOMATION_OK = frozenset(
+    {
+        "deployment-pro",
+        "testing-pro",
+        "code-packaging-pro",
+        "security-pro",
+        "seo-pro",
+        "electron-pro",
+        "tauri-pro",
+        "bug-discovery-pro",
+        "git-operations-pro",
+    },
+)
 
 REPO_SCRIPT_REF = re.compile(
     r"scripts/README\.md|scripts/|`scripts/|"
@@ -104,10 +123,16 @@ def analyze_one(skill_dir: Path, rel: str, with_references: bool) -> dict:
     elif has_repo_ref:
         tier = "ok"
         note = "References repo scripts or tooling skill."
-    elif ("ffmpeg" in signal_labels or "ffprobe" in signal_labels) or score >= 12:
+    elif folder in DOMAIN_AUTOMATION_OK:
+        tier = "low"
+        note = (
+            "Domain skill (CI/deploy/tooling/etc.); mentions of automation in prose are expected; "
+            "link `scripts/README.md` only if this repo's scripts are relevant."
+        )
+    elif ("ffmpeg" in signal_labels or "ffprobe" in signal_labels) or score >= 11:
         tier = "strong"
         note = "Heavy automation signals; add or link a helper under scripts/ (or document project-local scripts)."
-    elif score >= 4:
+    elif score >= 6:
         tier = "consider"
         note = "Some automation keywords; if users repeat the same steps, add a small script or workflow."
     else:
@@ -124,6 +149,82 @@ def analyze_one(skill_dir: Path, rel: str, with_references: bool) -> dict:
         "tier": tier,
         "note": note,
     }
+
+
+def print_tier_distribution(rows: list[dict], tier_order: tuple[str, ...]) -> None:
+    counts = Counter(r["tier"] for r in rows)
+    print("## Tier distribution (all bundled skills)\n")
+    print("| tier | count |")
+    print("|------|-------|")
+    for t in tier_order:
+        n = counts.get(t, 0)
+        if n:
+            print(f"| `{t}` | {n} |")
+    print()
+
+
+def print_full_skill_table(rows: list[dict]) -> None:
+    print("## All bundled skills\n")
+    print("| tier | score | repo_ref | signals | folder | name |")
+    print("|------|-------|----------|---------|--------|------|")
+    for r in sorted(rows, key=lambda x: (x["tier"], x["folder"])):
+        sig = ", ".join(r["signals"]) if r["signals"] else "-"
+        ref = "yes" if r["references_repo_scripts"] else "no"
+        nm = r["name"] or "(missing)"
+        print(
+            f"| {r['tier']} | {r['automation_score']} | {ref} | {sig} | "
+            f"{r['folder']} | {nm} |",
+        )
+    print()
+
+
+def print_self_review_markdown(rows: list[dict]) -> None:
+    """Full report for skills-self-review-pro / maintainers."""
+    tier_order = ("strong", "consider", "unknown", "low", "ok", "exempt")
+    actionable = [r for r in rows if r["tier"] in ("strong", "consider", "unknown")]
+
+    print("# Skills self-review (this repository)\n")
+    print(
+        "Heuristic automation-vs-`scripts/` analysis. "
+        "Pair with **`skills/SKILL_AUTHORING_RULES.md`** for structure. "
+        "Skill **`skills-self-review-pro`** describes the workflow.\n",
+    )
+    print("## 1. Validate frontmatter vs folder names\n")
+    print("Run from repo root (must exit 0 before trusting this report):\n")
+    print("```bash\npython scripts/validate_skills.py\n```\n")
+
+    print("## 2. Automation vs repo scripts - actionable gaps\n")
+    if not actionable:
+        print(
+            "**None.** No skill is in `strong`, `consider`, or `unknown` for "
+            "script-linking heuristics.\n",
+        )
+    else:
+        print("| tier | score | folder | note |")
+        print("|------|-------|--------|------|")
+        for r in sorted(actionable, key=lambda x: (x["tier"], x["folder"])):
+            note = r["note"].replace("|", "\\|")
+            print(
+                f"| {r['tier']} | {r['automation_score']} | {r['folder']} | {note} |",
+            )
+        print()
+
+    print_tier_distribution(rows, tier_order)
+    print_full_skill_table(rows)
+
+    print("## 3. Per-skill notes (automation heuristic)\n")
+    for r in sorted(rows, key=lambda x: x["folder"]):
+        print(f"- **{r['folder']}** (`{r['tier']}`): {r['note']}")
+    print()
+
+    print("## 4. Manual checks (not covered by this script)\n")
+    print(
+        "- Section order and workflow in **`skills/SKILL_AUTHORING_RULES.md`** (sections 2-5).\n"
+        "- Same-change documentation (authoring rules section 8) when adding/removing skills or KB docs.\n"
+        "- After editing **`knowledge-base/documents/`**:** `python scripts/build_kb.py` "
+        "then **`python scripts/verify_kb.py`**.\n"
+        "- Script index: **`scripts/README.md`**; meta skill: **`skills-self-review-pro`**.\n",
+    )
 
 
 def main() -> int:
@@ -151,7 +252,20 @@ def main() -> int:
         action="store_true",
         help="Print only strong/consider tiers (and unknown).",
     )
+    parser.add_argument(
+        "--self-review",
+        action="store_true",
+        help=(
+            "Full Markdown self-review for this repo: validate_skills reminder, "
+            "tier counts, actionable section, full skill table, manual checklist. "
+            "Implies --markdown and --with-references."
+        ),
+    )
     args = parser.parse_args()
+
+    if args.self_review:
+        args.markdown = True
+        args.with_references = True
 
     skills_dir = repo_root() / "skills"
     rows: list[dict] = []
@@ -162,6 +276,10 @@ def main() -> int:
     if args.json:
         json.dump(rows, sys.stdout, ensure_ascii=False, indent=2)
         sys.stdout.write("\n")
+        return 0
+
+    if args.self_review:
+        print_self_review_markdown(rows)
         return 0
 
     if args.markdown:
@@ -178,8 +296,26 @@ def main() -> int:
             "**Not** a full quality audit - combines keyword signals with "
             "`scripts/` / `repo-tooling-pro` references.\n"
         )
-        print("## Summary by tier\n")
         tier_order = ("strong", "consider", "unknown", "low", "ok", "exempt")
+
+        if args.only_actionable and not filtered:
+            print(
+                "## Actionable tiers (strong / consider / unknown)\n\n"
+                "**None.** No skill matched those tiers. "
+                "Heuristics may be tuned (see `DOMAIN_AUTOMATION_OK` and weights in this script) "
+                "or the bundle is clean for *script-linking* gaps.\n\n"
+                "Use **`python scripts/analyze_skills.py --self-review`** for a full repo report "
+                "(tier counts + all skills).\n",
+            )
+            print_tier_distribution(rows, tier_order)
+            print_full_skill_table(rows)
+            print("\n## Improvement notes (all skills)\n")
+            for r in rows:
+                print(f"- **{r['folder']}:** {r['note']}")
+            print()
+            return 0
+
+        print("## Summary by tier\n")
         by_tier: dict[str, list[dict]] = {t: [] for t in tier_order}
         for r in filtered:
             by_tier.setdefault(r["tier"], []).append(r)

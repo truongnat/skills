@@ -10,6 +10,17 @@ Each **skill** is a subdirectory with a required `SKILL.md` (frontmatter `name` 
 
 - **Template:** copy [`examples/skill-template/`](examples/skill-template/) and rename the folder; align with `SKILL_AUTHORING_RULES.md`.
 
+## Bundle audit (maintainers)
+
+From **repo root** (venv active), generate a **full** Markdown report (tier counts, all skills, manual checklist):
+
+```bash
+python scripts/validate_skills.py
+python scripts/analyze_skills.py --self-review
+```
+
+Skill **`skills-self-review-pro`** describes the workflow. Repo scripts index: **[`../scripts/README.md`](../scripts/README.md)**.
+
 ## Bundled examples
 
 | Directory | Description |

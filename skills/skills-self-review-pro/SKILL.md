@@ -1,16 +1,16 @@
 ---
 name: skills-self-review-pro
 description: |
-  Self-review of the skills template: structured gap and improvement reports using repo scripts (analyze_skills Markdown output, validate_skills, list_skills), cross-checks against SKILL_AUTHORING_RULES.md, and clear limits of automation vs human judgment.
+  Self-review of the skills template: structured gap and improvement reports using repo scripts (analyze_skills Markdown output, validate_skills, list_skills), cross-checks against SKILL_AUTHORING_RULES.md, optional **tech refresh** via **`web-research-pro`** (official docs, release notes), and clear limits of automation vs human judgment.
 
-  Use this skill when the user wants a **periodic audit** of bundled skills, a **PR checklist** for skill changes, an **automation vs scripts** backlog, or asks to **find gaps** and **suggested improvements** without manually opening every `SKILL.md`.
+  Use this skill when the user wants a **periodic audit** of bundled skills, a **PR checklist** for skill changes, an **automation vs scripts** backlog, or asks to **find gaps** and **suggested improvements** without manually opening every `SKILL.md` — or to **align** stack skills with **current** upstream technology.
 
-  Use **with** **`repo-tooling-pro`** for script flags and CI wiring; **`git-operations-pro`** when the output becomes a **commit** or **PR** artifact. This skill (`skills-self-review-pro`) owns **review methodology and report shape**; scripts own **deterministic checks**.
+  Use **with** **`repo-tooling-pro`** for script flags and CI wiring; **`web-research-pro`** for **internet / official** doc verification; **`git-operations-pro`** when the output becomes a **commit** or **PR** artifact. Persist decisions in **`knowledge-base/documents/`** per **`.cursor/rules/documentation-persistence.mdc`**. This skill (`skills-self-review-pro`) owns **review methodology and report shape**; scripts own **deterministic checks**.
 
-  Triggers: "skill self review", "audit skills", "gap report", "improve bundled skills", "analyze_skills", "validate_skills inventory", "authoring checklist", "skill quality", "SKILL.md review".
+  Triggers: "skill self review", "audit skills", "gap report", "improve bundled skills", "analyze_skills", "validate_skills inventory", "authoring checklist", "skill quality", "SKILL.md review", "tech refresh skills", "update skills for new React", "official docs check".
 
 metadata:
-  short-description: Skills self-review — gap reports, authoring cross-check, script-backed audit
+  short-description: Skills self-review — gaps, authoring check, scripts, web research for tech refresh
 ---
 
 # Skills self-review (professional)
@@ -22,6 +22,7 @@ Use **`scripts/analyze_skills.py`**, **`validate_skills.py`**, and **`list_skill
 | Skill | When to combine with `skills-self-review-pro` |
 |-------|-----------------------------------------------|
 | **`repo-tooling-pro`** | Exact CLI flags, **`query_kb`**, KB rebuild after doc edits |
+| **`web-research-pro`** | **Official** docs, changelogs, **404** handling — **not** local `analyze_skills` output |
 | **`git-operations-pro`** | Attach report to **PR**, **conventional** commit for tooling changes |
 | **`business-analysis-pro`** | Rare — only if review outputs must become **formal** backlog items |
 
@@ -32,13 +33,14 @@ Use **`scripts/analyze_skills.py`**, **`validate_skills.py`**, and **`list_skill
 - **Before merge** of large skill additions — run **`validate_skills`** + **`analyze_skills --markdown`**.
 - **Quarterly** or **milestone** hygiene — generate gap list for maintainers.
 - **Onboarding** — explain how bundled skills are **checked** in this repo.
-- Trigger keywords: `self review`, `gap report`, `analyze_skills`, `validate_skills`, `authoring`, …
+- **Tech refresh** — pair script audit with **`web-research-pro`** + official docs for stacks you maintain.
+- Trigger keywords: `self review`, `gap report`, `analyze_skills`, `validate_skills`, `authoring`, `tech refresh`, …
 
 ## Workflow
 
-1. Confirm **repo root**, **Python venv**, and whether to include **`--with-references`** / **`--only-actionable`** for **`analyze_skills`**.
-2. Apply the principles and topic summaries below; open `references/` when you need depth; run scripts and paste or summarize **Markdown** output.
-3. Respond using **Suggested response format**; note **heuristic** limits and **manual** checks still required.
+1. Confirm **repo root**, **Python venv**, whether **`--with-references`** / **`--only-actionable`** apply, and whether the user wants **upstream doc** research (**`web-research-pro`**).
+2. Apply the principles and topic summaries below; open `references/` when you need depth; run **`python scripts/analyze_skills.py --self-review`** for a **complete** repo report; **persist** notable outcomes under **`knowledge-base/documents/`** (see **`.cursor/rules/documentation-persistence.mdc`**).
+3. Respond using **Suggested response format**; note **heuristic** limits, **manual** checks, and **doc** updates needed for **INDEX** / **build_kb**.
 
 ### Operating principles
 
@@ -46,8 +48,14 @@ Use **`scripts/analyze_skills.py`**, **`validate_skills.py`**, and **`list_skill
 2. **Separate concerns** — **Automation/script** gaps (`analyze_skills`) vs **structure** (`SKILL_AUTHORING_RULES.md`) vs **content quality** (human).
 3. **Actionable backlog** — Each gap: **owner**, **suggested fix** (link script, add workflow, edit `references/`).
 4. **No scope creep** — Review does not **rewrite** unrelated skills in one pass unless user asked.
-5. **Reproducible** — Save **`--markdown`** output next to PR or in **`knowledge-base/documents/`** if the team wants history (update **`INDEX.md`**).
+5. **Reproducible** — Save **`--markdown`** output next to PR or in **`knowledge-base/documents/`** if the team wants history (update **`INDEX.md`**); append **decisions** to **`documents/repo/activity-log.md`** when appropriate.
 6. **Honest limits** — Heuristics miss **neutral** wording and **duplicate** conceptual scope; **Related skills** tables need human read.
+
+### Tech refresh and web research (summary)
+
+- After local **`analyze_skills`**, use **`web-research-pro`** (and **Context7** / official docs MCP when available) for **stack** updates; log in **`activity-log.md`**.
+
+Details: [references/tech-refresh-and-web-research.md](references/tech-refresh-and-web-research.md)
 
 ### Report structure and script gaps (summary)
 
@@ -76,9 +84,9 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — Audit scope (whole bundle vs one skill) and **deadline** if any.
-2. **Recommendation** — Command sequence: **`validate_skills`** → **`analyze_skills --markdown`** (with flags) → authoring **checklist** pass.
+2. **Recommendation** — Command sequence: **`validate_skills`** → **`analyze_skills --self-review`** → authoring **checklist**; optional **`web-research-pro`** passes for **stack** skills; **activity log** / **INDEX** updates when decisions are saved.
 3. **Code** — Pasted or summarized **Markdown report** + **table** of manual follow-ups — still labeled **Code**.
-4. **Residual risks** — Heuristic blind spots, **unread** `references/`, **policy** disagreements on when to add scripts.
+4. **Residual risks** — Heuristic blind spots, **stale** upstream docs if web research skipped, **INDEX** drift if docs added without update.
 
 ## Resources in this skill
 
@@ -88,6 +96,7 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 |-------|------|
 | `analyze_skills` report | [references/report-structure-and-scripts.md](references/report-structure-and-scripts.md) |
 | Authoring cross-check | [references/authoring-rules-crosscheck.md](references/authoring-rules-crosscheck.md) |
+| Tech refresh & web research | [references/tech-refresh-and-web-research.md](references/tech-refresh-and-web-research.md) |
 | Tips | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
 | **Script index** | [`scripts/README.md`](../../scripts/README.md) |
@@ -95,7 +104,7 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 ## Quick example
 
 **Input:** “Give me a gap report before we tag v2.”  
-**Expected output:** Run **`validate_skills`** (must pass); **`python scripts/analyze_skills.py --with-references --markdown`**; summarize **strong/consider** rows; list **manual** §2 section-order checks for any skill touched last month.
+**Expected output:** Run **`validate_skills`** (must pass); **`python scripts/analyze_skills.py --self-review`**; summarize **actionable** tier (if any) + **tier distribution**; list **manual** §2 checks for skills touched in the PR.
 
 ## Checklist before calling the skill done
 
@@ -103,3 +112,4 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] **`analyze_skills`** run with **documented** flags; **Markdown** or summary provided.
 - [ ] **Authoring** checklist invoked for **structural** gaps, not only automation tiers.
 - [ ] **Limits** of automation stated (**false positives** / **neutral** wording).
+- [ ] If **tech refresh** was in scope: **`web-research-pro`** (or **Context7**) used for **official** sources; **activity-log** or **INDEX** updated when saving decisions.

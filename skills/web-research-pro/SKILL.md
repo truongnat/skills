@@ -24,6 +24,7 @@ Use **vendor official documentation** and **primary** repositories for **API tru
 | **`repo-tooling-pro`** | **`query_kb` / `query_kb_batch`** when **`knowledge-base`** is built and relevant |
 | **`security-pro`** | Untrusted links, **paste** from unknown sites, **supply chain** |
 | **`data-analysis-pro`** / **`content-analysis-pro`** | Research is **supporting** analysis — not the same as EDA or multimodal read |
+| **`skills-self-review-pro`** | Sau **`analyze_skills`**, tra **docs chính thức** để **tech refresh** skill bundle |
 
 **Boundary:** **`web-research-pro`** = **finding and weighing** external information; **`repo-tooling-pro`** = **running** local RAG scripts on **indexed** Markdown.
 

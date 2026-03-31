@@ -12,7 +12,7 @@ Python helpers for this **skills template** repo: knowledge base (RAG) and **fas
 | **`verify_kb.py`** | Structural checks + optional smoke query. |
 | **`list_skills.py`** | No ML — instant list of `skills/*/SKILL.md` names. |
 | **`validate_skills.py`** | CI: `name` in YAML matches folder name. |
-| **`analyze_skills.py`** | Heuristic report: automation signals vs `scripts/` refs; **`--markdown`** for a full report; see skill **`skills-self-review-pro`**. |
+| **`analyze_skills.py`** | Heuristic report: automation vs `scripts/`; **`--self-review`** = full repo Markdown (tiers, all skills, checklist); **`--markdown`** / **`--only-actionable`**. See **`skills-self-review-pro`**. |
 
 ## Commands
 
@@ -39,8 +39,8 @@ python scripts/validate_skills.py
 
 # Skill authoring: automation vs repo scripts (report)
 python scripts/analyze_skills.py
-python scripts/analyze_skills.py --with-references --only-actionable
-python scripts/analyze_skills.py --with-references --markdown
+python scripts/analyze_skills.py --self-review
+python scripts/analyze_skills.py --with-references --only-actionable --markdown
 ```
 
 ## Config

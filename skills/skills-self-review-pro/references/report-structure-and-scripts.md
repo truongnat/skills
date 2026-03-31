@@ -9,10 +9,13 @@
 ## How to run
 
 ```bash
-# Full Markdown report (paste into PR or KB)
+# Full self-review for THIS repo (tier counts, all skills, manual checklist)
+python scripts/analyze_skills.py --self-review
+
+# Heuristic only (tiers + table); use --with-references for stronger signals
 python scripts/analyze_skills.py --markdown
 
-# Actionable only + richer signals from references/
+# Actionable tiers only; if empty, the script still prints tier distribution + full table
 python scripts/analyze_skills.py --with-references --only-actionable --markdown
 ```
 
@@ -21,9 +24,12 @@ python scripts/analyze_skills.py --with-references --only-actionable --markdown
 | Tier | Typical action |
 |------|----------------|
 | **strong** | Add or link a helper under `scripts/`, or document repeatable commands in `SKILL.md`. |
-| **consider** | If users repeat the same steps, add a workflow under `workflows/examples/` or a tiny script. |
+| **consider** | Score **≥ 6** (after weights); if users repeat the same steps, add a workflow or script link. |
+| **low** | Includes **domain** skills (`deployment-pro`, `testing-pro`, …) where CI/automation words are **expected** in prose — not a defect. |
 | **ok** | Already references repo tooling — no automation gap from this heuristic. |
 | **exempt** | `repo-tooling-pro` — meta skill. |
+
+Heuristic details: **`scripts/analyze_skills.py`** uses low weight for generic **CI/pipeline** mentions to reduce false positives.
 
 ## Limits
 

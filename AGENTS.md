@@ -21,6 +21,7 @@ Agents should prefer:
 1. Read `knowledge-base/INDEX.md` to locate documents.
 2. Open `.md` files under `knowledge-base/documents/` for detail.
 3. For semantic search over the indexed corpus, run `python scripts/query_kb.py "…"` (after `build_kb`).
+4. **Persist** meaningful decisions and audit outcomes under `knowledge-base/documents/` (see **`.cursor/rules/documentation-persistence.mdc`**, [`documents/repo/activity-log.md`](knowledge-base/documents/repo/activity-log.md)); update **INDEX** when adding files.
 
 ## Workflows
 
@@ -33,3 +34,7 @@ Edit `config.md` (copy from `config.example.md`) — the `kb-config` block in Ma
 ## Formatting (common)
 
 - Repo root **`.editorconfig`** — UTF-8, LF, indent; Cursor rule **`.cursor/rules/formatting-common.mdc`** applies to all edits unless a narrower rule overrides.
+
+## Bundle audit
+
+- **`python scripts/analyze_skills.py --self-review`** — full Markdown report for this repo (skills + manual checklist). Pair with **`skills/skills-self-review-pro/`** and **`python scripts/validate_skills.py`**.

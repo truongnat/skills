@@ -1,0 +1,36 @@
+---
+description: Luu quyet dinh va hoat dong vao knowledge-base; cap nhat INDEX khi them file trong documents/.
+alwaysApply: true
+---
+
+# Luu tai lieu (documentation persistence)
+
+## "Docs" trong repo nay
+
+- Nguon chinh: **`knowledge-base/documents/`** (Markdown). Uu tien khong tao them thu muc `docs/` o root neu chua co quy uoc rieng.
+
+## Khi nao ghi lai
+
+Ghi **ngan** sau cac su kien (khong luu toan bo hoi thoai):
+
+- Quyet dinh pham vi, skill moi / doi ten, ket luan audit hoac self-review co **hanh dong tiep theo**.
+- Thay doi `workflows/`, `prompts/`, `scripts/`, hoac chinh sach ro rang.
+- Nguoi dung yeu cau **luu lai** hoac **ghi nhan**.
+
+## Ghi vao dau
+
+| Noi dung | Duong dan |
+|----------|-----------|
+| Nhat ky theo ngay | [`knowledge-base/documents/repo/activity-log.md`](../../knowledge-base/documents/repo/activity-log.md) |
+| Chinh sach | [`knowledge-base/documents/policies/documentation-persistence.md`](../../knowledge-base/documents/policies/documentation-persistence.md) |
+| Meta repo | `knowledge-base/documents/repo/` |
+
+## Bat buoc khi them file `.md` moi trong `documents/`
+
+1. Them dong trong **[`knowledge-base/INDEX.md`](../../knowledge-base/INDEX.md)**.
+2. Neu dung RAG: `python scripts/build_kb.py` roi `python scripts/verify_kb.py`.
+
+## Khong lam
+
+- Khong luu bi mat, API key, token vao Git.
+- Khong tao file trong khi chua co noi dung huu ich.

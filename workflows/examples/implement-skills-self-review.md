@@ -37,7 +37,7 @@ Run a **script-backed** gap report and **authoring** cross-check on the bundled 
 
 - **Type:** skill
 - **Skill:** `skills-self-review-pro`
-- **Input:** `include_template` → pass **`--include-template`** if true; prefer **`--with-references --markdown`**
+- **Input:** run **`python scripts/analyze_skills.py --self-review`** (add **`--include-template`** on the script if `include_template` is true)
 - **Output:** `report_md` — [references/report-structure-and-scripts.md](../../skills/skills-self-review-pro/references/report-structure-and-scripts.md)
 
 ### Step 3 — `authoring-crosscheck`

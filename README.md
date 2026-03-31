@@ -34,14 +34,15 @@ own-skills/
 ├── prompts/
 │   └── README.md
 ├── scripts/
-│   ├── README.md              # Script index (batch query, list/validate skills)
+│   ├── README.md              # Script index (batch query, list/validate/analyze skills)
 │   ├── kb_config_md.py        # Read config from Markdown
 │   ├── build_kb.py
 │   ├── query_kb.py
 │   ├── query_kb_batch.py      # Multiple queries, one model load (perf)
 │   ├── verify_kb.py
 │   ├── list_skills.py
-│   └── validate_skills.py
+│   ├── validate_skills.py
+│   └── analyze_skills.py      # Bundle heuristic + --self-review report
 └── templates/                 # Extra docs & samples (see below)
 ```
 
@@ -68,6 +69,9 @@ python scripts/query_kb_batch.py -q "first question" -q "second question" -k 5
 # Skill inventory / CI
 python scripts/list_skills.py
 python scripts/validate_skills.py
+
+# Full bundle self-review (Markdown report)
+python scripts/analyze_skills.py --self-review
 ```
 
 **Python:** 3.10–3.13 recommended. First build downloads an embedding model (network, RAM). See [`scripts/README.md`](scripts/README.md) and skill **`repo-tooling-pro`** for script usage.

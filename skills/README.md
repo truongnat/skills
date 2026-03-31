@@ -29,5 +29,6 @@ Each **skill** is a subdirectory with a required `SKILL.md` (frontmatter `name` 
 | [design-system-pro](design-system-pro/) | Design system — baseline, guidelines, data UI, platforms, themes |
 | [mobile-design-pro](mobile-design-pro/) | Mobile design — touch, safe area, navigation, iOS/Android UX |
 | [business-analysis-pro](business-analysis-pro/) | Business analysis — requirements, SA-style reasoning, BRD-style reports |
+| [content-analysis-pro](content-analysis-pro/) | Content analysis — docs, images, video, structured reports |
 
 To use with Cursor: copy or symlink a skill folder into `.cursor/skills/<name>/` (see root [`AGENTS.md`](../AGENTS.md)).

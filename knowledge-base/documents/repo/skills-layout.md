@@ -32,6 +32,7 @@ skills/
   design-system-pro/
   mobile-design-pro/
   business-analysis-pro/
+  content-analysis-pro/
 ```
 
 Each skill requires **`SKILL.md`** with YAML frontmatter (`name`, `description`, optional `metadata.short-description`). Optional folders: `references/`, `scripts/`, `assets/`.

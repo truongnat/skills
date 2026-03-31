@@ -5,7 +5,7 @@ description: |
 
   Use this skill when the user clarifies business or product requirements, writes a BRD/FRD, analyzes gaps (as-is vs to-be), defines acceptance criteria, prioritizes with MoSCoW, maps stakeholders, or needs **detailed, report-quality** output with explicit assumptions and decisions — beyond informal SA notes.
 
-  Use **with** **`testing-pro`** (acceptance criteria and testability), **`security-pro`** (compliance and data sensitivity), **`design-system-pro`** / **`mobile-design-pro`** (UX requirements), stack skills when requirements imply technical constraints. This skill (`business-analysis-pro`) owns **analysis, reasoning trace, and communication artifacts**; implementation skills own **build details**.
+  Use **with** **`content-analysis-pro`** when **source documents or media** must be read in depth before structuring requirements; **`testing-pro`** (acceptance criteria and testability), **`security-pro`** (compliance and data sensitivity), **`design-system-pro`** / **`mobile-design-pro`** (UX requirements), stack skills when requirements imply technical constraints. This skill (`business-analysis-pro`) owns **analysis, reasoning trace, and communication artifacts**; implementation skills own **build details**.
 
   Triggers: "business analysis", "BA", "BRD", "FRD", "SRS", "requirements", "stakeholder", "MoSCoW", "acceptance criteria", "user story", "as-is", "to-be", "gap analysis", "RACI", "traceability", "NFR", "functional requirement", "systems analyst", "SA", "elicitation", "scope", "prioritization", "decision log".
 
@@ -26,6 +26,7 @@ Use the [IIBA BABOK Guide](https://www.iiba.org/business-analysis-babok-guide/) 
 | **`design-system-pro`** / **`mobile-design-pro`** | UX and platform requirements |
 | **`deployment-pro`** | Release / environment constraints in NFRs |
 | **`postgresql-pro`** | Data and migration implications when requirements imply schema |
+| **`content-analysis-pro`** | Deep read of attached **PDFs, images, video** to extract facts before BRD/user stories |
 
 **Boundary:** **`business-analysis-pro`** = **what** and **why** (and documented trade-offs); stack **`*-pro`** skills = **how** to implement.
 

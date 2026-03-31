@@ -3,7 +3,7 @@
 | title | Skills directory layout |
 | summary | Flat `skills/` tree: one folder per bundled skill plus `examples/skill-template` |
 | tags | repo, skills, convention |
-| updated | 2026-03-31 |
+| updated | 2026-04-01 |
 
 # Skills directory layout (current)
 
@@ -24,6 +24,7 @@ skills/
   javascript-pro/
   performance-tuning-pro/
   clean-code-architecture-pro/
+  cli-pro/
   api-design-pro/
   graphql-pro/
   websocket-pro/

@@ -23,6 +23,9 @@ knowledge-base/embeddings/rag_manifest.json
 .cache/
 **/.cache/
 
+# Node (zx remote installer)
+node_modules/
+
 # IDE
 .idea/
 .vscode/

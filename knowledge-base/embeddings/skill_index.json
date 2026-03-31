@@ -132,6 +132,46 @@
     ]
   },
   {
+    "name": "cli-pro",
+    "folder": "cli-pro",
+    "description": "Advanced command-line interfaces — argument design, help/usage, exit codes, stdin/stdout/stderr contracts, signals, completions, and cross-platform packaging — for tools users run in terminals, scripts, and CI.\n\n  Use this skill when the user designs or refactors a **CLI** (any language), adds **subcommands** or **global flags**, implements **shell completion**, fixes **broken pipes** / **TTY** behavior, or aligns **machine-readable output** with human-readable logs. Combine with **`code-packaging-pro`** for distribution (pyproject entry points, npm `bin`, Go/Rust install); with **`security-pro`** for secrets and dangerous flags; with **`testing-pro`** for CLI integration tests.\n\n  Triggers: \"CLI\", \"command line\", \"argparse\", \"click\", \"typer\", \"clap\", \"cobra\", \"commander\", \"yargs\", \"subcommand\", \"exit code\", \"stderr\", \"POSIX\", \"completion\", \"bash completion\", \"zsh completion\", \"machine readable\", \"JSON output\", \"TTY\", \"SIGPIPE\", \"getopt\".",
+    "triggers": [
+      "cli",
+      "command line",
+      "argparse",
+      "click",
+      "typer",
+      "clap",
+      "cobra",
+      "commander",
+      "yargs",
+      "subcommand",
+      "exit code",
+      "stderr",
+      "posix",
+      "completion",
+      "bash completion",
+      "zsh completion",
+      "machine readable",
+      "json output",
+      "tty",
+      "sigpipe",
+      "getopt"
+    ],
+    "when_to_use": [
+      "Designing **flags**, **positional args**, **subcommands**, or **config precedence** (CLI > env > file).",
+      "**Help text**, **examples**, **version** flags, and **verbosity** (`-q` / `-v` / `--verbose`).",
+      "**Exit codes**, **stderr** for errors/diagnostics, **stdout** for data; **JSON** / `--json` machine output.",
+      "**Pipes**, **SIGPIPE**, **non-interactive** / **CI** detection, **progress** on tty vs log-friendly mode.",
+      "**Shell completion** (bash/zsh/fish), **dynamic** completions."
+    ],
+    "references": [
+      "edge-cases.md",
+      "patterns-by-runtime.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
     "name": "code-packaging-pro",
     "folder": "code-packaging-pro",
     "description": "Professional code packaging and automation: pyproject.toml / setuptools-style metadata, Dockerfiles (multi-stage, slim runtime), GitHub Actions workflows for test matrices, build artifacts, and container or library publishing — complementing deployment strategy.\n\n  Use this skill when the user authors **`pyproject.toml`**, writes or refactors a **Dockerfile**, or wires **GitHub Actions** for **CI** (lint, test, build wheel/image) — not when choosing **Kubernetes** vs **serverless** **runtime** (see **`deployment-pro`**).\n\n  Use **with** **`deployment-pro`** when **images** must be **promoted** across environments; **`security-pro`** for **OIDC**, **secrets**, and **supply chain**; **`testing-pro`** for **what** runs in CI. This skill (`code-packaging-pro`) owns **build artifacts** and **workflow structure**; **`deployment-pro`** owns **release** and **runtime** promotion.\n\n  Triggers: \"pyproject.toml\", \"Dockerfile\", \"multi-stage\", \"GitHub Actions\", \"workflow yml\", \"build wheel\", \"publish PyPI\", \"container image\", \"CI matrix\", \"dockerignore\", \"hatchling\", \"setuptools\", \"trusted publishing\".",

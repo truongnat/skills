@@ -5,6 +5,22 @@
 
 set -euo pipefail
 
+# Prefer google/zx UI when Node + npx exist (same clone + install.sh; see scripts/install-remote.mjs).
+# OWN_SKILLS_INSTALL_REMOTE_MJS: override URL for the zx script (forks / air-gapped mirrors).
+_ZX_VER="8.8.5"
+_MJS_REMOTE="${OWN_SKILLS_INSTALL_REMOTE_MJS:-https://raw.githubusercontent.com/truongnat/skills/main/scripts/install-remote.mjs}"
+if command -v node >/dev/null 2>&1 && command -v npx >/dev/null 2>&1; then
+    _TMP="$(mktemp -t own-skills-install.XXXXXX.mjs)"
+    _cleanup_mjs() { rm -f "$_TMP"; }
+    trap _cleanup_mjs EXIT
+    if curl -fsSL "$_MJS_REMOTE" -o "$_TMP"; then
+        npx --yes "zx@${_ZX_VER}" "$_TMP" "$@"
+        exit $?
+    fi
+    trap - EXIT
+    rm -f "$_TMP"
+fi
+
 # Default repository
 DEFAULT_REPO="https://github.com/truongnat/skills.git"
 TEMP_DIR=""

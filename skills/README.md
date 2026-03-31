@@ -32,6 +32,7 @@ Skill **`skills-self-review-pro`** describes the workflow. Repo scripts index: *
 | [javascript-pro](javascript-pro/) | JavaScript — architecture, async behavior, tips/tricks, edge cases |
 | [performance-tuning-pro](performance-tuning-pro/) | Performance tuning — profiling, bottlenecks, optimization, edge cases |
 | [clean-code-architecture-pro](clean-code-architecture-pro/) | Clean code/architecture — boundaries, coupling, refactoring, maintainability |
+| [cli-pro](cli-pro/) | CLI — argv design, help/exit codes, pipes/TTY, completions, cross-platform tools |
 | [api-design-pro](api-design-pro/) | API design — contracts, versioning, consistency, idempotency, edge cases |
 | [graphql-pro](graphql-pro/) | GraphQL — schema design, resolvers, performance, security, edge cases |
 | [websocket-pro](websocket-pro/) | WebSocket — reliability, lifecycle, scaling, security, edge cases |

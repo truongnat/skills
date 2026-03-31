@@ -16,6 +16,8 @@
 ### 2026-04-01
 
 - **Nguồn:** user + agent
+- **Việc:** Bundled skill **`cli-pro`** (CLI nâng cao: argv, exit/stderr, pipes/TTY, completion); cập nhật §8 (`README`, `AGENTS`, `skills-layout`, `SKILL_AUTHORING_RULES` §1).
+- **Việc:** Remote install: thêm `scripts/install-remote.mjs` ([google/zx](https://github.com/google/zx)), `package.json` + `node_modules/` gitignore; `install-remote.sh` ưu tiên `npx zx@8.8.5` khi có Node; README/scripts README cập nhật.
 - **Việc:** Một lệnh cài remote mặc định **đa IDE**: `install-remote.sh` gọi `install.sh --all-ides` (Cursor `.cursor/skills`, Claude Code `.claude/skills`, Antigravity `.agent/skills`); `install_skill.py` thêm `--ides` / `--all-ides`; `uninstall.sh` gỡ khớp cả ba path; cập nhật README/scripts README.
 - **Việc:** **Full bundle install**: `install.sh --full` / remote mặc định copy cả repo vào `<project>/vendor/own-skills`, symlink `.cursor/rules`, rồi cài skills từ vendor (tránh symlink gãy khi xóa temp clone); `--skills-only` giữ hành vi chỉ skills; `uninstall.sh` xóa `vendor/own-skills` + symlink rules liên quan.
 - **Việc:** **Remote uninstall qua pipe**: `uninstall-remote.sh` bật `--force` khi stdin không phải TTY (tránh `read` EOF + `set -e`); `uninstall.sh` khi không TTY thì **bỏ qua `read`** và tiếp tục (không cần `--force`); sửa `((removed_count++))` với `set -e`; README ghi chú hành vi non-interactive.

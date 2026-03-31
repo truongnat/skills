@@ -66,6 +66,7 @@ python scripts/query_kb.py "text to search" -k 5
 2. Update [`knowledge-base/INDEX.md`](knowledge-base/INDEX.md) for quick lookup.
 3. Run `scripts/build_kb.py` to produce `rag_embeddings.npy` + `rag_manifest.json` in `knowledge-base/embeddings/` (gitignored).
 4. `scripts/query_kb.py` runs cosine similarity locally (NumPy); no Chroma/PyYAML required.
+5. After building, run `python scripts/verify_kb.py` to check config, file counts, and index consistency (see [`knowledge-base/VERIFY.md`](knowledge-base/VERIFY.md)).
 
 Paths and model live in the `<!-- kb-config-start -->` … `<!-- kb-config-end -->` block in [`config.example.md`](config.example.md) or `config.md`.
 

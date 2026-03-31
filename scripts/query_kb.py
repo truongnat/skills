@@ -6,9 +6,17 @@ Config is read from config.md / config.example.md (Markdown).
 from __future__ import annotations
 
 import argparse
+import io
 import json
 import sys
 from pathlib import Path
+
+# Windows consoles often use cp1252; force UTF-8 for chunk text with symbols
+if hasattr(sys.stdout, "buffer") and sys.stdout.encoding and sys.stdout.encoding.lower() not in (
+    "utf-8",
+    "utf8",
+):
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace", line_buffering=True)
 
 import numpy as np
 from sentence_transformers import SentenceTransformer

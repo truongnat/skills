@@ -7,19 +7,19 @@
 
 # Skills directory layout (current)
 
-All skills live directly under **`skills/`**. There is no `public/` vs `private/` split — add sensitive skills in a private fork or `.gitignore` if needed.
+All skills live directly under **`skills/`**. There is no `public/` vs `private/` split; add sensitive skills in a private fork or `.gitignore` if needed.
 
 ```
 skills/
-├── README.md                 # Index of bundled examples
-├── examples/
-│   └── skill-template/       # Copy this to create a new skill
-├── react-pro/
-├── nextjs-pro/
-├── react-native-pro/
-├── flutter-pro/
-├── nestjs-pro/
-└── postgresql-pro/
+  README.md              # index of bundled examples
+  examples/
+    skill-template/      # copy to create a new skill
+  react-pro/
+  nextjs-pro/
+  react-native-pro/
+  flutter-pro/
+  nestjs-pro/
+  postgresql-pro/
 ```
 
 Each skill requires **`SKILL.md`** with YAML frontmatter (`name`, `description`, optional `metadata.short-description`). Optional folders: `references/`, `scripts/`, `assets/`.

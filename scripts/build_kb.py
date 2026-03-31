@@ -113,7 +113,7 @@ def main() -> int:
     with man_path.open("w", encoding="utf-8") as f:
         json.dump(manifest, f, ensure_ascii=False, indent=0)
 
-    print(f"Saved {len(manifest)} chunks → {emb_path} + {man_path}")
+    print(f"Saved {len(manifest)} chunks -> {emb_path} + {man_path}")
     return 0
 
 

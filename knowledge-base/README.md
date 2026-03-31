@@ -2,6 +2,8 @@
 
 Source Markdown for manual lookup, agents following [INDEX.md](INDEX.md), or **RAG** via `scripts/build_kb.py` / `scripts/query_kb.py`.
 
+**Verification:** see [VERIFY.md](VERIFY.md) and run `python scripts/verify_kb.py` after each build.
+
 ## Convention
 
 1. **Place files** by topic: `documents/<domain>/<file-name>.md` (lowercase, hyphens).

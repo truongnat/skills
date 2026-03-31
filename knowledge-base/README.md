@@ -12,7 +12,7 @@ Source Markdown for manual lookup, agents following [INDEX.md](INDEX.md), or **R
 | title | Display title |
 | summary | One-line description |
 | tags | tag1, tag2 |
-| updated | 2026-03-30 |
+| updated | 2026-03-31 |
 
 3. **Update [INDEX.md](INDEX.md)** when adding or changing important docs (topic → path → short description).
 4. **Do not** commit vectors/index to git — see root `.gitignore`; `embeddings/` holds `rag_embeddings.npy` and `rag_manifest.json` produced by `scripts/build_kb.py`.

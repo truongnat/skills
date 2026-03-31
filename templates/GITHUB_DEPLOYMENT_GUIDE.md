@@ -44,12 +44,8 @@ your-ai-toolkit/                 # Root repository
 │       ├── skill-request.md
 │       └── bug-report.md
 ├── skills/
-│   ├── public/                  # Public skills (MIT license)
-│   │   ├── data-analysis/
-│   │   ├── code-review/
-│   │   └── content-creation/
-│   ├── private/                 # Private skills (for your org)
-│   │   └── .gitignore           # Don't commit to public repo
+│   ├── README.md
+│   ├── <skill-name>/            # One directory per skill
 │   └── examples/
 │       └── skill-template/      # Template for new skills
 ├── knowledge-base/
@@ -139,8 +135,7 @@ project:
 
 skills:
   directories:
-    - skills/public
-    - skills/private
+    - skills
   auto_discover: true
   
 knowledge_base:
@@ -310,7 +305,7 @@ CMD ["python", "scripts/serve.py"]
 **Option 3: As Skill Package (.skill files)**
 ```bash
 # Package individual skills
-python scripts/package_skill.py skills/public/data-analysis
+python scripts/package_skill.py skills/data-analysis
 
 # This creates: data-analysis.skill
 # Users can install with: 
@@ -448,15 +443,15 @@ echo "Release v$VERSION complete!"
 
 ```bash
 # Create from template
-cp -r skills/examples/skill-template skills/public/my-skill
-cd skills/public/my-skill
+cp -r skills/examples/skill-template skills/my-skill
+cd skills/my-skill
 
 # Edit SKILL.md
 # Add your logic
 # Test it
 
 # Package
-python scripts/package_skill.py skills/public/my-skill
+python scripts/package_skill.py skills/my-skill
 ```
 
 ### Template 2: RAG-Enabled Knowledge Base

@@ -3,7 +3,7 @@
 | title | Sample policy |
 | summary | Example knowledge-base file — replace with real content |
 | tags | sample, policy |
-| updated | 2026-03-30 |
+| updated | 2026-03-31 |
 
 # Sample policy
 

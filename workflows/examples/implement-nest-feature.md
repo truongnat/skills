@@ -37,11 +37,11 @@ Implement a NestJS feature (module/controller/service/DTO) from spec through rev
 - **Type:** skill
 - **Skill:** `nestjs-pro`
 - **Input:** `plan` + `feature_spec`
-- **Output:** `code` — follow [references/api-design-and-dx.md](../../skills/public/nestjs-pro/references/api-design-and-dx.md), [references/tips-and-tricks.md](../../skills/public/nestjs-pro/references/tips-and-tricks.md), and [references/postgresql-rls-integration.md](../../skills/public/nestjs-pro/references/postgresql-rls-integration.md) when using RLS
+- **Output:** `code` — follow [references/api-design-and-dx.md](../../skills/nestjs-pro/references/api-design-and-dx.md), [references/tips-and-tricks.md](../../skills/nestjs-pro/references/tips-and-tricks.md), and [references/postgresql-rls-integration.md](../../skills/nestjs-pro/references/postgresql-rls-integration.md) when using RLS
 
 ### Step 3 — `edge-and-security-review`
 
 - **Type:** skill
 - **Skill:** `nestjs-pro`
 - **Input:** `code`
-- **Output:** `review_notes` — check [references/edge-cases.md](../../skills/public/nestjs-pro/references/edge-cases.md), [references/postgresql-rls-integration.md](../../skills/public/nestjs-pro/references/postgresql-rls-integration.md), skill **`postgresql-pro`** ([row-level-security.md](../../skills/public/postgresql-pro/references/row-level-security.md)) when RLS applies; checklist in `SKILL.md`
+- **Output:** `review_notes` — check [references/edge-cases.md](../../skills/nestjs-pro/references/edge-cases.md), [references/postgresql-rls-integration.md](../../skills/nestjs-pro/references/postgresql-rls-integration.md), skill **`postgresql-pro`** ([row-level-security.md](../../skills/postgresql-pro/references/row-level-security.md)) when RLS applies; checklist in `SKILL.md`

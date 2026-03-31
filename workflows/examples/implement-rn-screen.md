@@ -37,11 +37,11 @@ Implement a React Native / Expo screen from spec through review (UI/UX + edge ca
 - **Type:** skill
 - **Skill:** `react-native-pro`
 - **Input:** `plan` + `screen_spec`
-- **Output:** `code` — follow [references/ui-ux-design.md](../../skills/public/react-native-pro/references/ui-ux-design.md) and [references/tips-and-tricks.md](../../skills/public/react-native-pro/references/tips-and-tricks.md)
+- **Output:** `code` — follow [references/ui-ux-design.md](../../skills/react-native-pro/references/ui-ux-design.md) and [references/tips-and-tricks.md](../../skills/react-native-pro/references/tips-and-tricks.md)
 
 ### Step 3 — `edge-and-a11y-review`
 
 - **Type:** skill
 - **Skill:** `react-native-pro`
 - **Input:** `code`
-- **Output:** `review_notes` — check [references/edge-cases.md](../../skills/public/react-native-pro/references/edge-cases.md) and the checklist in `SKILL.md` (keyboard, SafeArea, back, lists)
+- **Output:** `review_notes` — check [references/edge-cases.md](../../skills/react-native-pro/references/edge-cases.md) and the checklist in `SKILL.md` (keyboard, SafeArea, back, lists)

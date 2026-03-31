@@ -37,11 +37,11 @@ Implement a Next.js feature (App Router: page, layout, data, Server Action / Rou
 - **Type:** skill
 - **Skill:** `nextjs-pro` (+ `react-pro` for pure client components)
 - **Input:** `plan` + `feature_spec`
-- **Output:** `code` — follow [references/app-router-and-layouts.md](../../skills/public/nextjs-pro/references/app-router-and-layouts.md), [references/server-client-boundaries.md](../../skills/public/nextjs-pro/references/server-client-boundaries.md), [references/tips-and-tricks.md](../../skills/public/nextjs-pro/references/tips-and-tricks.md)
+- **Output:** `code` — follow [references/app-router-and-layouts.md](../../skills/nextjs-pro/references/app-router-and-layouts.md), [references/server-client-boundaries.md](../../skills/nextjs-pro/references/server-client-boundaries.md), [references/tips-and-tricks.md](../../skills/nextjs-pro/references/tips-and-tricks.md)
 
 ### Step 3 — `edge-and-cache-review`
 
 - **Type:** skill
 - **Skill:** `nextjs-pro`
 - **Input:** `code`
-- **Output:** `review_notes` — check [references/edge-cases.md](../../skills/public/nextjs-pro/references/edge-cases.md) and the checklist in `SKILL.md`
+- **Output:** `review_notes` — check [references/edge-cases.md](../../skills/nextjs-pro/references/edge-cases.md) and the checklist in `SKILL.md`

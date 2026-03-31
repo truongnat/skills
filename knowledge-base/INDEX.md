@@ -1,8 +1,11 @@
 # Knowledge base index
 
-Update this table when adding documents so agents/teammates can find them quickly.
+Update this table when adding documents so agents and teammates can find them quickly.
 
 | Topic | Path | Short description |
 |-------|------|-------------------|
-| Sample | [documents/policies/SAMPLE.md](documents/policies/SAMPLE.md) | Example document structure + frontmatter |
+| Sample policy | [documents/policies/SAMPLE.md](documents/policies/SAMPLE.md) | Example document structure + frontmatter |
 | Sample runbook | [documents/runbooks/SAMPLE_RUNBOOK.md](documents/runbooks/SAMPLE_RUNBOOK.md) | Example operational runbook |
+| Skills layout | [documents/repo/skills-layout.md](documents/repo/skills-layout.md) | Flat `skills/` directory convention (2026) |
+
+**Last reviewed:** 2026-03-31

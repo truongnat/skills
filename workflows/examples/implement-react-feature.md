@@ -37,11 +37,11 @@ Implement a React (web) feature: components, hooks, data fetching — from spec 
 - **Type:** skill
 - **Skill:** `react-pro`
 - **Input:** `plan` + `feature_spec`
-- **Output:** `code` — follow [references/components-and-jsx.md](../../skills/public/react-pro/references/components-and-jsx.md), [references/ui-ux-design.md](../../skills/public/react-pro/references/ui-ux-design.md), [references/tips-and-tricks.md](../../skills/public/react-pro/references/tips-and-tricks.md)
+- **Output:** `code` — follow [references/components-and-jsx.md](../../skills/react-pro/references/components-and-jsx.md), [references/ui-ux-design.md](../../skills/react-pro/references/ui-ux-design.md), [references/tips-and-tricks.md](../../skills/react-pro/references/tips-and-tricks.md)
 
 ### Step 3 — `edge-and-a11y-review`
 
 - **Type:** skill
 - **Skill:** `react-pro`
 - **Input:** `code`
-- **Output:** `review_notes` — check [references/edge-cases.md](../../skills/public/react-pro/references/edge-cases.md) and the checklist in `SKILL.md`
+- **Output:** `review_notes` — check [references/edge-cases.md](../../skills/react-pro/references/edge-cases.md) and the checklist in `SKILL.md`

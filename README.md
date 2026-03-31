@@ -20,9 +20,10 @@ own-skills/
 ├── config.example.md          # Sample config (kb-config block for scripts)
 ├── requirements.txt           # Python: numpy, sentence-transformers
 ├── skills/
+│   ├── README.md
 │   ├── examples/skill-template/SKILL.md
-│   ├── public/
-│   └── private/
+│   ├── <skill-name>/           # e.g. react-pro, nextjs-pro, …
+│   └── …
 ├── workflows/
 │   ├── README.md              # Workflow convention (.md)
 │   └── examples/*.md
@@ -70,10 +71,10 @@ Paths and model live in the `<!-- kb-config-start -->` … `<!-- kb-config-end -
 
 ## Skills
 
-- Copy [`skills/examples/skill-template/`](skills/examples/skill-template/) → `skills/public/<skill-name>/`.
+- Copy [`skills/examples/skill-template/`](skills/examples/skill-template/) → `skills/<skill-name>/`.
 - Edit `SKILL.md`: frontmatter `name` and `description` (state clearly when it triggers).
-- Public vs private: see [`skills/public/README.md`](skills/public/README.md) and [`skills/private/README.md`](skills/private/README.md).
-- Bundled examples: [`skills/public/react-pro/`](skills/public/react-pro/) (React web), [`skills/public/nextjs-pro/`](skills/public/nextjs-pro/) (Next.js), [`skills/public/react-native-pro/`](skills/public/react-native-pro/) (React Native / Expo), [`skills/public/flutter-pro/`](skills/public/flutter-pro/) (Flutter), [`skills/public/nestjs-pro/`](skills/public/nestjs-pro/) (NestJS), [`skills/public/postgresql-pro/`](skills/public/postgresql-pro/) (PostgreSQL).
+- Layout and bundled examples: [`skills/README.md`](skills/README.md).
+- Bundled examples: [`skills/react-pro/`](skills/react-pro/) (React web), [`skills/nextjs-pro/`](skills/nextjs-pro/) (Next.js), [`skills/react-native-pro/`](skills/react-native-pro/) (React Native / Expo), [`skills/flutter-pro/`](skills/flutter-pro/) (Flutter), [`skills/nestjs-pro/`](skills/nestjs-pro/) (NestJS), [`skills/postgresql-pro/`](skills/postgresql-pro/) (PostgreSQL).
 
 ## Workflows
 

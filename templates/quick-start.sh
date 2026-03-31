@@ -208,7 +208,7 @@ echo -e "1. Edit ${YELLOW}.env${NC} file with your API keys"
 echo -e "2. Edit ${YELLOW}config.yaml${NC} with your preferences"
 echo -e "3. Activate virtual environment: ${YELLOW}source venv/bin/activate${NC}"
 echo -e "4. Add your documents to ${YELLOW}knowledge-base/documents/${NC}"
-echo -e "5. Add your skills to ${YELLOW}skills/public/${NC}"
+echo -e "5. Add your skills under ${YELLOW}skills/${NC}"
 echo -e "6. Test the system: ${YELLOW}python scripts/test.py${NC}"
 echo ""
 

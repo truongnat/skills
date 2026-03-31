@@ -16,10 +16,8 @@
 
 ```
 your-ai-toolkit/
-├── skills/                    # Skill modules
-│   ├── public/               # Shareable public skills
-│   ├── private/              # Project-private skills
-│   └── examples/             # Examples and templates
+├── skills/                    # Skill modules (one folder per skill)
+│   └── examples/             # skill-template and samples
 ├── knowledge-base/           # Knowledge repository
 │   ├── documents/            # Reference documents
 │   ├── vectors/              # Vector embeddings (if using RAG)

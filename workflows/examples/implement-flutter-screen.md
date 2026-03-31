@@ -37,11 +37,11 @@ Implement a Flutter screen / flow from spec through review (UI/UX + cross-platfo
 - **Type:** skill
 - **Skill:** `flutter-pro`
 - **Input:** `plan` + `screen_spec`
-- **Output:** `code` — follow [references/widgets.md](../../skills/public/flutter-pro/references/widgets.md), [references/ui-ux-design.md](../../skills/public/flutter-pro/references/ui-ux-design.md), [references/tips-and-tricks.md](../../skills/public/flutter-pro/references/tips-and-tricks.md)
+- **Output:** `code` — follow [references/widgets.md](../../skills/flutter-pro/references/widgets.md), [references/ui-ux-design.md](../../skills/flutter-pro/references/ui-ux-design.md), [references/tips-and-tricks.md](../../skills/flutter-pro/references/tips-and-tricks.md)
 
 ### Step 3 — `edge-and-a11y-review`
 
 - **Type:** skill
 - **Skill:** `flutter-pro`
 - **Input:** `code`
-- **Output:** `review_notes` — check [references/edge-cases.md](../../skills/public/flutter-pro/references/edge-cases.md) and the checklist in `SKILL.md`
+- **Output:** `review_notes` — check [references/edge-cases.md](../../skills/flutter-pro/references/edge-cases.md) and the checklist in `SKILL.md`

@@ -3,7 +3,7 @@
 | title | Sample runbook |
 | summary | Incident or deployment steps — replace with a real runbook |
 | tags | sample, runbook, ops |
-| updated | 2026-03-30 |
+| updated | 2026-03-31 |
 
 # Sample runbook
 

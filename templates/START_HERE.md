@@ -43,7 +43,7 @@ source venv/bin/activate   # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 cp config.example.md config.md
 nano config.md             # edit kb-config block if needed
-mkdir -p skills/{public,private,examples} knowledge-base/documents prompts/templates
+mkdir -p skills/examples knowledge-base/documents prompts/templates
 ```
 
 ---
@@ -53,8 +53,8 @@ mkdir -p skills/{public,private,examples} knowledge-base/documents prompts/templ
 ### 1. First skill
 
 ```bash
-cp -r skills/examples/skill-template skills/public/my-first-skill
-cd skills/public/my-first-skill
+cp -r skills/examples/skill-template skills/my-first-skill
+cd skills/my-first-skill
 nano SKILL.md   # set name, description (when to trigger), workflow
 ```
 
@@ -94,7 +94,7 @@ See **PROMPT_TEMPLATES.md** and store real templates under `prompts/templates/` 
 ## Help
 
 - **Docs:** `.md` files in this repo
-- **Examples:** `skills/public/`, `workflows/examples/`
+- **Examples:** `skills/` (bundled `*-pro` skills), `workflows/examples/`
 
 ### Before you start
 

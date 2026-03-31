@@ -37,11 +37,11 @@ Design or change PostgreSQL (schema, index, migration, query) from spec through 
 - **Type:** skill
 - **Skill:** `postgresql-pro`
 - **Input:** `migration_plan` + `change_spec`
-- **Output:** SQL / migration files — follow [references/schema-and-query-design.md](../../skills/public/postgresql-pro/references/schema-and-query-design.md) and [references/tips-and-tricks.md](../../skills/public/postgresql-pro/references/tips-and-tricks.md)
+- **Output:** SQL / migration files — follow [references/schema-and-query-design.md](../../skills/postgresql-pro/references/schema-and-query-design.md) and [references/tips-and-tricks.md](../../skills/postgresql-pro/references/tips-and-tricks.md)
 
 ### Step 3 — `ops-and-edge-review`
 
 - **Type:** skill
 - **Skill:** `postgresql-pro`
 - **Input:** Draft SQL
-- **Output:** `review_notes` — check [references/edge-cases.md](../../skills/public/postgresql-pro/references/edge-cases.md), [references/row-level-security.md](../../skills/public/postgresql-pro/references/row-level-security.md) if RLS is enabled, and the checklist in `SKILL.md`
+- **Output:** `review_notes` — check [references/edge-cases.md](../../skills/postgresql-pro/references/edge-cases.md), [references/row-level-security.md](../../skills/postgresql-pro/references/row-level-security.md) if RLS is enabled, and the checklist in `SKILL.md`

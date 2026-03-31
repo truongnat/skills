@@ -24,8 +24,10 @@ Use this skill when **source material** (files, pasted text, described media) mu
 | **`business-analysis-pro`** | Turn extracted facts into requirements, decisions, or BRD sections |
 | **`security-pro`** | Redaction, handling credentials or sensitive data seen in screenshots |
 | **`seo-pro`** | Rare — only if analyzing **web** or **marketing** assets for search |
+| **`data-analysis-pro`** | CSV/Parquet/SQLite **numeric** profiling, pivots, charts — not “what does this PDF say?” |
+| **`image-processing-pro`** | Resize, convert, composite **images** — not semantic description of content |
 
-**Boundary:** **`content-analysis-pro`** = **read and report** on provided content; **`business-analysis-pro`** = **business problem framing** and delivery artifacts.
+**Boundary:** **`content-analysis-pro`** = **read and report** on provided content (one skill for all modalities — avoid duplicating “read-only” PDF vs doc skills). **`business-analysis-pro`** = **business problem framing** and delivery artifacts. **Authoring** spreadsheets/charts or **pixel** image transforms → **`data-analysis-pro`** / **`image-processing-pro`**.
 
 ## When to use
 
@@ -75,6 +77,12 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Scope and file-format dispatch (summary)
+
+- **Analysis vs authoring** — this skill does not own building Excel/PDF/slides; **SQLite / Parquet / locked Office** routing in one table.
+
+Details: [references/file-formats-dispatch-and-scope.md](references/file-formats-dispatch-and-scope.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — What the user provided and what they need from it.
@@ -92,6 +100,7 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Reporting & limitations | [references/reporting-and-limitations.md](references/reporting-and-limitations.md) |
 | Tips and patterns | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Scope & format dispatch | [references/file-formats-dispatch-and-scope.md](references/file-formats-dispatch-and-scope.md) |
 
 ## Quick example
 

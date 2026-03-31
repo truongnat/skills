@@ -27,6 +27,7 @@ Use the [IIBA BABOK Guide](https://www.iiba.org/business-analysis-babok-guide/) 
 | **`deployment-pro`** | Release / environment constraints in NFRs |
 | **`postgresql-pro`** | Data and migration implications when requirements imply schema |
 | **`content-analysis-pro`** | Deep read of attached **PDFs, images, video** to extract facts before BRD/user stories |
+| **`data-analysis-pro`** | **Metrics**, EDA, or spreadsheet evidence that informs **requirements** or KPIs |
 
 **Boundary:** **`business-analysis-pro`** = **what** and **why** (and documented trade-offs); stack **`*-pro`** skills = **how** to implement.
 

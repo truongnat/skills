@@ -27,6 +27,7 @@ Use your cloud or platform **official docs** (AWS/GCP/Azure, Kubernetes, GitHub 
 | **`nextjs-pro`** | Next.js / Vercel-style deploy, env and runtime boundaries |
 | **`nestjs-pro`** | Node containers, health checks, graceful shutdown hooks |
 | **`electron-pro`** / **`tauri-pro`** | Desktop installers, auto-update, store-style releases |
+| **`code-packaging-pro`** | **Dockerfile**, **pyproject**, **GitHub Actions** that **build** images/wheels — before **where** they run |
 
 **Boundary:** **`testing-pro`** = quality **gates** in automation; **`deployment-pro`** = **build → publish → promote → observe → rollback** for runnable systems.
 

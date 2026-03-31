@@ -33,6 +33,10 @@ skills/
   mobile-design-pro/
   business-analysis-pro/
   content-analysis-pro/
+  data-analysis-pro/
+  image-processing-pro/
+  web-research-pro/
+  code-packaging-pro/
   bug-discovery-pro/
   repo-tooling-pro/
 ```

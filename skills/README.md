@@ -30,6 +30,10 @@ Each **skill** is a subdirectory with a required `SKILL.md` (frontmatter `name` 
 | [mobile-design-pro](mobile-design-pro/) | Mobile design — touch, safe area, navigation, iOS/Android UX |
 | [business-analysis-pro](business-analysis-pro/) | Business analysis — requirements, SA-style reasoning, BRD-style reports |
 | [content-analysis-pro](content-analysis-pro/) | Content analysis — docs, images, video, structured reports |
+| [data-analysis-pro](data-analysis-pro/) | Data analysis — EDA, pandas, viz, Parquet/SQLite, Excel charts & validation |
+| [image-processing-pro](image-processing-pro/) | Image processing — Pillow, resize, crop, formats, compositing |
+| [web-research-pro](web-research-pro/) | Web research — sources, citations, recency, stale docs |
+| [code-packaging-pro](code-packaging-pro/) | Code packaging — pyproject, Docker, GitHub Actions, build & publish |
 | [bug-discovery-pro](bug-discovery-pro/) | Bug discovery — deep scan, GitNexus graph, candidates, impact |
 | [repo-tooling-pro](repo-tooling-pro/) | Repo scripts — KB batch query, list/validate/analyze skills, performance |
 

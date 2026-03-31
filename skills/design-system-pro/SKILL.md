@@ -60,6 +60,12 @@ Use platform **Human Interface Guidelines** and **Material Design** (or your cho
 
 Details: [references/foundations-baseline-and-data-ui.md](references/foundations-baseline-and-data-ui.md)
 
+### Accessibility, responsive web, and font loading (summary)
+
+- **WCAG AA** contrast targets; **`prefers-reduced-motion`**; **breakpoint** discipline and a minimal **`@media`** pattern; **`font-display: swap`** and fallbacks — web **responsive** layer (not native mobile — see **`mobile-design-pro`**).
+
+Details: [references/a11y-responsive-and-web-typography.md](references/a11y-responsive-and-web-typography.md)
+
 ### Design system guidelines and consistency (summary)
 
 - Tokens, primitives, **documentation**, governance, **design ↔ code** naming; fighting inconsistency.
@@ -116,6 +122,7 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Topic | File |
 |-------|------|
 | Foundations & data UI | [references/foundations-baseline-and-data-ui.md](references/foundations-baseline-and-data-ui.md) |
+| **A11y, responsive web, fonts** | [references/a11y-responsive-and-web-typography.md](references/a11y-responsive-and-web-typography.md) |
 | Guidelines & consistency | [references/design-system-guidelines-and-consistency.md](references/design-system-guidelines-and-consistency.md) |
 | Web / app / desktop | [references/platforms-web-app-desktop.md](references/platforms-web-app-desktop.md) |
 | Trends & themes (overview) | [references/trends-themes-and-visual-language.md](references/trends-themes-and-visual-language.md) |

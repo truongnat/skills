@@ -25,8 +25,9 @@ Use [Apple Human Interface Guidelines](https://developer.apple.com/design/human-
 | **`react-native-pro`** | RN/Expo: SafeAreaView, navigation, KeyboardAvoidingView, platform files |
 | **`flutter-pro`** | Material/Cupertino widgets, `SafeArea`, `MediaQuery` |
 | **`testing-pro`** | Maestro/Detox flows, screenshot tests per device class |
+| **`design-system-pro`** | **Responsive web** breakpoints, `@media`, `prefers-reduced-motion`, webfont loading — not the same as native safe-area work |
 
-**Boundary:** **`mobile-design-pro`** = **what** the mobile experience should be; **`react-native-pro`** / **`flutter-pro`** = **how** to build it.
+**Boundary:** **`mobile-design-pro`** = **what** the mobile experience should be; **`react-native-pro`** / **`flutter-pro`** = **how** to build it. **`design-system-pro`** owns **CSS/web responsive** and **web** a11y baselines when the surface is the **browser**.
 
 ## When to use
 
@@ -64,6 +65,12 @@ Details: [references/touch-layout-safe-areas-and-density.md](references/touch-la
 
 Details: [references/navigation-and-platform-ios-android.md](references/navigation-and-platform-ios-android.md)
 
+### Web responsive vs native mobile (summary)
+
+- **Browser** layouts use breakpoints and CSS media queries; **native** apps use platform navigation and safe areas — do not conflate. For **web** WCAG contrast, motion preferences, and **`@media`** examples, use **`design-system-pro`**.
+
+Details: [../design-system-pro/references/a11y-responsive-and-web-typography.md](../design-system-pro/references/a11y-responsive-and-web-typography.md)
+
 ### Tips and tricks (summary)
 
 - Onboarding brevity, **in-context** permissions, haptics discipline, offline clarity, dark mode on mobile.
@@ -91,6 +98,7 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 |-------|------|
 | Touch, safe area, density | [references/touch-layout-safe-areas-and-density.md](references/touch-layout-safe-areas-and-density.md) |
 | Navigation & iOS/Android | [references/navigation-and-platform-ios-android.md](references/navigation-and-platform-ios-android.md) |
+| Web responsive (cross-skill) | [`design-system-pro` / a11y & responsive](../design-system-pro/references/a11y-responsive-and-web-typography.md) |
 | Tips and patterns | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
 

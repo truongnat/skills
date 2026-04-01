@@ -143,6 +143,8 @@ Conventions and **`w-<slug>.md`** naming: [`workflows/README.md`](workflows/READ
 | **`/w-ticket`** | [`workflows/dev/w-ticket.md`](workflows/dev/w-ticket.md) | Ticket / Kanban (`kanban/<ticket>/`, phased work) |
 | **`/w-release`** | [`workflows/dev/w-release.md`](workflows/dev/w-release.md) | Release notes → implementation |
 | **`/w-hotfix`** | [`workflows/dev/w-hotfix.md`](workflows/dev/w-hotfix.md) | Prod-urgent fix path |
+| **`/w-code-review`** | [`workflows/dev/w-code-review.md`](workflows/dev/w-code-review.md) | Structured code review — severity-ranked feedback |
+| **`/w-debug`** | [`workflows/dev/w-debug.md`](workflows/dev/w-debug.md) | Systematic debugging — reproduce → isolate → fix → verify |
 
 Index: [`workflows/dev/README.md`](workflows/dev/README.md) — Markdown step contracts; no automated runner required.
 

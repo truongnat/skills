@@ -202,17 +202,42 @@ function installAllSkills(repoRoot: string, projectDir: string, mode: 'symlink' 
   else spin.succeed(chalk.green(`Installed ${ok} skills`));
 }
 
-function cleanupGitExclude(projectDir: string, skillNames: string[]) {
-  const exclude = join(projectDir, '.git', 'info', 'exclude');
-  if (!existsSync(exclude)) return;
-  const lines = readFileSync(exclude, 'utf8').split(/\r?\n/);
-  const deny = new Set<string>();
-  for (const n of skillNames) {
-    deny.add(`.cursor/skills/${n}/`);
-    deny.add(`.claude/skills/${n}/`);
-    deny.add(`.agent/skills/${n}/`);
-  }
-  writeFileSync(exclude, `${lines.filter((l) => !deny.has(l.trim())).join('\n')}\n`, 'utf8');
+const GIT_EXCLUDE_MARKER_START = '# own-skills-begin';
+const GIT_EXCLUDE_MARKER_END = '# own-skills-end';
+
+function ensureGitExcludeBlock(projectDir: string, patterns: string[]) {
+  const excludePath = join(projectDir, '.git', 'info', 'exclude');
+  if (!existsSync(join(projectDir, '.git', 'info'))) return;
+  const existing = existsSync(excludePath) ? readFileSync(excludePath, 'utf8') : '';
+  // Remove any existing own-skills block
+  const withoutBlock = existing
+    .replace(
+      new RegExp(
+        `\\n?${GIT_EXCLUDE_MARKER_START}[\\s\\S]*?${GIT_EXCLUDE_MARKER_END}\\n?`,
+        'g',
+      ),
+      '',
+    )
+    .trimEnd();
+  const block = [GIT_EXCLUDE_MARKER_START, ...patterns, GIT_EXCLUDE_MARKER_END].join('\n');
+  const content = `${withoutBlock}\n${block}\n`;
+  writeFileSync(excludePath, content, 'utf8');
+}
+
+function cleanupGitExclude(projectDir: string, _skillNames: string[]) {
+  const excludePath = join(projectDir, '.git', 'info', 'exclude');
+  if (!existsSync(excludePath)) return;
+  const existing = readFileSync(excludePath, 'utf8');
+  const cleaned = existing
+    .replace(
+      new RegExp(
+        `\\n?${GIT_EXCLUDE_MARKER_START}[\\s\\S]*?${GIT_EXCLUDE_MARKER_END}\\n?`,
+        'g',
+      ),
+      '',
+    )
+    .trimEnd();
+  writeFileSync(excludePath, `${cleaned}\n`, 'utf8');
 }
 
 function uninstall(projectDir: string, nuclear: boolean) {
@@ -313,16 +338,49 @@ async function main() {
     try {
       if (mode === 'skills') {
         installAllSkills(temp, projectDir, 'copy', allIdes);
+        ensureGitExcludeBlock(projectDir, [
+          '.cursor/skills/',
+          '.claude/skills/',
+          '.agent/skills/',
+        ]);
       } else {
         const vendor = join(projectDir, 'vendor', 'own-skills');
         const s = ora('Syncing bundle...').start();
         syncVendor(temp, vendor);
         linkRules(vendor, projectDir);
-      const manifest = loadInstallManifest(projectDir);
-      installCommandFiles(vendor, projectDir, manifest);
-      saveInstallManifest(projectDir, manifest);
+        const manifest = loadInstallManifest(projectDir);
+        installCommandFiles(vendor, projectDir, manifest);
+        saveInstallManifest(projectDir, manifest);
         s.succeed('Bundle synced');
         installAllSkills(vendor, projectDir, process.platform === 'win32' ? 'copy' : 'symlink', allIdes);
+        // Collect installed command/rule file patterns for git exclusion
+        const cmdExcludes: string[] = [];
+        for (const [srcRel, dstBase] of [
+          [join(vendor, '.cursor', 'commands'), '.cursor/commands'],
+          [join(vendor, '.claude', 'commands'), '.claude/commands'],
+        ] as [string, string][]) {
+          if (existsSync(srcRel)) {
+            for (const f of readdirSync(srcRel)) {
+              if (f.endsWith('.md')) cmdExcludes.push(`${dstBase}/${f}`);
+            }
+          }
+        }
+        const rulesExcludes: string[] = [];
+        const rulesSrc = join(vendor, '.cursor', 'rules');
+        if (existsSync(rulesSrc)) {
+          for (const f of readdirSync(rulesSrc)) {
+            if (f.endsWith('.mdc')) rulesExcludes.push(`.cursor/rules/${f}`);
+          }
+        }
+        ensureGitExcludeBlock(projectDir, [
+          'vendor/own-skills/',
+          '.cursor/skills/',
+          '.claude/skills/',
+          '.agent/skills/',
+          '.cursor/.own-skills-install.json',
+          ...cmdExcludes,
+          ...rulesExcludes,
+        ]);
         console.log(chalk.cyan('Verify: node dist/tools.js verify-bundle-install --project-dir .'));
       }
     } finally {

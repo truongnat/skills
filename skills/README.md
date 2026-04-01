@@ -68,5 +68,9 @@ Skill **`skills-self-review-pro`** describes the workflow. Repo scripts index: *
 | [bug-discovery-pro](bug-discovery-pro/) | Bug discovery — deep scan, GitNexus graph, candidates, impact |
 | [skills-self-review-pro](skills-self-review-pro/) | Skills self-review — gap reports, authoring cross-check, `analyze_skills` |
 | [repo-tooling-pro](repo-tooling-pro/) | Repo scripts — KB batch query, list/validate/analyze skills, performance |
+| [typescript-pro](typescript-pro/) | TypeScript — type system, generics, strict config, declaration files, migration |
+| [docker-pro](docker-pro/) | Docker — Dockerfile, multi-stage builds, Compose, production hardening |
+| [ci-cd-pro](ci-cd-pro/) | CI/CD — GitHub Actions, pipelines, deployment strategies, reliability |
+| [ai-integration-pro](ai-integration-pro/) | AI/LLM — Claude/OpenAI APIs, prompts, streaming, tool use, RAG |
 
 To use with Cursor: copy or symlink a skill folder into `.cursor/skills/<name>/` (see root [`AGENTS.md`](../AGENTS.md)).

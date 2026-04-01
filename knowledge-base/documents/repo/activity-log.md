@@ -15,6 +15,8 @@
 
 ### 2026-04-01
 
+- **Change:** **`w-ticket`** rework: ticket flow uses **only** bundled [`skills/`](../../../skills/) (catalog + `list_skills.py`); **`kanban/<ticket>/`** contract inlined in [`workflows/dev/w-ticket.md`](../../../workflows/dev/w-ticket.md) (no `ex/ticket`). Updated **`/w-ticket`** commands, **AGENTS**, **`w-release`** cross-refs.
+
 - **Change:** Added **release** workflow [`workflows/dev/w-release.md`](../../../workflows/dev/w-release.md) (notes → implementation detail) and slash **`/w-release`** ([`.claude/commands/w-release.md`](../../../.claude/commands/w-release.md)); updated **`workflows/dev/README.md`**, root **README**, **AGENTS**, **templates**, **`run-workflow`**.
 
 - **Change:** **Workflows:** moved ticket workflow to [`workflows/dev/w-ticket.md`](../../../workflows/dev/w-ticket.md); added hotfix as [`workflows/dev/w-hotfix.md`](../../../workflows/dev/w-hotfix.md) (renamed from `hotfix.md`) and slash **`/w-hotfix`**. Documented **naming rule** — runnable workflow files **`w-<slug>.md`** in [`workflows/README.md`](../../../workflows/README.md#naming). Updated root **README**, **AGENTS**, **`run-workflow`** / **`route`**, **§8** workflow row.

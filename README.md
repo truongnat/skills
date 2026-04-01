@@ -24,8 +24,6 @@ skills/                        # repo root (remote install → vendor/own-skills
 │   ├── examples/skill-template/SKILL.md
 │   ├── <skill-name>/          # e.g. react-pro, nextjs-pro, …
 │   └── …
-├── ex/
-│   └── ticket/                # Ticket / Kanban skill (outside skills/)
 ├── workflows/
 │   ├── README.md              # Conventions + naming (`w-<slug>.md`)
 │   └── dev/                   # /w-ticket, /w-release, /w-hotfix
@@ -132,7 +130,7 @@ Conventions and **`w-<slug>.md`** naming: [`workflows/README.md`](workflows/READ
 
 | Slash | File | Purpose |
 |-------|------|---------|
-| **`/w-ticket`** | [`workflows/dev/w-ticket.md`](workflows/dev/w-ticket.md) | Kanban / [`ex/ticket/SKILL.md`](ex/ticket/SKILL.md) |
+| **`/w-ticket`** | [`workflows/dev/w-ticket.md`](workflows/dev/w-ticket.md) | Ticket / Kanban (`kanban/<ticket>/`, phased work) |
 | **`/w-release`** | [`workflows/dev/w-release.md`](workflows/dev/w-release.md) | Release notes → implementation |
 | **`/w-hotfix`** | [`workflows/dev/w-hotfix.md`](workflows/dev/w-hotfix.md) | Prod-urgent fix path |
 

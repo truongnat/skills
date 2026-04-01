@@ -16,4 +16,4 @@ $ARGUMENTS
 ## Rules
 
 - **Notes → implementation detail** is the core handoff between Step 1–2 and Step 3; do not skip decomposition.
-- For urgent prod fixes mid-release, switch mentally to [`w-hotfix`](../../workflows/dev/w-hotfix.md); for ticket-shaped work, see [`w-ticket`](../../workflows/dev/w-ticket.md) / `ex/ticket`.
+- For urgent prod fixes mid-release, switch mentally to [`w-hotfix`](../../workflows/dev/w-hotfix.md); for ticket-shaped work, see [`w-ticket`](../../workflows/dev/w-ticket.md) (Kanban layout and bundled `skills/` there).

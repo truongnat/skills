@@ -24,7 +24,7 @@ Use these commands to analyze, optimize, and route prompts to the best skills:
 | `/optimize <prompt>` | Reduce prompt tokens while preserving meaning |
 | `/find-skill <prompt>` | Find best matching skill(s) for a prompt |
 | `/run-workflow <prompt>` | Match prompt to workflows under `workflows/` and skills, guide execution |
-| `/w-ticket` | Run the **ticket** workflow ([`workflows/dev/w-ticket.md`](workflows/dev/w-ticket.md)) — Kanban + [`ex/ticket`](ex/ticket/SKILL.md) |
+| `/w-ticket` | Run the **ticket** workflow ([`workflows/dev/w-ticket.md`](workflows/dev/w-ticket.md)) — Kanban; layout and phases in that file (skills under [`skills/`](skills/)) |
 | `/w-release` | Run the **release** workflow ([`workflows/dev/w-release.md`](workflows/dev/w-release.md)) — release notes → implementation detail |
 | `/w-hotfix` | Run the **hotfix** workflow ([`workflows/dev/w-hotfix.md`](workflows/dev/w-hotfix.md)) — prod-urgent fix path |
 
@@ -45,7 +45,7 @@ Agents should prefer:
 
 ## Workflows
 
-Bundled **dev** workflows: [`workflows/dev/README.md`](workflows/dev/README.md) — **`/w-ticket`**, **`/w-release`**, **`/w-hotfix`** (see paths in dev README). Naming: runnable workflow files **`w-<slug>.md`** — see [`workflows/README.md`](workflows/README.md#naming). For ticket flow, primary contract is [`ex/ticket/SKILL.md`](ex/ticket/SKILL.md).
+Bundled **dev** workflows: [`workflows/dev/README.md`](workflows/dev/README.md) — **`/w-ticket`**, **`/w-release`**, **`/w-hotfix`** (see paths in dev README). Naming: runnable workflow files **`w-<slug>.md`** — see [`workflows/README.md`](workflows/README.md#naming). For ticket flow, **`kanban/<ticket>/`** layout and steps are in [`workflows/dev/w-ticket.md`](workflows/dev/w-ticket.md).
 
 ## Configuration
 

@@ -80,5 +80,5 @@ Turn **release notes** (bullets, changelog intent, stakeholder summary) into **a
 
 ## Notes
 
-- This workflow is for **planned releases** with notes upfront; use [`w-hotfix.md`](w-hotfix.md) for **prod emergencies** and [`w-ticket.md`](w-ticket.md) for **Kanban / `ex/ticket`**-style feature work.
+- This workflow is for **planned releases** with notes upfront; use [`w-hotfix.md`](w-hotfix.md) for **prod emergencies** and [`w-ticket.md`](w-ticket.md) for **Kanban / ticket-shaped** feature work (bundled skills + `kanban/` layout in that workflow).
 - If `release_notes` are vague, return to Step 1 with explicit **acceptance criteria** before large implementation work.

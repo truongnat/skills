@@ -56,6 +56,13 @@ Skill **`skills-self-review-pro`** describes the workflow. Repo scripts index: *
 | [market-research-pro](market-research-pro/) | Market research — TAM/SAM/SOM, competitors, ICP, positioning |
 | [strategic-consulting-pro](strategic-consulting-pro/) | Strategic consulting — options, prioritization, scenarios, decision memos |
 | [code-packaging-pro](code-packaging-pro/) | Code packaging — pyproject, Docker, GitHub Actions, build & publish |
+| [caching-pro](caching-pro/) | Caching strategy — patterns, TTL/invalidation, consistency, observability |
+| [network-infra-pro](network-infra-pro/) | Network/infra — topology, traffic, reliability, and operational diagnostics |
+| [planning-pro](planning-pro/) | Planning — scope, breakdown, dependencies, estimates, and risk checkpoints |
+| [algorithm-pro](algorithm-pro/) | Algorithms — deep modeling, correctness proofs, complexity, optimization |
+| [feedback-pro](feedback-pro/) | Feedback — deep evidence, severity calibration, action/closure tracking |
+| [auth-pro](auth-pro/) | Authentication/authorization — methods, policies, token/session lifecycle |
+| [self-improve-agent-pro](self-improve-agent-pro/) | Agent self-improvement — diagnosis, iteration loops, measurable uplift |
 | [git-operations-pro](git-operations-pro/) | Git — commits, branches, PRs, collaboration |
 | [sql-data-access-pro](sql-data-access-pro/) | SQL data access — SQLite, safety, export, PG handoff |
 | [bug-discovery-pro](bug-discovery-pro/) | Bug discovery — deep scan, GitNexus graph, candidates, impact |

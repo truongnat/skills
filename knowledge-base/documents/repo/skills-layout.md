@@ -49,6 +49,13 @@ skills/
   market-research-pro/
   strategic-consulting-pro/
   code-packaging-pro/
+  caching-pro/
+  network-infra-pro/
+  planning-pro/
+  algorithm-pro/
+  feedback-pro/
+  auth-pro/
+  self-improve-agent-pro/
   git-operations-pro/
   bug-discovery-pro/
   skills-self-review-pro/

@@ -35,7 +35,7 @@ skills/                        # repo root (remote install → vendor/own-skills
 │   └── README.md
 ├── package.json               # npx CLI (`own-skills`) + Node deps
 ├── bin/
-│   └── own-skills.mjs         # user-facing installer (uses bundled bash + Python under the hood)
+│   └── own-skills.mjs         # user-facing installer (Node flow + Python installer script)
 ├── install.sh                 # internal engine (invoked by the CLI; not the primary UX)
 ├── uninstall.sh               # internal engine (invoked by the CLI)
 ├── scripts/
@@ -82,7 +82,7 @@ flowchart LR
 
 From the **target project root**. Re-running install **updates** the bundle.
 
-**Node 18+** — use the **`own-skills`** CLI (`npx` downloads this package, fetches the repo with degit or shallow git, then runs the same install engine as before). Requires **bash**, **git**, and **python3** on `PATH`.
+**Node 18+** — use the **`own-skills`** CLI (`npx` downloads this package, fetches the repo with degit or shallow git, then performs install/uninstall in Node). Requires **git** and **python3** (or `python`) on `PATH`.
 
 ```bash
 # Interactive (default command = install)

@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 /**
  * own-skills — npx-friendly installer / uninstaller.
- * Fetches this repo with degit (no .git history), then runs install.sh / uninstall.sh via bash.
- * Requires: Node 18+, git, bash, python3 (required by the bundled install engine).
+ * Node-only flow (no bash): fetch bundle with degit/git clone, then run Python installer per skill.
+ * Requires: Node 18+, git, python3/python on PATH.
  */
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdtempSync, rmSync } from 'node:fs';
+import { cpSync, existsSync, mkdtempSync, readdirSync, readFileSync, rmSync, statSync, symlinkSync, unlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import process from 'node:process';
@@ -26,7 +26,7 @@ ${chalk.bold('Usage')}
 
 ${chalk.bold('Commands')}
   install     Full or skills-only install (default)
-  uninstall   Remove bundle symlinks / vendor (see uninstall.sh)
+  uninstall   Remove bundle symlinks / vendor
 
 ${chalk.bold('Install options')}
   --repo <user/repo|https://github.com/...>   Source repo (default: ${DEFAULT_REPO})
@@ -37,13 +37,13 @@ ${chalk.bold('Install options')}
   --yes, -y              Skip prompts (use defaults / flags only)
 
 ${chalk.bold('Uninstall options')}
-  --repo <user/repo>     Repo to fetch uninstall.sh from (default: ${DEFAULT_REPO})
+  --repo <user/repo>     Reserved for compatibility (default: ${DEFAULT_REPO})
   --project-dir <path>   Project root (default: cwd)
   --force                No confirmation
-  --nuclear              Remove entire .cursor (dangerous; see uninstall.sh)
+  --nuclear              Remove entire .cursor (dangerous)
 
 ${chalk.bold('Environment')}
-  Requires ${chalk.yellow('bash')}, ${chalk.yellow('git')}, ${chalk.yellow('python3')} on PATH (used by install.sh / uninstall.sh).
+  Requires ${chalk.yellow('git')} and ${chalk.yellow('python3')} (or ${chalk.yellow('python')}) on PATH.
 
 ${chalk.bold('Examples')}
   npx github:${DEFAULT_REPO} install --yes
@@ -114,6 +114,18 @@ function parseFlags(argv, command) {
   return out;
 }
 
+function detectPythonExecutable() {
+  for (const bin of ['python3', 'python']) {
+    try {
+      execFileSync(bin, ['--version'], { stdio: 'pipe' });
+      return bin;
+    } catch {
+      // keep trying
+    }
+  }
+  throw new Error('Python not found. Install Python 3 and add python3/python to PATH.');
+}
+
 async function fetchToTempImpl(userRepo) {
   const parent = join(tmpdir(), 'own-skills-');
   let tempDir = mkdtempSync(parent);
@@ -140,11 +152,202 @@ async function fetchToTempImpl(userRepo) {
   }
 }
 
-function runBash(scriptPath, args) {
-  execFileSync('bash', [scriptPath, ...args], { stdio: 'inherit' });
+function shouldIgnoreCopy(relativePath) {
+  const p = relativePath.replace(/\\/g, '/');
+  if (!p || p === '.') return false;
+  if (p.startsWith('.git/')) return true;
+  if (p.startsWith('.venv/')) return true;
+  if (p.startsWith('knowledge-base/embeddings/')) return true;
+  if (p.includes('/__pycache__/') || p.endsWith('/__pycache__')) return true;
+  if (p.endsWith('.pyc')) return true;
+  if (p.endsWith('.DS_Store')) return true;
+  if (p.startsWith('node_modules/')) return true;
+  return false;
+}
+
+function syncToVendor(src, dest) {
+  rmSync(dest, { recursive: true, force: true });
+  cpSync(src, dest, {
+    recursive: true,
+    filter: (_source, destination) => {
+      const rel = destination.replace(dest, '').replace(/^[\\/]/, '');
+      return !shouldIgnoreCopy(rel);
+    },
+  });
+  writeFileSync(join(dest, '.own-skills-bundle'), '');
+}
+
+function linkCursorRules(vendorDir, projectDir) {
+  const rulesSrc = join(vendorDir, '.cursor', 'rules');
+  const rulesDest = join(projectDir, '.cursor', 'rules');
+  if (!existsSync(rulesSrc)) return;
+  try {
+    cpSync(rulesSrc, rulesDest, { recursive: true, force: true });
+    for (const f of readdirSync(rulesSrc)) {
+      if (!f.endsWith('.mdc')) continue;
+      const src = join(rulesSrc, f);
+      const dst = join(rulesDest, f);
+      try {
+        rmSync(dst, { force: true });
+        symlinkSync(src, dst, 'file');
+      } catch {
+        // Fall back to copied file (already copied above).
+      }
+    }
+  } catch {
+    // Non-fatal; install can continue without rule links.
+  }
+}
+
+function listValidSkillDirs(skillsRoot) {
+  if (!existsSync(skillsRoot)) return [];
+  const entries = readdirSync(skillsRoot, { withFileTypes: true });
+  const out = [];
+  for (const e of entries) {
+    if (!e.isDirectory()) continue;
+    const dir = join(skillsRoot, e.name);
+    if (existsSync(join(dir, 'SKILL.md'))) out.push(dir);
+  }
+  return out;
+}
+
+function runInstallSkill(pyBin, bundleRoot, skillDir, projectDir, mode, allIdes) {
+  const args = [
+    join(bundleRoot, 'scripts', 'install_skill.py'),
+    skillDir,
+    '--project-dir',
+    projectDir,
+    '--mode',
+    mode,
+    '--force',
+  ];
+  if (allIdes) args.push('--all-ides');
+  execFileSync(pyBin, args, { stdio: 'pipe' });
+}
+
+function installAllSkills(pyBin, bundleRoot, skillsRoot, projectDir, mode, allIdes) {
+  const skillDirs = listValidSkillDirs(skillsRoot);
+  if (skillDirs.length === 0) {
+    throw new Error(`No valid skills found under: ${skillsRoot}`);
+  }
+  const spinner = ora({ text: `Installing ${skillDirs.length} skills...`, color: 'cyan' }).start();
+  let ok = 0;
+  let fail = 0;
+  for (const skillDir of skillDirs) {
+    const name = skillDir.split(/[\\/]/).pop();
+    spinner.text = `Installing ${name}...`;
+    try {
+      runInstallSkill(pyBin, bundleRoot, skillDir, projectDir, mode, allIdes);
+      ok++;
+    } catch {
+      fail++;
+    }
+  }
+  if (fail > 0) {
+    spinner.warn(chalk.yellow(`Installed ${ok}/${skillDirs.length} skills (${fail} failed)`));
+  } else {
+    spinner.succeed(chalk.green(`Installed ${ok} skills`));
+  }
+}
+
+function cleanupGitExclude(projectDir, skillNames) {
+  const excludePath = join(projectDir, '.git', 'info', 'exclude');
+  if (!existsSync(excludePath)) return;
+  try {
+    const lines = readFileSync(excludePath, 'utf8').split(/\r?\n/);
+    const deny = new Set();
+    for (const s of skillNames) {
+      deny.add(`.cursor/skills/${s}/`);
+      deny.add(`.claude/skills/${s}/`);
+      deny.add(`.agent/skills/${s}/`);
+    }
+    const kept = lines.filter((l) => !deny.has(l.trim()));
+    writeFileSync(excludePath, `${kept.join('\n').replace(/\n+$/,'')}\n`, 'utf8');
+  } catch {
+    // Non-fatal
+  }
+}
+
+function removeIfExists(path) {
+  if (existsSync(path)) rmSync(path, { recursive: true, force: true });
+}
+
+function listInstalledSkills(projectDir) {
+  const cursorSkills = join(projectDir, '.cursor', 'skills');
+  if (!existsSync(cursorSkills)) return [];
+  const entries = readdirSync(cursorSkills, { withFileTypes: true });
+  const names = [];
+  for (const e of entries) {
+    if (e.name === '.install-manifest') continue;
+    names.push(e.name);
+  }
+  return Array.from(new Set(names)).sort();
+}
+
+function cleanupEmptyDirs(path) {
+  if (!existsSync(path)) return;
+  for (const name of readdirSync(path)) {
+    const child = join(path, name);
+    if (statSync(child).isDirectory()) cleanupEmptyDirs(child);
+  }
+  try {
+    if (readdirSync(path).length === 0) rmSync(path, { recursive: true, force: true });
+  } catch {
+    // ignore
+  }
+}
+
+function uninstallNode(projectDir, force, nuclear) {
+  const skills = listInstalledSkills(projectDir);
+  if (!force && process.stdin.isTTY && skills.length > 0) {
+    console.log(chalk.yellow(`\nSkills to uninstall from ${projectDir}:`));
+    skills.forEach((s) => console.log(` - ${s}`));
+  }
+
+  const spinner = ora({ text: 'Removing installed skills...', color: 'cyan' }).start();
+  for (const s of skills) {
+    removeIfExists(join(projectDir, '.cursor', 'skills', s));
+    removeIfExists(join(projectDir, '.claude', 'skills', s));
+    removeIfExists(join(projectDir, '.agent', 'skills', s));
+  }
+  cleanupGitExclude(projectDir, skills);
+  removeIfExists(join(projectDir, '.cursor', 'skills', '.install-manifest'));
+
+  if (nuclear) {
+    removeIfExists(join(projectDir, '.cursor'));
+  } else {
+    const removableRuleNames = new Set();
+    const vendorRules = join(projectDir, 'vendor', 'own-skills', '.cursor', 'rules');
+    if (existsSync(vendorRules)) {
+      for (const f of readdirSync(vendorRules)) {
+        if (f.endsWith('.mdc')) removableRuleNames.add(f);
+      }
+    }
+    const rulesDir = join(projectDir, '.cursor', 'rules');
+    if (existsSync(rulesDir)) {
+      for (const f of readdirSync(rulesDir)) {
+        if (f.endsWith('.mdc') && removableRuleNames.has(f)) {
+          const p = join(rulesDir, f);
+          try {
+            unlinkSync(p);
+          } catch {
+            removeIfExists(p);
+          }
+        }
+      }
+    }
+    removeIfExists(join(projectDir, 'vendor', 'own-skills'));
+    cleanupEmptyDirs(join(projectDir, 'vendor'));
+    cleanupEmptyDirs(join(projectDir, '.cursor'));
+    cleanupEmptyDirs(join(projectDir, '.claude'));
+    cleanupEmptyDirs(join(projectDir, '.agent'));
+  }
+
+  spinner.succeed(chalk.green('Uninstall completed'));
 }
 
 async function cmdInstall(flags) {
+  const pyBin = detectPythonExecutable();
   let repo = flags.repo;
   let projectDir = flags.projectDir;
   let full = flags.full;
@@ -178,10 +381,14 @@ async function cmdInstall(flags) {
         default: skillsOnly ? 'skills' : 'full',
       },
       {
-        type: 'confirm',
+        type: 'list',
         name: 'allIdes',
-        message: 'Install for Cursor + Claude Code + Antigravity (.cursor, .claude, .agent)?',
-        default: !cursorOnly,
+        message: 'IDE targets',
+        choices: [
+          { name: 'All IDEs (.cursor + .claude + .agent)', value: true },
+          { name: 'Cursor only (.cursor)', value: false },
+        ],
+        default: !cursorOnly ? 0 : 1,
         when: (a) => a.mode === 'full' || a.mode === 'skills',
       },
     ]);
@@ -211,24 +418,24 @@ async function cmdInstall(flags) {
   }
 
   const { tempDir } = await fetchToTempImpl(repo);
-  const installSh = join(tempDir, 'install.sh');
-  if (!existsSync(installSh)) {
-    console.error(chalk.red(`install.sh not found in fetched repo (${installSh})`));
+  const scriptsDir = join(tempDir, 'scripts');
+  if (!existsSync(join(scriptsDir, 'install_skill.py'))) {
+    console.error(chalk.red(`install_skill.py not found in fetched repo (${scriptsDir})`));
     process.exit(1);
   }
 
-  /**
-   * Full bundle: first arg `.` — install.sh uses SCRIPT_DIR (this temp tree) as source (see install.sh).
-   * Skills-only: first arg must be a git URL so install.sh takes the remote branch (copy mode). Using `.`
-   * from another cwd breaks skills-only unless the URL form is used (see install.sh).
-   */
-  const bashArgs = skillsOnly
-    ? [httpsCloneUrl(repo), '--project-dir', projectDir, '--skills-only']
-    : ['.', '--project-dir', projectDir, '--full'];
-  if (!cursorOnly) bashArgs.push('--all-ides');
-
   try {
-    runBash(installSh, bashArgs);
+    if (skillsOnly) {
+      installAllSkills(pyBin, tempDir, join(tempDir, 'skills'), projectDir, 'copy', !cursorOnly);
+    } else {
+      const vendorDir = join(projectDir, 'vendor', 'own-skills');
+      const spinner = ora({ text: `Syncing bundle to ${vendorDir} ...`, color: 'cyan' }).start();
+      syncToVendor(tempDir, vendorDir);
+      linkCursorRules(vendorDir, projectDir);
+      spinner.succeed(chalk.green('Bundle synced'));
+      installAllSkills(pyBin, vendorDir, join(vendorDir, 'skills'), projectDir, 'symlink', !cursorOnly);
+      console.log(chalk.cyan('Verify: python3 vendor/own-skills/scripts/verify_bundle_install.py'));
+    }
   } finally {
     try {
       rmSync(tempDir, { recursive: true, force: true });
@@ -261,16 +468,24 @@ async function cmdUninstall(flags) {
         default: projectDir,
       },
       {
-        type: 'confirm',
+        type: 'list',
         name: 'force',
-        message: 'Proceed without extra confirmation (non-destructive for normal uninstall)?',
-        default: false,
+        message: 'Confirmation behavior',
+        choices: [
+          { name: 'Ask confirmation (safe default)', value: false },
+          { name: 'Force remove without confirmation', value: true },
+        ],
+        default: 0,
       },
       {
-        type: 'confirm',
+        type: 'list',
         name: 'nuclear',
         message: chalk.red('NUCLEAR: delete entire .cursor directory?'),
-        default: false,
+        choices: [
+          { name: 'No (keep .cursor except own-skills artifacts)', value: false },
+          { name: 'Yes (remove entire .cursor)', value: true },
+        ],
+        default: 0,
       },
     ]);
     repo = normalizeRepo(answers.repo);
@@ -282,26 +497,7 @@ async function cmdUninstall(flags) {
     projectDir = resolve(projectDir);
   }
 
-  const { tempDir } = await fetchToTempImpl(repo);
-  const uninstallSh = join(tempDir, 'uninstall.sh');
-  if (!existsSync(uninstallSh)) {
-    console.error(chalk.red(`uninstall.sh not found (${uninstallSh})`));
-    process.exit(1);
-  }
-
-  const uargs = ['--project-dir', projectDir];
-  if (force) uargs.push('--force');
-  if (nuclear) uargs.push('--nuclear');
-
-  try {
-    runBash(uninstallSh, uargs);
-  } finally {
-    try {
-      rmSync(tempDir, { recursive: true, force: true });
-    } catch {
-      /* ignore */
-    }
-  }
+  uninstallNode(projectDir, force, nuclear);
 }
 
 async function main() {

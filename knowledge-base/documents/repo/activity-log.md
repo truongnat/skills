@@ -15,6 +15,8 @@
 
 ### 2026-04-01
 
+- **Change:** Migrated **`bin/own-skills.mjs`** to **Node-only install/uninstall** (no `bash` dependency): bundle sync, rule link/copy, `install_skill.py` execution per skill, and Node filesystem-based uninstall. Prompt UX now uses option lists instead of Y/N confirms for key choices.
+
 - **Change:** **Install UX:** removed **`install-remote.sh`** and **`uninstall-remote.sh`**; documented **npx** + **`bin/own-skills.mjs`** only. Root **`install.sh`** / **`uninstall.sh`** remain as engines invoked by the CLI (not removed).
 
 - **Change:** **`w-ticket`** rework: ticket flow uses **only** bundled [`skills/`](../../../skills/) (catalog + `list_skills.py`); **`kanban/<ticket>/`** contract inlined in [`workflows/dev/w-ticket.md`](../../../workflows/dev/w-ticket.md) (no `ex/ticket`). Updated **`/w-ticket`** commands, **AGENTS**, **`w-release`** cross-refs.

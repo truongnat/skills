@@ -15,6 +15,10 @@
 
 ### 2026-04-01
 
+- **Change:** Full script runtime migrated to **TypeScript/Node**: added `src/` + `tsconfig.json`, compiled `dist/own-skills.js` and `dist/tools.js`, replaced Python tooling commands (`scripts/*.py`) with TypeScript command map (`list-skills`, `validate-skills`, `analyze-skills`, `build-skill-index`, `install-skill`, `verify-bundle-install`, `build-kb`, `query-kb`, `query-kb-batch`, `verify-kb`).
+- **Change:** Removed legacy runtime files: `install.sh`, `uninstall.sh`, `bin/own-skills.mjs`, and all Python scripts under `scripts/`.
+- **Change:** Updated command references in root README, scripts README, AGENTS, and `w-ticket` workflow command docs to Node/TS command forms.
+
 - **Change:** Migrated **`bin/own-skills.mjs`** to **Node-only install/uninstall** (no `bash` dependency): bundle sync, rule link/copy, `install_skill.py` execution per skill, and Node filesystem-based uninstall. Prompt UX now uses option lists instead of Y/N confirms for key choices.
 
 - **Change:** **Install UX:** removed **`install-remote.sh`** and **`uninstall-remote.sh`**; documented **npx** + **`bin/own-skills.mjs`** only. Root **`install.sh`** / **`uninstall.sh`** remain as engines invoked by the CLI (not removed).

@@ -1,6 +1,6 @@
 # Workflow: ticket
 
-End-to-end **ticket / Kanban** execution using **only bundled skills** under [`skills/`](../../skills/) in this repo (`skills/<name>/SKILL.md`). Pick domain and tooling skills from the **[`skills/README.md`](../../skills/README.md)** catalog (and `python scripts/list_skills.py` from repo root for a full list). Work is tracked under **`kanban/<ticket>/`** per the **on-disk contract** below — no separate `ex/` package.
+End-to-end **ticket / Kanban** execution using **only bundled skills** under [`skills/`](../../skills/) in this repo (`skills/<name>/SKILL.md`). Pick domain and tooling skills from the **[`skills/README.md`](../../skills/README.md)** catalog (and `node dist/tools.js list-skills` from repo root for a full list). Work is tracked under **`kanban/<ticket>/`** per the **on-disk contract** below — no separate `ex/` package.
 
 **Domain:** `dev` — this file lives under **`workflows/dev/`**. **Filename** follows **`w-<slug>.md`** (see [`workflows/README.md`](../README.md#naming)).
 
@@ -81,9 +81,9 @@ If the team uses a single `issue.md` at ticket root, align **`plan.md`** and **`
 - **Actions:**
   1. Confirm **section 1** in `SKILL_AUTHORING_RULES.md` — topic is distinct and not duplicate.
   2. Copy [`skills/examples/skill-template/`](../../skills/examples/skill-template/) → `skills/<new-name>/` and complete `SKILL.md` per sections 2–7 in that document.
-  3. Run **`python scripts/validate_skills.py`** from repo root; fix until pass.
+  3. Run **`node dist/tools.js validate-skills`** from repo root; fix until pass.
   4. Apply **section 8** in the **same change**: `skills/README.md`, root **`README.md`**, **`AGENTS.md`**, section 1 list in `SKILL_AUTHORING_RULES.md`, **`knowledge-base/documents/repo/skills-layout.md`**.
-  5. Run **`python scripts/build_skill_index.py`** so routing/embeddings see the new skill.
+  5. Run **`node dist/tools.js build-skill-index`** so routing/embeddings see the new skill.
 - **Output:** `bundle_state` — new skill folder is valid and documented.
 
 ### Step 3 — `ticket-bootstrap`
@@ -120,13 +120,13 @@ If the team uses a single `issue.md` at ticket root, align **`plan.md`** and **`
 - **Skill:** `skills-self-review-pro` + **`repo-tooling-pro`**
 - **Input:** optional full-tree audit after new skills landed.
 - **Actions:**
-  1. Run **`python scripts/validate_skills.py`** — must pass.
-  2. Run **`python scripts/analyze_skills.py --self-review`** (add **`--include-template`** if validating the template too).
+  1. Run **`node dist/tools.js validate-skills`** — must pass.
+  2. Run **`node dist/tools.js analyze-skills --self-review`** (add **`--include-template`** if validating the template too).
   3. Cross-check output against **`skills/SKILL_AUTHORING_RULES.md`** — [references/authoring-rules-crosscheck.md](../../skills/skills-self-review-pro/references/authoring-rules-crosscheck.md), [references/report-structure-and-scripts.md](../../skills/skills-self-review-pro/references/report-structure-and-scripts.md).
 - **Output:** `report_md` + **`manual_followups`** — no authoring drift after new skills.
 
 ## Notes
 
-- **Skill discovery:** start from [`skills/README.md`](../../skills/README.md); use **`python scripts/list_skills.py`** for a quick inventory. Route slash commands (`/route`, `/find-skill`) use **`knowledge-base/embeddings/skill_index.json`** after **`build_skill_index.py`**.
+- **Skill discovery:** start from [`skills/README.md`](../../skills/README.md); use **`node dist/tools.js list-skills`** for a quick inventory. Route slash commands (`/route`, `/find-skill`) use **`knowledge-base/embeddings/skill_index.json`** after **`build-skill-index`**.
 - **`kanban/`** lives in the **application project** you are delivering, not inside this skills bundle. Keep **`meta.json`** authoritative for phase/version.
 - Optional **track JSON**: if you maintain a separate board file, mirror phase/status from **`meta.json`** or document one canonical source in `kanban/README.md`.

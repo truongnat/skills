@@ -31,7 +31,7 @@ Use these commands to analyze, optimize, and route prompts to the best skills:
 Commands read from `knowledge-base/embeddings/skill_index.json`. Rebuild after adding/changing skills:
 
 ```bash
-python scripts/build_skill_index.py
+node dist/tools.js build-skill-index
 ```
 
 ## Knowledge base
@@ -40,7 +40,7 @@ Agents should prefer:
 
 1. Read `knowledge-base/INDEX.md` to locate documents.
 2. Open `.md` files under `knowledge-base/documents/` for detail.
-3. For semantic search over the indexed corpus, run `python scripts/query_kb.py "…"` (after `build_kb`).
+3. For semantic search over the indexed corpus, run `node dist/tools.js query-kb "…"` (after `build-kb`).
 4. **Persist** meaningful decisions and audit outcomes under `knowledge-base/documents/` (see **`.cursor/rules/documentation-persistence.mdc`**, [`documents/repo/activity-log.md`](knowledge-base/documents/repo/activity-log.md)); update **INDEX** when adding files.
 
 ## Workflows
@@ -57,4 +57,4 @@ Edit `config.md` (copy from `config.example.md`) — the `kb-config` block in Ma
 
 ## Bundle audit
 
-- **`python scripts/analyze_skills.py --self-review`** — full Markdown report for this repo (skills + manual checklist). Pair with **`skills/skills-self-review-pro/`** and **`python scripts/validate_skills.py`**.
+- **`node dist/tools.js analyze-skills --self-review`** — full Markdown report for this repo (skills + manual checklist). Pair with **`skills/skills-self-review-pro/`** and **`node dist/tools.js validate-skills`**.

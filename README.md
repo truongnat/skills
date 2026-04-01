@@ -18,7 +18,7 @@ Template repo: **`skills/`** (`SKILL.md` bundles), **`workflows/`** (Markdown st
 ```
 skills/                        # repo root (remote install → vendor/own-skills/)
 ├── config.example.md          # kb-config block for scripts
-├── requirements.txt           # Python: numpy, sentence-transformers
+├── requirements.txt           # Legacy file (Python runtime no longer required)
 ├── skills/
 │   ├── README.md
 │   ├── examples/skill-template/SKILL.md
@@ -34,21 +34,16 @@ skills/                        # repo root (remote install → vendor/own-skills
 ├── prompts/
 │   └── README.md
 ├── package.json               # npx CLI (`own-skills`) + Node deps
-├── bin/
-│   └── own-skills.mjs         # user-facing installer (Node flow + Python installer script)
-├── install.sh                 # internal engine (invoked by the CLI; not the primary UX)
-├── uninstall.sh               # internal engine (invoked by the CLI)
+├── src/                       # TypeScript source (CLI + tool commands)
+│   ├── own-skills.ts
+│   ├── tools.ts
+│   └── ...
+├── dist/                      # compiled runtime (used by npx bin)
+│   ├── own-skills.js
+│   └── tools.js
 ├── scripts/
 │   ├── README.md
-│   ├── kb_config_md.py
-│   ├── build_kb.py
-│   ├── query_kb.py
-│   ├── query_kb_batch.py
-│   ├── verify_kb.py
-│   ├── build_skill_index.py
-│   ├── list_skills.py
-│   ├── validate_skills.py
-│   └── analyze_skills.py
+│   └── (documentation only; runtime commands are in `dist/tools.js`)
 ├── .claude/commands/          # Slash commands (e.g. /w-ticket, /route)
 └── templates/
 ```
@@ -65,13 +60,13 @@ flowchart LR
   WF --> DOCS
   PROMPTS --> DOCS
 
-  DOCS --> BUILD[scripts/build_kb.py]
+  DOCS --> BUILD[node dist/tools.js build-kb]
   BUILD --> EMB[knowledge-base/embeddings]
-  EMB --> QUERY[query_kb.py / query_kb_batch.py]
+  EMB --> QUERY[node dist/tools.js query-kb or query-kb-batch]
   QUERY --> USER
 
-  SKILLS --> VALIDATE[validate_skills.py]
-  SKILLS --> ANALYZE[analyze_skills.py]
+  SKILLS --> VALIDATE[node dist/tools.js validate-skills]
+  SKILLS --> ANALYZE[node dist/tools.js analyze-skills]
   VALIDATE --> USER
   ANALYZE --> USER
 ```
@@ -82,7 +77,7 @@ flowchart LR
 
 From the **target project root**. Re-running install **updates** the bundle.
 
-**Node 18+** — use the **`own-skills`** CLI (`npx` downloads this package, fetches the repo with degit or shallow git, then performs install/uninstall in Node). Requires **git** and **python3** (or `python`) on `PATH`.
+**Node 18+** — use the **`own-skills`** CLI (`npx` downloads this package, fetches the repo with degit or shallow git, then performs install/uninstall in Node). Requires **git** on `PATH`.
 
 ```bash
 # Interactive (default command = install)
@@ -96,42 +91,42 @@ npx --yes github:truongnat/skills -- uninstall --force --yes
 
 If `npx` does not pick the binary automatically: `npx --yes github:truongnat/skills own-skills install --yes`.
 
-**From a local clone** (before `package.json` is on GitHub, or to test the CLI): `npm install` then `npx . -- install --help` or `node bin/own-skills.mjs --help`.
+**From a local clone**: `npm install && npm run build`, then `node dist/own-skills.js --help`.
 
-**`npm error enoent … package.json`** when running `npx github:…/skills`: the **default branch on GitHub** must contain **`package.json`** at the repo root (and `bin/own-skills.mjs`). Commit and push those files; until then, use a local clone command above.
+**`npm error enoent … package.json`** when running `npx github:…/skills`: the **default branch on GitHub** must contain **`package.json`** at repo root (and `dist/own-skills.js` published by build output).
 
-Bundle root: `./vendor/own-skills/`. Flags: `--repo`, `--skills-only`, `--cursor-only` (see `node bin/own-skills.mjs --help`).
+Bundle root: `./vendor/own-skills/`. Flags: `--repo`, `--skills-only`, `--cursor-only` (see `node dist/own-skills.js --help`).
 
 **Sanity check** (after a full install, not `--skills-only`):
 
 ```bash
-python3 vendor/own-skills/scripts/verify_bundle_install.py
+node vendor/own-skills/dist/tools.js verify-bundle-install --project-dir .
 ```
 
-### Work in this repo (venv, KB, scripts)
+### Work in this repo (Node + TypeScript)
 
 ```bash
 cd <repo-root>                 # e.g. folder `skills` after clone
-python3 -m venv .venv && source .venv/Scripts/activate   # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
+npm install
+npm run build
 cp config.example.md config.md   # optional
-python scripts/build_kb.py
-python scripts/query_kb.py "…" -k 5
+node dist/tools.js build-kb
+node dist/tools.js query-kb "…" -k 5
 ```
 
-**Python:** 3.10–3.13. First `build_kb` downloads the embedding model (network, RAM). See [`scripts/README.md`](scripts/README.md).
+See [`scripts/README.md`](scripts/README.md) for full command map.
 
 ## Knowledge base & RAG
 
 1. Edit `.md` under [`knowledge-base/documents/`](knowledge-base/documents/).
 2. Update [`knowledge-base/INDEX.md`](knowledge-base/INDEX.md) when you add a doc.
-3. `python scripts/build_kb.py` → `rag_embeddings.npy` + `rag_manifest.json` in `knowledge-base/embeddings/` (gitignored).
-4. Query: `python scripts/query_kb.py "…"`; for many queries, `python scripts/query_kb_batch.py` (one model load).
-5. `python scripts/verify_kb.py` after builds ([`knowledge-base/VERIFY.md`](knowledge-base/VERIFY.md)).
+3. `node dist/tools.js build-kb` → `rag_embeddings.json` + `rag_manifest.json` in `knowledge-base/embeddings/` (gitignored).
+4. Query: `node dist/tools.js query-kb "…"`; for many queries, `node dist/tools.js query-kb-batch` (multiple queries).
+5. `node dist/tools.js verify-kb` after builds ([`knowledge-base/VERIFY.md`](knowledge-base/VERIFY.md)).
 
 Model paths live in the `<!-- kb-config-start -->` … `<!-- kb-config-end -->` block in [`config.example.md`](config.example.md) or `config.md`.
 
-**After changing bundled skills** (under `skills/*/`), run `python scripts/build_skill_index.py` so `knowledge-base/embeddings/skill_index.json` stays current (used by `/route`, `/find-skill`, etc.).
+**After changing bundled skills** (under `skills/*/`), run `node dist/tools.js build-skill-index` so `knowledge-base/embeddings/skill_index.json` stays current (used by `/route`, `/find-skill`, etc.).
 
 ## Skills
 

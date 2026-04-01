@@ -16,6 +16,6 @@ alwaysApply: false
 3. New `SKILL.md` files must match the **canonical section order** and **Workflow** / **Suggested response format** defined there.
 4. Prefer extending **`references/`** or an existing `*-pro` skill over adding overlapping skills.
 5. After **adding**, **removing**, or **renaming** a bundled skill, apply **`skills/SKILL_AUTHORING_RULES.md` §8** in the **same change**: `skills/README.md`, root **`README.md`**, **`AGENTS.md`**, **§1** skill list, **`knowledge-base/documents/repo/skills-layout.md`**. Do not merge skill-only diffs without doc updates.
-6. After **adding** a workflow under `workflows/examples/`, add it to root **`README.md`** (Workflows list). After **adding** a KB doc under `knowledge-base/documents/`, update **`knowledge-base/INDEX.md`**.
+6. After **adding** a workflow file under `workflows/` (including `workflows/<domain>/`), name runnable files **`w-<slug>.md`** (see `workflows/README.md` § Naming), add it to root **`README.md`** (Workflows list) and the domain index if present. After **adding** a KB doc under `knowledge-base/documents/`, update **`knowledge-base/INDEX.md`**.
 
 If the user asks for a new skill that violates these rules (duplicate scope, missing references strategy, etc.), **refuse to add the folder** and suggest consolidation or a `references/` update instead.

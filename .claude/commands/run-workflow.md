@@ -29,10 +29,10 @@ Rewrite to reduce tokens:
 
 ### Stage 4: Match workflows
 
-1. List all files in `workflows/examples/`.
+1. List runnable workflow `*.md` files: top-level `workflows/**/*.md`, skipping `README.md` files (index only). This repo uses **`workflows/dev/`** for bundled workflows.
 2. For each workflow file, read its **Metadata** and **Steps** sections.
 3. Match based on:
-   - Workflow filename keywords (e.g., "implement-react-feature" matches "React" + "implement" intents).
+   - Workflow filename keywords (this repo ships **`workflows/dev/w-ticket.md`**, **`workflows/dev/w-release.md`**, **`workflows/dev/w-hotfix.md`**; runnable files use prefix **`w-`** per [`workflows/README.md`](../../workflows/README.md#naming)).
    - Skills referenced in the workflow's steps (via `**Skill:** \`name\`` pattern).
    - Overlap between workflow skills and the prompt's matched skills from Stage 3.
 4. Rank workflows by relevance.
@@ -69,7 +69,7 @@ If no workflow matches:
 | 1 | skill-name | what this step does |
 | 2 | skill-name | what this step does |
 
-**File:** `workflows/examples/<name>.md`
+**File:** `workflows/<domain>/<name>.md` (e.g. `workflows/dev/w-ticket.md`)
 
 ## Additional skills (not in workflow)
 <Skills matched from prompt that the workflow doesn't cover, or "None — workflow covers all domains.">
@@ -86,7 +86,7 @@ If no workflow matches:
 
 ## Rules
 
-- Always read `knowledge-base/embeddings/skill_index.json` and list `workflows/examples/` — do not guess.
+- Always read `knowledge-base/embeddings/skill_index.json` and list runnable workflow files under `workflows/**/*.md` (skip `README.md`) — do not guess.
 - If the index is missing, tell the user: `python scripts/build_skill_index.py`
 - Read at least the first 30 lines of candidate workflow files to check their Steps and Skills.
 - Be honest: if no workflow is a strong match, recommend skill-only routing.

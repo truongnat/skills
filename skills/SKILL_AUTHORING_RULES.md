@@ -69,13 +69,13 @@ Do not use **Artifacts** or **Goal** alone as a section title here.
 
 ## 8. Mandatory repository documentation (required with the same change)
 
-When you **add**, **remove**, or **rename** a bundled skill, or **add** a workflow under `workflows/examples/`, or **add** a new file under `knowledge-base/documents/`, update **every** applicable item below in the **same PR or commit** as the skill/workflow/KB change.
+When you **add**, **remove**, or **rename** a bundled skill, or **add** a workflow file under `workflows/` (e.g. `workflows/<domain>/` plus domain `README.md` when new), or **add** a new file under `knowledge-base/documents/`, update **every** applicable item below in the **same PR or commit** as the skill/workflow/KB change.
 
 | Trigger | Required updates |
 |---------|------------------|
 | **Add** a bundled skill (`skills/<name>/`) | `skills/README.md` (table row); root **`README.md`** (Skills → Bundled examples); **`AGENTS.md`** (Bundled examples line); **§1** above (parenthesized skill list); **`knowledge-base/documents/repo/skills-layout.md`** (tree or folder list must include the new skill) |
 | **Remove** or **rename** a bundled skill | Same locations: delete or fix all mentions; **§1** list; **`skills-layout.md`** |
-| **Add** a workflow under `workflows/examples/` | Root **`README.md`** (Workflows → Examples list) |
+| **Add** a workflow under `workflows/` | Root **`README.md`** (Workflows list); name runnable files **`w-<slug>.md`** (see [`workflows/README.md`](../workflows/README.md#naming)); domain **`README.md`** if under `workflows/<domain>/` |
 | **Add** a new document under `knowledge-base/documents/**` | **`knowledge-base/INDEX.md`** (new row with path and short description) |
 
 **Rationale:** Discovery for humans and agents depends on **`README.md`** / **`AGENTS.md`**; **§1** avoids duplicate skill proposals; **`skills-layout`** is indexed for RAG and must reflect the real tree.

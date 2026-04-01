@@ -15,6 +15,10 @@
 
 ### 2026-04-01
 
+- **Change:** Added **release** workflow [`workflows/dev/w-release.md`](../../../workflows/dev/w-release.md) (notes → implementation detail) and slash **`/w-release`** ([`.claude/commands/w-release.md`](../../../.claude/commands/w-release.md)); updated **`workflows/dev/README.md`**, root **README**, **AGENTS**, **templates**, **`run-workflow`**.
+
+- **Change:** **Workflows:** moved ticket workflow to [`workflows/dev/w-ticket.md`](../../../workflows/dev/w-ticket.md); added hotfix as [`workflows/dev/w-hotfix.md`](../../../workflows/dev/w-hotfix.md) (renamed from `hotfix.md`) and slash **`/w-hotfix`**. Documented **naming rule** — runnable workflow files **`w-<slug>.md`** in [`workflows/README.md`](../../../workflows/README.md#naming). Updated root **README**, **AGENTS**, **`run-workflow`** / **`route`**, **§8** workflow row.
+
 - **Source:** user + agent
 - **Change:** Added **`scripts/verify_bundle_install.py`** to sanity-check full bundle installs in a target project; README + `install.sh` hint.
 - **Change:** Normalized user-facing docs to **English** (README Quick start, activity log, KB INDEX, documentation persistence policy + Cursor rules, `formatting-common.mdc`, prompts, `external-review-mapping.md`, `web-research-pro` related-skills row; aligned `config.md` with `config.example.md`).

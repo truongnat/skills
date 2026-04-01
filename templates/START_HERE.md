@@ -73,7 +73,7 @@ See **PROMPT_TEMPLATES.md** and store real templates under `prompts/templates/` 
 ### MCP, workflows, monitoring
 
 - Document MCP endpoints in Markdown (tables: URL, auth, env vars). The root repo does not require YAML for MCP.
-- Workflows are Markdown under `workflows/examples/` — sequential steps for humans/agents.
+- **Dev workflows:** `workflows/dev/` — **`/w-ticket`**, **`/w-release`**, **`/w-hotfix`** (see `.claude/commands/` or `.cursor/commands/`).
 - Note monitoring (Helicone, etc.) in Markdown or in `config.md` — no required YAML format.
 
 ---
@@ -94,7 +94,7 @@ See **PROMPT_TEMPLATES.md** and store real templates under `prompts/templates/` 
 ## Help
 
 - **Docs:** `.md` files in this repo
-- **Examples:** `skills/` (bundled `*-pro` skills), `workflows/examples/`
+- **Examples:** `skills/` (bundled `*-pro` skills), `workflows/dev/` (ticket + hotfix workflows)
 
 ### Before you start
 

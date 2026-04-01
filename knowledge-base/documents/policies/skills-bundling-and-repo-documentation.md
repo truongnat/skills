@@ -36,7 +36,7 @@ Failure to update these files is a **blocking** review finding.
 
 ## 4. Workflows and knowledge base
 
-- Adding a file under [`workflows/examples/`](../../../workflows/examples/) requires updating the **Workflows** list in the root **`README.md`**.
+- Adding a workflow file under [`workflows/`](../../../workflows/) (including `workflows/<domain>/`) requires updating the **Workflows** list in the root **`README.md`** and any domain **`README.md`** (e.g. [`workflows/dev/README.md`](../../../workflows/dev/README.md)). Runnable workflow Markdown files use the **`w-<slug>.md`** prefix — see [`workflows/README.md`](../../../workflows/README.md#naming).
 - Adding a new document under **`knowledge-base/documents/`** requires a new row in [`knowledge-base/INDEX.md`](../../INDEX.md).
 
 ## 5. Configuration and secrets

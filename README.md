@@ -1,6 +1,6 @@
 # SKILLS — Skills, workflows & knowledge base (Markdown)
 
-Template repo for **skills** (per `SKILL.md` convention), **workflows** (Markdown step files), and a **knowledge base** (`.md` files + minimal local RAG). **Configuration and workflows do not use `.yaml`/`.yml`** — Markdown only (plus JSON emitted by scripts for the vector manifest).
+Template repo: **`skills/`** (`SKILL.md` bundles), **`workflows/`** (Markdown steps), **`knowledge-base/`** (`.md` + local RAG). Config and workflow contracts use **Markdown**, not `.yaml`/`.yml` for those roles (scripts may emit JSON for embeddings).
 
 ## Contents
 
@@ -16,34 +16,38 @@ Template repo for **skills** (per `SKILL.md` convention), **workflows** (Markdow
 ## Directory layout
 
 ```
-own-skills/
-├── config.example.md          # Sample config (kb-config block for scripts)
+skills/                        # repo root (remote install → vendor/own-skills/)
+├── config.example.md          # kb-config block for scripts
 ├── requirements.txt           # Python: numpy, sentence-transformers
 ├── skills/
 │   ├── README.md
 │   ├── examples/skill-template/SKILL.md
-│   ├── <skill-name>/           # e.g. react-pro, nextjs-pro, …
+│   ├── <skill-name>/          # e.g. react-pro, nextjs-pro, …
 │   └── …
+├── ex/
+│   └── ticket/                # Ticket / Kanban skill (outside skills/)
 ├── workflows/
-│   ├── README.md              # Workflow convention (.md)
-│   └── examples/*.md
+│   ├── README.md              # Conventions + naming (`w-<slug>.md`)
+│   └── dev/                   # /w-ticket, /w-release, /w-hotfix
 ├── knowledge-base/
 │   ├── INDEX.md
-│   ├── documents/             # Source-of-truth (.md)
-│   └── embeddings/          # rag_*.npy / .json (generated, gitignored)
+│   ├── documents/             # Source .md for RAG
+│   └── embeddings/            # rag_*.npy, .json (generated, gitignored)
 ├── prompts/
 │   └── README.md
 ├── scripts/
-│   ├── README.md              # Script index (batch query, list/validate/analyze skills)
-│   ├── kb_config_md.py        # Read config from Markdown
+│   ├── README.md
+│   ├── kb_config_md.py
 │   ├── build_kb.py
 │   ├── query_kb.py
-│   ├── query_kb_batch.py      # Multiple queries, one model load (perf)
+│   ├── query_kb_batch.py
 │   ├── verify_kb.py
+│   ├── build_skill_index.py
 │   ├── list_skills.py
 │   ├── validate_skills.py
-│   └── analyze_skills.py      # Bundle heuristic + --self-review report
-└── templates/                 # Extra docs & samples (see below)
+│   └── analyze_skills.py
+├── .claude/commands/          # Slash commands (e.g. /w-ticket, /route)
+└── templates/
 ```
 
 ## Architecture overview
@@ -51,7 +55,7 @@ own-skills/
 ```mermaid
 flowchart LR
   USER[User / Agent] --> SKILLS[skills/*-pro]
-  USER --> WF[workflows/examples]
+  USER --> WF[workflows/dev]
   USER --> PROMPTS[prompts/templates]
 
   SKILLS --> DOCS[knowledge-base/documents]
@@ -59,21 +63,21 @@ flowchart LR
   PROMPTS --> DOCS
 
   DOCS --> BUILD[scripts/build_kb.py]
-  BUILD --> EMB[knowledge-base/embeddings/rag_manifest.json + rag_embeddings.npy]
-  EMB --> QUERY[scripts/query_kb.py / query_kb_batch.py]
+  BUILD --> EMB[knowledge-base/embeddings]
+  EMB --> QUERY[query_kb.py / query_kb_batch.py]
   QUERY --> USER
 
-  SKILLS --> VALIDATE[scripts/validate_skills.py]
-  SKILLS --> ANALYZE[scripts/analyze_skills.py --self-review]
+  SKILLS --> VALIDATE[validate_skills.py]
+  SKILLS --> ANALYZE[analyze_skills.py]
   VALIDATE --> USER
   ANALYZE --> USER
 ```
 
 ## Quick start
 
-### Install / uninstall into **another project** (remote only — no clone of this repo)
+### Install into another project (remote — no clone)
 
-Run from the **target project root**. Running **install** again **updates** the bundle and skills.
+From the **target project root**. Re-running install **updates** the bundle.
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/install-remote.sh | bash
@@ -83,65 +87,69 @@ curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/install-remot
 curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash
 ```
 
-The full bundle lives under `./vendor/own-skills/` (workflows, prompts, KB, scripts, …). Advanced: `bash -s -- --help` (`--repo`, `--skills-only`, `--cursor-only`).
+Bundle root: `./vendor/own-skills/`. Options: `bash -s -- --help` (`--repo`, `--skills-only`, `--cursor-only`).
 
-**Check that install worked** (from the **target project root**, after a **full** install — not `--skills-only`):
+**Sanity check** (after a full install, not `--skills-only`):
 
 ```bash
 python3 vendor/own-skills/scripts/verify_bundle_install.py
 ```
 
-This checks for `vendor/own-skills/.own-skills-bundle`, `.cursor/skills`, that skill symlinks resolve into the vendor tree, and runs `validate_skills.py` inside the bundle. Use `--project-dir /path` if needed.
-
-### Working **in this repo** (venv, KB, scripts)
+### Work in this repo (venv, KB, scripts)
 
 ```bash
-cd own-skills
-python3 -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
+cd <repo-root>                 # e.g. folder `skills` after clone
+python3 -m venv .venv && source .venv/Scripts/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-cp config.example.md config.md   # optional: edit <!-- kb-config -->
+cp config.example.md config.md   # optional
 python scripts/build_kb.py
 python scripts/query_kb.py "…" -k 5
 ```
 
-**Python:** 3.10–3.13; first `build_kb` downloads the model (network, RAM). Details: [`scripts/README.md`](scripts/README.md). Skill **`repo-tooling-pro`** (batch query, CI).
+**Python:** 3.10–3.13. First `build_kb` downloads the embedding model (network, RAM). See [`scripts/README.md`](scripts/README.md).
 
 ## Knowledge base & RAG
 
-1. Add or edit `.md` files under [`knowledge-base/documents/`](knowledge-base/documents/).
-2. Update [`knowledge-base/INDEX.md`](knowledge-base/INDEX.md) for quick lookup.
-3. Run `scripts/build_kb.py` to produce `rag_embeddings.npy` + `rag_manifest.json` in `knowledge-base/embeddings/` (gitignored).
-4. `scripts/query_kb.py` runs cosine similarity locally (NumPy); no Chroma/PyYAML required. For **many** queries, use **`scripts/query_kb_batch.py`** (loads the embedding model once).
-5. After building, run `python scripts/verify_kb.py` to check config, file counts, and index consistency (see [`knowledge-base/VERIFY.md`](knowledge-base/VERIFY.md)).
+1. Edit `.md` under [`knowledge-base/documents/`](knowledge-base/documents/).
+2. Update [`knowledge-base/INDEX.md`](knowledge-base/INDEX.md) when you add a doc.
+3. `python scripts/build_kb.py` → `rag_embeddings.npy` + `rag_manifest.json` in `knowledge-base/embeddings/` (gitignored).
+4. Query: `python scripts/query_kb.py "…"`; for many queries, `python scripts/query_kb_batch.py` (one model load).
+5. `python scripts/verify_kb.py` after builds ([`knowledge-base/VERIFY.md`](knowledge-base/VERIFY.md)).
 
-Paths and model live in the `<!-- kb-config-start -->` … `<!-- kb-config-end -->` block in [`config.example.md`](config.example.md) or `config.md`.
+Model paths live in the `<!-- kb-config-start -->` … `<!-- kb-config-end -->` block in [`config.example.md`](config.example.md) or `config.md`.
+
+**After changing bundled skills** (under `skills/*/`), run `python scripts/build_skill_index.py` so `knowledge-base/embeddings/skill_index.json` stays current (used by `/route`, `/find-skill`, etc.).
 
 ## Skills
 
-- **Authoring rules (mandatory for new skills):** [`skills/SKILL_AUTHORING_RULES.md`](skills/SKILL_AUTHORING_RULES.md) — do not add a skill folder until every mandatory item is satisfied. When you add/remove/rename a bundled skill or add a workflow/KB doc, follow **§8** (update `README`, `AGENTS`, `skills-layout.md`, `INDEX.md`, etc. in the same change).
-- Copy [`skills/examples/skill-template/`](skills/examples/skill-template/) → `skills/<skill-name>/`.
-- Edit `SKILL.md`: frontmatter `name` and `description` (state clearly when it triggers).
-- Layout and bundled examples: [`skills/README.md`](skills/README.md).
-- Bundled examples: [`skills/react-pro/`](skills/react-pro/) (React web), [`skills/nextjs-pro/`](skills/nextjs-pro/) (Next.js), [`skills/react-native-pro/`](skills/react-native-pro/) (React Native / Expo), [`skills/flutter-pro/`](skills/flutter-pro/) (Flutter), [`skills/nestjs-pro/`](skills/nestjs-pro/) (NestJS), [`skills/postgresql-pro/`](skills/postgresql-pro/) (PostgreSQL), [`skills/sql-data-access-pro/`](skills/sql-data-access-pro/) (SQLite, SQL access), [`skills/testing-pro/`](skills/testing-pro/) (testing & automation), [`skills/security-pro/`](skills/security-pro/) (cross-platform security), [`skills/electron-pro/`](skills/electron-pro/) (Electron desktop), [`skills/tauri-pro/`](skills/tauri-pro/) (Tauri desktop), [`skills/deployment-pro/`](skills/deployment-pro/) (deployment & release), [`skills/seo-pro/`](skills/seo-pro/) (SEO & organic search), [`skills/design-system-pro/`](skills/design-system-pro/) (design system & UI/UX), [`skills/mobile-design-pro/`](skills/mobile-design-pro/) (mobile UX & patterns), [`skills/business-analysis-pro/`](skills/business-analysis-pro/) (business analysis & requirements), [`skills/content-analysis-pro/`](skills/content-analysis-pro/) (documents, images, video analysis), [`skills/data-analysis-pro/`](skills/data-analysis-pro/) (EDA, pandas, spreadsheets), [`skills/image-processing-pro/`](skills/image-processing-pro/) (Pillow, raster ops), [`skills/web-research-pro/`](skills/web-research-pro/) (sources, citations, stale docs), [`skills/market-research-pro/`](skills/market-research-pro/) (market sizing, competitors, positioning), [`skills/strategic-consulting-pro/`](skills/strategic-consulting-pro/) (strategy options, prioritization, scenarios), [`skills/code-packaging-pro/`](skills/code-packaging-pro/) (pyproject, Docker, GitHub Actions), [`skills/caching-pro/`](skills/caching-pro/) (caching strategy, TTL/invalidation, consistency), [`skills/network-infra-pro/`](skills/network-infra-pro/) (network topology, traffic, reliability), [`skills/planning-pro/`](skills/planning-pro/) (goal-to-execution planning, milestones, dependency/risk control), [`skills/algorithm-pro/`](skills/algorithm-pro/) (algorithm deep focus: modeling, complexity, correctness), [`skills/feedback-pro/`](skills/feedback-pro/) (deep feedback: evidence, severity, closure), [`skills/auth-pro/`](skills/auth-pro/) (authentication/authorization methods and lifecycle), [`skills/self-improve-agent-pro/`](skills/self-improve-agent-pro/) (self-improving agent loops and measurable quality uplift), [`skills/git-operations-pro/`](skills/git-operations-pro/) (Git, PRs, commits), [`skills/skills-self-review-pro/`](skills/skills-self-review-pro/) (skill bundle self-review, gap reports), [`skills/bug-discovery-pro/`](skills/bug-discovery-pro/) (bug hunting, GitNexus), [`skills/repo-tooling-pro/`](skills/repo-tooling-pro/) (scripts, KB batch query, validate skills).
+- **Rules:** [`skills/SKILL_AUTHORING_RULES.md`](skills/SKILL_AUTHORING_RULES.md) — do not add a skill folder until every mandatory item passes; **section 8** lists repo files to update with the same change.
+- **Template:** [`skills/examples/skill-template/`](skills/examples/skill-template/) → `skills/<name>/`.
+- **Catalog:** full list and descriptions in **[`skills/README.md`](skills/README.md)** (bundled examples table).
 
 ## Workflows
 
-- Convention: [`workflows/README.md`](workflows/README.md).
-- Examples: [`workflows/examples/research-synthesize.md`](workflows/examples/research-synthesize.md), [`workflows/examples/implement-react-feature.md`](workflows/examples/implement-react-feature.md) (React + `react-pro`), [`workflows/examples/implement-nextjs-feature.md`](workflows/examples/implement-nextjs-feature.md) (Next.js + `nextjs-pro`), [`workflows/examples/implement-rn-screen.md`](workflows/examples/implement-rn-screen.md) (RN + `react-native-pro`), [`workflows/examples/implement-flutter-screen.md`](workflows/examples/implement-flutter-screen.md) (Flutter + `flutter-pro`), [`workflows/examples/implement-nest-feature.md`](workflows/examples/implement-nest-feature.md) (NestJS + `nestjs-pro`), [`workflows/examples/implement-postgres-change.md`](workflows/examples/implement-postgres-change.md) (Postgres + `postgresql-pro`), [`workflows/examples/implement-testing-suite.md`](workflows/examples/implement-testing-suite.md) (testing + `testing-pro`), [`workflows/examples/implement-security-review.md`](workflows/examples/implement-security-review.md) (security + `security-pro`), [`workflows/examples/implement-deployment-pipeline.md`](workflows/examples/implement-deployment-pipeline.md) (deployment + `deployment-pro`), [`workflows/examples/implement-seo-program.md`](workflows/examples/implement-seo-program.md) (SEO + `seo-pro`), [`workflows/examples/implement-design-system.md`](workflows/examples/implement-design-system.md) (design system + `design-system-pro`), [`workflows/examples/implement-mobile-design.md`](workflows/examples/implement-mobile-design.md) (mobile UX + `mobile-design-pro`), [`workflows/examples/implement-business-analysis.md`](workflows/examples/implement-business-analysis.md) (business analysis + `business-analysis-pro`), [`workflows/examples/implement-content-analysis.md`](workflows/examples/implement-content-analysis.md) (content analysis + `content-analysis-pro`), [`workflows/examples/implement-data-analysis.md`](workflows/examples/implement-data-analysis.md) (data analysis + `data-analysis-pro`), [`workflows/examples/implement-web-research.md`](workflows/examples/implement-web-research.md) (web research + `web-research-pro`), [`workflows/examples/implement-git-workflow.md`](workflows/examples/implement-git-workflow.md) (Git + `git-operations-pro`), [`workflows/examples/implement-skills-self-review.md`](workflows/examples/implement-skills-self-review.md) (bundle audit + `skills-self-review-pro`), [`workflows/examples/implement-bug-discovery.md`](workflows/examples/implement-bug-discovery.md) (bug discovery + `bug-discovery-pro`).
-- A workflow is a **Markdown contract** for humans/agents to follow sequentially; an automated runner is optional.
+Conventions and **`w-<slug>.md`** naming: [`workflows/README.md`](workflows/README.md). Slash commands live in **`.claude/commands/`** and **`.cursor/commands/`**.
+
+| Slash | File | Purpose |
+|-------|------|---------|
+| **`/w-ticket`** | [`workflows/dev/w-ticket.md`](workflows/dev/w-ticket.md) | Kanban / [`ex/ticket/SKILL.md`](ex/ticket/SKILL.md) |
+| **`/w-release`** | [`workflows/dev/w-release.md`](workflows/dev/w-release.md) | Release notes → implementation |
+| **`/w-hotfix`** | [`workflows/dev/w-hotfix.md`](workflows/dev/w-hotfix.md) | Prod-urgent fix path |
+
+Index: [`workflows/dev/README.md`](workflows/dev/README.md) — Markdown step contracts; no automated runner required.
 
 ## Prompt templates
 
-- Where to put files: [`prompts/README.md`](prompts/README.md).
-- Example library: [`templates/PROMPT_TEMPLATES.md`](templates/PROMPT_TEMPLATES.md) (format described in Markdown).
+- Layout: [`prompts/README.md`](prompts/README.md).
+- Examples: [`templates/PROMPT_TEMPLATES.md`](templates/PROMPT_TEMPLATES.md).
 
 ## Cursor / Agent
 
-- See [`AGENTS.md`](AGENTS.md): how to use skills with Cursor (copy/symlink into Cursor’s skills folder).
+[`AGENTS.md`](AGENTS.md) — skills install paths, slash commands (`/route`, `/optimize`, …), KB usage.
 
 ## More docs under `templates/`
 
-- [`templates/START_HERE.md`](templates/START_HERE.md), [`templates/SKILL_SYSTEM_GUIDE.md`](templates/SKILL_SYSTEM_GUIDE.md), [`templates/config.template.md`](templates/config.template.md) — some sections are historical; **this repo’s source of truth** is this README and `config.example.md`.
+[`templates/START_HERE.md`](templates/START_HERE.md), [`templates/SKILL_SYSTEM_GUIDE.md`](templates/SKILL_SYSTEM_GUIDE.md), [`templates/config.template.md`](templates/config.template.md) — some sections are historical; **this README** and **`config.example.md`** are the source of truth for this repo.
 
 ## License
 

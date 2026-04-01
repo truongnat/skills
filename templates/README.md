@@ -18,7 +18,7 @@ This directory holds supplementary guides (deployment ideas, tech survey, prompt
 ## Skills & workflows (root repo)
 
 - Skills: `skills/examples/skill-template/`, `skills/*-pro/` (see [`skills/README.md`](../skills/README.md))
-- Workflows: `workflows/README.md`, `workflows/examples/*.md`
+- Workflows: `workflows/README.md`, `workflows/dev/` (`/w-ticket`, `/w-release`, `/w-hotfix`)
 - Knowledge base: `knowledge-base/README.md`, `scripts/build_kb.py`
 
 ## MCP

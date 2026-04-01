@@ -1,5 +1,39 @@
 [
   {
+    "name": "algorithm-pro",
+    "folder": "algorithm-pro",
+    "description": "Professional algorithm engineering guidance for deep problem solving: formal problem modeling, strategy selection (greedy/DP/graph/search), correctness reasoning, complexity analysis, and performance-aware implementation trade-offs.\n\n  Use this skill when the user asks to design or optimize algorithms, solve hard coding interview style problems, compare multiple algorithmic approaches, prove correctness, or reduce time/memory complexity under strict constraints.\n\n  Use **with** **`testing-pro`** to design adversarial and property-based test coverage, **`data-analysis-pro`** when benchmark datasets or profiling outputs need interpretation, and stack/framework `*-pro` skills when integrating algorithms into production systems.\n\n  Triggers: \"algorithm\", \"data structure\", \"dynamic programming\", \"graph\", \"greedy\", \"complexity\", \"Big-O\", \"optimize\", \"time complexity\", \"space complexity\", \"proof\", \"LeetCode\", \"competitive programming\".",
+    "triggers": [
+      "algorithm",
+      "data structure",
+      "dynamic programming",
+      "graph",
+      "greedy",
+      "complexity",
+      "big-o",
+      "optimize",
+      "time complexity",
+      "space complexity",
+      "proof",
+      "leetcode",
+      "competitive programming"
+    ],
+    "when_to_use": [
+      "Solving difficult algorithmic tasks under strict constraints.",
+      "Choosing among multiple approaches with clear complexity trade-offs.",
+      "Refactoring brute-force code to near-optimal complexity.",
+      "Verifying correctness via invariants, exchange arguments, or induction.",
+      "Tuning memory usage and constant factors for real workloads."
+    ],
+    "references": [
+      "correctness-and-complexity.md",
+      "edge-cases.md",
+      "modeling-and-strategy-selection.md",
+      "optimization-and-trade-offs.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
     "name": "api-design-pro",
     "folder": "api-design-pro",
     "description": "Professional API design guidance for building clear, evolvable, and secure service contracts across REST-style and RPC-style interfaces.\n\n  Use this skill when designing new APIs, reviewing API changes, improving contract consistency, or planning backward-compatible evolution.\n\n  Triggers: \"api design\", \"rest api\", \"endpoint\", \"contract\", \"versioning\", \"pagination\", \"error model\", \"idempotency\", \"backward compatibility\", \"schema evolution\".\n\n  Combine with `security-pro` for threat-focused hardening and `testing-pro` for contract and integration verification.",
@@ -24,6 +58,45 @@
     "references": [
       "edge-cases.md",
       "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "auth-pro",
+    "folder": "auth-pro",
+    "description": "Professional authentication and authorization guidance across web/mobile/API systems: identity flows, credential and token lifecycle, session/JWT/OAuth/OIDC/API-key patterns, and policy enforcement models (RBAC/ABAC/ReBAC).\n\n  Use this skill when the user asks to design or review auth architecture, compare auth methods, implement secure login/session/token flows, enforce authorization boundaries, or troubleshoot access-control failures and token misuse.\n\n  Use **with** **`security-pro`** for broader threat modeling and hardening, **`nestjs-pro`** / **`nextjs-pro`** for framework wiring, **`postgresql-pro`** for data-layer policy/RLS boundaries, and **`testing-pro`** for auth regression and abuse-case tests.\n\n  Triggers: \"authentication\", \"authorization\", \"auth\", \"login\", \"session\", \"JWT\", \"OAuth\", \"OIDC\", \"SAML\", \"API key\", \"mTLS\", \"RBAC\", \"ABAC\", \"ReBAC\", \"MFA\", \"refresh token\", \"SSO\", \"access control\".",
+    "triggers": [
+      "authentication",
+      "authorization",
+      "auth",
+      "login",
+      "session",
+      "jwt",
+      "oauth",
+      "oidc",
+      "saml",
+      "api key",
+      "mtls",
+      "rbac",
+      "abac",
+      "rebac",
+      "mfa",
+      "refresh token",
+      "sso",
+      "access control"
+    ],
+    "when_to_use": [
+      "Choosing among session, JWT, OAuth/OIDC, API key, SAML, or mTLS by context.",
+      "Designing user auth, service-to-service auth, and delegated authorization.",
+      "Building role/attribute/relationship-based access control models.",
+      "Hardening token/session lifecycle (issue, rotate, revoke, expire, recover).",
+      "Reviewing or debugging broken permissions, stale sessions, and auth bypass risks."
+    ],
+    "references": [
+      "authentication-methods-and-selection.md",
+      "authorization-models-and-policy.md",
+      "edge-cases.md",
+      "tips-and-tricks.md",
+      "token-session-lifecycle.md"
     ]
   },
   {
@@ -102,6 +175,39 @@
       "edge-cases.md",
       "reporting-and-deliverables.md",
       "requirements-and-reasoning.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "caching-pro",
+    "folder": "caching-pro",
+    "description": "Professional caching guidance for application, API, and data workloads: strategy selection, key design, TTL policy, invalidation, consistency trade-offs, and observability.\n\n  Use this skill when the user asks to speed up reads, reduce DB/API load, design Redis or in-memory caching, troubleshoot stale data, or review cache safety before rollout.\n\n  Use **with** **`nextjs-pro`** for framework-level cache behavior, **`postgresql-pro`** and **`sql-data-access-pro`** for query-layer boundaries, and **`deployment-pro`** for production rollout/rollback controls.\n\n  Triggers: \"caching\", \"cache strategy\", \"Redis\", \"TTL\", \"invalidation\", \"stale data\", \"cache miss\", \"cache-aside\", \"write-through\", \"ETag\", \"CDN cache\", \"performance bottleneck\".",
+    "triggers": [
+      "caching",
+      "cache strategy",
+      "redis",
+      "ttl",
+      "invalidation",
+      "stale data",
+      "cache miss",
+      "cache-aside",
+      "write-through",
+      "etag",
+      "cdn cache",
+      "performance bottleneck"
+    ],
+    "when_to_use": [
+      "Choosing between cache-aside, read-through, write-through, write-behind, or HTTP/CDN caching.",
+      "Designing cache key schema, TTL policy, and stampede protection.",
+      "Investigating stale data, high miss ratio, or poor p95/p99 latency.",
+      "Reducing database or third-party API load while preserving correctness.",
+      "Reviewing cache changes for consistency, invalidation, and failure modes."
+    ],
+    "references": [
+      "edge-cases.md",
+      "invalidation-and-consistency.md",
+      "pattern-selection.md",
+      "performance-and-observability.md",
       "tips-and-tricks.md"
     ]
   },
@@ -427,6 +533,37 @@
     "references": [
       "edge-cases.md",
       "main-preload-and-ipc.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "feedback-pro",
+    "folder": "feedback-pro",
+    "description": "Professional deep-feedback guidance for engineering and product work: evidence-based review framing, issue severity calibration, actionable recommendations, communication tone control, and closure tracking.\n\n  Use this skill when the user asks to give detailed feedback on code/docs/design/process decisions, review quality gaps, prioritize improvements, or convert raw comments into structured, high-impact feedback plans.\n\n  Use **with** **`testing-pro`** for test-quality feedback, **`security-pro`** for risk-sensitive findings, and domain `*-pro` skills to validate technical correctness in specialized areas.\n\n  Triggers: \"feedback\", \"review comments\", \"code feedback\", \"deep review\", \"improvement feedback\", \"critique\", \"quality review\", \"severity\", \"action items\", \"follow-up plan\".",
+    "triggers": [
+      "feedback",
+      "review comments",
+      "code feedback",
+      "deep review",
+      "improvement feedback",
+      "critique",
+      "quality review",
+      "severity",
+      "action items",
+      "follow-up plan"
+    ],
+    "when_to_use": [
+      "Turning vague comments into specific, prioritized, and actionable feedback.",
+      "Reviewing code/docs/design with clear evidence and impact statements.",
+      "Calibrating severity (critical/high/medium/low) and rollout risk.",
+      "Producing executive-friendly review summaries plus implementer-level detail.",
+      "Tracking follow-up actions until closure criteria are met."
+    ],
+    "references": [
+      "action-planning-and-closure.md",
+      "edge-cases.md",
+      "finding-structure-and-evidence.md",
+      "severity-and-prioritization.md",
       "tips-and-tricks.md"
     ]
   },
@@ -773,6 +910,42 @@
     ]
   },
   {
+    "name": "network-infra-pro",
+    "folder": "network-infra-pro",
+    "description": "Professional network and infrastructure guidance for application delivery: VPC/subnet design, DNS and TLS, ingress/egress controls, load balancing, connectivity patterns, and production observability.\n\n  Use this skill when the user asks to design or review cloud/on-prem network topology, diagnose connectivity issues, harden service-to-service traffic, configure reverse proxy/load balancer behavior, or plan infrastructure rollout safety.\n\n  Use **with** **`deployment-pro`** for rollout/rollback strategy, **`security-pro`** for threat modeling and hardening controls, and **`nestjs-pro`** / **`nextjs-pro`** when infrastructure decisions depend on framework runtime behavior.\n\n  Triggers: \"network\", \"infra\", \"VPC\", \"subnet\", \"NAT\", \"load balancer\", \"reverse proxy\", \"ingress\", \"egress\", \"DNS\", \"TLS\", \"service mesh\", \"connectivity\", \"latency\", \"firewall\".",
+    "triggers": [
+      "network",
+      "infra",
+      "vpc",
+      "subnet",
+      "nat",
+      "load balancer",
+      "reverse proxy",
+      "ingress",
+      "egress",
+      "dns",
+      "tls",
+      "service mesh",
+      "connectivity",
+      "latency",
+      "firewall"
+    ],
+    "when_to_use": [
+      "Designing VPC/VNet, subnet segmentation, NAT, and private/public service boundaries.",
+      "Defining ingress/egress policy, firewall/SG rules, and service-to-service communication paths.",
+      "Configuring DNS, TLS termination, reverse proxy, and load balancer routing behavior.",
+      "Troubleshooting timeout, packet loss, cross-region latency, and intermittent connectivity failures.",
+      "Reviewing network changes for blast radius, failover behavior, and observability readiness."
+    ],
+    "references": [
+      "edge-cases.md",
+      "reliability-and-observability.md",
+      "tips-and-tricks.md",
+      "topology-and-segmentation.md",
+      "traffic-management-and-edge.md"
+    ]
+  },
+  {
     "name": "nextjs-pro",
     "folder": "nextjs-pro",
     "description": "Professional Next.js development: App Router, Server Components, data fetching and caching, Route Handlers, middleware, and deployment-aware edge cases.\n\n  Use this skill when the user works on Next.js (Pages or App Router), `next.config`, `next/image`, `next/font`, `next/link`, layouts, `loading.tsx`, `error.tsx`, Server Actions, `fetch` caching and revalidation, `cookies()` / `headers()` in RSC, Middleware, Edge Runtime, Route Handlers, internationalization (next-intl / i18n), Turbopack, Vercel deployment, or asks for review of RSC boundaries, hydration, or API routes.\n\n  Triggers: \"Next.js\", \"Nextjs\", \"App Router\", \"Pages Router\", \"Server Component\", \"RSC\", \"use client\", \"Server Action\", \"next/navigation\", \"next/image\", \"middleware.ts\", \"revalidate\", \"fetch cache\", \"Route Handler\", \"edge runtime\", \"Turbopack\", \"next.config\", \"Vercel\", \"parallel routes\", \"intercepting routes\", \"generateStaticParams\", \"dynamic route\", \"metadata API\", \"next/font\".",
@@ -842,6 +1015,38 @@
     ],
     "references": [
       "edge-cases.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "planning-pro",
+    "folder": "planning-pro",
+    "description": "Professional planning guidance for turning goals into executable plans: scope framing, task decomposition, dependency mapping, sequencing, estimation ranges, risk controls, and delivery checkpoints.\n\n  Use this skill when the user asks to create an implementation plan, break a complex project into phases, define milestones, estimate effort, or review whether a plan is realistic and safe to execute.\n\n  Use **with** **`business-analysis-pro`** to refine requirements before planning, **`deployment-pro`** for release sequencing, and domain `*-pro` skills for implementation details in each phase.\n\n  Triggers: \"planning\", \"plan\", \"roadmap\", \"milestone\", \"phase breakdown\", \"execution plan\", \"timeline\", \"dependency\", \"effort estimate\", \"delivery plan\", \"implementation plan\".",
+    "triggers": [
+      "planning",
+      "plan",
+      "roadmap",
+      "milestone",
+      "phase breakdown",
+      "execution plan",
+      "timeline",
+      "dependency",
+      "effort estimate",
+      "delivery plan",
+      "implementation plan"
+    ],
+    "when_to_use": [
+      "Breaking large goals into phases, milestones, and deliverables.",
+      "Building realistic execution plans with dependencies and constraints.",
+      "Prioritizing tasks for MVP vs later phases.",
+      "Estimating effort ranges and identifying critical path risks.",
+      "Reviewing an existing plan for gaps, sequencing errors, or hidden risks."
+    ],
+    "references": [
+      "edge-cases.md",
+      "estimation-and-risk-controls.md",
+      "scope-and-decomposition.md",
+      "sequencing-and-dependencies.md",
       "tips-and-tricks.md"
     ]
   },
@@ -1087,6 +1292,36 @@
       "fundamentals-and-threat-model.md",
       "offensive-simulation-and-self-assessment.md",
       "osi-and-networking.md",
+      "tips-and-tricks.md"
+    ]
+  },
+  {
+    "name": "self-improve-agent-pro",
+    "folder": "self-improve-agent-pro",
+    "description": "Professional guidance for self-improving agent workflows: performance diagnosis, feedback-loop design, iteration planning, failure pattern analysis, and continuous quality uplift with measurable outcomes.\n\n  Use this skill when the user asks to make an agent improve itself, analyze repeated mistakes, design reflection loops, define learning checkpoints, or establish a structured process to raise reliability over time.\n\n  Use **with** **`feedback-pro`** for high-quality review signals, **`planning-pro`** for iteration roadmaps, and **`testing-pro`** to validate that improvements actually reduce failures.\n\n  Triggers: \"self improve agent\", \"agent improvement\", \"reflection loop\", \"learning loop\", \"improve accuracy\", \"reduce failures\", \"retrospective\", \"continuous improvement\", \"quality iteration\".",
+    "triggers": [
+      "self improve agent",
+      "agent improvement",
+      "reflection loop",
+      "learning loop",
+      "improve accuracy",
+      "reduce failures",
+      "retrospective",
+      "continuous improvement",
+      "quality iteration"
+    ],
+    "when_to_use": [
+      "Building a repeatable self-improvement cycle for an agent.",
+      "Diagnosing recurring failures or quality drift.",
+      "Designing reflection and correction loops after each run.",
+      "Prioritizing improvement actions under limited time.",
+      "Proving improvement with before/after metrics."
+    ],
+    "references": [
+      "edge-cases.md",
+      "failure-diagnosis-and-patterns.md",
+      "improvement-loop-design.md",
+      "metrics-and-verification.md",
       "tips-and-tricks.md"
     ]
   },

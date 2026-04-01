@@ -37,7 +37,7 @@ Rewrite the prompt to reduce tokens while preserving full semantic meaning:
 
 ### Stage 4: Workflow check
 
-1. List workflow files from `workflows/examples/`.
+1. List workflow files under `workflows/` (include subfolders such as **`workflows/dev/*.md`**; skip `README.md` index files).
 2. If any workflow name or description closely matches the prompt's intent and domain, recommend it.
 3. Show which skills the workflow uses at each step.
 

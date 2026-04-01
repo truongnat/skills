@@ -15,6 +15,8 @@
 
 ### 2026-04-01
 
+- **Change:** **Install UX:** removed **`install-remote.sh`** and **`uninstall-remote.sh`**; documented **npx** + **`bin/own-skills.mjs`** only. Root **`install.sh`** / **`uninstall.sh`** remain as engines invoked by the CLI (not removed).
+
 - **Change:** **`w-ticket`** rework: ticket flow uses **only** bundled [`skills/`](../../../skills/) (catalog + `list_skills.py`); **`kanban/<ticket>/`** contract inlined in [`workflows/dev/w-ticket.md`](../../../workflows/dev/w-ticket.md) (no `ex/ticket`). Updated **`/w-ticket`** commands, **AGENTS**, **`w-release`** cross-refs.
 
 - **Change:** Added **release** workflow [`workflows/dev/w-release.md`](../../../workflows/dev/w-release.md) (notes → implementation detail) and slash **`/w-release`** ([`.claude/commands/w-release.md`](../../../.claude/commands/w-release.md)); updated **`workflows/dev/README.md`**, root **README**, **AGENTS**, **templates**, **`run-workflow`**.

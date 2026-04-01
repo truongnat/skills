@@ -1,0 +1,37 @@
+{
+  "name": "own-skills-bundle",
+  "version": "1.0.0",
+  "description": "npx installer for the own-skills bundle (skills, workflows, KB tooling) into your project",
+  "type": "module",
+  "bin": {
+    "own-skills": "./bin/own-skills.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "bin",
+    "package.json"
+  ],
+  "scripts": {
+    "lint:cli": "node --check bin/own-skills.mjs"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "degit": "^2.8.4",
+    "inquirer": "^9.3.7",
+    "ora": "^8.1.1"
+  },
+  "keywords": [
+    "cursor",
+    "skills",
+    "claude",
+    "installer",
+    "cli"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/truongnat/skills.git"
+  }
+}

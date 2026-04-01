@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Primary UX: npx github:truongnat/skills uninstall (see README). Invoked by bin/own-skills.mjs and for local/maintainer use.
 # One-command uninstaller for own-skills. Usage:
 #   ./uninstall.sh [--project-dir <dir>] [--force]
 # Removes all skills installed by this project from the target project directory.

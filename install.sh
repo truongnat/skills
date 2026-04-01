@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Primary UX: npx github:truongnat/skills (see README). Invoked by bin/own-skills.mjs and for local/maintainer use.
 # One-command installer for own-skills. Usage:
 #   ./install.sh . --project-dir /path/to/target --full
 #   ./install.sh https://github.com/user/repo.git --project-dir /path/to/target

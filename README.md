@@ -33,6 +33,11 @@ skills/                        # repo root (remote install → vendor/own-skills
 │   └── embeddings/            # rag_*.npy, .json (generated, gitignored)
 ├── prompts/
 │   └── README.md
+├── package.json               # npx CLI (`own-skills`) + Node deps
+├── bin/
+│   └── own-skills.mjs         # user-facing installer (uses bundled bash + Python under the hood)
+├── install.sh                 # internal engine (invoked by the CLI; not the primary UX)
+├── uninstall.sh               # internal engine (invoked by the CLI)
 ├── scripts/
 │   ├── README.md
 │   ├── kb_config_md.py
@@ -73,19 +78,29 @@ flowchart LR
 
 ## Quick start
 
-### Install into another project (remote — no clone)
+### Install into another project (no manual clone)
 
 From the **target project root**. Re-running install **updates** the bundle.
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/install-remote.sh | bash
-```
+**Node 18+** — use the **`own-skills`** CLI (`npx` downloads this package, fetches the repo with degit or shallow git, then runs the same install engine as before). Requires **bash**, **git**, and **python3** on `PATH`.
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash
+# Interactive (default command = install)
+npx github:truongnat/skills
+
+# Non-interactive full install (forward args after --)
+npx --yes github:truongnat/skills -- install --yes --project-dir .
+
+npx --yes github:truongnat/skills -- uninstall --force --yes
 ```
 
-Bundle root: `./vendor/own-skills/`. Options: `bash -s -- --help` (`--repo`, `--skills-only`, `--cursor-only`).
+If `npx` does not pick the binary automatically: `npx --yes github:truongnat/skills own-skills install --yes`.
+
+**From a local clone** (before `package.json` is on GitHub, or to test the CLI): `npm install` then `npx . -- install --help` or `node bin/own-skills.mjs --help`.
+
+**`npm error enoent … package.json`** when running `npx github:…/skills`: the **default branch on GitHub** must contain **`package.json`** at the repo root (and `bin/own-skills.mjs`). Commit and push those files; until then, use a local clone command above.
+
+Bundle root: `./vendor/own-skills/`. Flags: `--repo`, `--skills-only`, `--cursor-only` (see `node bin/own-skills.mjs --help`).
 
 **Sanity check** (after a full install, not `--skills-only`):
 

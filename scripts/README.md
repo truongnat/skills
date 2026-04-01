@@ -2,6 +2,19 @@
 
 Python helpers for this **skills template** repo: knowledge base (RAG) and **fast** skill inventory. Requires `pip install -r requirements.txt` from repo root.
 
+## Install / uninstall into another project
+
+**Primary UX:** use the **`own-skills`** CLI from the repo root **`package.json`** (see root **README**):
+
+```bash
+npx github:truongnat/skills
+npx --yes github:truongnat/skills -- install --yes --project-dir .
+```
+
+The CLI fetches this repository and invokes the bundled **`install.sh`** / **`uninstall.sh`** plus **`install_skill.py`** — you do not need separate curl installers.
+
+**Advanced:** install or uninstall a single skill with **`install_skill.py`** (see examples below). Root **`install.sh`** / **`uninstall.sh`** remain in the repo as the engines the CLI calls; direct use is for maintainers debugging only.
+
 ## Performance note
 
 | Script | Why use it |
@@ -15,8 +28,7 @@ Python helpers for this **skills template** repo: knowledge base (RAG) and **fas
 | **`verify_bundle_install.py`** | After **full** install into another project: check `vendor/own-skills`, `.cursor/skills` symlinks, run `validate_skills` in the bundle. |
 | **`analyze_skills.py`** | Heuristic report: automation vs `scripts/`; **`--self-review`** = full repo Markdown (tiers, all skills, checklist); **`--markdown`** / **`--only-actionable`**. See **`skills-self-review-pro`**. |
 | **`install_skill.py`** | Install a skill into `.cursor/skills` (default), and optionally `.claude/skills` + `.agent/skills` via `--all-ides` (`symlink` + `.git/info/exclude`). |
-| **`uninstall.sh`** | Remove skills from `.cursor/skills`, matching `.claude/skills`, `.agent/skills`, manifests, and exclude entries. |
-| **`uninstall-remote.sh`** | Remote uninstaller: download and run uninstaller from any GitHub repo (no clone needed). |
+| **`../bin/own-skills.mjs`** | **npx** entry (`own-skills`): degit/git fetch + `install.sh` / `uninstall.sh`. |
 | **`build_skill_index.py`** | Pre-build searchable skill index (triggers, descriptions) as JSON; optional `--with-embeddings` for semantic vectors. Used by `/route`, `/find-skill`, `/run-workflow` slash commands. |
 
 ## Commands
@@ -26,12 +38,7 @@ Python helpers for this **skills template** repo: knowledge base (RAG) and **fas
 
 # Build / verify KB
 python scripts/build_kb.py
-python scripts/verify_kb.py
-
-# Single query
 python scripts/query_kb.py "your question" -k 5
-
-# Batch (performance): multiple -q or a file of lines
 python scripts/query_kb_batch.py -q "skills layout" -q "deployment" -k 3
 python scripts/query_kb_batch.py -f queries.txt --json
 
@@ -47,53 +54,17 @@ python scripts/analyze_skills.py
 python scripts/analyze_skills.py --self-review
 python scripts/analyze_skills.py --with-references --only-actionable --markdown
 
-# Remote install into another project: root README — two curl commands (install / uninstall). Re-run install = update.
-#
-# From this clone — full bundle into another project:
-./install.sh . --project-dir /path/to/project --full
-
-# Easiest: use ./install.sh wrapper (installs all skills from default repo if no args)
-./install.sh                    # Install ALL skills from https://github.com/truongnat/skills (shows progress bars)
-./install.sh skills/git-ops     # Install specific skill
-./install.sh https://github.com/user/repo.git  # Download directly from GitHub (no clone!)
-./install.sh user/repo          # GitHub shorthand
-./install.sh --remote https://github.com/user/repo.git  # Install ALL skills from ANY remote repo
-
-# Or use Python directly (from within a skill folder or give explicit paths)
-python scripts/install_skill.py --project-dir /path/to/existing-project --mode symlink
-
-# Or use the one-command wrapper (supports remote URLs):
-./install.sh skills/git-operations-pro                    # local skill
-./install.sh https://github.com/user/repo.git            # remote repo
-./install.sh user/repo                                   # GitHub shorthand
-./install.sh --remote https://github.com/anyuser/anyrepo.git  # ALL skills from remote
-
-# One-liner, no option flags (from anywhere):
+# Single-skill install (optional; bundle install = npx own-skills)
 python scripts/install_skill.py skills/git-operations-pro
-
-# Explicit path (still easy):
 python scripts/install_skill.py \
   --skill-dir skills/git-operations-pro \
   --project-dir /path/to/existing-project \
   --mode symlink
 
-# Cursor + Claude Code + Antigravity (project-local paths):
 python scripts/install_skill.py \
   --skill-dir skills/git-operations-pro \
   --project-dir /path/to/existing-project \
   --mode symlink --all-ides
-
-# Uninstall all skills from project (with confirmation):
-./uninstall.sh
-./uninstall.sh --project-dir /path/to/project
-./uninstall.sh --force  # No confirmation prompt
-./uninstall.sh --nuclear  # ⚠️ DANGER: Remove ENTIRE .cursor directory
-
-# Remote uninstall (download and run from any GitHub repo):
-curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash
-curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash -s -- --repo https://github.com/other/repo.git
-curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash -s -- --force
-curl -fsSL https://raw.githubusercontent.com/truongnat/skills/main/uninstall-remote.sh | bash -s -- --nuclear  # ⚠️ DANGER: Remove ENTIRE .cursor directory
 
 # Build skill index (for /route, /find-skill, /run-workflow slash commands)
 python scripts/build_skill_index.py

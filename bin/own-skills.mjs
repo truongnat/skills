@@ -222,7 +222,8 @@ function runInstallSkill(pyBin, bundleRoot, skillDir, projectDir, mode, allIdes)
     '--force',
   ];
   if (allIdes) args.push('--all-ides');
-  execFileSync(pyBin, args, { stdio: 'pipe' });
+  const out = execFileSync(pyBin, args, { stdio: 'pipe' });
+  return String(out || '');
 }
 
 function installAllSkills(pyBin, bundleRoot, skillsRoot, projectDir, mode, allIdes) {
@@ -233,20 +234,50 @@ function installAllSkills(pyBin, bundleRoot, skillsRoot, projectDir, mode, allId
   const spinner = ora({ text: `Installing ${skillDirs.length} skills...`, color: 'cyan' }).start();
   let ok = 0;
   let fail = 0;
+  let fallbackCopy = 0;
+  const errors = [];
   for (const skillDir of skillDirs) {
     const name = skillDir.split(/[\\/]/).pop();
     spinner.text = `Installing ${name}...`;
     try {
       runInstallSkill(pyBin, bundleRoot, skillDir, projectDir, mode, allIdes);
       ok++;
-    } catch {
+    } catch (err) {
+      // Windows commonly blocks symlink creation unless Developer Mode/admin is enabled.
+      if (mode === 'symlink') {
+        try {
+          runInstallSkill(pyBin, bundleRoot, skillDir, projectDir, 'copy', allIdes);
+          ok++;
+          fallbackCopy++;
+          continue;
+        } catch (retryErr) {
+          fail++;
+          const msg = String((retryErr && retryErr.stderr) || (retryErr && retryErr.message) || retryErr);
+          errors.push(`${name}: ${msg.split('\n')[0]}`);
+          continue;
+        }
+      }
       fail++;
+      const msg = String((err && err.stderr) || (err && err.message) || err);
+      errors.push(`${name}: ${msg.split('\n')[0]}`);
     }
   }
   if (fail > 0) {
     spinner.warn(chalk.yellow(`Installed ${ok}/${skillDirs.length} skills (${fail} failed)`));
+    if (errors.length > 0) {
+      const preview = errors.slice(0, 5).join('\n - ');
+      console.log(chalk.red(`Install errors (first ${Math.min(5, errors.length)}):\n - ${preview}`));
+    }
   } else {
-    spinner.succeed(chalk.green(`Installed ${ok} skills`));
+    if (fallbackCopy > 0) {
+      spinner.succeed(
+        chalk.green(
+          `Installed ${ok} skills (${fallbackCopy} used copy fallback because symlink was unavailable)`,
+        ),
+      );
+    } else {
+      spinner.succeed(chalk.green(`Installed ${ok} skills`));
+    }
   }
 }
 
@@ -428,12 +459,13 @@ async function cmdInstall(flags) {
     if (skillsOnly) {
       installAllSkills(pyBin, tempDir, join(tempDir, 'skills'), projectDir, 'copy', !cursorOnly);
     } else {
+      const fullInstallMode = process.platform === 'win32' ? 'copy' : 'symlink';
       const vendorDir = join(projectDir, 'vendor', 'own-skills');
       const spinner = ora({ text: `Syncing bundle to ${vendorDir} ...`, color: 'cyan' }).start();
       syncToVendor(tempDir, vendorDir);
       linkCursorRules(vendorDir, projectDir);
       spinner.succeed(chalk.green('Bundle synced'));
-      installAllSkills(pyBin, vendorDir, join(vendorDir, 'skills'), projectDir, 'symlink', !cursorOnly);
+      installAllSkills(pyBin, vendorDir, join(vendorDir, 'skills'), projectDir, fullInstallMode, !cursorOnly);
       console.log(chalk.cyan('Verify: python3 vendor/own-skills/scripts/verify_bundle_install.py'));
     }
   } finally {

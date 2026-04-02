@@ -88,6 +88,14 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Anti-patterns (summary)
+
+- **E2E-only coverage**, **implementation-detail assertions**, **real sleeps**, **retry-as-policy** — [references/anti-patterns.md](references/anti-patterns.md).
+
+### Integration with other skills (summary)
+
+- **`react-pro`**, **`nextjs-pro`**, **`nestjs-pro`**, **`security-pro`** — [references/integration-map.md](references/integration-map.md).
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — What to verify (risk, regression, contract) and which **framework skill** applies if any.
@@ -105,11 +113,27 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Automation & CI | [references/automation-and-ci.md](references/automation-and-ci.md) |
 | Tips and patterns | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases & flakiness | [references/edge-cases.md](references/edge-cases.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Decision trees | [references/decision-tree.md](references/decision-tree.md) |
+| Tooling versions | [references/versions.md](references/versions.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
 
 ## Quick example
 
+### 1 — Simple (common)
+
 **Input:** E2E suite is slow and flaky; team runs everything on every PR.  
 **Expected output:** Suggest split (smoke e2e on PR, full on main), parallel shards, stable selectors, deterministic data, and where to move checks to integration tests; point to **`nextjs-pro`** if failures involve RSC boundaries.
+
+### 2 — Tricky (edge case)
+
+**Input:** Tests pass alone but fail when the full file runs — order-dependent.  
+**Expected output:** Find shared mutable state, `beforeEach` reset, database transaction rollback strategy; forbid test interdependence.
+
+### 3 — Cross-skill
+
+**Input:** Need regression tests for IDOR fix in API.  
+**Expected output:** **`testing-pro`** for two-user fixture and negative assertions; **`nestjs-pro`** for how to spin `TestingModule` + HTTP; **`security-pro`** for the abuse scenario framing.
 
 ## Checklist before calling the skill done
 
@@ -118,5 +142,7 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] Deterministic data/time/network; no hidden sleeps as “fix”.
 - [ ] Flaky tests tracked; root cause or quarantine with issue link.
 - [ ] Selectors and API surfaces stable for maintenance.
+- [ ] **RTL query** priority respected (`role`/label before `testId`).
+- [ ] Security-sensitive paths have **negative** tests where applicable.
 - [ ] Coverage interpreted as signal, not a single number.
 - [ ] **Framework-specific** guidance delegated to the right **`react-pro`** / **`nextjs-pro`** / **`nestjs-pro`** / **`flutter-pro`** / **`react-native-pro`** / **`postgresql-pro`** when applicable — no duplicate of those skills’ scope.

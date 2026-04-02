@@ -1,28 +1,20 @@
-# Prompts
+# Prompts (job-to-be-done)
 
-Put reusable **Markdown** (`.md`) prompt files here, for example:
+Reusable **Markdown** prompts with `{{variables}}`. Organized by category; each file should follow the structure in **`templates/prompt/prompt-template.md`** (metadata, purpose, system + user sections).
 
-- `templates/` — one file per “template” with System / User sections and `{{variable_name}}` placeholders
-- `chains/` — (optional) multi-step chains described in Markdown, similar to [workflows/](../workflows/)
+| Category | Folder | Examples |
+|----------|--------|----------|
+| Planning | [`planning/`](planning/) | Feature planning, ADR prep, risk |
+| Review | [`review/`](review/) | Code, security, performance, API |
+| Debugging | [`debugging/`](debugging/) | Bug report, RCA, profiling |
+| Generation | [`generation/`](generation/) | Features, tests, docs, migrations |
+| Analysis | [`analysis/`](analysis/) | Codebase audit, dependencies, skill gaps |
+| Chains | [`chains/`](chains/) | Multi-step sequences |
 
-Example library and format notes: [templates/PROMPT_TEMPLATES.md](../templates/PROMPT_TEMPLATES.md) (described in Markdown; no required `.yaml`/`.yml`).
+**Legacy:** [`templates/example-skill-assisted-task.md`](templates/example-skill-assisted-task.md) — prefer [`planning/feature-planning.md`](planning/feature-planning.md).
 
-## Example prompt (minimal)
+**Broader library:** [`../templates/PROMPT_TEMPLATES.md`](../templates/PROMPT_TEMPLATES.md) (monolith index).
 
-Full file: [templates/example-skill-assisted-task.md](templates/example-skill-assisted-task.md). Short version:
+**Workflows:** [`../workflows/`](../workflows/) — executable step contracts.
 
-```markdown
-## System prompt
-
-You are a senior engineer. Pick the right `skills/*-pro/` skill(s) and explain why; break work into verifiable steps.
-
-## User prompt (template)
-
-**Goal:** {{feature_goal}}
-**Stack:** {{stack}}
-**Constraints:** {{constraints}}
-
-Return (1) MVP scope, (2) risk checklist, (3) skills to combine.
-```
-
-Replace `{{feature_goal}}`, `{{stack}}`, `{{constraints}}` with real values (or let the agent fill them) before sending to the model.
+**Output style:** [`../OUTPUT_CONVENTIONS.md`](../OUTPUT_CONVENTIONS.md).

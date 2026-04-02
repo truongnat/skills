@@ -106,6 +106,14 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Anti-patterns (summary)
+
+- **Client-only authz**, **tokens in localStorage for sensitive ops**, **PII in logs/URLs** — [references/anti-patterns.md](references/anti-patterns.md).
+
+### Integration map (summary)
+
+- Same table as **Related skills**, expanded with ownership: [references/integration-map.md](references/integration-map.md).
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — Asset, threat, or compliance driver; which **Related skill** implements the fix.
@@ -125,11 +133,24 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Offensive simulation & self-assessment | [references/offensive-simulation-and-self-assessment.md](references/offensive-simulation-and-self-assessment.md) |
 | Tips and patterns | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Decision trees | [references/decision-tree.md](references/decision-tree.md) |
+| Standards / versions | [references/versions.md](references/versions.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
 
 ## Quick example
 
+### 1 — Simple (common)
+
 **Input:** Public REST API returns 200 with another user’s order when `orderId` is guessed — possible IDOR.  
 **Expected output:** Recommend server-side **authorization** check on every read; deny by default; cite **BOLA**; point to **`nestjs-pro`** for Guard placement; add integration test per **`testing-pro`**.
+
+### 2 — Tricky (edge case)
+
+**Input:** Admin UI hides a button, but the API still performs the action when called directly.  
+**Expected output:** Classify as **broken access control**; enforce authz on server; UI hiding is not a control; add negative tests.
+
+### 3 — Cross-skill
 
 **Input:** Team wants a “hack ourselves” Friday on **staging** with a findings report.  
 **Expected output:** Scope + **ROE** checklist from [references/offensive-simulation-and-self-assessment.md](references/offensive-simulation-and-self-assessment.md); tool categories (SAST/DAST/SCA); severity matrix; **no** prod testing without approval; link **`testing-pro`** for regression tests.
@@ -142,3 +163,5 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] Framework-specific steps delegated to the right **`nestjs-pro`** / **`nextjs-pro`** / **`postgresql-pro`** / … skill.
 - [ ] Residual risks and **verification** path (tests, review, pen-test) noted.
 - [ ] If offensive simulation is discussed: **authorization**, **environment** (staging/lab), and **reporting** path are explicit.
+- [ ] **IDOR/BOLA** considered for any resource id exposed to clients.
+- [ ] **Multi-tenant** isolation called out when data mixes tenants or orgs.

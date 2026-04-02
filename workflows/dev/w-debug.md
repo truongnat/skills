@@ -11,7 +11,7 @@ Systematic **debugging** workflow using the scientific method: reproduce → hyp
 | Field | Value |
 |-------|-------|
 | **id** | `debug` |
-| **version** | 1.0 |
+| **version** | 1.1 |
 
 ## Inputs
 
@@ -21,6 +21,37 @@ Systematic **debugging** workflow using the scientific method: reproduce → hyp
 | `expected_behavior` | Yes | What should happen instead |
 | `domain_stack` | No | Stack hint (e.g., "React + NestJS") — maps to `*-pro` skills |
 | `repro_steps` | No | Minimal steps to reproduce; leave empty if unknown |
+
+## Decision paths
+
+- **Cannot reproduce after 2 structured attempts:** Widen inputs (env, seed, data); go to Step 2 with **logging plan**; if still blocked, stop with **repro gap** list — do not fix.
+- **Intermittent only:** Add instrumentation first (Step 2); prefer stress/race tools before code changes.
+- **Suspected security incident:** Add `security-pro` in Step 3; do not post secrets in logs.
+- **Production only:** Prioritize evidence from traces/metrics; treat local fix as hypothesis until verified against prod-like env.
+
+## Error handling
+
+- **Wrong root cause disproved:** Return to Step 3; do not stack fixes without verification.
+- **Fix breaks tests:** Roll back fix; re-isolate; add failing test before re-applying.
+- **No access to runtime:** Output **hypothesis + verification steps** only; label confidence **Low**.
+
+## Output format
+
+Use **[`OUTPUT_CONVENTIONS.md`](../../OUTPUT_CONVENTIONS.md)** for severity and progress tables when reporting status.  
+Root-cause write-up should include: **evidence**, **falsified alternatives**, **minimal fix**, **regression guard** — structure compatible with `prompts/debugging/root-cause-analysis.md` when used as a companion prompt.
+
+## Time estimate
+
+| Depth | When | Rough time |
+|-------|------|------------|
+| **Quick** | Obvious stack trace, single-file bug | < 30 min |
+| **Standard** | Multi-module or needs bisect | 1–3 h |
+| **Deep** | Intermittent, perf, distributed | > 3 h |
+
+## Escalation
+
+- **Autonomous:** Repro, isolate, minimal fix, test in dev/CI.
+- **Human:** Data loss, ongoing outage, **security breach**, need for prod access or on-call; **legal/compliance** review.
 
 ## Outputs
 

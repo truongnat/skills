@@ -32,7 +32,9 @@ skills/                        # repo root (remote install → vendor/own-skills
 │   ├── documents/             # Source .md for RAG
 │   └── embeddings/            # rag_*.npy, .json (generated, gitignored)
 ├── prompts/
-│   └── README.md
+│   ├── README.md
+│   ├── planning/, review/, debugging/, generation/, analysis/, chains/
+│   └── templates/example-skill-assisted-task.md
 ├── package.json               # npx CLI (`own-skills`) + Node deps
 ├── src/                       # TypeScript source (CLI + tool commands)
 │   ├── own-skills.ts
@@ -54,7 +56,7 @@ skills/                        # repo root (remote install → vendor/own-skills
 flowchart LR
   USER[User / Agent] --> SKILLS[skills/*-pro]
   USER --> WF[workflows/dev]
-  USER --> PROMPTS[prompts/templates]
+  USER --> PROMPTS[prompts/]
 
   SKILLS --> DOCS[knowledge-base/documents]
   WF --> DOCS
@@ -145,13 +147,19 @@ Conventions and **`w-<slug>.md`** naming: [`workflows/README.md`](workflows/READ
 | **`/w-hotfix`** | [`workflows/dev/w-hotfix.md`](workflows/dev/w-hotfix.md) | Prod-urgent fix path |
 | **`/w-code-review`** | [`workflows/dev/w-code-review.md`](workflows/dev/w-code-review.md) | Structured code review — severity-ranked feedback |
 | **`/w-debug`** | [`workflows/dev/w-debug.md`](workflows/dev/w-debug.md) | Systematic debugging — reproduce → isolate → fix → verify |
+| **`/w-security-audit`** | [`workflows/dev/w-security-audit.md`](workflows/dev/w-security-audit.md) | Security audit — threat surface + findings |
+| **`/w-arch-review`** | [`workflows/dev/w-arch-review.md`](workflows/dev/w-arch-review.md) | Architecture / design review |
+| **`/w-perf-investigation`** | [`workflows/dev/w-perf-investigation.md`](workflows/dev/w-perf-investigation.md) | Performance investigation |
+| **`/w-refactor`** | [`workflows/dev/w-refactor.md`](workflows/dev/w-refactor.md) | Safe refactor — tests-first |
+| **`/w-incident`** | [`workflows/dev/w-incident.md`](workflows/dev/w-incident.md) | Incident response — triage → mitigate → report |
 
 Index: [`workflows/dev/README.md`](workflows/dev/README.md) — Markdown step contracts; no automated runner required.
 
 ## Prompt templates
 
-- Layout: [`prompts/README.md`](prompts/README.md).
-- Examples: [`templates/PROMPT_TEMPLATES.md`](templates/PROMPT_TEMPLATES.md).
+- Layout: [`prompts/README.md`](prompts/README.md) — planning, review, debugging, generation, analysis, chains.
+- Monolith index: [`templates/PROMPT_TEMPLATES.md`](templates/PROMPT_TEMPLATES.md).
+- Authoring: [`templates/prompt/prompt-template.md`](templates/prompt/prompt-template.md).
 
 ## Cursor / Agent
 

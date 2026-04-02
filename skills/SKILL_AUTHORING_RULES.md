@@ -82,4 +82,36 @@ When you **add**, **remove**, or **rename** a bundled skill, or **add** a workfl
 
 ## 9. Review
 
-Before merge: section order matches §2; Workflow steps match §4; Suggested response labels match §5; no duplicate scope with existing skills without **Related skills** table explaining boundaries; **§8** is satisfied for any trigger in this change.
+Before merge: section order matches §2; Workflow steps match §4; Suggested response labels match §5; no duplicate scope with existing skills without **Related skills** table explaining boundaries; **§8** is satisfied for any trigger in this change. Use **§10** as a quality bar for substantive skill edits.
+
+## 10. Quality rubric — what "good" looks like
+
+Rate each dimension before merging substantive skill changes. A skill edit is **ready** when every row is **≥ 4** (acceptable) or **5** (strong).
+
+| Dimension | 1 (weak) | 3 (acceptable) | 5 (strong) |
+|-----------|----------|------------------|------------|
+| **Operating principles** | Generic ("use best practices") | Concrete rules + brief rationale | **Decision-forcing:** which option to pick when two are valid |
+| **Trigger coverage** | Misses common phrasings | Obvious terms covered | Slang, version names, error fragments, adjacent concepts |
+| **Reference depth** | One thin file | 2–3 files, some examples | 4+ files; examples + anti-pattern + "when NOT to use" where needed |
+| **Quick examples** | One simple case | Simple + one edge case | **Three:** simple, tricky, cross-skill |
+| **Checklist** | 3–4 vague items | 5–6 specific items | 7+ items, each verifiable without human judgment |
+
+## 11. Prompt-engineering guidance for skill consumers
+
+When an agent (or human) invokes a skill:
+
+- **Context:** Include stack, constraints, severity, and what was already tried.
+- **One job per invocation:** Do not ask one prompt to plan + implement + review end-to-end; chain steps or workflows instead.
+- **Combining skills:** Name both skills; state what each owns (e.g. `security-pro` = threat model; `nestjs-pro` = wiring).
+
+## 12. When to update a skill vs add a new one
+
+```
+New topic:
+├── Listed in §1 as covered by an existing skill?
+│   └── Yes → Extend that skill; add or edit references/*.md
+├── Would the SKILL.md section alone exceed ~300 lines if merged?
+│   └── Yes → Split: narrow the existing skill + add a sibling (new folder) with distinct triggers
+└── Distinct job-to-be-done and trigger keywords?
+    └── Yes → New skill; satisfy §1–§9 and §8 repo updates before merge
+```

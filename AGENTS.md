@@ -27,6 +27,13 @@ Use these commands to analyze, optimize, and route prompts to the best skills:
 | `/w-ticket` | Run the **ticket** workflow ([`workflows/dev/w-ticket.md`](workflows/dev/w-ticket.md)) — Kanban; layout and phases in that file (skills under [`skills/`](skills/)) |
 | `/w-release` | Run the **release** workflow ([`workflows/dev/w-release.md`](workflows/dev/w-release.md)) — release notes → implementation detail |
 | `/w-hotfix` | Run the **hotfix** workflow ([`workflows/dev/w-hotfix.md`](workflows/dev/w-hotfix.md)) — prod-urgent fix path |
+| `/w-code-review` | Structured code review ([`workflows/dev/w-code-review.md`](workflows/dev/w-code-review.md)) |
+| `/w-debug` | Systematic debugging ([`workflows/dev/w-debug.md`](workflows/dev/w-debug.md)) |
+| `/w-security-audit` | Security audit ([`workflows/dev/w-security-audit.md`](workflows/dev/w-security-audit.md)) |
+| `/w-arch-review` | Architecture review ([`workflows/dev/w-arch-review.md`](workflows/dev/w-arch-review.md)) |
+| `/w-perf-investigation` | Performance investigation ([`workflows/dev/w-perf-investigation.md`](workflows/dev/w-perf-investigation.md)) |
+| `/w-refactor` | Safe refactor ([`workflows/dev/w-refactor.md`](workflows/dev/w-refactor.md)) |
+| `/w-incident` | Incident response ([`workflows/dev/w-incident.md`](workflows/dev/w-incident.md)) |
 
 Commands read from `knowledge-base/embeddings/skill_index.json`. Rebuild after adding/changing skills:
 
@@ -45,7 +52,7 @@ Agents should prefer:
 
 ## Workflows
 
-Bundled **dev** workflows: [`workflows/dev/README.md`](workflows/dev/README.md) — **`/w-ticket`**, **`/w-release`**, **`/w-hotfix`**, **`/w-code-review`**, **`/w-debug`** (see paths in dev README). Naming: runnable workflow files **`w-<slug>.md`** — see [`workflows/README.md`](workflows/README.md#naming). For ticket flow, **`kanban/<ticket>/`** layout and steps are in [`workflows/dev/w-ticket.md`](workflows/dev/w-ticket.md).
+Bundled **dev** workflows: [`workflows/dev/README.md`](workflows/dev/README.md) — ticket, release, hotfix, code review, debug, security audit, arch review, perf investigation, refactor, incident (see table in dev README). Naming: runnable workflow files **`w-<slug>.md`** — see [`workflows/README.md`](workflows/README.md#naming). For ticket flow, **`kanban/<ticket>/`** layout and steps are in [`workflows/dev/w-ticket.md`](workflows/dev/w-ticket.md).
 
 ## Configuration
 

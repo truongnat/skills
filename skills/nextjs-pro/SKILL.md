@@ -75,6 +75,14 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Anti-patterns (summary)
+
+- **Client boundary too high**, **`NEXT_PUBLIC_` secrets**, **unvalidated Server Actions**, **middleware over-match** — [references/anti-patterns.md](references/anti-patterns.md).
+
+### Integration with other skills (summary)
+
+- **`react-pro`**, **`security-pro`**, **`testing-pro`**, **`deployment-pro`** — see [references/integration-map.md](references/integration-map.md).
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — Route, data, or deploy context.
@@ -92,11 +100,27 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Server / client boundaries | [references/server-client-boundaries.md](references/server-client-boundaries.md) |
 | Tips and patterns | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases and ops | [references/edge-cases.md](references/edge-cases.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Decision trees | [references/decision-tree.md](references/decision-tree.md) |
+| Version notes | [references/versions.md](references/versions.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
 
 ## Quick example
 
+### 1 — Simple (common)
+
 **Input:** Page needs `headers()` but the team wants static generation — errors or unwanted dynamic behavior.  
 **Expected output:** Explain dynamic APIs; split client, opt into `dynamic`, or refactor so headers are not read on a static path.
+
+### 2 — Tricky (edge case)
+
+**Input:** Server Action works in dev but fails in prod with cryptic errors when using Node-only APIs.  
+**Expected output:** Check runtime (Edge vs Node) for the route/action; move Node-only code to Route Handler with `runtime = 'nodejs'` or refactor; verify env on server only.
+
+### 3 — Cross-skill
+
+**Input:** Auth redirect in `middleware` vs in layout — inconsistent redirects between routes.  
+**Expected output:** **`nextjs-pro`** for matcher scope and ordering; **`security-pro`** for session validation rules; **`react-pro`** only for client-only fallbacks; single table of who redirects when.
 
 ## Checklist before calling the skill done
 
@@ -105,3 +129,5 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] Secrets and DB credentials only on server.
 - [ ] `next/image` and remote patterns configured for production domains.
 - [ ] Middleware matcher does not over-run on static assets.
+- [ ] Server Actions have validation + authorization on the server.
+- [ ] Dynamic vs static expectations match use of `headers()` / `cookies()` / search params.

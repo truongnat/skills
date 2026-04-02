@@ -11,7 +11,7 @@ Structured **code review** using bundled skills under [`skills/`](../../skills/)
 | Field | Value |
 |-------|-------|
 | **id** | `code-review` |
-| **version** | 1.0 |
+| **version** | 1.1 |
 
 ## Inputs
 
@@ -20,6 +20,39 @@ Structured **code review** using bundled skills under [`skills/`](../../skills/)
 | `review_target` | Yes | PR URL, branch name, file list, or pasted diff |
 | `domain_stack` | No | Stack hint (e.g., "React + NestJS + PostgreSQL") — maps to `*-pro` skills |
 | `review_focus` | No | Specific concerns: "security only", "performance", "test coverage" |
+
+## Decision paths
+
+- **No diff / empty PR:** Stop after Step 1; ask for `review_target` or paste.
+- **`review_focus` set:** Run only the steps that match (e.g. security-only → Step 3 + Step 7); still produce a short summary stating scope.
+- **Large diff (>500 lines changed)** — In Step 2, apply **risk tier** (see Step 2); in Step 7, set **Review scope** to **Partial** and list skipped paths.
+- **Auth/payments/data deletion:** Never skip Steps 3–4 for those files even under time pressure.
+- **Pure formatting / lockfile-only:** Skip Steps 4–5 unless `review_focus` requests them; note in report.
+
+## Error handling
+
+- **Cannot access repo:** Stop; output checklist: branch name, `git diff` range, or paste diff.
+- **Step fails (missing tool, timeout):** Record partial findings; **do not** invent file:line references.
+- **Merge conflicts:** Recommend resolving conflicts before review; if still asked, review base vs target explicitly.
+- **Rollback:** No repo state change in this workflow; if bad advice was given, append correction in a follow-up note.
+
+## Output format
+
+Follow **[`OUTPUT_CONVENTIONS.md`](../../OUTPUT_CONVENTIONS.md)** (severity emoji, callouts).  
+Final artifact MUST align with **[`templates/report/code-review.md`](../../templates/report/code-review.md)** (Verdict table, 🔴/🟡/🟢 sections, action items).
+
+## Time estimate
+
+| Depth | When | Rough time |
+|-------|------|------------|
+| **Quick** | Single file or < 200 lines | < 30 min |
+| **Standard** | Typical PR | 1–3 h |
+| **Deep** | Large diff, full stack, security focus | > 3 h |
+
+## Escalation
+
+- **Autonomous:** Correctness, style, tests, performance within pasted diff.
+- **Human:** Legal/compliance, production incident context, **ambiguous auth** (missing product owner); **merge conflicts** blocking understanding.
 
 ## Outputs
 
@@ -47,6 +80,7 @@ Structured **code review** using bundled skills under [`skills/`](../../skills/)
   1. Check logic correctness: edge cases, null handling, off-by-one, async race conditions.
   2. Verify API contracts: method signatures, return types, error propagation.
   3. Check for regressions in existing behavior.
+  4. **Large diff (>500 lines):** Prioritize by **risk tier** — **Tier 1** (always review): auth, payments, data deletion, migrations, secrets; **Tier 2**: business logic, API surface, persistence; **Tier 3** (sample or spot-check): formatting, copy-only, pure UI with no data path. State what was skipped in the report.
 - **Output:** Correctness findings (Blocker / Important).
 
 ### Step 3 — `security-review`
@@ -106,28 +140,33 @@ Structured **code review** using bundled skills under [`skills/`](../../skills/)
   1. Deduplicate and group findings by file/component.
   2. Assign severity: **Blocker** (must fix before merge) / **Important** (should fix) / **Minor** (optional) / **Praise** (highlight good patterns).
   3. Write each finding as: Location → Issue → Recommendation → Code example (if helpful).
-  4. Summarize risks at the top.
+  4. Summarize risks at the top; include **Verdict** line (🔴 / 🟡 / 🟢) and **Review scope** (Full / Partial).
+  5. Use the structure in **[`templates/report/code-review.md`](../../templates/report/code-review.md)** and emoji severity from **[`OUTPUT_CONVENTIONS.md`](../../OUTPUT_CONVENTIONS.md)**.
 - **Output:** `review_report`, `action_items`, `risk_summary`.
 
 ## Suggested review format
 
-```
-## Summary
-[2-3 sentences: overall quality, main risks, merge recommendation]
+Use the **[code review report template](../../templates/report/code-review.md)** (Verdict table, numbered findings, action-item checklist). Minimal inline shape:
 
-## Blockers (must fix before merge)
-- **`src/auth/middleware.ts:45`** — Missing authorization check on admin endpoint.
-  → Add `requireRole('admin')` guard before handler.
+```markdown
+# Code Review — {{pr_title}}
 
-## Important
-- **`src/users/service.ts:120`** — N+1 query: loading user preferences in a loop.
-  → Batch-fetch with `WHERE user_id IN (...)`.
+> **Verdict:** 🔴 DO NOT MERGE / 🟡 MERGE WITH FIXES / 🟢 APPROVE
 
-## Minor
-- **`src/utils/format.ts:12`** — Variable `d` should be named `durationMs` for clarity.
+### Risk summary
+[2–3 sentences]
 
-## Praise
-- Good use of database transactions in `createOrder` — rollback on partial failure.
+### 🔴 Blockers
+- **`path:L45`** — [issue] → [fix]
+
+### 🟡 Important
+...
+
+### 🟢 Minor
+...
+
+### ✅ Praise
+...
 ```
 
 ## Notes

@@ -88,6 +88,14 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Anti-patterns (summary)
+
+- **`as` silencing**, **`any` in public APIs**, **path alias mismatch** — [references/anti-patterns.md](references/anti-patterns.md).
+
+### Integration with other skills (summary)
+
+- **`react-pro`**, **`nestjs-pro`**, **`testing-pro`** — [references/integration-map.md](references/integration-map.md).
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — Type error, design question, or migration task.
@@ -105,11 +113,27 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Compiler config | [references/tsconfig.md](references/tsconfig.md) |
 | Tips and tricks | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Decision trees | [references/decision-tree.md](references/decision-tree.md) |
+| Version notes | [references/versions.md](references/versions.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
 
 ## Quick example
 
-**Input:** TypeScript error `Type 'string | undefined' is not assignable to type 'string'` after enabling `strictNullChecks`.
+### 1 — Simple (common)
+
+**Input:** TypeScript error `Type 'string | undefined' is not assignable to type 'string'` after enabling `strictNullChecks`.  
 **Expected output:** Explain null narrowing; show `if (x !== undefined)` guard, optional chaining `x?.trim()`, and nullish coalescing `x ?? 'default'`; note when to use non-null assertion `!` and when not to.
+
+### 2 — Tricky (edge case)
+
+**Input:** `satisfies` vs `: Config` vs `as Config` for a large config object — which to pick?  
+**Expected output:** Prefer `satisfies Config` to validate without widening literals; use `: Config` when intentional widening; reserve `as` for narrow escape with comment.
+
+### 3 — Cross-skill
+
+**Input:** React component props typed with `any` for `children` and event handlers.  
+**Expected output:** **`typescript-pro`** for `ReactNode`, `ComponentProps`, `MouseEvent` typing; **`react-pro`** for whether composition/API is idiomatic.
 
 ## Checklist before calling the skill done
 
@@ -118,4 +142,6 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] `tsconfig.json` `module`/`moduleResolution` match the build tool.
 - [ ] Discriminated unions or type guards used for narrowing; no blind `as` casts.
 - [ ] `import type` used for type-only imports when `isolatedModules` is enabled.
+- [ ] External input validated at boundaries (schema) when runtime shape matters.
+- [ ] `satisfies` / `as const` considered before widening or assertion.
 - [ ] Public library APIs use `interface` for extensibility; `.d.ts` emitted if publishing.

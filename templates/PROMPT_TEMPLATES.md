@@ -2,7 +2,9 @@
 
 Reusable prompt templates for many tasks.
 
-**Repo convention:** store templates as **Markdown** (`.md` files under `prompts/templates/`). The blocks below illustrate the *same information*; the rest of the file may still use fenced `key: value` blocks — for new templates prefer Markdown (headings + variable table + System/User sections).
+**Prefer granular prompts** by job-to-be-done under [`../prompts/`](../prompts/) (`planning/`, `review/`, `debugging/`, `generation/`, `analysis/`, `chains/`) and the authoring scaffold [`prompt/prompt-template.md`](prompt/prompt-template.md). This file remains a **monolith index** and legacy examples.
+
+**Repo convention:** store templates as **Markdown** (`.md`). The blocks below illustrate the *same information*; the rest of the file may still use fenced `key: value` blocks — for new templates prefer Markdown (headings + variable table + System/User sections).
 
 ## Template structure (Markdown)
 

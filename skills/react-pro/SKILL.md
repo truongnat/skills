@@ -74,6 +74,14 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Anti-patterns (summary)
+
+- **Conditional hooks**, **index keys on mutable lists**, **`{...props}` to DOM**, **effects instead of derived state**, **memo/useCallback without measurement** — see [references/anti-patterns.md](references/anti-patterns.md).
+
+### Integration with other skills (summary)
+
+- Common pairs: **`nextjs-pro`** (RSC boundaries), **`testing-pro`** (RTL), **`typescript-pro`** (TSX). See [references/integration-map.md](references/integration-map.md).
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — Bug, feature, or review ask.
@@ -91,11 +99,27 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | UI / UX and semantics | [references/ui-ux-design.md](references/ui-ux-design.md) |
 | Tips and patterns | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Decision trees | [references/decision-tree.md](references/decision-tree.md) |
+| Version notes | [references/versions.md](references/versions.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
 
 ## Quick example
 
+### 1 — Simple (common)
+
 **Input:** Hydration mismatch warning when rendering `new Date().toLocaleString()` in a server-rendered page.  
 **Expected output:** Explain client vs server output; use `useEffect` + state, or `suppressHydrationWarning` with a justified reason, plus a snippet.
+
+### 2 — Tricky (edge case)
+
+**Input:** List reorders in place but local `useState` keyed by index shows wrong row selected after sort.  
+**Expected output:** Replace index keys with stable ids; explain why identity must follow domain objects; optional `key` on controlled sub-trees.
+
+### 3 — Cross-skill
+
+**Input:** Next.js App Router page mixes `useState` with data that actually comes from the server on every navigation.  
+**Expected output:** Split server vs client: **`nextjs-pro`** for RSC/`fetch` and URL as source of truth; **`react-pro`** for client-only UI state; avoid duplicating server data in client state without a reason.
 
 ## Checklist before calling the skill done
 
@@ -104,3 +128,5 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] Interactive elements are keyboard-accessible; modals trap focus where required.
 - [ ] No hydration warnings in SSR apps; client-only APIs behind `useEffect` or dynamic import.
 - [ ] Loading and error states for async UI.
+- [ ] Hooks are unconditional; no hook rules violations.
+- [ ] Derived state is not duplicated in `useState` when computable from props/state in render.

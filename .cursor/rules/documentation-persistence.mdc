@@ -28,7 +28,7 @@ Write **short** notes after events (not full chat logs):
 ## Required when adding a new `.md` under `documents/`
 
 1. Add a row to **[`knowledge-base/INDEX.md`](../../knowledge-base/INDEX.md)**.
-2. If using RAG: `python scripts/build_kb.py` then `python scripts/verify_kb.py`.
+2. If using RAG: `node dist/tools.js build-kb` then `node dist/tools.js verify-kb` (from repo root; see [`scripts/README.md`](../../scripts/README.md)).
 
 ## Do not
 

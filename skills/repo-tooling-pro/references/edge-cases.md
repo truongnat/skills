@@ -1,7 +1,13 @@
 # Repo tooling edge cases
 
-- **Batch query OOM** — Very large embedding matrices + huge batch of long queries can spike RAM; reduce batch size or split `queries.txt`.
-- **Wrong cwd** — Scripts assume **repo root** as working directory; run from project root.
-- **Missing index** — Batch fails the same way as single `query_kb.py` if `build_kb` not run.
-- **Windows console** — UTF-8 handling matches `query_kb.py` (stdout wrapper where needed).
-- **Template skill** — `list_skills --include-template` includes `examples/skill-template`; `validate_skills` only checks it with `--include-template`.
+- **Batch query OOM** — Very large embedding batches + many long prompts can spike RAM; split queries across runs or reduce concurrent work.
+
+- **Wrong cwd** — Commands assume **repo root** as working directory; run from project root so paths to `knowledge-base/` and `config.md` resolve.
+
+- **Missing index** — `query-kb` / `query-kb-batch` fail if **`build-kb`** was not run or artifacts are stale.
+
+- **Windows console** — Prefer **UTF-8** terminal for paths and JSON; PowerShell encoding quirks can garble output when piping.
+
+- **Template skill** — `list-skills` may include `examples/skill-template` with flags; **`validate-skills`** behavior matches tool help for template inclusion.
+
+- **`dist/` missing** — Run **`npm install`** and **`npm run build`** (see root **`package.json`**) so `dist/tools.js` exists before invoking CLI.

@@ -6,7 +6,7 @@ Self-review scripts only check **heuristic** automation keywords and **repo** sc
 
 ## Workflow (combine skills)
 
-1. Run **`python scripts/analyze_skills.py --self-review`** (local bundle state).
+1. Run **`node dist/tools.js analyze-skills --self-review`** (local bundle state).
 2. For each **domain** skill you maintain, use **`web-research-pro`** to verify **official** docs and **release notes** (version the user/project targets).
 3. Prefer **Context7 MCP** (or project `plugin-context7`) for **library** API references when available — official docs over random blogs.
 4. Record **conclusions** in **`knowledge-base/documents/repo/activity-log.md`** or a short note under `documents/repo/` (update **`INDEX.md`**).

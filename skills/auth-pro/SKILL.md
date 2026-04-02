@@ -82,6 +82,18 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision trees (summary)
+
+- **Session vs JWT vs opaque token**, **OAuth/OIDC vs custom**, **RBAC vs ABAC vs ReBAC**, **mTLS vs API key** — see trees.
+
+Details: [references/decision-tree.md](references/decision-tree.md)
+
+### Anti-patterns (summary)
+
+- Trusting client roles, long-lived access tokens, refresh in `localStorage`, missing CSRF on cookie sessions — see reference.
+
+Details: [references/anti-patterns.md](references/anti-patterns.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** - Auth problem, actors, and required assurance.
@@ -100,11 +112,25 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Token/session lifecycle | [references/token-session-lifecycle.md](references/token-session-lifecycle.md) |
 | Tips | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision trees | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
 
 ## Quick example
 
+### 1 — Simple (common)
+
 **Input:** "Need full auth for web + mobile + API partners. Which methods should we use?"  
 **Expected output:** Method matrix (session/JWT/OAuth/API key), authz model (RBAC+ABAC), token/session lifecycle controls, and prioritized rollout with testing and residual risks.
+
+### 2 — Tricky (edge case)
+
+**Input:** JWT access token includes `role: admin` claim; API trusts it for `/admin` routes.  
+**Expected output:** Reject; authz must be server-side from DB/policy; JWT is identity carrier only; cite [anti-patterns.md](references/anti-patterns.md).
+
+### 3 — Cross-skill
+
+**Input:** Multi-tenant SaaS — ensure tenant A cannot read tenant B’s rows.  
+**Expected output:** **`auth-pro`** identity + policy; **`postgresql-pro`** RLS policies and indexes; **`nestjs-pro`** transaction + `SET LOCAL` if applicable.
 
 ## Checklist before calling the skill done
 
@@ -113,3 +139,4 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] Authz model and server-side enforcement points are clear.
 - [ ] Token/session lifecycle controls are complete (issue/rotate/revoke/expire).
 - [ ] Residual risks and verification strategy are documented.
+- [ ] Client-side-only authorization is not relied on for sensitive operations.

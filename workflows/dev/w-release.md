@@ -21,6 +21,36 @@ Turn **release notes** (bullets, changelog intent, stakeholder summary) into **a
 | `version_target` | No | Semver or release name (e.g. `2.4.0`, `2026-Q2`) — ask if unclear |
 | `stack` | No | Primary runtime(s) for mapping tasks to `*-pro` skills |
 
+## Decision paths
+
+- **`release_notes` vague:** Loop Step 1–2 until acceptance criteria and **must-ship** vs **defer** are explicit.
+- **No `version_target`:** Infer from branch/tag policy or ask once; do not invent semver without confirmation.
+- **Hotfix-level urgency:** If prod is down, switch mentally to [`w-hotfix.md`](w-hotfix.md) instead of full release sequencing.
+
+## Error handling
+
+- **Conflicting must-ship items:** Surface trade-off table; do not silently drop scope.
+- **CI/deploy steps unknown:** Document **assumptions** and verification gaps in `verification` output.
+- **Rollback undefined:** Block `ship_definition` completion until rollback lever is named (even high-level).
+
+## Output format
+
+Follow **[`OUTPUT_CONVENTIONS.md`](../../OUTPUT_CONVENTIONS.md)** — use tables for scope/themes, 🔴/🟡/🟢 or progress emojis for risk/gates where helpful, and **[!NOTE]** / **[!WARNING]** for rollout assumptions.  
+Structured plans can align with **[`templates/report/architecture-decision-record.md`](../../templates/report/architecture-decision-record.md)** when the release encodes a major decision.
+
+## Time estimate
+
+| Depth | When | Rough time |
+|-------|------|------------|
+| **Quick** | Patch release, narrow notes | < 4 h |
+| **Standard** | Minor/minor+ with several workstreams | 1–3 days |
+| **Deep** | Major version, multi-team, migrations | > 1 week |
+
+## Escalation
+
+- **Autonomous:** Decomposing notes into tasks, skill mapping, checklist drafts.
+- **Human:** Release calendar, customer comms, **freeze** policy, budget for infra/QA.
+
 ## Outputs
 
 | Variable | Description |

@@ -2,8 +2,8 @@
 
 ## Automated
 
-1. **`python scripts/validate_skills.py`** — `name:` in frontmatter must match folder basename; fails CI if drift.
-2. **`python scripts/list_skills.py --json`** — inventory for “did we forget a row in README?”
+1. **`node dist/tools.js validate-skills`** — `name:` in frontmatter must match folder basename; fails CI if drift.
+2. **`node dist/tools.js list-skills --json`** — inventory for “did we forget a row in README?”
 
 ## Manual (agent or human)
 

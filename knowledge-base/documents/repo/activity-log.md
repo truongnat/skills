@@ -3,7 +3,7 @@
 | title | Activity and decisions log |
 | summary | Dated entries: user/agent decisions, audits, follow-ups for this skills template repo |
 | tags | repo, activity, decisions |
-| updated | 2026-04-01 |
+| updated | 2026-04-02 |
 
 # Activity and decisions log
 
@@ -12,6 +12,26 @@
 **Policy:** See [documentation-persistence.md](../policies/documentation-persistence.md) and Cursor rule **`.cursor/rules/documentation-persistence.mdc`**.
 
 ---
+
+### 2026-04-02
+
+- **Change:** **IMPROVEMENT_PLAN.md** — added **Implementation status** (rolling snapshot + `build-skill-index` convention); **Diagnosis** labeled historical baseline. **`prompts/README.md`** — §4.2 compliance table (Few-shot / Chain audit backlog). **`skills/SKILL_AUTHORING_RULES.md`** §8 — row for substantive skill edits → **`node dist/tools.js build-skill-index`**.
+
+- **Change:** **Templates sweep:** [`templates/PROMPT_TEMPLATES.md`](../../../templates/PROMPT_TEMPLATES.md) — “Using templates” now documents **`node dist/tools.js`** + `prompts/` (removed nonexistent `use_template.py`); banners/repo notes on [`templates/SKILL_SYSTEM_GUIDE.md`](../../../templates/SKILL_SYSTEM_GUIDE.md), [`templates/COOL_TECHNOLOGIES.md`](../../../templates/COOL_TECHNOLOGIES.md); fixed header + LangChain section + repo note on [`templates/GITHUB_DEPLOYMENT_GUIDE.md`](../../../templates/GITHUB_DEPLOYMENT_GUIDE.md).
+
+- **Change:** **IMPROVEMENT_PLAN wave (mobile + desktop):** **`react-native-pro`**, **`flutter-pro`**, **`electron-pro`** — added `references/` (`anti-patterns`, `decision-tree`, `integration-map`, `versions`) and **`SKILL.md`** updates (Operating principles, Anti-patterns / decision / integration / versions summaries, Resources, three Quick examples, checklist). Ran `node dist/tools.js build-skill-index`.
+
+- **Change:** **Docs sweep (Python → Node CLI):** updated **`skills-self-review-pro`** (`SKILL.md`, `references/*`), **`knowledge-base/VERIFY.md`**, **`README.md`**, **`embeddings/README.md`**, runbook **`rebuild-knowledge-base-index.md`**, **`config.example.md`**, **`templates/config.template.md`**, **`templates/START_HERE.md`**, **`PROJECT_GAP_ANALYSIS.md`**, **`web-research-pro`** workflow reference; **`.cursor/rules/documentation-persistence.mdc`**; policy **`documentation-persistence.md`** — commands use **`node dist/tools.js`** per [`scripts/README.md`](../../../scripts/README.md).
+
+- **Change:** **Repo tooling + workflows:** rewrote [`skills/repo-tooling-pro/`](../../../skills/repo-tooling-pro/) (frontmatter, `SKILL.md`, `references/*`) for **Node** `dist/tools.js` / `npm` (removed Python/venv drift); updated [`skills/README.md`](../../../skills/README.md) bundle-audit commands. Added **Decision paths**, **Error handling**, **Output format** (link [`OUTPUT_CONVENTIONS.md`](../../../OUTPUT_CONVENTIONS.md)), **Time estimate**, **Escalation** to [`workflows/dev/w-ticket.md`](../../../workflows/dev/w-ticket.md) (v1.2), [`w-release.md`](../../../workflows/dev/w-release.md), [`w-hotfix.md`](../../../workflows/dev/w-hotfix.md).
+
+- **Change:** **Support skills depth:** expanded **`planning-pro`**, **`feedback-pro`**, **`git-operations-pro`** — richer `tips-and-tricks.md` and `edge-cases.md` (examples: phased plans, finding tables, `git` command blocks); optional **`decision-tree.md`** + **`anti-patterns.md`** per skill; updated **`SKILL.md`** (summaries, Resources, three Quick examples, checklist). Ran `build-skill-index` / `validate-skills`.
+
+- **Change:** **IMPROVEMENT_PLAN Phase 6 (start):** added core/mid-tier `references/` depth — **`nestjs-pro`**, **`postgresql-pro`** (`decision-tree`, `integration-map`, `anti-patterns`, `versions`) + **`SKILL.md`** updates; **`docker-pro`**, **`ci-cd-pro`**, **`auth-pro`**, **`caching-pro`** (`decision-tree`, `anti-patterns`; **ci-cd** also `tips-and-tricks`, `edge-cases`); **`ai-integration-pro`** (`decision-tree`, `anti-patterns`, `tips-and-tricks`, `edge-cases`, `integration-map`, `versions`). Expanded **Quick example** to three scenarios and **Resources** tables where updated. Ran `node dist/tools.js build-skill-index`.
+
+- **Change:** Completed **IMPROVEMENT_PLAN** §3.2 gap: added workflows [`w-data-migration.md`](../../../workflows/dev/w-data-migration.md), [`w-onboarding.md`](../../../workflows/dev/w-onboarding.md), [`w-api-design.md`](../../../workflows/dev/w-api-design.md), [`w-test-strategy.md`](../../../workflows/dev/w-test-strategy.md), [`w-dep-audit.md`](../../../workflows/dev/w-dep-audit.md) with Cursor slash stubs under [`.cursor/commands/`](../../../.cursor/commands/); updated root **README**, **AGENTS**, [`workflows/README.md`](../../../workflows/README.md), [`workflows/dev/README.md`](../../../workflows/dev/README.md).
+
+- **Source:** user + agent
 
 ### 2026-04-01
 

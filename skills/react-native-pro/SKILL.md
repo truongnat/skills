@@ -36,6 +36,9 @@ Use official React Native and Expo docs for API details; this skill encodes **pr
 3. **Explicit boundaries** — Separate presentational vs container logic; keep side effects (subscriptions, linking) in `useEffect` with cleanup.
 4. **Verify versions in-repo** — Check `package.json` / Expo SDK before suggesting APIs that changed across majors.
 5. **Accessibility by default** — Labels, roles, contrast, and focus order where interactive elements exist.
+6. **Navigation state is explicit** — Prefer typed routes / params; avoid hidden globals for navigation.
+7. **Images and assets** — Size for display density; avoid blocking JS thread with huge decode work.
+8. **EAS / native builds** — Align `app.json` / Gradle / Xcode settings with docs when suggesting native changes.
 
 ### UI / UX (summary)
 
@@ -67,6 +70,30 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Anti-patterns (summary)
+
+- Index keys, skipping SafeArea, `nodeIntegration`-style mistakes, fat `renderItem` — see list in reference.
+
+Details: [references/anti-patterns.md](references/anti-patterns.md)
+
+### Decision trees (summary)
+
+- Expo vs bare, FlatList vs FlashList, navigation choice — see trees.
+
+Details: [references/decision-tree.md](references/decision-tree.md)
+
+### Integration map (summary)
+
+- When combining with **`react-pro`**, **`testing-pro`**, **`deployment-pro`** — ownership split in table.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Version notes (summary)
+
+- Expo SDK + RN major — verify upgrade matrices before API suggestions.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — What is wrong or what we are building.
@@ -83,11 +110,27 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | UI/UX design | [references/ui-ux-design.md](references/ui-ux-design.md) |
 | Tips & performance | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Decision trees | [references/decision-tree.md](references/decision-tree.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Version notes | [references/versions.md](references/versions.md) |
 
 ## Quick example
 
+### 1 — Simple (common)
+
 **Input:** `FlatList` scroll jank on a long chat list; user is on a recent Expo SDK.  
 **Expected output:** Suggest `keyExtractor`, memoized row, tune `windowSize`/`maxToRenderPerBatch`, consider FlashList after profiling; short snippet.
+
+### 2 — Tricky (edge case)
+
+**Input:** Android back button closes app from a nested stack instead of popping modal.  
+**Expected output:** `BackHandler` + navigation listener ordering; document `gestureEnabled` / stack vs modal; test cold start deep link.
+
+### 3 — Cross-skill
+
+**Input:** Need secure token storage for API calls from RN app.  
+**Expected output:** **`react-native-pro`** for secure storage libs / Keystore; **`security-pro`** for threat model; avoid rolling crypto in JS alone.
 
 ## Checklist before calling the skill done
 
@@ -97,3 +140,4 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] Lists: keys stable; no obvious O(n²) patterns; images bounded.
 - [ ] Loading / error / empty states for async UIs.
 - [ ] Android back and iOS swipe-back behavior considered for stacks and modals.
+- [ ] [anti-patterns.md](references/anti-patterns.md) considered for list keys and layout assumptions.

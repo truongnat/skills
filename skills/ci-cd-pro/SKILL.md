@@ -89,6 +89,30 @@ Details: [references/optimization.md](references/optimization.md)
 
 Details: [references/deployment-strategies.md](references/deployment-strategies.md)
 
+### Decision trees (summary)
+
+- **Reusable workflow vs composite vs matrix**, **OIDC vs long-lived secrets**, **canary vs blue-green** — see trees.
+
+Details: [references/decision-tree.md](references/decision-tree.md)
+
+### Anti-patterns (summary)
+
+- Unpinned actions, bad cache keys, missing concurrency, secrets on fork PRs — see reference.
+
+Details: [references/anti-patterns.md](references/anti-patterns.md)
+
+### Tips and tricks (summary)
+
+- Fail-fast job order, artifacts on failure, matrix trimming, environment protection — expanded in reference.
+
+Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
+
+### Edge cases (summary)
+
+- Merge queue ordering, flaky retries, OIDC misconfiguration, Windows/Linux matrix differences.
+
+Details: [references/edge-cases.md](references/edge-cases.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — Pipeline problem, new workflow design, or deployment strategy question.
@@ -106,11 +130,27 @@ Details: [references/deployment-strategies.md](references/deployment-strategies.
 | Secrets and security | [references/secrets-security.md](references/secrets-security.md) |
 | Pipeline optimization | [references/optimization.md](references/optimization.md) |
 | Deployment strategies | [references/deployment-strategies.md](references/deployment-strategies.md) |
+| Decision trees | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Tips and tricks | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
+| Edge cases | [references/edge-cases.md](references/edge-cases.md) |
 
 ## Quick example
 
-**Input:** GitHub Actions workflow that runs tests takes 12 minutes; `npm install` runs every time.
+### 1 — Simple (common)
+
+**Input:** GitHub Actions workflow that runs tests takes 12 minutes; `npm install` runs every time.  
 **Expected output:** Add `actions/cache` keyed on `package-lock.json` hash, split into lint/test/build jobs running in parallel, estimate to ~3 min; show full updated YAML.
+
+### 2 — Tricky (edge case)
+
+**Input:** `pull_request` from fork fails with “secret not found” on deploy job — team wants previews for externals.  
+**Expected output:** Explain fork secret boundaries; use `workflow_run` / `deploy` from trusted path or disable secrets on fork PRs; never expose prod credentials.
+
+### 3 — Cross-skill
+
+**Input:** Pipeline builds Docker image and pushes to registry — slow and expensive.  
+**Expected output:** **`ci-cd-pro`** cache + matrix; **`docker-pro`** multi-stage and layer order; **`deployment-pro`** tag/digest promotion.
 
 ## Checklist before calling the skill done
 
@@ -121,3 +161,4 @@ Details: [references/deployment-strategies.md](references/deployment-strategies.
 - [ ] Production deploy has manual approval gate or canary step.
 - [ ] Concurrency cancellation configured to avoid stale runs.
 - [ ] Test artifacts (reports, coverage) uploaded for visibility.
+- [ ] Fork / external PR behavior reviewed for secret exposure and required checks.

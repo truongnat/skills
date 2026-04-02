@@ -90,6 +90,30 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 
 Details: [references/row-level-security.md](references/row-level-security.md)
 
+### Decision trees (summary)
+
+- **Index type** (B-tree vs GIN vs partial vs BRIN), **RLS vs app-only checks**, **expand/migrate/contract** migrations, **PgBouncer** session vs transaction mode — see trees.
+
+Details: [references/decision-tree.md](references/decision-tree.md)
+
+### Anti-patterns (summary)
+
+- App superuser, unindexed FKs, long transactions, RLS without indexes on predicates, unsafe `SERIAL` for public tokens — full list in reference.
+
+Details: [references/anti-patterns.md](references/anti-patterns.md)
+
+### Integration map (summary)
+
+- Split ownership with **`nestjs-pro`**, **`deployment-pro`**, **`security-pro`**, **`caching-pro`**, **`testing-pro`**.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Version notes (summary)
+
+- Server major drives planner, replication, RLS details — verify [versioned docs](https://www.postgresql.org/docs/) for your `SELECT version()`.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — Schema change, slow query, or incident context.
@@ -107,11 +131,27 @@ Details: [references/row-level-security.md](references/row-level-security.md)
 | Tips and patterns | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases and ops | [references/edge-cases.md](references/edge-cases.md) |
 | **Row Level Security (RLS)** | [references/row-level-security.md](references/row-level-security.md) |
+| Decision trees | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Version notes | [references/versions.md](references/versions.md) |
 
 ## Quick example
 
+### 1 — Simple (common)
+
 **Input:** After enabling RLS, the app role cannot `SELECT` any rows — missing policy or `FORCE` issue?  
 **Expected output:** Check `CREATE POLICY` per command/role, owner vs BYPASSRLS, and a minimal `USING`/`WITH CHECK` example.
+
+### 2 — Tricky (edge case)
+
+**Input:** Large table needs new index in prod; `CREATE INDEX` would lock writes for minutes.  
+**Expected output:** `CREATE INDEX CONCURRENTLY`, monitor for invalid index, batch workload; reference [tips-and-tricks.md](references/tips-and-tricks.md).
+
+### 3 — Cross-skill
+
+**Input:** Nest app sets tenant in middleware but RLS still sees wrong `current_setting`.  
+**Expected output:** **`postgresql-pro`** — `SET LOCAL` in same transaction as queries; **`nestjs-pro`** — Prisma/TypeORM transaction boundaries + PgBouncer mode.
 
 ## Checklist before calling the skill done
 
@@ -121,3 +161,4 @@ Details: [references/row-level-security.md](references/row-level-security.md)
 - [ ] Privileges for app role reviewed; no superuser in app code.
 - [ ] **RLS**: policies tested as app role; `WITH CHECK` on writes; tenant context documented for poolers; indexes on policy predicates where needed.
 - [ ] Long-running DDL or DML batched; lock timeouts or `lock_timeout` considered where appropriate.
+- [ ] Decision-tree reference used when choosing index type or migration strategy for hot tables.

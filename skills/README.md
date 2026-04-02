@@ -12,11 +12,11 @@ Each **skill** is a subdirectory with a required `SKILL.md` (frontmatter `name` 
 
 ## Bundle audit (maintainers)
 
-From **repo root** (venv active), generate a **full** Markdown report (tier counts, all skills, manual checklist):
+From **repo root** (`npm install` + `npm run build` if needed), generate a **full** Markdown report (tier counts, all skills, manual checklist):
 
 ```bash
-python scripts/validate_skills.py
-python scripts/analyze_skills.py --self-review
+node dist/tools.js validate-skills
+node dist/tools.js analyze-skills --self-review
 ```
 
 Skill **`skills-self-review-pro`** describes the workflow. Repo scripts index: **[`../scripts/README.md`](../scripts/README.md)**.

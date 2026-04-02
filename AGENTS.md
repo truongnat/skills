@@ -34,6 +34,11 @@ Use these commands to analyze, optimize, and route prompts to the best skills:
 | `/w-perf-investigation` | Performance investigation ([`workflows/dev/w-perf-investigation.md`](workflows/dev/w-perf-investigation.md)) |
 | `/w-refactor` | Safe refactor ([`workflows/dev/w-refactor.md`](workflows/dev/w-refactor.md)) |
 | `/w-incident` | Incident response ([`workflows/dev/w-incident.md`](workflows/dev/w-incident.md)) |
+| `/w-data-migration` | Data migration ([`workflows/dev/w-data-migration.md`](workflows/dev/w-data-migration.md)) |
+| `/w-onboarding` | Onboarding ([`workflows/dev/w-onboarding.md`](workflows/dev/w-onboarding.md)) |
+| `/w-api-design` | API design review ([`workflows/dev/w-api-design.md`](workflows/dev/w-api-design.md)) |
+| `/w-test-strategy` | Test strategy ([`workflows/dev/w-test-strategy.md`](workflows/dev/w-test-strategy.md)) |
+| `/w-dep-audit` | Dependency audit ([`workflows/dev/w-dep-audit.md`](workflows/dev/w-dep-audit.md)) |
 
 Commands read from `knowledge-base/embeddings/skill_index.json`. Rebuild after adding/changing skills:
 
@@ -52,7 +57,7 @@ Agents should prefer:
 
 ## Workflows
 
-Bundled **dev** workflows: [`workflows/dev/README.md`](workflows/dev/README.md) — ticket, release, hotfix, code review, debug, security audit, arch review, perf investigation, refactor, incident (see table in dev README). Naming: runnable workflow files **`w-<slug>.md`** — see [`workflows/README.md`](workflows/README.md#naming). For ticket flow, **`kanban/<ticket>/`** layout and steps are in [`workflows/dev/w-ticket.md`](workflows/dev/w-ticket.md).
+Bundled **dev** workflows: [`workflows/dev/README.md`](workflows/dev/README.md) — ticket, release, hotfix, code review, debug, security audit, arch review, perf investigation, refactor, incident, data migration, onboarding, API design, test strategy, dep audit (see table in dev README). Naming: runnable workflow files **`w-<slug>.md`** — see [`workflows/README.md`](workflows/README.md#naming). For ticket flow, **`kanban/<ticket>/`** layout and steps are in [`workflows/dev/w-ticket.md`](workflows/dev/w-ticket.md).
 
 ## Configuration
 

@@ -39,6 +39,9 @@ Use official [Flutter](https://docs.flutter.dev/) and [Dart](https://dart.dev/) 
 3. **Async safety** — Check `mounted` (or cancel subscriptions) before `setState` / `context` use after `await`.
 4. **Verify SDK / package versions** — Breaking changes across Flutter majors; read changelogs for `go_router`, state packages, etc.
 5. **Accessibility** — `Semantics`, contrast, focus order, and large text / screen readers on each primary flow.
+6. **Testability** — Favor pure widgets and injected dependencies for `widget_test` / `integration_test`.
+7. **Responsive breakpoints** — `LayoutBuilder` / `MediaQuery`; avoid one layout for phone and desktop without adaptation.
+8. **Plugins** — Pin versions; read migration notes for Firebase, maps, and camera stacks.
 
 ### UI / UX (summary)
 
@@ -80,6 +83,30 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Anti-patterns (summary)
+
+- `setState` after dispose, god widgets, unbounded lists, blocking isolates — see reference.
+
+Details: [references/anti-patterns.md](references/anti-patterns.md)
+
+### Decision trees (summary)
+
+- State management scope, routing, list perf, web vs mobile — see trees.
+
+Details: [references/decision-tree.md](references/decision-tree.md)
+
+### Integration map (summary)
+
+- **`testing-pro`**, **`deployment-pro`**, **`security-pro`**, **`design-system-pro`** — split ownership.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Version notes (summary)
+
+- Flutter / Dart SDK and package matrix — verify before breaking API suggestions.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — What is wrong or what we are building.
@@ -97,11 +124,27 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | UI/UX design | [references/ui-ux-design.md](references/ui-ux-design.md) |
 | Tips and patterns | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Decision trees | [references/decision-tree.md](references/decision-tree.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Version notes | [references/versions.md](references/versions.md) |
 
 ## Quick example
 
+### 1 — Simple (common)
+
 **Input:** User reports `setState()` called after dispose when returning from an async gap on a profile screen.  
 **Expected output:** Explain `mounted`, cancellation patterns for `Future`/subscriptions, snippet with `if (!mounted) return` before `setState`, and testing suggestions.
+
+### 2 — Tricky (edge case)
+
+**Input:** `RenderFlex overflowed by 12 pixels` on small devices only in release mode.  
+**Expected output:** Check `Flexible`/`Expanded`, text scale, `SingleChildScrollView` misuse; reproduce with large font accessibility settings.
+
+### 3 — Cross-skill
+
+**Input:** Need offline-first sync with local DB and server reconciliation.  
+**Expected output:** **`flutter-pro`** for Drift/sqflite + UI; **`postgresql-pro`** / API contract with **`nestjs-pro`** for server truth; **`security-pro`** for token handling.
 
 ## Checklist before calling the skill done
 
@@ -111,3 +154,4 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] Theme/text scale considered; no overflow on small devices or large text.
 - [ ] **Widgets**: `build` has no side effects; keys used where list identity changes; `dispose` cleans up; `const` where possible.
 - [ ] Platform-specific code paths documented or guarded (`kIsWeb`, `Platform`, `Theme.of(context).platform`).
+- [ ] [decision-tree.md](references/decision-tree.md) consulted when choosing navigation or state-management scope.

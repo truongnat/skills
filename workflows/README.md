@@ -13,7 +13,7 @@ This repo does **not** require an automated engine: an agent (or you) reads the 
 
 | Domain | Index | Workflows |
 |--------|--------|-----------|
-| **dev** | [`dev/README.md`](dev/README.md) | [`dev/w-ticket.md`](dev/w-ticket.md) (`ticket`, **`/w-ticket`**), [`dev/w-hotfix.md`](dev/w-hotfix.md) (`hotfix`, **`/w-hotfix`**), [`dev/w-release.md`](dev/w-release.md) (`release`, **`/w-release`**), [`dev/w-code-review.md`](dev/w-code-review.md), [`dev/w-debug.md`](dev/w-debug.md), [`dev/w-security-audit.md`](dev/w-security-audit.md), [`dev/w-arch-review.md`](dev/w-arch-review.md), [`dev/w-perf-investigation.md`](dev/w-perf-investigation.md), [`dev/w-refactor.md`](dev/w-refactor.md), [`dev/w-incident.md`](dev/w-incident.md) |
+| **dev** | [`dev/README.md`](dev/README.md) | [`dev/w-ticket.md`](dev/w-ticket.md) (`ticket`, **`/w-ticket`**), [`dev/w-hotfix.md`](dev/w-hotfix.md) (`hotfix`, **`/w-hotfix`**), [`dev/w-release.md`](dev/w-release.md) (`release`, **`/w-release`**), [`dev/w-code-review.md`](dev/w-code-review.md), [`dev/w-debug.md`](dev/w-debug.md), [`dev/w-security-audit.md`](dev/w-security-audit.md), [`dev/w-arch-review.md`](dev/w-arch-review.md), [`dev/w-perf-investigation.md`](dev/w-perf-investigation.md), [`dev/w-refactor.md`](dev/w-refactor.md), [`dev/w-incident.md`](dev/w-incident.md), [`dev/w-data-migration.md`](dev/w-data-migration.md), [`dev/w-onboarding.md`](dev/w-onboarding.md), [`dev/w-api-design.md`](dev/w-api-design.md), [`dev/w-test-strategy.md`](dev/w-test-strategy.md), [`dev/w-dep-audit.md`](dev/w-dep-audit.md) |
 
 Slash commands live under **`.claude/commands/`** and **`.cursor/commands/`** (e.g. `w-ticket.md`, `w-hotfix.md`, `w-release.md`).
 

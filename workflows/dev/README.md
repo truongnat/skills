@@ -1,6 +1,6 @@
 # Workflows — `dev` domain
 
-Markdown workflows for **development** delivery: tickets, releases, hotfixes, code review, debugging, security audit, architecture review, performance investigation, refactor, and incident response.
+Markdown workflows for **development** delivery: tickets, releases, hotfixes, code review, debugging, security audit, architecture review, performance investigation, refactor, incident response, data migration, onboarding, API design, test strategy, and dependency audit.
 
 | File | id | Slash |
 |------|-----|--------|
@@ -14,5 +14,10 @@ Markdown workflows for **development** delivery: tickets, releases, hotfixes, co
 | [`w-perf-investigation.md`](w-perf-investigation.md) | `perf-investigation` | `/w-perf-investigation` |
 | [`w-refactor.md`](w-refactor.md) | `refactor` | `/w-refactor` |
 | [`w-incident.md`](w-incident.md) | `incident` | `/w-incident` |
+| [`w-data-migration.md`](w-data-migration.md) | `data-migration` | `/w-data-migration` |
+| [`w-onboarding.md`](w-onboarding.md) | `onboarding` | `/w-onboarding` |
+| [`w-api-design.md`](w-api-design.md) | `api-design` | `/w-api-design` |
+| [`w-test-strategy.md`](w-test-strategy.md) | `test-strategy` | `/w-test-strategy` |
+| [`w-dep-audit.md`](w-dep-audit.md) | `dep-audit` | `/w-dep-audit` |
 
 Parent index: [`../README.md`](../README.md).

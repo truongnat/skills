@@ -97,6 +97,18 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision trees (summary)
+
+- **Base image** (distroless vs Alpine vs slim), **multi-stage requirement**, **Compose vs Kubernetes**, **bind vs named volume** — see trees.
+
+Details: [references/decision-tree.md](references/decision-tree.md)
+
+### Anti-patterns (summary)
+
+- Root in prod, secrets in layers, bad layer order, missing `.dockerignore`, `latest` tags — see reference.
+
+Details: [references/anti-patterns.md](references/anti-patterns.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — Dockerfile problem, size optimization request, or compose design question.
@@ -115,11 +127,25 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Docker Compose | [references/compose.md](references/compose.md) |
 | Tips and tricks | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision trees | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
 
 ## Quick example
 
-**Input:** Node.js app Dockerfile is 1.2 GB and takes 4 minutes to build from scratch every time.
+### 1 — Simple (common)
+
+**Input:** Node.js app Dockerfile is 1.2 GB and takes 4 minutes to build from scratch every time.  
 **Expected output:** Multi-stage Dockerfile separating build and runtime, with `COPY package*.json` before source for npm cache, `node:20-alpine` runtime base, non-root user, `.dockerignore` excluding `node_modules`; expected final image under 150 MB.
+
+### 2 — Tricky (edge case)
+
+**Input:** Production container runs as root because “fixing permissions was hard”; need to bind-mount uploads.  
+**Expected output:** Create non-root `USER` with `COPY --chown`, align volume UID/GID, avoid root; document host compatibility from [edge-cases.md](references/edge-cases.md).
+
+### 3 — Cross-skill
+
+**Input:** CI builds Docker image then deploys — builds are slow and registry fills with `latest` tags.  
+**Expected output:** **`docker-pro`** layer cache + BuildKit; **`ci-cd-pro`** digest-pinned deploys; **`deployment-pro`** rollout policy.
 
 ## Checklist before calling the skill done
 
@@ -129,3 +155,4 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] `HEALTHCHECK` instruction present for long-running services.
 - [ ] No secrets in `ARG`, `ENV`, or baked into image layers; use BuildKit `--secret` for build-time secrets.
 - [ ] Layer order optimized: dependencies installed before source code copied.
+- [ ] Base image choice matches libc/native dependency needs (Alpine vs Debian).

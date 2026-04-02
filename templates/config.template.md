@@ -8,7 +8,7 @@ Copy what you need into root `config.md` (or edit `config.example.md` directly w
 
 ## Knowledge base (block for scripts)
 
-Keep the `kb-config-start` / `kb-config-end` comment lines; `build_kb.py` and `query_kb.py` only read this section.
+Keep the `kb-config-start` / `kb-config-end` comment lines; `build-kb` and `query-kb` (via `node dist/tools.js`) only read this section.
 
 <!-- kb-config-start -->
 documents_path = knowledge-base/documents

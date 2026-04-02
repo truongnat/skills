@@ -1,12 +1,14 @@
 # Project Gap Analysis
 
-Generated: 2026-03-31
+Generated: 2026-03-31  
+CLI note (2026-04): repo tooling uses **`node dist/tools.js`** — commands below updated from legacy Python.
 
 ## Summary
 
 Automated validation tools show no current hard gaps:
-- `python scripts/analyze_skills.py --self-review` reports no actionable automation gaps, 35 skills audited, tier distribution low/ok/exempt.
-- `python scripts/validate_skills.py` reports `OK` for SKILL frontmatter vs folder names.
+
+- `node dist/tools.js analyze-skills --self-review` reports no actionable automation gaps; tier distribution low/ok/exempt.
+- `node dist/tools.js validate-skills` reports `OK` for SKILL frontmatter vs folder names.
 
 ## Findings
 
@@ -21,7 +23,7 @@ Automated validation tools show no current hard gaps:
    - location: `knowledge-base/documents/repo/project-overview.md`.
 
 2. Add a regular report for skill drift:
-   - `scripts/analyze_skills.py` should run in CI weekly.
+   - `node dist/tools.js analyze-skills --self-review` should run in CI weekly.
    - publish to `knowledge-base/documents/repo/skills-audit-log.md`.
 
 3. Add “gaps resolved” checklist in `AGENTS.md` or `README.md`.

@@ -21,6 +21,36 @@
 | `prod_ref` | No | Branch or tag to branch from (e.g. `main`, `release/x.y`, deploy tag) — ask if unclear |
 | `stack` | No | Runtime/framework for the fix (for the right `*-pro` skill) |
 
+## Decision paths
+
+- **Symptom unclear:** Extend Step 1 until impact and blast radius are known; do not branch until scope is minimal.
+- **Fix requires feature work:** Stop hotfix path; use [`w-ticket.md`](w-ticket.md) or [`w-release.md`](w-release.md).
+- **DB migration in hotfix:** Extra care — involve **`postgresql-pro`** + **`deployment-pro`**; prefer reversible or expand/contract ordering.
+
+## Error handling
+
+- **Cannot reproduce in non-prod:** Document **what** was verified in staging vs **assumption** for prod; label confidence.
+- **Rollback failed:** Escalate immediately; preserve **previous** artifact/tag references in `deploy_notes`.
+- **Cherry-pick conflicts on merge-back:** Prefer explicit merge commit with conflict resolution notes; do not drop the fix.
+
+## Output format
+
+Follow **[`OUTPUT_CONVENTIONS.md`](../../OUTPUT_CONVENTIONS.md)** for risk callouts and status tables (fix status, deploy step, verification).  
+`deploy_notes` and `merge_followup` should be skimmable bullets with **owner** and **timestamp** where relevant.
+
+## Time estimate
+
+| Depth | When | Rough time |
+|-------|------|------------|
+| **Quick** | One-file config/data fix, tests green | < 4 h |
+| **Standard** | Code path + deploy + smoke | 4–24 h |
+| **Deep** | Multi-service, migration, coordinated rollback | > 1 day |
+
+## Escalation
+
+- **Autonomous:** Branch naming, minimal diff, test addition, conventional commit message.
+- **Human:** Customer-visible outage, **security** incident, **data** repair, executive comms; on-call approval for prod.
+
 ## Outputs
 
 | Variable | Description |

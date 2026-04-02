@@ -89,6 +89,42 @@ Details: [references/streaming.md](references/streaming.md)
 
 Details: [references/rag-embeddings.md](references/rag-embeddings.md)
 
+### Decision trees (summary)
+
+- **RAG vs fine-tuning vs prompt-only**, **streaming vs batch**, **tool use vs plain completion**, **caching** — see trees.
+
+Details: [references/decision-tree.md](references/decision-tree.md)
+
+### Anti-patterns (summary)
+
+- Trusting LLM for SQL/shell, prompt injection, no rate limits, logging PII in prompts — see reference.
+
+Details: [references/anti-patterns.md](references/anti-patterns.md)
+
+### Tips and tricks (summary)
+
+- System prompt versioning, few-shot quality, token accounting, idempotency keys for billed APIs.
+
+Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
+
+### Edge cases (summary)
+
+- Partial tool calls in streams, over-refusal, multilingual drift, 429 handling — see reference.
+
+Details: [references/edge-cases.md](references/edge-cases.md)
+
+### Integration map (summary)
+
+- Ownership with **`security-pro`**, **`testing-pro`**, **`postgresql-pro`** (pgvector), **`api-design-pro`**.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Version notes (summary)
+
+- Pin SDK and model id; read provider changelogs before upgrades.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — Integration task, prompt problem, or reliability concern.
@@ -106,11 +142,29 @@ Details: [references/rag-embeddings.md](references/rag-embeddings.md)
 | Tool use / function calling | [references/tool-use.md](references/tool-use.md) |
 | Streaming responses | [references/streaming.md](references/streaming.md) |
 | RAG and embeddings | [references/rag-embeddings.md](references/rag-embeddings.md) |
+| Decision trees | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Tips and tricks | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
+| Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Version notes | [references/versions.md](references/versions.md) |
 
 ## Quick example
 
-**Input:** Build a streaming Claude chat endpoint in Express that supports tool use for fetching weather data.
+### 1 — Simple (common)
+
+**Input:** Build a streaming Claude chat endpoint in Express that supports tool use for fetching weather data.  
 **Expected output:** Express route with Anthropic SDK `stream()`, weather tool definition, tool result loop, SSE response headers, and error handling; note token costs and prompt injection mitigations.
+
+### 2 — Tricky (edge case)
+
+**Input:** OpenAI JSON mode sometimes returns markdown fences around JSON; parser throws in production.  
+**Expected output:** Defensive strip of ``` blocks, `JSON.parse` in try/catch, fallback message; add test vectors in **`testing-pro`** harness.
+
+### 3 — Cross-skill
+
+**Input:** RAG over internal wiki — answers must not leak other teams’ docs to wrong users.  
+**Expected output:** **`ai-integration-pro`** retrieval filtered by ACL metadata; **`security-pro`** threat model on injection + data exfil; **`postgresql-pro`** if using pgvector with row security.
 
 ## Checklist before calling the skill done
 
@@ -121,3 +175,4 @@ Details: [references/rag-embeddings.md](references/rag-embeddings.md)
 - [ ] Exponential backoff for rate limit and transient errors.
 - [ ] User-supplied content sanitized before prompt interpolation (prompt injection defense).
 - [ ] Token usage logged or estimated; conversation history trimmed for long sessions.
+- [ ] Model id and SDK version noted for reproducibility; eval run before model upgrades.

@@ -1,7 +1,7 @@
 ---
 name: skills-self-review-pro
 description: |
-  Self-review of the skills template: structured gap and improvement reports using repo scripts (analyze_skills Markdown output, validate_skills, list_skills), cross-checks against SKILL_AUTHORING_RULES.md, optional **tech refresh** via **`web-research-pro`** (official docs, release notes), and clear limits of automation vs human judgment.
+  Self-review of the skills template: structured gap and improvement reports using repo CLI (`node dist/tools.js analyze-skills`, `validate-skills`, `list-skills`), cross-checks against SKILL_AUTHORING_RULES.md, optional **tech refresh** via **`web-research-pro`** (official docs, release notes), and clear limits of automation vs human judgment.
 
   Use this skill when the user wants a **periodic audit** of bundled skills, a **PR checklist** for skill changes, an **automation vs scripts** backlog, or asks to **find gaps** and **suggested improvements** without manually opening every `SKILL.md` — or to **align** stack skills with **current** upstream technology.
 
@@ -15,7 +15,7 @@ metadata:
 
 # Skills self-review (professional)
 
-Use **`scripts/analyze_skills.py`**, **`validate_skills.py`**, and **`list_skills.py`** from **repo root** (see [`scripts/README.md`](../../scripts/README.md)); this skill encodes **how** to combine outputs into an **actionable** improvement narrative — not a substitute for reading **`SKILL_AUTHORING_RULES.md`**. Confirm **cwd** is repo root and **venv** active when running Python tools.
+Use **`node dist/tools.js analyze-skills`**, **`validate-skills`**, and **`list-skills`** from **repo root** (see [`scripts/README.md`](../../scripts/README.md)); this skill encodes **how** to combine outputs into an **actionable** improvement narrative — not a substitute for reading **`SKILL_AUTHORING_RULES.md`**. Confirm **cwd** is repo root and **`npm install`** / **`npm run build`** have been run so **`dist/tools.js`** exists.
 
 ## Related skills (this repo)
 
@@ -38,8 +38,8 @@ Use **`scripts/analyze_skills.py`**, **`validate_skills.py`**, and **`list_skill
 
 ## Workflow
 
-1. Confirm **repo root**, **Python venv**, whether **`--with-references`** / **`--only-actionable`** apply, and whether the user wants **upstream doc** research (**`web-research-pro`**).
-2. Apply the principles and topic summaries below; open `references/` when you need depth; run **`python scripts/analyze_skills.py --self-review`** for a **complete** repo report; **persist** notable outcomes under **`knowledge-base/documents/`** (see **`.cursor/rules/documentation-persistence.mdc`**).
+1. Confirm **repo root**, availability of **`dist/tools.js`**, whether **`--with-references`** / **`--only-actionable`** apply, and whether the user wants **upstream doc** research (**`web-research-pro`**).
+2. Apply the principles and topic summaries below; open `references/` when you need depth; run **`node dist/tools.js analyze-skills --self-review`** for a **complete** repo report; **persist** notable outcomes under **`knowledge-base/documents/`** (see **`.cursor/rules/documentation-persistence.mdc`**).
 3. Respond using **Suggested response format**; note **heuristic** limits, **manual** checks, and **doc** updates needed for **INDEX** / **build_kb**.
 
 ### Operating principles
@@ -104,12 +104,12 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 ## Quick example
 
 **Input:** “Give me a gap report before we tag v2.”  
-**Expected output:** Run **`validate_skills`** (must pass); **`python scripts/analyze_skills.py --self-review`**; summarize **actionable** tier (if any) + **tier distribution**; list **manual** §2 checks for skills touched in the PR.
+**Expected output:** Run **`node dist/tools.js validate-skills`** (must pass); **`node dist/tools.js analyze-skills --self-review`**; summarize **actionable** tier (if any) + **tier distribution**; list **manual** §2 checks for skills touched in the PR.
 
 ## Checklist before calling the skill done
 
-- [ ] **`validate_skills`** outcome stated (pass / fail with paths).
-- [ ] **`analyze_skills`** run with **documented** flags; **Markdown** or summary provided.
+- [ ] **`node dist/tools.js validate-skills`** outcome stated (pass / fail with paths).
+- [ ] **`node dist/tools.js analyze-skills`** run with **documented** flags; **Markdown** or summary provided.
 - [ ] **Authoring** checklist invoked for **structural** gaps, not only automation tiers.
 - [ ] **Limits** of automation stated (**false positives** / **neutral** wording).
 - [ ] If **tech refresh** was in scope: **`web-research-pro`** (or **Context7**) used for **official** sources; **activity-log** or **INDEX** updated when saving decisions.

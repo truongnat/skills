@@ -11,7 +11,7 @@ End-to-end **ticket / Kanban** execution using **only bundled skills** under [`s
 | Field | Value |
 |-------|-------|
 | **id** | `ticket` |
-| **version** | 1.1 |
+| **version** | 1.2 |
 
 ## Inputs
 
@@ -20,6 +20,38 @@ End-to-end **ticket / Kanban** execution using **only bundled skills** under [`s
 | `ticket` | Yes | Ticket id (e.g. `PROJ-123`, `42`) — matches `kanban/<ticket>/` |
 | `domain_stack` | No | Hint for which bundled skills apply (e.g. NestJS + Postgres + testing) — maps to `*-pro` entries in [`skills/README.md`](../../skills/README.md) |
 | `issue_spec` | No | Path or summary of `issue.md` / tracker body — feeds plan and acceptance criteria |
+
+## Decision paths
+
+- **No `ticket` id / unclear Kanban root:** Stop after Step 3 scaffolding; ask for id and project root for `kanban/<ticket>/`.
+- **Scope needs a new bundled skill:** Run Step 2; otherwise skip Step 2 and Step 7 bundle hygiene.
+- **Blocked external dependency:** Hold `implement-and-test` (Step 5); document blocker in `gaps.md` and update `meta.json` / phase per team policy.
+- **Partial implementation only:** Keep `phase` honest; do not mark `done` until Step 6 closure artifacts exist.
+
+## Error handling
+
+- **Cannot write `kanban/`:** Output the intended tree + `meta.json` as pasteable templates; do not assume filesystem access.
+- **`validate-skills` / `build-skill-index` fails:** Stop skill-add path; list errors; do not merge undocumented skills.
+- **Conflicting `meta.json`:** Prefer human resolution; document merge strategy in `kanban/<ticket>/README.md` if the team adds one.
+
+## Output format
+
+Follow **[`OUTPUT_CONVENTIONS.md`](../../OUTPUT_CONVENTIONS.md)** for severity (if reporting risks), progress tables, and callouts.  
+Artifacts under `kanban/<ticket>/<version>/` should use clear headings and checklists (`plan.md`, `report_ticket.md`, `summary.md`).  
+Use **residual risks** or a short **[!WARNING]** callout when acceptance or rollout is uncertain.
+
+## Time estimate
+
+| Depth | When | Rough time |
+|-------|------|------------|
+| **Quick** | Small ticket, few skills, no new skill folder | < 2 h planning + implementation estimate |
+| **Standard** | Multi-phase, several `*-pro` skills | 1–3 days |
+| **Deep** | New bundled skill + full Kanban + audit | > 1 week |
+
+## Escalation
+
+- **Autonomous:** Skill pick list, `kanban/` layout, plan/todo drafts, routine `node dist/tools.js validate-skills`.
+- **Human:** Product priority, access to tracker/repo, legal/compliance scope, **new skill** that changes org-wide standards.
 
 ## Outputs
 

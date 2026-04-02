@@ -32,7 +32,7 @@ Rewrite to reduce tokens:
 1. List runnable workflow `*.md` files: top-level `workflows/**/*.md`, skipping `README.md` files (index only). This repo uses **`workflows/dev/`** for bundled workflows.
 2. For each workflow file, read its **Metadata** and **Steps** sections.
 3. Match based on:
-   - Workflow filename keywords (this repo ships **`workflows/dev/w-ticket.md`**, **`workflows/dev/w-release.md`**, **`workflows/dev/w-hotfix.md`**; runnable files use prefix **`w-`** per [`workflows/README.md`](../../workflows/README.md#naming)).
+   - Workflow filename keywords (this repo ships many **`workflows/dev/w-*.md`** files — e.g. **`w-ticket`**, **`w-release`**, **`w-hotfix`**, **`w-data-migration`**, **`w-dep-audit`**; runnable files use prefix **`w-`** per [`workflows/README.md`](../../workflows/README.md#naming)).
    - Skills referenced in the workflow's steps (via `**Skill:** \`name\`` pattern).
    - Overlap between workflow skills and the prompt's matched skills from Stage 3.
 4. Rank workflows by relevance.

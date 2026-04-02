@@ -152,6 +152,11 @@ Conventions and **`w-<slug>.md`** naming: [`workflows/README.md`](workflows/READ
 | **`/w-perf-investigation`** | [`workflows/dev/w-perf-investigation.md`](workflows/dev/w-perf-investigation.md) | Performance investigation |
 | **`/w-refactor`** | [`workflows/dev/w-refactor.md`](workflows/dev/w-refactor.md) | Safe refactor — tests-first |
 | **`/w-incident`** | [`workflows/dev/w-incident.md`](workflows/dev/w-incident.md) | Incident response — triage → mitigate → report |
+| **`/w-data-migration`** | [`workflows/dev/w-data-migration.md`](workflows/dev/w-data-migration.md) | DB/data migration — plan, rollback, verification |
+| **`/w-onboarding`** | [`workflows/dev/w-onboarding.md`](workflows/dev/w-onboarding.md) | Repo / team onboarding — map, conventions, first tasks |
+| **`/w-api-design`** | [`workflows/dev/w-api-design.md`](workflows/dev/w-api-design.md) | API design review — contract, authz, errors |
+| **`/w-test-strategy`** | [`workflows/dev/w-test-strategy.md`](workflows/dev/w-test-strategy.md) | Testing strategy — pyramid, risk, CI gates |
+| **`/w-dep-audit`** | [`workflows/dev/w-dep-audit.md`](workflows/dev/w-dep-audit.md) | Dependency / supply-chain audit |
 
 Index: [`workflows/dev/README.md`](workflows/dev/README.md) — Markdown step contracts; no automated runner required.
 

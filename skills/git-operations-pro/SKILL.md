@@ -76,6 +76,18 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision trees (summary) — optional support-tier
+
+- Merge vs rebase vs squash, revert vs reset, cherry-pick vs merge branch.
+
+Details: [references/decision-tree.md](references/decision-tree.md)
+
+### Anti-patterns (summary) — optional support-tier
+
+- Force-push to `main`, giant commits, secrets in repo; see reference.
+
+Details: [references/anti-patterns.md](references/anti-patterns.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — Commit style, branch conflict, or PR practice.
@@ -93,11 +105,25 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Collaboration & safety | [references/collaboration-and-safety.md](references/collaboration-and-safety.md) |
 | Tips | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision trees (optional) | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns (optional) | [references/anti-patterns.md](references/anti-patterns.md) |
 
 ## Quick example
 
+### 1 — Simple (common)
+
 **Input:** “We merged `main` into feature branch and have 50 conflicts — shortcut?”  
 **Expected output:** Prefer **abort** merge, **rebase** or **recreate** branch from latest `main` if policy allows; **avoid** mass manual resolution without understanding; **no** force to `main`.
+
+### 2 — Tricky (edge case)
+
+**Input:** Need to remove a bad commit already on `origin/main` — team says no force-push ever.  
+**Expected output:** `git revert` range or single SHA; show commands from [edge-cases.md](references/edge-cases.md); explain why revert is safer.
+
+### 3 — Cross-skill
+
+**Input:** Accidentally committed `.env` with API key — already pushed.  
+**Expected output:** **`git-operations-pro`** — remove from history or rotate key + `git rm --cached`; **`security-pro`** — rotate credential, audit logs; never rely on `git push` alone to erase secrets.
 
 ## Checklist before calling the skill done
 
@@ -105,3 +131,4 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] **Protected** branches and **force** rules respected.
 - [ ] **Secrets** not embedded in **commands** or **hooks** output.
 - [ ] **Deployment** concerns (**K8s**, **rollback**) **not** conflated with **Git** mechanics.
+- [ ] Optional: [anti-patterns.md](references/anti-patterns.md) checked for force-push and giant-commit risks.

@@ -764,20 +764,23 @@ post_processing:
 
 ## Using templates
 
-### 1. Command line
+### 1. In this repository
+
+- Prefer **granular prompts** under [`../prompts/`](../prompts/) and copy or adapt blocks from this file.
+- This repository does **not** ship `scripts/use_template.py` — template rendering is manual or via your own runner.
+
+**Repo tooling (skills, KB, validation)** — Node:
 
 ```bash
-# Example script usage
-python scripts/use_template.py \
-    --template code-review-comprehensive \
-    --code "$(cat myfile.py)" \
-    --language python \
-    --focus-areas "security,performance"
-
-# Output is generated from the template
+node dist/tools.js validate-skills
+node dist/tools.js build-skill-index
 ```
 
-### 2. In code
+See [`../scripts/README.md`](../scripts/README.md) for the full command map.
+
+### 2. In code (illustrative)
+
+If you build a small template runner in Python, the pattern is load → fill variables → send to the model. Adapt to your stack; this is **not** a dependency of this repo.
 
 ```python
 from prompt_templates import load_template, render
@@ -799,19 +802,15 @@ response = llm.complete(prompt)
 
 ### 3. In a skill
 
+Document the template **name and variables** in `SKILL.md`; agents paste or compose the User/System sections. Example:
+
 ```markdown
 # SKILL.md
 
 ## Using Prompt Templates
 
-When user requests code review, use the code-review-comprehensive template:
-
-```bash
-python scripts/use_template.py \
-    --template code-review-comprehensive \
-    --code "{{user_code}}" \
-    --language "{{detected_language}}"
-```
+When the user requests code review, use the **code-review-comprehensive** template from
+`templates/PROMPT_TEMPLATES.md` and substitute `{{code}}`, `{{language}}`, and optional `{{context}}`.
 ```
 
 ---

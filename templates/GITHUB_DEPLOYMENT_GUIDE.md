@@ -1,4 +1,11 @@
+# GitHub deployment guide
 
+> **Repository note (this repo):** Primary tooling uses **Node** — `node dist/tools.js --help` and [`scripts/README.md`](../scripts/README.md). The Python blocks below are **ecosystem examples** (LangChain, LlamaIndex), not requirements for this repository.
+
+## LangChain — prompt + memory chain (ecosystem example)
+
+```python
+template = """
 Human: {input}
 """
 

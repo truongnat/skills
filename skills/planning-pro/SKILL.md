@@ -82,6 +82,18 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision trees (summary) — optional support-tier
+
+- Spike vs implement, MVP vs full scope, parallel vs sequential — lightweight trees.
+
+Details: [references/decision-tree.md](references/decision-tree.md)
+
+### Anti-patterns (summary) — optional support-tier
+
+- Fake precision, big-bang integration, planning without definition of done.
+
+Details: [references/anti-patterns.md](references/anti-patterns.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** - Target outcome, constraints, and planning horizon.
@@ -100,11 +112,25 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Estimation and risk controls | [references/estimation-and-risk-controls.md](references/estimation-and-risk-controls.md) |
 | Tips | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision trees (optional) | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns (optional) | [references/anti-patterns.md](references/anti-patterns.md) |
 
 ## Quick example
 
+### 1 — Simple (common)
+
 **Input:** "Plan delivery for migrating monolith auth to a separate service in 8 weeks."  
 **Expected output:** Phase plan with dependency-aware sequencing, milestone gates, estimate ranges, risk controls, and rollback checkpoints.
+
+### 2 — Tricky (edge case)
+
+**Input:** Scope keeps changing every week; stakeholders add 'small' requests that break sequencing.  
+**Expected output:** Change-log + re-estimate ritual; freeze scope per milestone; document trade-offs (see [edge-cases.md](references/edge-cases.md)).
+
+### 3 — Cross-skill
+
+**Input:** Need both product scope and infra window for cutover.  
+**Expected output:** **`planning-pro`** phases + checkpoints; **`business-analysis-pro`** for acceptance criteria; **`deployment-pro`** for release/cutover window.
 
 ## Checklist before calling the skill done
 
@@ -113,3 +139,4 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] Estimates include assumptions and uncertainty ranges.
 - [ ] Milestones have verifiable outputs and review gates.
 - [ ] Main risks and fallback triggers are documented.
+- [ ] Optional: [decision-tree.md](references/decision-tree.md) consulted when choosing spike vs full implementation path.

@@ -1,26 +1,26 @@
-# KB scripts and repo helpers (performance)
+# KB tooling and repo commands (TypeScript / Node)
 
-Scripts live under **`scripts/`** at the **repository root** (not inside each skill folder). See [`scripts/README.md`](../../../scripts/README.md).
+Runtime commands are implemented in **TypeScript** and compiled to **`dist/tools.js`**. The canonical flag list is **[`scripts/README.md`](../../../scripts/README.md)** at repo root.
 
 ## Why batch query matters
 
-`query_kb.py` loads **`SentenceTransformer`** on every invocation. For **many** questions (exploration, golden tests), use **`query_kb_batch.py`** — **one** model load, batch encode, then rank per query. Typical speedup: **N queries** ≈ **1×** load + **N×** small matmul instead of **N×** full startup.
+Each `query-kb` invocation loads the embedding model. For **many** questions, use **`query-kb-batch`** — **one** model load, then rank per query. Typical speedup vs N separate `query-kb` calls: avoid **N×** cold starts.
 
 ## Inventory and CI
 
-| Script | Role |
-|--------|------|
-| **`list_skills.py`** | Prints bundled `skills/*/SKILL.md` rows; `--json` for agents. |
-| **`validate_skills.py`** | Ensures `name:` in frontmatter matches folder name; use in **CI** before merge. |
-| **`analyze_skills.py`** | Heuristic **report** (tiers: strong / consider / low): automation vs `scripts/` refs. **`--self-review`** = full Markdown for **this repo** (tier counts, all skills, manual checklist). **`--with-references`**, **`--only-actionable`**, **`--markdown`**. Pair with **`skills-self-review-pro`**. Not a linter. |
+| Command | Role |
+|---------|------|
+| **`node dist/tools.js list-skills`** | Bundled `skills/*/SKILL.md` inventory; `--json` for agents. |
+| **`node dist/tools.js validate-skills`** | Ensures `name:` in frontmatter matches folder; use in **CI** before merge. |
+| **`node dist/tools.js analyze-skills`** | Heuristic report (tiers: strong / consider / low). **`--self-review`** = full Markdown for this repo. **`--with-references`**, **`--only-actionable`**, **`--markdown`**. Pair with **`skills-self-review-pro`**. Not a linter. |
 
 ## KB pipeline
 
 1. Edit `knowledge-base/documents/**/*.md`
-2. `python scripts/build_kb.py`
-3. `python scripts/verify_kb.py`
-4. Single probe: `query_kb.py` — or batch: `query_kb_batch.py`
+2. `node dist/tools.js build-kb`
+3. `node dist/tools.js verify-kb`
+4. Single probe: `node dist/tools.js query-kb "..."` — or batch: `node dist/tools.js query-kb-batch -q "..." -q "..."`
 
 ## Dependencies
 
-Same as `requirements.txt` (NumPy, sentence-transformers). No extra packages for `list_skills` / `validate_skills`.
+Install repo **`npm`** dependencies (`npm install`) so `node dist/tools.js` runs; embedding stack matches `package.json` / lockfile. See **`scripts/README.md`** for build (`npm run build` if needed before first run).

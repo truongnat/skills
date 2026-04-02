@@ -82,6 +82,18 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision trees (summary)
+
+- **Read vs write ratio**, **cache-aside vs read/write-through**, **Redis vs in-process**, **CDN** fit, **invalidation** strategy — see trees.
+
+Details: [references/decision-tree.md](references/decision-tree.md)
+
+### Anti-patterns (summary)
+
+- Caching before query fix, unbounded key space, stampede without protection, wrong `Cache-Control` for private APIs — see reference.
+
+Details: [references/anti-patterns.md](references/anti-patterns.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** - Performance/correctness objective and affected workloads.
@@ -100,11 +112,25 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Performance and observability | [references/performance-and-observability.md](references/performance-and-observability.md) |
 | Tips | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision trees | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
 
 ## Quick example
 
+### 1 — Simple (common)
+
 **Input:** "Our product list API is slow and DB CPU spikes at peak. Should we use Redis?"  
 **Expected output:** Pick cache-aside with namespaced keys, TTL + jitter, explicit invalidation on product updates, stampede protection, and dashboard metrics with rollback criteria.
+
+### 2 — Tricky (edge case)
+
+**Input:** Cache hit ratio is high but users still see stale prices for minutes after admin update.  
+**Expected output:** Tighten invalidation on write path or shorten TTL for price keys; verify invalidation job success; avoid caching error responses.
+
+### 3 — Cross-skill
+
+**Input:** Next.js App Router page should be fast globally — team wants to cache HTML at CDN.  
+**Expected output:** **`nextjs-pro`** for cache semantics and revalidation; **`caching-pro`** for `Cache-Control` and invalidation; **`security-pro`** if content is user-specific.
 
 ## Checklist before calling the skill done
 
@@ -113,3 +139,4 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] Fallback behavior for cache outage is defined.
 - [ ] Observability metrics and alert thresholds are included.
 - [ ] Rollout/rollback plan is clear for production changes.
+- [ ] Query/index optimization considered before relying on cache for DB load.

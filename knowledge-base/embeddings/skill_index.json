@@ -13,10 +13,16 @@
       "Trigger keywords: `Claude`, `OpenAI`, `LLM`, `streaming`, `tool use`, `RAG`, `embeddings`, `prompt`, …"
     ],
     "references": [
+      "anti-patterns.md",
+      "decision-tree.md",
+      "edge-cases.md",
+      "integration-map.md",
       "prompt-engineering.md",
       "rag-embeddings.md",
       "streaming.md",
-      "tool-use.md"
+      "tips-and-tricks.md",
+      "tool-use.md",
+      "versions.md"
     ]
   },
   {
@@ -71,8 +77,10 @@
       "Trigger keywords: `authentication`, `authorization`, `JWT`, `OAuth`, `OIDC`, `RBAC`, `ABAC`, `MFA`, `SSO`"
     ],
     "references": [
+      "anti-patterns.md",
       "authentication-methods-and-selection.md",
       "authorization-models-and-policy.md",
+      "decision-tree.md",
       "edge-cases.md",
       "tips-and-tricks.md",
       "token-session-lifecycle.md"
@@ -132,6 +140,8 @@
       "Trigger keywords: `caching`, `Redis`, `TTL`, `invalidation`, `cache miss`, `stale data`, `ETag`, `CDN cache`"
     ],
     "references": [
+      "anti-patterns.md",
+      "decision-tree.md",
       "edge-cases.md",
       "invalidation-and-consistency.md",
       "pattern-selection.md",
@@ -159,10 +169,14 @@
       "Trigger keywords: `GitHub Actions`, `pipeline`, `.github/workflows`, `matrix`, `OIDC`, `deploy`, `canary`, …"
     ],
     "references": [
+      "anti-patterns.md",
+      "decision-tree.md",
       "deployment-strategies.md",
+      "edge-cases.md",
       "github-actions.md",
       "optimization.md",
-      "secrets-security.md"
+      "secrets-security.md",
+      "tips-and-tricks.md"
     ]
   },
   {
@@ -321,7 +335,9 @@
       "Trigger keywords: `Docker`, `Dockerfile`, `multi-stage`, `docker-compose`, `container`, `image size`, `distroless`, …"
     ],
     "references": [
+      "anti-patterns.md",
       "compose.md",
+      "decision-tree.md",
       "dockerfile.md",
       "edge-cases.md",
       "image-optimization.md",
@@ -341,9 +357,13 @@
       "Trigger keywords: `Electron`, `preload`, `ipcMain`, `contextBridge`, `electron-builder`, `auto-update`, …"
     ],
     "references": [
+      "anti-patterns.md",
+      "decision-tree.md",
       "edge-cases.md",
+      "integration-map.md",
       "main-preload-and-ipc.md",
-      "tips-and-tricks.md"
+      "tips-and-tricks.md",
+      "versions.md"
     ]
   },
   {
@@ -361,6 +381,8 @@
     ],
     "references": [
       "action-planning-and-closure.md",
+      "anti-patterns.md",
+      "decision-tree.md",
       "edge-cases.md",
       "finding-structure-and-evidence.md",
       "severity-and-prioritization.md",
@@ -381,9 +403,13 @@
       "Trigger keywords: `Flutter`, `Dart`, `Widget`, `Riverpod`, `go_router`, `BuildContext`, `mounted`, `Material 3`, `a11y`, `integration_test`, …"
     ],
     "references": [
+      "anti-patterns.md",
+      "decision-tree.md",
       "edge-cases.md",
+      "integration-map.md",
       "tips-and-tricks.md",
       "ui-ux-design.md",
+      "versions.md",
       "widgets.md"
     ]
   },
@@ -401,8 +427,10 @@
       "Trigger keywords: `git`, `commit`, `branch`, `merge`, `rebase`, `PR`, `conflict`, …"
     ],
     "references": [
+      "anti-patterns.md",
       "collaboration-and-safety.md",
       "commits-and-branching.md",
+      "decision-tree.md",
       "edge-cases.md",
       "tips-and-tricks.md"
     ]
@@ -532,10 +560,14 @@
       "Trigger keywords: `NestJS`, `Guard`, `ValidationPipe`, `Prisma`, `RLS`, `Interceptor`, …"
     ],
     "references": [
+      "anti-patterns.md",
       "api-design-and-dx.md",
+      "decision-tree.md",
       "edge-cases.md",
+      "integration-map.md",
       "postgresql-rls-integration.md",
-      "tips-and-tricks.md"
+      "tips-and-tricks.md",
+      "versions.md"
     ]
   },
   {
@@ -615,6 +647,8 @@
       "Trigger keywords: `planning`, `roadmap`, `milestone`, `phase`, `timeline`, `dependency`, `estimate`"
     ],
     "references": [
+      "anti-patterns.md",
+      "decision-tree.md",
       "edge-cases.md",
       "estimation-and-risk-controls.md",
       "scope-and-decomposition.md",
@@ -636,10 +670,14 @@
       "Trigger keywords: `PostgreSQL`, `EXPLAIN`, `RLS`, `migration`, `index`, `VACUUM`, …"
     ],
     "references": [
+      "anti-patterns.md",
+      "decision-tree.md",
       "edge-cases.md",
+      "integration-map.md",
       "row-level-security.md",
       "schema-and-query-design.md",
-      "tips-and-tricks.md"
+      "tips-and-tricks.md",
+      "versions.md"
     ]
   },
   {
@@ -655,9 +693,13 @@
       "Trigger keywords: `React Native`, `Expo`, `FlatList`, `SafeArea`, `Hermes`, `a11y`, `EAS`, …"
     ],
     "references": [
+      "anti-patterns.md",
+      "decision-tree.md",
       "edge-cases.md",
+      "integration-map.md",
       "tips-and-tricks.md",
-      "ui-ux-design.md"
+      "ui-ux-design.md",
+      "versions.md"
     ]
   },
   {
@@ -686,15 +728,15 @@
   {
     "name": "repo-tooling-pro",
     "folder": "repo-tooling-pro",
-    "description": "Repository automation for this skills template: Python scripts under scripts/ for knowledge-base batch queries (performance), skill inventory, validation, and KB build/verify — when to use them vs reading Markdown only.\n\nUse this skill when the user runs or wires CI for build_kb, query_kb, query_kb_batch, verify_kb, list_skills, validate_skills, analyze_skills; asks how to speed up multiple KB queries; or needs a JSON list of bundled skills — or a **report** on which skills should **link or add** helpers under `scripts/` (self-support automation). This skill (`repo-tooling-pro`) owns **script usage and performance**; other **`*-pro`** skills own domain content.\n\nTriggers: \"scripts\", \"query_kb_batch\", \"batch query\", \"list_skills\", \"validate_skills\", \"analyze_skills\", \"skill analysis report\", \"script self support\", \"build_kb\", \"verify_kb\", \"CI skills\", \"RAG performance\", \"embeddings\", \"repo automation\".",
+    "description": "Repository automation for this skills template: Node/TypeScript commands (`dist/tools.js`) for knowledge-base batch queries, skill inventory, validation, KB build/verify, and skill-index generation — when to use them vs reading Markdown only.\n\nUse this skill when the user runs or wires CI for build-kb, query-kb, query-kb-batch, verify-kb, list-skills, validate-skills, analyze-skills, build-skill-index; asks how to speed up multiple KB queries; or needs a JSON list of bundled skills — or a report on which skills should link helpers under `scripts/` (self-support automation). This skill (`repo-tooling-pro`) owns **CLI usage and performance**; other **`*-pro`** skills own domain content.\n\nTriggers: \"scripts\", \"dist/tools.js\", \"query-kb-batch\", \"batch query\", \"list_skills\", \"validate_skills\", \"analyze_skills\", \"skill analysis report\", \"build_kb\", \"verify_kb\", \"CI skills\", \"RAG performance\", \"embeddings\", \"repo automation\", \"npm run validate-skills\".",
     "triggers": [],
     "when_to_use": [
-      "**Multiple** KB questions in one session — **`query_kb_batch.py`**.",
-      "**CI** — **`validate_skills.py`** after skill changes; **`verify_kb.py`** after KB build.",
-      "**Agent inventory** — **`list_skills.py --json`**.",
-      "**Authoring / audit** — **`analyze_skills.py`** (`--markdown` for paste-ready report; see **`skills-self-review-pro`**).",
-      "Explaining **performance** difference vs N× `query_kb.py`.",
-      "Trigger keywords: `query_kb_batch`, `validate_skills`, `analyze_skills`, `list_skills`, `build_kb`, …"
+      "**Multiple** KB questions in one session — **`node dist/tools.js query-kb-batch`** (or `npm run query-kb-batch`).",
+      "**CI** — **`validate-skills`** after skill changes; **`verify-kb`** after KB build.",
+      "**Agent inventory** — **`list-skills --json`**.",
+      "**Authoring / audit** — **`analyze-skills`** (`--markdown` for paste-ready report; see **`skills-self-review-pro`**).",
+      "Explaining **performance** difference vs N× separate **`query-kb`** invocations.",
+      "Trigger keywords: `query-kb-batch`, `validate-skills`, `analyze-skills`, `list-skills`, `build-kb`, `dist/tools.js`, …"
     ],
     "references": [
       "edge-cases.md",
@@ -773,7 +815,7 @@
   {
     "name": "skills-self-review-pro",
     "folder": "skills-self-review-pro",
-    "description": "Self-review of the skills template: structured gap and improvement reports using repo scripts (analyze_skills Markdown output, validate_skills, list_skills), cross-checks against SKILL_AUTHORING_RULES.md, optional **tech refresh** via **`web-research-pro`** (official docs, release notes), and clear limits of automation vs human judgment.\n\nUse this skill when the user wants a **periodic audit** of bundled skills, a **PR checklist** for skill changes, an **automation vs scripts** backlog, or asks to **find gaps** and **suggested improvements** without manually opening every `SKILL.md` — or to **align** stack skills with **current** upstream technology.\n\nUse **with** **`repo-tooling-pro`** for script flags and CI wiring; **`web-research-pro`** for **internet / official** doc verification; **`git-operations-pro`** when the output becomes a **commit** or **PR** artifact. Persist decisions in **`knowledge-base/documents/`** per **`.cursor/rules/documentation-persistence.mdc`**. This skill (`skills-self-review-pro`) owns **review methodology and report shape**; scripts own **deterministic checks**.\n\nTriggers: \"skill self review\", \"audit skills\", \"gap report\", \"improve bundled skills\", \"analyze_skills\", \"validate_skills inventory\", \"authoring checklist\", \"skill quality\", \"SKILL.md review\", \"tech refresh skills\", \"update skills for new React\", \"official docs check\".",
+    "description": "Self-review of the skills template: structured gap and improvement reports using repo CLI (`node dist/tools.js analyze-skills`, `validate-skills`, `list-skills`), cross-checks against SKILL_AUTHORING_RULES.md, optional **tech refresh** via **`web-research-pro`** (official docs, release notes), and clear limits of automation vs human judgment.\n\nUse this skill when the user wants a **periodic audit** of bundled skills, a **PR checklist** for skill changes, an **automation vs scripts** backlog, or asks to **find gaps** and **suggested improvements** without manually opening every `SKILL.md` — or to **align** stack skills with **current** upstream technology.\n\nUse **with** **`repo-tooling-pro`** for script flags and CI wiring; **`web-research-pro`** for **internet / official** doc verification; **`git-operations-pro`** when the output becomes a **commit** or **PR** artifact. Persist decisions in **`knowledge-base/documents/`** per **`.cursor/rules/documentation-persistence.mdc`**. This skill (`skills-self-review-pro`) owns **review methodology and report shape**; scripts own **deterministic checks**.\n\nTriggers: \"skill self review\", \"audit skills\", \"gap report\", \"improve bundled skills\", \"analyze_skills\", \"validate_skills inventory\", \"authoring checklist\", \"skill quality\", \"SKILL.md review\", \"tech refresh skills\", \"update skills for new React\", \"official docs check\".",
     "triggers": [],
     "when_to_use": [
       "**Before merge** of large skill additions — run **`validate_skills`** + **`analyze_skills --markdown`**.",

@@ -81,6 +81,31 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 
 Details: [references/postgresql-rls-integration.md](references/postgresql-rls-integration.md) — deep link to SQL policies: [postgresql-pro row-level-security.md](../postgresql-pro/references/row-level-security.md)
 
+### Decision trees (summary)
+
+- **Guard vs Middleware vs Interceptor vs Pipe vs Filter** — choose by where logic must run (authz → Guard; raw pipeline → Middleware; response shaping → Interceptor).
+- **Dynamic module vs static**, **request scope vs singleton** — see binary trees in the reference.
+
+Details: [references/decision-tree.md](references/decision-tree.md)
+
+### Anti-patterns (summary)
+
+- Fat controllers, missing `whitelist` on `ValidationPipe`, `Scope.REQUEST` overuse, `forwardRef` as first fix, RLS confusion — expanded list in reference.
+
+Details: [references/anti-patterns.md](references/anti-patterns.md)
+
+### Integration map (summary)
+
+- When combining with **`postgresql-pro`**, **`auth-pro`**, **`testing-pro`**, **`api-design-pro`** — ownership split in table form.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Version notes (summary)
+
+- Nest major jumps affect Fastify/Express adapters, Swagger, GraphQL — always use official migration guide for your **from → to** pair.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — What is wrong or what we are building.
@@ -99,11 +124,27 @@ Details: [references/postgresql-rls-integration.md](references/postgresql-rls-in
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
 | **PostgreSQL RLS + Nest** | [references/postgresql-rls-integration.md](references/postgresql-rls-integration.md) |
 | RLS SQL (PostgreSQL) | [postgresql-pro row-level-security.md](../postgresql-pro/references/row-level-security.md) |
+| Decision trees | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Version notes | [references/versions.md](references/versions.md) |
 
 ## Quick example
 
+### 1 — Simple (common)
+
 **Input:** Need to set `app.tenant_id` before every Prisma query in a multi-tenant request; using PgBouncer transaction mode.  
 **Expected output:** Suggest `.$transaction()` + `SET LOCAL`, warn about session vs transaction pool, and link `postgresql-rls-integration.md` / `postgresql-pro`.
+
+### 2 — Tricky (edge case)
+
+**Input:** Global `ValidationPipe` with `whitelist` still allows an unexpected field through a nested DTO — clients send `isAdmin: true`.  
+**Expected output:** Recommend `forbidNonWhitelisted`, nested DTO types, and stripping at serialization layer; never trust client for authz (`auth-pro`).
+
+### 3 — Cross-skill
+
+**Input:** New microservice shares Bull queue with monolith — jobs sometimes processed twice.  
+**Expected output:** **`nestjs-pro`** Bull module idempotency + worker config; **`deployment-pro`** rollout order; align with **`testing-pro`** for job contract tests.
 
 ## Checklist before calling the skill done
 
@@ -114,3 +155,4 @@ Details: [references/postgresql-rls-integration.md](references/postgresql-rls-in
 - [ ] Database migrations or schema changes reviewed; transactions for multi-step writes.
 - [ ] **RLS**: if using Postgres RLS, tenant context is set correctly for pool + ORM; policies tested as app DB role (see `postgresql-pro`).
 - [ ] Tests cover happy path + at least one failure mode for critical flows.
+- [ ] Decision-tree reference consulted when choosing Guard vs Middleware vs Interceptor for new cross-cutting behavior.

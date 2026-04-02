@@ -2,6 +2,8 @@
 
 Welcome. This folder and the repo root contain docs and templates for **AI skills**, a **knowledge base**, and **prompt** workflows.
 
+This repository’s **runtime tooling** is **Node.js / TypeScript** (`dist/tools.js`). Legacy Python venv flows are **not** required for `build-kb`, `query-kb`, or skill validation.
+
 ## What you have
 
 ### Main docs
@@ -17,7 +19,7 @@ Welcome. This folder and the repo root contain docs and templates for **AI skill
 2. **PROMPT_TEMPLATES.md** — prompt template examples (Markdown)
 3. **config.example.md** (repo root) — KB/RAG config sample
 4. **config.template.md** — same idea, kept under `templates/`
-5. **requirements.txt** (repo root) — Python dependencies
+5. **package.json** (repo root) — Node dependencies and `npm run` scripts (`requirements.txt` may exist as legacy; see root README)
 
 ---
 
@@ -31,19 +33,18 @@ mkdir my-ai-toolkit && cd my-ai-toolkit
 chmod +x quick-start.sh
 ./quick-start.sh
 nano .env   # ANTHROPIC_API_KEY or OPENAI_API_KEY if needed
-source venv/bin/activate
-python scripts/build_kb.py --dry-run
+npm install
+npm run build
+node dist/tools.js build-kb --dry-run
 ```
 
-### Option B: manual
+### Option B: manual (this repo)
 
 ```bash
-python3 -m venv venv
-source venv/bin/activate   # Windows: venv\Scripts\activate
-pip install -r requirements.txt
+npm install
+npm run build
 cp config.example.md config.md
-nano config.md             # edit kb-config block if needed
-mkdir -p skills/examples knowledge-base/documents prompts/templates
+# edit kb-config in config.md if needed
 ```
 
 ---
@@ -63,12 +64,13 @@ nano SKILL.md   # set name, description (when to trigger), workflow
 Add `.md` files under `knowledge-base/documents/`, update `knowledge-base/INDEX.md`, then:
 
 ```bash
-python scripts/build_kb.py
+node dist/tools.js build-kb
+node dist/tools.js verify-kb
 ```
 
 ### 3. Prompt templates
 
-See **PROMPT_TEMPLATES.md** and store real templates under `prompts/templates/` as Markdown.
+See **PROMPT_TEMPLATES.md** and the structured tree under **`prompts/`** (planning, review, debugging, generation, analysis, chains).
 
 ### MCP, workflows, monitoring
 
@@ -87,7 +89,7 @@ See **PROMPT_TEMPLATES.md** and store real templates under `prompts/templates/` 
 
 1. Read root [README.md](../README.md)
 2. Create your first skill from the template
-3. Try prompt templates and `build_kb.py`
+3. Try prompt templates and **`node dist/tools.js build-kb`**
 
 ---
 
@@ -98,14 +100,14 @@ See **PROMPT_TEMPLATES.md** and store real templates under `prompts/templates/` 
 
 ### Before you start
 
-- [ ] Python 3.10+ and `pip install -r requirements.txt`
+- [ ] **Node.js** (LTS) and **`npm install`** at repo root
+- [ ] **`npm run build`** so `dist/tools.js` exists
 - [ ] Optional: API key for your LLM provider
-- [ ] ~30 minutes for first setup
 
 ### After setup
 
 - [ ] `config.md` (or `config.example.md`) has the kb-config you want
-- [ ] `python scripts/build_kb.py --dry-run` succeeds (or real build)
+- [ ] `node dist/tools.js build-kb --dry-run` succeeds (or real build)
 
 ---
 

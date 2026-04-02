@@ -21,7 +21,7 @@
 
 1. Add or edit stable `.md` files under `documents/` when content is ready.
 2. Update **INDEX.md** in the **same** commit as document changes.
-3. After adding/editing many documents: run `python scripts/build_kb.py` and `verify_kb.py` if using RAG.
+3. After adding/editing many documents: run `node dist/tools.js build-kb` and `node dist/tools.js verify-kb` if using RAG (repo root; see [`scripts/README.md`](../../../scripts/README.md)).
 
 ## Cursor rule
 

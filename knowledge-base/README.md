@@ -1,8 +1,8 @@
 # Knowledge base
 
-Source Markdown for manual lookup, agents following [INDEX.md](INDEX.md), or **RAG** via `scripts/build_kb.py` / `scripts/query_kb.py`.
+Source Markdown for manual lookup, agents following [INDEX.md](INDEX.md), or **RAG** via `node dist/tools.js build-kb` / `query-kb` (see [`../scripts/README.md`](../scripts/README.md)).
 
-**Verification:** see [VERIFY.md](VERIFY.md) and run `python scripts/verify_kb.py` after each build.
+**Verification:** see [VERIFY.md](VERIFY.md) and run `node dist/tools.js verify-kb` after each build.
 
 ## Convention
 
@@ -17,7 +17,7 @@ Source Markdown for manual lookup, agents following [INDEX.md](INDEX.md), or **R
 | updated | 2026-03-31 |
 
 3. **Update [INDEX.md](INDEX.md)** when adding or changing important docs (topic → path → short description).
-4. **Do not** commit vectors/index to git — see root `.gitignore`; `embeddings/` holds `rag_embeddings.npy` and `rag_manifest.json` produced by `scripts/build_kb.py`.
+4. **Do not** commit vectors/index to git — see root `.gitignore`; `embeddings/` holds `rag_embeddings.npy` and `rag_manifest.json` produced by **`build-kb`**.
 
 ## Directories
 

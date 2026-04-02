@@ -15,7 +15,7 @@
 
 ## Tools
 
-- Use **repository** `knowledge-base/` and **`query_kb.py`** when the corpus is **local** and indexed — **web** search when facts are external or fresher than the KB.
+- Use **repository** `knowledge-base/` and **`node dist/tools.js query-kb`** when the corpus is **local** and indexed — **web** search when facts are external or fresher than the KB.
 
 ## Relationship
 

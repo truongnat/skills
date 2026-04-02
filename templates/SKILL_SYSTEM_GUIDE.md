@@ -1,5 +1,7 @@
 # Building a skill system, knowledge base & prompt framework
 
+> **Repository note (this skills repo):** Bundled tooling uses **`node dist/tools.js`** (validate skills, build skill index, KB, etc.). See [`../AGENTS.md`](../AGENTS.md) and [`../scripts/README.md`](../scripts/README.md). Python snippets in this guide illustrate third-party AI stacks; they are optional unless you adopt those libraries.
+
 ## 📋 Contents
 1. [Architecture overview](#architecture-overview)
 2. [Skill System Structure](#skill-system-structure)

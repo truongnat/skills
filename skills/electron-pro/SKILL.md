@@ -50,6 +50,9 @@ Renderer UI patterns (React hooks, a11y): skill **`react-pro`**.
 3. **Ship secure defaults** — `contextIsolation`, `nodeIntegration: false`, sensible `webPreferences`.
 4. **Production differs from dev** — Disable unsafe shortcuts; control DevTools and remote debugging.
 5. **Sign and update responsibly** — Updates are part of your supply chain; test failure modes.
+6. **Sandbox when possible** — Prefer `sandbox: true` where compatible with your native needs.
+7. **Deep links and custom protocols** — Register allowlists; validate URLs before navigation.
+8. **Crash reporting** — Separate PII from main process logs; align with org policy.
 
 ### Main process, preload, and IPC (summary)
 
@@ -72,6 +75,30 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Anti-patterns (summary)
+
+- `nodeIntegration` in renderer, trusting IPC, disabling `webSecurity`, exposing `fs` — see reference.
+
+Details: [references/anti-patterns.md](references/anti-patterns.md)
+
+### Decision trees (summary)
+
+- IPC invoke vs send, builder vs forge, update channels — see trees.
+
+Details: [references/decision-tree.md](references/decision-tree.md)
+
+### Integration map (summary)
+
+- **`react-pro`**, **`security-pro`**, **`testing-pro`** — who owns renderer vs IPC vs tests.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Version notes (summary)
+
+- Electron major + native module rebuild — check release notes before upgrades.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — Window lifecycle, IPC design, packaging, or security concern.
@@ -88,11 +115,27 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Main, preload, IPC | [references/main-preload-and-ipc.md](references/main-preload-and-ipc.md) |
 | Tips and patterns | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Decision trees | [references/decision-tree.md](references/decision-tree.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Version notes | [references/versions.md](references/versions.md) |
 
 ## Quick example
 
+### 1 — Simple (common)
+
 **Input:** Renderer needs to read a project file — team used `nodeIntegration: true`.  
 **Expected output:** Reject enabling Node in renderer; use preload + `ipcMain.handle` with path validation and jail to project root; list `webPreferences` checklist.
+
+### 2 — Tricky (edge case)
+
+**Input:** Auto-update installs but app won’t restart on Windows — SmartScreen blocks.  
+**Expected output:** Code signing + EV cert context; user education; **`deployment-pro`** for release pipeline; document known Windows trust prompts.
+
+### 3 — Cross-skill
+
+**Input:** React UI in renderer logs sensitive IPC payloads to DevTools.  
+**Expected output:** **`electron-pro`** — strip logs in production, narrow `contextBridge`; **`security-pro`** — redaction policy; **`react-pro`** — avoid logging props with secrets.
 
 ## Checklist before calling the skill done
 
@@ -101,3 +144,4 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] Production build does not expose unnecessary DevTools or unsafe `webPreferences`.
 - [ ] Packaging/signing/update story acknowledged for target OS.
 - [ ] UI-only guidance deferred to **`react-pro`** when appropriate.
+- [ ] [anti-patterns.md](references/anti-patterns.md) reviewed for IPC and `webPreferences` defaults.

@@ -1,5 +1,7 @@
 # Cool technologies in the AI ecosystem 🚀
 
+> **Repository note (this skills repo):** This repository’s own scripts are **Node** — `node dist/tools.js`. The Python examples below are for **LangChain and similar ecosystems**, not a required runtime here. See [`../scripts/README.md`](../scripts/README.md).
+
 Tools and frameworks worth knowing when building AI applications.
 
 ---

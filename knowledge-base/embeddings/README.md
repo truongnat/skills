@@ -1,6 +1,6 @@
 # embeddings (generated)
 
-This directory holds the **local RAG index** produced by `scripts/build_kb.py`:
+This directory holds the **local RAG index** produced by **`node dist/tools.js build-kb`**:
 
 - `rag_embeddings.npy` — NumPy vector matrix
 - `rag_manifest.json` — metadata + chunk text

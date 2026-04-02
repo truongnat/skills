@@ -82,6 +82,18 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision trees (summary) — optional support-tier
+
+- Block merge vs follow-up, severity calibration, request changes vs comment.
+
+Details: [references/decision-tree.md](references/decision-tree.md)
+
+### Anti-patterns (summary) — optional support-tier
+
+- Severity inflation, vague feedback, bikeshedding — see reference.
+
+Details: [references/anti-patterns.md](references/anti-patterns.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** - Review intent, scope, and quality target.
@@ -100,11 +112,25 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Action planning and closure | [references/action-planning-and-closure.md](references/action-planning-and-closure.md) |
 | Tips | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision trees (optional) | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns (optional) | [references/anti-patterns.md](references/anti-patterns.md) |
 
 ## Quick example
 
+### 1 — Simple (common)
+
 **Input:** "Review this PR and give deep feedback, not just style comments."  
 **Expected output:** Evidence-backed findings with severity labels, must-fix vs should-improve split, concrete remediation steps, and closure checklist.
+
+### 2 — Tricky (edge case)
+
+**Input:** Two reviewers disagree on architecture; author is blocked.  
+**Expected output:** Consolidate decision path, one explicit direction, escalate if product-owned; template in [edge-cases.md](references/edge-cases.md).
+
+### 3 — Cross-skill
+
+**Input:** Possible security issue but not sure if exploitable.  
+**Expected output:** **`feedback-pro`** structure + evidence gaps; **`security-pro`** for exploit scenarios; label confidence **Low** until verified.
 
 ## Checklist before calling the skill done
 
@@ -113,3 +139,4 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] Recommendations are actionable with verification criteria.
 - [ ] Must-fix vs optional items are clearly separated.
 - [ ] Residual risks and follow-up dependencies are documented.
+- [ ] Optional: [anti-patterns.md](references/anti-patterns.md) checked for severity inflation and vague wording.

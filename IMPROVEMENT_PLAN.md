@@ -15,6 +15,33 @@
 | **Templates** | Monolith `PROMPT_TEMPLATES.md`; single skill template | No issue/PR/ADR/report templates; prompt templates not organized by job-to-be-done |
 | **Output formatting** | Plain tables + bullets; no visual severity; no callout blocks | Reports look identical regardless of severity; no standard "beautiful output" conventions |
 
+> **Note:** The table above is a **historical baseline** (plan inception), not a live dashboard. See **[Implementation status](#implementation-status)** so it is not read as current truth.
+
+---
+
+## Implementation status
+
+Rolling snapshot so maintainers do not confuse **Diagnosis** with “nothing has been done.”
+
+| Layer | Status (2026-04) | Notes |
+|-------|------------------|-------|
+| **Skills** | In progress | Depth waves (references, anti-patterns, three Quick examples, etc.) ongoing; not every skill meets §1.1 tier targets yet |
+| **Authoring rules** | Largely done | §10–§12 (rubric, consumer guidance, update-vs-add) in [`skills/SKILL_AUTHORING_RULES.md`](skills/SKILL_AUTHORING_RULES.md) |
+| **Workflows** | Expanded | Beyond the original five; see [`workflows/dev/README.md`](workflows/dev/README.md) — diagnosis row predates many additions |
+| **Prompts** | Partial | `prompts/` tree by job exists; **§4.2** Few-shot + Chain is **not** in every file — audit backlog in [`prompts/README.md`](prompts/README.md) (section **IMPROVEMENT_PLAN §4.2 compliance**) |
+| **Templates** | Partial | Report/issue/kb scaffolds exist; [`templates/PROMPT_TEMPLATES.md`](templates/PROMPT_TEMPLATES.md) remains a monolith **index** |
+| **Output formatting** | Done | [`OUTPUT_CONVENTIONS.md`](OUTPUT_CONVENTIONS.md) at repo root |
+
+### Tooling convention (skills index)
+
+After **substantive** changes to bundled skill content (`skills/**/SKILL.md` or `references/` text that affects discovery/embeddings), run:
+
+```bash
+node dist/tools.js build-skill-index
+```
+
+Also run **`node dist/tools.js validate-skills`** when frontmatter or folder `name` changes. Documented in [`skills/SKILL_AUTHORING_RULES.md`](skills/SKILL_AUTHORING_RULES.md) §8.
+
 ---
 
 ## Part 1 — Skills
@@ -656,4 +683,4 @@ A skill, workflow, prompt, or template is "done" when an agent using it:
 
 ---
 
-*Plan version 1.0 — 2026-04-02. Owned by: repo maintainer. Review before Phase 2 begins.*
+*Plan version 1.1 — 2026-04-02. Adds Implementation status + skills index convention. Owned by: repo maintainer.*

@@ -75,4 +75,5 @@ Use this **visual contract** for workflow outputs, skill responses, audits, and 
 - Test strategy: [`templates/report/test-strategy.md`](templates/report/test-strategy.md)
 - Dependency audit: [`templates/report/dependency-audit.md`](templates/report/dependency-audit.md)
 - Debug / RCA: [`templates/report/debug-report.md`](templates/report/debug-report.md)
+- Project index (`/w-index-project`): [`templates/report/project-index-report.md`](templates/report/project-index-report.md)
 - ADR: [`templates/report/architecture-decision-record.md`](templates/report/architecture-decision-record.md)

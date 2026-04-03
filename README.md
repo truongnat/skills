@@ -166,6 +166,7 @@ Conventions and **`w-<slug>.md`** naming: [`workflows/README.md`](workflows/READ
 | **`/w-api-design`** | [`workflows/dev/w-api-design.md`](workflows/dev/w-api-design.md) | API design review — contract, authz, errors |
 | **`/w-test-strategy`** | [`workflows/dev/w-test-strategy.md`](workflows/dev/w-test-strategy.md) | Testing strategy — pyramid, risk, CI gates |
 | **`/w-dep-audit`** | [`workflows/dev/w-dep-audit.md`](workflows/dev/w-dep-audit.md) | Dependency / supply-chain audit |
+| **`/w-index-project`** | [`workflows/dev/w-index-project.md`](workflows/dev/w-index-project.md) | Project overview + vector index (`index-project`, `query-kb --index`) |
 
 Index: [`workflows/dev/README.md`](workflows/dev/README.md) — Markdown step contracts; no automated runner required.
 

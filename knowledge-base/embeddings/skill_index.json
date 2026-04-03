@@ -737,15 +737,16 @@
   {
     "name": "repo-tooling-pro",
     "folder": "repo-tooling-pro",
-    "description": "Repository automation for this skills template: Node/TypeScript commands (`dist/tools.js`) for knowledge-base batch queries, skill inventory, validation, KB build/verify, and skill-index generation — when to use them vs reading Markdown only.\n\nUse this skill when the user runs or wires CI for build-kb, query-kb, query-kb-batch, verify-kb, list-skills, validate-skills, analyze-skills, build-skill-index; asks how to speed up multiple KB queries; or needs a JSON list of bundled skills — or a report on which skills should link helpers under `scripts/` (self-support automation). This skill (`repo-tooling-pro`) owns **CLI usage and performance**; other **`*-pro`** skills own domain content.\n\nTriggers: \"scripts\", \"dist/tools.js\", \"query-kb-batch\", \"batch query\", \"list_skills\", \"validate_skills\", \"analyze_skills\", \"skill analysis report\", \"build_kb\", \"verify_kb\", \"CI skills\", \"RAG performance\", \"embeddings\", \"repo automation\", \"npm run validate-skills\".",
+    "description": "Repository automation for this skills template: Node/TypeScript commands (`dist/tools.js`) for knowledge-base batch queries, skill inventory, validation, KB build/verify, and skill-index generation — when to use them vs reading Markdown only.\n\nUse this skill when the user runs or wires CI for build-kb, query-kb, query-kb-batch, verify-kb, list-skills, validate-skills, analyze-skills, build-skill-index, index-project, generate-wiki; asks how to speed up multiple KB queries; or needs a JSON list of bundled skills — or a report on which skills should link helpers under `scripts/` (self-support automation). This skill (`repo-tooling-pro`) owns **CLI usage and performance**; other **`*-pro`** skills own domain content.\n\nTriggers: \"scripts\", \"dist/tools.js\", \"query-kb-batch\", \"batch query\", \"list_skills\", \"validate_skills\", \"analyze_skills\", \"skill analysis report\", \"build_kb\", \"verify_kb\", \"index-project\", \"generate-wiki\", \"project index\", \"wiki html\", \"CI skills\", \"RAG performance\", \"embeddings\", \"repo automation\", \"npm run validate-skills\".",
     "triggers": [],
     "when_to_use": [
       "**Multiple** KB questions in one session — **`node dist/tools.js query-kb-batch`** (or `npm run query-kb-batch`).",
+      "**Project index + wiki** — **`index-project`** builds embeddings for an arbitrary tree; **`query-kb --index <dir>`** queries it; **`generate-wiki`** turns `<index_base>/docs/**/*.md` into static HTML (tables, sidebar search, **`--watch`** / **`--open`**; see **`/w-index-project`**).",
       "**CI** — **`validate-skills`** after skill changes; **`verify-kb`** after KB build.",
       "**Agent inventory** — **`list-skills --json`**.",
       "**Authoring / audit** — **`analyze-skills`** (`--markdown` for paste-ready report; see **`skills-self-review-pro`**).",
       "Explaining **performance** difference vs N× separate **`query-kb`** invocations.",
-      "Trigger keywords: `query-kb-batch`, `validate-skills`, `analyze-skills`, `list-skills`, `build-kb`, `dist/tools.js`, …"
+      "Trigger keywords: `query-kb-batch`, `validate-skills`, `analyze-skills`, `list-skills`, `build-kb`, `index-project`, `generate-wiki`, `dist/tools.js`, …"
     ],
     "references": [
       "edge-cases.md",

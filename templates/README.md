@@ -14,6 +14,7 @@ Authoring and **output** templates for skills, workflows, prompts, and reports.
 | Report — test strategy | [`report/test-strategy.md`](report/test-strategy.md) |
 | Report — dependency audit | [`report/dependency-audit.md`](report/dependency-audit.md) |
 | Report — debug / RCA | [`report/debug-report.md`](report/debug-report.md) |
+| Report — project index | [`report/project-index-report.md`](report/project-index-report.md) |
 | Report — ADR | [`report/architecture-decision-record.md`](report/architecture-decision-record.md) |
 | Issue — bug | [`issue/bug-report.md`](issue/bug-report.md) |
 | Issue — feature | [`issue/feature-request.md`](issue/feature-request.md) |

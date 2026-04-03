@@ -13,9 +13,24 @@ This repo does **not** require an automated engine: an agent (or you) reads the 
 
 | Domain | Index | Workflows |
 |--------|--------|-----------|
-| **dev** | [`dev/README.md`](dev/README.md) | [`dev/w-ticket.md`](dev/w-ticket.md) (`ticket`, **`/w-ticket`**), [`dev/w-hotfix.md`](dev/w-hotfix.md) (`hotfix`, **`/w-hotfix`**), [`dev/w-release.md`](dev/w-release.md) (`release`, **`/w-release`**), [`dev/w-code-review.md`](dev/w-code-review.md), [`dev/w-debug.md`](dev/w-debug.md), [`dev/w-security-audit.md`](dev/w-security-audit.md), [`dev/w-arch-review.md`](dev/w-arch-review.md), [`dev/w-perf-investigation.md`](dev/w-perf-investigation.md), [`dev/w-refactor.md`](dev/w-refactor.md), [`dev/w-incident.md`](dev/w-incident.md), [`dev/w-data-migration.md`](dev/w-data-migration.md), [`dev/w-onboarding.md`](dev/w-onboarding.md), [`dev/w-api-design.md`](dev/w-api-design.md), [`dev/w-test-strategy.md`](dev/w-test-strategy.md), [`dev/w-dep-audit.md`](dev/w-dep-audit.md) |
+| **dev** | [`dev/README.md`](dev/README.md) | [`dev/w-ticket.md`](dev/w-ticket.md) (`ticket`, **`/w-ticket`**), [`dev/w-hotfix.md`](dev/w-hotfix.md) (`hotfix`, **`/w-hotfix`**), [`dev/w-release.md`](dev/w-release.md) (`release`, **`/w-release`**), [`dev/w-code-review.md`](dev/w-code-review.md), [`dev/w-debug.md`](dev/w-debug.md), [`dev/w-security-audit.md`](dev/w-security-audit.md), [`dev/w-arch-review.md`](dev/w-arch-review.md), [`dev/w-perf-investigation.md`](dev/w-perf-investigation.md), [`dev/w-refactor.md`](dev/w-refactor.md), [`dev/w-incident.md`](dev/w-incident.md), [`dev/w-data-migration.md`](dev/w-data-migration.md), [`dev/w-onboarding.md`](dev/w-onboarding.md), [`dev/w-api-design.md`](dev/w-api-design.md), [`dev/w-test-strategy.md`](dev/w-test-strategy.md), [`dev/w-dep-audit.md`](dev/w-dep-audit.md), [`dev/w-index-project.md`](dev/w-index-project.md) (**`/w-index-project`**) |
 
 Slash commands are authored once under **`commands/`** (see [`commands/README.md`](../commands/README.md)). **`w-*.md`** stubs include **`targets: [cursor, claude]`** by default. Routing helpers (`route`, `optimize`, `find-skill`, `run-workflow`) use **`targets: [claude]`** only. **`.cursor/commands/`** and **`.claude/commands/`** in this repo are symlinks into **`commands/`** for IDE discovery.
+
+## Parallel execution
+
+Workflows may describe **safe concurrency** for agent hosts that support sub-agents (e.g. Cursor **Task** tool). Use a dedicated **`## Parallelization`** section (or bullets under **Steps**) with explicit **fork/join** semantics.
+
+| Marker | Use |
+|--------|-----|
+| **`parallel-with: Step N`** | This step may run **at the same time** as Step *N* after shared prerequisites are done. |
+| **`parallel-each: <unit>`** | **Fan-out:** one parallel task per `<unit>` (e.g. per module, per file); **join** before the next step that needs all units. |
+
+**Rules of thumb:**
+
+- Document **what must finish before** a fork and **what must exist before** the join.
+- Prefer **independent outputs** (separate files) for parallel units to avoid merge conflicts.
+- If the host has no Task API, agents should **fall back to sequential** execution in step order.
 
 ## Convention (Markdown)
 

@@ -18,8 +18,12 @@ All runtime tooling is now implemented in TypeScript and compiled to `dist/tools
 | `node dist/tools.js install-skill <path> [--project-dir ...] [--all-ides]` | Install one skill into target project |
 | `node dist/tools.js verify-bundle-install [--project-dir ...]` | Verify full bundle installation |
 | `node dist/tools.js build-kb` | Build KB embeddings + manifest |
+| `node dist/tools.js index-project [--dir .] [--out .agents/devkit/project-index] [--include globs] [--dry-run]` | Build **project** index (`embeddings.json` + `manifest.json`) for arbitrary trees |
+| `node dist/tools.js generate-wiki [--docs …/docs] [--out …/wiki] [--watch] [--open]` | Static **HTML wiki**: sidebar, pipe **tables**, **Search** (client-side), relative **`.md`→`.html`** links; **`--watch`** polls docs and rebuilds; **`--open`** opens `index.html` in the default browser |
 | `node dist/tools.js query-kb "..." -k 5` | Query KB (single query) |
+| `node dist/tools.js query-kb "..." -k 5 --index .agents/devkit/project-index` | Query a **project** index built by `index-project` |
 | `node dist/tools.js query-kb-batch -q "..." -q "..."` | Query KB for multiple prompts |
+| `node dist/tools.js query-kb-batch -q "a" -q "b" --index <dir>` | Batch query against a project index |
 | `node dist/tools.js verify-kb` | Verify KB artifacts |
 
 ## npm aliases
@@ -33,6 +37,7 @@ All runtime tooling is now implemented in TypeScript and compiled to `dist/tools
 - `npm run install-skill`
 - `npm run verify-bundle-install`
 - `npm run build-kb`
+- `npm run generate-wiki`
 - `npm run query-kb`
 - `npm run query-kb-batch`
 - `npm run verify-kb`

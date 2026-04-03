@@ -26,6 +26,8 @@
     "install-skill": "node dist/tools.js install-skill",
     "verify-bundle-install": "node dist/tools.js verify-bundle-install",
     "build-kb": "node dist/tools.js build-kb",
+    "index-project": "node dist/tools.js index-project",
+    "generate-wiki": "node dist/tools.js generate-wiki",
     "query-kb": "node dist/tools.js query-kb",
     "query-kb-batch": "node dist/tools.js query-kb-batch",
     "verify-kb": "node dist/tools.js verify-kb"

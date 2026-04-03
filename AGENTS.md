@@ -41,6 +41,7 @@ Use these commands to analyze, optimize, and route prompts to the best skills:
 | `/w-api-design` | API design review ([`workflows/dev/w-api-design.md`](workflows/dev/w-api-design.md)) |
 | `/w-test-strategy` | Test strategy ([`workflows/dev/w-test-strategy.md`](workflows/dev/w-test-strategy.md)) |
 | `/w-dep-audit` | Dependency audit ([`workflows/dev/w-dep-audit.md`](workflows/dev/w-dep-audit.md)) |
+| `/w-index-project` | Index a project: overview docs + `index-project` CLI + query via `query-kb --index`; optional **parallel** Steps 3–4 via Task/sub-agents; **Step 7** wiki: `generate-wiki` or GitNexus `wiki` ([`workflows/dev/w-index-project.md`](workflows/dev/w-index-project.md)) |
 
 Commands read from `knowledge-base/embeddings/skill_index.json`. Rebuild after adding/changing skills:
 
@@ -59,7 +60,7 @@ Agents should prefer:
 
 ## Workflows
 
-Bundled **dev** workflows: [`workflows/dev/README.md`](workflows/dev/README.md) — ticket, release, hotfix, code review, debug, security audit, arch review, perf investigation, refactor, incident, data migration, onboarding, API design, test strategy, dep audit (see table in dev README). Naming: runnable workflow files **`w-<slug>.md`** — see [`workflows/README.md`](workflows/README.md#naming). For ticket flow, **`kanban/<ticket>/`** layout and steps are in [`workflows/dev/w-ticket.md`](workflows/dev/w-ticket.md).
+Bundled **dev** workflows: [`workflows/dev/README.md`](workflows/dev/README.md) — ticket, release, hotfix, code review, debug, security audit, arch review, perf investigation, refactor, incident, data migration, onboarding, API design, test strategy, dep audit, **index project** (see table in dev README). Naming: runnable workflow files **`w-<slug>.md`** — see [`workflows/README.md`](workflows/README.md#naming). For ticket flow, **`kanban/<ticket>/`** layout and steps are in [`workflows/dev/w-ticket.md`](workflows/dev/w-ticket.md).
 
 ## Configuration
 

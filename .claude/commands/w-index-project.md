@@ -1,0 +1,1 @@
+../../commands/w-index-project.md

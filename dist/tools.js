@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync, } from 'node:fs';
-import { relative, resolve, join } from 'node:path';
+import { existsSync, lstatSync, mkdirSync, readFileSync, readlinkSync, readdirSync, writeFileSync, } from 'node:fs';
+import { dirname, relative, resolve, join, sep } from 'node:path';
 import minimist from 'minimist';
 import matter from 'gray-matter';
 import { globSync } from 'glob';
@@ -182,27 +182,126 @@ function cmdInstallSkill(args, _repoRoot) {
     });
     console.log(`Installed skill '${res.installName}'`);
 }
-function cmdVerifyBundleInstall(args, repoRoot) {
+function resolveConsumerBundleDir(projectDir) {
+    const devkit = join(projectDir, '.agents', 'devkit');
+    if (existsSync(join(devkit, '.devkit-bundle')))
+        return { bundleDir: devkit, kind: 'devkit' };
+    const legacy = join(projectDir, 'vendor', 'own-skills');
+    if (existsSync(join(legacy, '.own-skills-bundle')))
+        return { bundleDir: legacy, kind: 'legacy' };
+    return null;
+}
+function symlinkResolvesUnder(linkPath, expectedDir) {
+    try {
+        const st = lstatSync(linkPath);
+        if (!st.isSymbolicLink())
+            return false;
+        const target = readlinkSync(linkPath, { encoding: 'utf8' });
+        const resolved = resolve(dirname(linkPath), target);
+        const base = resolve(expectedDir);
+        return resolved === base || resolved.startsWith(base + sep);
+    }
+    catch {
+        return false;
+    }
+}
+function strictBundleInstallWarnings(projectDir, bundleDir) {
+    const warnings = [];
+    const bundleRules = join(bundleDir, '.cursor', 'rules');
+    const projRules = join(projectDir, '.cursor', 'rules');
+    if (existsSync(projRules)) {
+        for (const f of readdirSync(projRules)) {
+            if (!f.endsWith('.mdc'))
+                continue;
+            const p = join(projRules, f);
+            if (!symlinkResolvesUnder(p, bundleRules)) {
+                warnings.push(`${relative(projectDir, p)} should be a symlink into the bundle rules tree`);
+            }
+        }
+    }
+    const bundleCommands = join(bundleDir, 'commands');
+    for (const [ideRoot, sub] of [
+        ['.cursor', 'commands'],
+        ['.claude', 'commands'],
+    ]) {
+        const dir = join(projectDir, ideRoot, sub);
+        if (!existsSync(dir))
+            continue;
+        for (const f of readdirSync(dir)) {
+            if (!f.endsWith('.md'))
+                continue;
+            const p = join(dir, f);
+            if (!symlinkResolvesUnder(p, bundleCommands)) {
+                warnings.push(`${relative(projectDir, p)} should be a symlink into bundle commands/`);
+            }
+        }
+    }
+    const bundleSkills = join(bundleDir, 'skills');
+    const skillBases = [
+        ['.cursor', 'skills'],
+        ['.claude', 'skills'],
+        ['.codex', 'skills'],
+        ['.agent', 'skills'],
+    ];
+    for (const [ideRoot, sub] of skillBases) {
+        const root = join(projectDir, ideRoot, sub);
+        if (!existsSync(root))
+            continue;
+        for (const name of readdirSync(root)) {
+            if (name === '.install-manifest')
+                continue;
+            const p = join(root, name);
+            try {
+                const st = lstatSync(p);
+                if (!st.isSymbolicLink()) {
+                    warnings.push(`${relative(projectDir, p)} should be a symlink into bundle skills/`);
+                }
+                else if (!symlinkResolvesUnder(p, bundleSkills)) {
+                    warnings.push(`${relative(projectDir, p)} should resolve under bundle skills/`);
+                }
+            }
+            catch {
+                warnings.push(`${relative(projectDir, p)} could not be inspected`);
+            }
+        }
+    }
+    return warnings;
+}
+function cmdVerifyBundleInstall(args, _repoRoot) {
     const projectDir = resolve(String(args['project-dir'] || '.'));
-    const vendor = join(projectDir, 'vendor', 'own-skills');
+    const resolved = resolveConsumerBundleDir(projectDir);
     const errs = [];
-    if (!existsSync(vendor))
-        errs.push(`Missing ${vendor}`);
-    if (!existsSync(join(vendor, '.own-skills-bundle')))
-        errs.push('Missing .own-skills-bundle marker');
-    if (!existsSync(join(vendor, 'scripts')))
-        errs.push('Missing vendor/scripts');
+    if (!resolved) {
+        errs.push('Missing installed bundle: expected .agents/devkit/.devkit-bundle or legacy vendor/own-skills/.own-skills-bundle');
+    }
+    const bundleDir = resolved?.bundleDir ?? join(projectDir, '.agents', 'devkit');
+    if (resolved && !existsSync(join(bundleDir, 'scripts')))
+        errs.push(`Missing ${join(bundleDir, 'scripts')}`);
+    if (resolved && resolved.kind === 'devkit' && !existsSync(join(bundleDir, 'commands'))) {
+        errs.push(`Missing bundle commands/ (devkit layout)`);
+    }
     if (!existsSync(join(projectDir, '.cursor', 'skills')))
         errs.push('Missing .cursor/skills');
-    if (!Boolean(args['skip-validate-skills'])) {
-        try {
-            execFileSync('node', [join(repoRoot, 'dist', 'tools.js'), 'validate-skills'], {
-                cwd: vendor,
-                stdio: 'pipe',
-            });
+    const toolsJs = join(bundleDir, 'dist', 'tools.js');
+    if (resolved && !existsSync(toolsJs))
+        errs.push(`Missing ${toolsJs}`);
+    const canValidateSkills = resolved &&
+        existsSync(toolsJs) &&
+        existsSync(join(bundleDir, 'node_modules', 'minimist'));
+    if (!Boolean(args['skip-validate-skills']) && resolved && existsSync(toolsJs)) {
+        if (!canValidateSkills) {
+            console.warn('Skipping validate-skills: bundle has no node_modules (full install excludes them). Run: cd .agents/devkit && npm ci');
         }
-        catch {
-            errs.push('validate-skills failed in vendor bundle');
+        else {
+            try {
+                execFileSync('node', [toolsJs, 'validate-skills'], {
+                    cwd: bundleDir,
+                    stdio: 'pipe',
+                });
+            }
+            catch {
+                errs.push('validate-skills failed in bundle');
+            }
         }
     }
     if (errs.length > 0) {
@@ -210,6 +309,16 @@ function cmdVerifyBundleInstall(args, repoRoot) {
         process.exit(2);
     }
     console.log('Bundle install verification: OK');
+    if (Boolean(args.strict) && resolved) {
+        const w = strictBundleInstallWarnings(projectDir, bundleDir);
+        if (w.length) {
+            console.warn('Strict mode: expected symlinks into the bundle —');
+            w.forEach((x) => console.warn(`- ${x}`));
+        }
+        else {
+            console.log('Strict mode: no drift detected');
+        }
+    }
 }
 function buildKb(repoRoot, dry = false) {
     const cfg = loadKbConfig(repoRoot);
@@ -333,7 +442,7 @@ Commands:
   build-skill-index [--output <path>] [--with-embeddings] [--dry-run]
   analyze-skills [--json|--markdown|--self-review] [--with-references] [--only-actionable]
   install-skill <skill-path> [--project-dir <dir>] [--mode symlink|copy] [--force] [--all-ides]
-  verify-bundle-install [--project-dir <dir>] [--skip-validate-skills]
+  verify-bundle-install [--project-dir <dir>] [--skip-validate-skills] [--strict]
   build-kb [--dry-run]
   query-kb "<query>" [-k 5]
   query-kb-batch [-q "..."]... [-f file] [-k 5] [--json]
@@ -341,7 +450,19 @@ Commands:
 }
 function main() {
     const args = minimist(process.argv.slice(2), {
-        boolean: ['json', 'markdown', 'self-review', 'with-references', 'include-template', 'with-embeddings', 'dry-run', 'force', 'all-ides', 'skip-validate-skills'],
+        boolean: [
+            'json',
+            'markdown',
+            'self-review',
+            'with-references',
+            'include-template',
+            'with-embeddings',
+            'dry-run',
+            'force',
+            'all-ides',
+            'skip-validate-skills',
+            'strict',
+        ],
         string: ['output', 'project-dir', 'mode', 'name', 'ides', 'skill-dir', 'k', 'top-k', 'q', 'query', 'f', 'file'],
     });
     const cmd = String(args._[0] || '');

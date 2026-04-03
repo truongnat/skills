@@ -38,7 +38,8 @@ Systematic **debugging** workflow using the scientific method: reproduce → hyp
 ## Output format
 
 Use **[`OUTPUT_CONVENTIONS.md`](../../OUTPUT_CONVENTIONS.md)** for severity and progress tables when reporting status.  
-Root-cause write-up should include: **evidence**, **falsified alternatives**, **minimal fix**, **regression guard** — structure compatible with `prompts/debugging/root-cause-analysis.md` when used as a companion prompt.
+Final RCA-style write-up SHOULD align with **[`templates/report/debug-report.md`](../../templates/report/debug-report.md)**.  
+Root-cause narrative should include: **evidence**, **falsified alternatives**, **minimal fix**, **regression guard** — structure compatible with [`prompts/debugging/root-cause-analysis.md`](../../prompts/debugging/root-cause-analysis.md) when used as a companion prompt.
 
 ## Time estimate
 

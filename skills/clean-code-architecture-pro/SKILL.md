@@ -63,6 +63,15 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Anti-patterns (summary)
+
+- **God modules**, **leaky domain**, **premature layers**, **utils dumping ground** — [references/anti-patterns.md](references/anti-patterns.md).
+
+### Integration map (summary)
+
+- **`testing-pro`**, **`git-operations-pro`**, framework skills — [references/integration-map.md](references/integration-map.md).  
+- Decision heuristics: [references/decision-tree.md](references/decision-tree.md).
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** - define maintainability/architecture problem and desired target.
@@ -78,11 +87,26 @@ Use these files for deeper detail when concise guidance in this file is not enou
 |-------|------|
 | Practical clean code patterns | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Architectural failure modes and edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Decision trees | [references/decision-tree.md](references/decision-tree.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
 
 ## Quick example
 
+### 1 — Simple (common)
+
 **Input:** "Refactor this service to clean architecture without breaking behavior."  
 **Expected output:** Boundary-first proposal with incremental steps, concrete code changes, and regression risk controls.
+
+### 2 — Tricky (edge case)
+
+**Input:** Team wants a new `shared/kernel` package used by every service; logic is still product-specific.  
+**Expected output:** Warn about hidden coupling; propose domain slices or explicit ports; avoid generic “kernel” without bounded context.
+
+### 3 — Cross-skill
+
+**Input:** Large extract-module PR with no tests.  
+**Expected output:** **`clean-code-architecture-pro`** defers large moves; **`testing-pro`** for characterization tests; **`git-operations-pro`** for split commits.
 
 ## Checklist before calling the skill done
 
@@ -91,3 +115,5 @@ Use these files for deeper detail when concise guidance in this file is not enou
 - [ ] At least one clean-code improvement and one architecture risk are addressed.
 - [ ] Code section includes concrete changes (interfaces/modules/tests/checklist).
 - [ ] Residual risks and follow-up verification are clearly stated.
+- [ ] No **inward** dependency from domain/core on framework or UI layers.
+- [ ] **Utils** growth called out if it hides domain concepts.

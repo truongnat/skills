@@ -1,5 +1,7 @@
 # Prompt Template Library
 
+> **Deprecation notice:** For new work, use **[`../prompts/`](../prompts/)** (JTBD folders) and [`prompt/prompt-template.md`](prompt/prompt-template.md). This file is kept as a **legacy monolith** (long examples and historical blocks). Do not add large new sections here; add a file under `prompts/<category>/` instead.
+
 Reusable prompt templates for many tasks.
 
 **Prefer granular prompts** by job-to-be-done under [`../prompts/`](../prompts/) (`planning/`, `review/`, `debugging/`, `generation/`, `analysis/`, `chains/`) and the authoring scaffold [`prompt/prompt-template.md`](prompt/prompt-template.md). This file remains a **monolith index** and legacy examples.

@@ -4,7 +4,7 @@ All runtime tooling is now implemented in TypeScript and compiled to `dist/tools
 
 ## Primary entrypoints
 
-- Install/uninstall bundle CLI: `node dist/own-skills.js` (or `npx github:truongnat/skills`).
+- Install/uninstall bundle CLI: `node dist/own-skills.js` (npm bin: **`devkit`** or **`own-skills`**) or `npx github:truongnat/skills`. Full install syncs to **`.agents/devkit/`**.
 - Tool command runner: `node dist/tools.js <command> ...`.
 
 ## Command map

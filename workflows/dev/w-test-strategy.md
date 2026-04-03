@@ -44,6 +44,7 @@ Structured **testing strategy** for a feature, release, or codebase area: pyrami
 ## Output format
 
 Follow **[`OUTPUT_CONVENTIONS.md`](../../OUTPUT_CONVENTIONS.md)**.  
+Final artifact SHOULD align with **[`templates/report/test-strategy.md`](../../templates/report/test-strategy.md)**.  
 Use tables for **risk → test type → owner**.  
 Residual risks: what could still ship untested.
 

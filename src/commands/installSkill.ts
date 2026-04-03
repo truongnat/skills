@@ -5,6 +5,7 @@ import matter from 'gray-matter';
 const IDE_TARGETS: Record<string, [string, string]> = {
   cursor: ['.cursor', 'skills'],
   claude: ['.claude', 'skills'],
+  codex: ['.codex', 'skills'],
   antigravity: ['.agent', 'skills'],
 };
 
@@ -44,7 +45,7 @@ export function installSkill(opts: InstallSkillOptions) {
   const parsedName = parseName(readFileSync(skillMd, 'utf8'));
   const installName = opts.name || parsedName;
 
-  const ides = opts.allIdes ? ['cursor', 'claude', 'antigravity'] : opts.ides || ['cursor'];
+  const ides = opts.allIdes ? ['cursor', 'claude', 'codex', 'antigravity'] : opts.ides || ['cursor'];
   const targets: Record<string, string> = {};
 
   for (const ide of Array.from(new Set(ides))) {

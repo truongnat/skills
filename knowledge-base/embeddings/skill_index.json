@@ -192,7 +192,10 @@
       "Trigger keywords: `clean code`, `clean architecture`, `refactor`, `separation of concerns`, `dependency inversion`, `layering`, `module boundary`, `maintainability`, `tech debt`"
     ],
     "references": [
+      "anti-patterns.md",
+      "decision-tree.md",
       "edge-cases.md",
+      "integration-map.md",
       "tips-and-tricks.md"
     ]
   },
@@ -522,7 +525,10 @@
       "Trigger keywords: `microservices`, `service boundary`, `distributed system`, `saga`, `event-driven`, `service mesh`, `api gateway`, `resilience`, `observability`, `edge case`"
     ],
     "references": [
+      "anti-patterns.md",
+      "decision-tree.md",
       "edge-cases.md",
+      "integration-map.md",
       "tips-and-tricks.md"
     ]
   },
@@ -629,7 +635,10 @@
       "Trigger keywords: `performance`, `optimize`, `bottleneck`, `latency`, `throughput`, `cpu`, `memory`, `profiling`, `slow query`, `cache`, `edge case`"
     ],
     "references": [
+      "anti-patterns.md",
+      "decision-tree.md",
       "edge-cases.md",
+      "integration-map.md",
       "tips-and-tricks.md"
     ]
   },

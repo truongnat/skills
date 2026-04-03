@@ -32,6 +32,20 @@ Rolling snapshot so maintainers do not confuse **Diagnosis** with “nothing has
 | **Templates** | Partial | Report/issue/kb scaffolds exist; [`templates/PROMPT_TEMPLATES.md`](templates/PROMPT_TEMPLATES.md) remains a monolith **index** |
 | **Output formatting** | Done | [`OUTPUT_CONVENTIONS.md`](OUTPUT_CONVENTIONS.md) at repo root |
 
+### Phase checklist (roadmap alignment)
+
+| Phase | Item | Status |
+|-------|------|--------|
+| 1 | `OUTPUT_CONVENTIONS.md` + core report templates + SKILL §10–12 + `w-code-review` / `w-debug` contracts | Done |
+| 2 | Priority skill depth (react, nextjs, security, testing, typescript) | Done (ongoing polish OK) |
+| 3 | New workflows (security, arch, perf, refactor, incident + extended set in `workflows/dev/`) | Done |
+| 4 | `prompts/` JTBD tree + priority prompts | Done (Few-shot / Chain: next step not universal) |
+| 5 | Report templates (performance, incident, issue, kb, workflow scaffold) + split `PROMPT_TEMPLATES` guidance | Partial — monolith retained as legacy index; granular prompts canonical |
+| 6 | Remaining skill depths (nestjs, postgresql, docker, ci-cd, ai-integration; mid-tier anti-patterns) | In progress |
+| — | CI (`validate-skills`, `build-kb`, `verify-kb`) | Done ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) |
+| — | Claude Code `/w-*` parity | Done (`.claude/commands/` mirrors `.cursor/commands/`) |
+| — | Report templates: test-strategy, dependency-audit, debug-report | Done |
+
 ### Tooling convention (skills index)
 
 After **substantive** changes to bundled skill content (`skills/**/SKILL.md` or `references/` text that affects discovery/embeddings), run:

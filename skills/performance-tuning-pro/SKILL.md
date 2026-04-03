@@ -63,6 +63,15 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Anti-patterns (summary)
+
+- **Optimize without profile**, **unbounded cache**, **benchmarks on toy data** — [references/anti-patterns.md](references/anti-patterns.md).
+
+### Integration map (summary)
+
+- **`postgresql-pro`**, **`caching-pro`**, **`testing-pro`**, stack skills — [references/integration-map.md](references/integration-map.md).  
+- Where to measure first: [references/decision-tree.md](references/decision-tree.md).
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** - define metric target and current gap.
@@ -78,11 +87,26 @@ Use these files for deeper detail when concise guidance in this file is not enou
 |-------|------|
 | Practical performance tips/tricks | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | High-risk performance edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Decision trees | [references/decision-tree.md](references/decision-tree.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
 
 ## Quick example
 
+### 1 — Simple (common)
+
 **Input:** "API p95 jumped from 180ms to 700ms after recent release; suggest fastest safe fix path."  
 **Expected output:** Prioritized diagnosis + fixes with measurable targets, concrete code/query/caching actions, and rollout risk notes.
+
+### 2 — Tricky (edge case)
+
+**Input:** CPU low but p99 spikes; GC logs show long pauses.  
+**Expected output:** Heap analysis, allocation hotspots, object churn; avoid blind thread pool expansion.
+
+### 3 — Cross-skill
+
+**Input:** Slow list endpoint; ORM loads 10k rows.  
+**Expected output:** **`performance-tuning-pro`** for N+1 and pagination; **`postgresql-pro`** for index/query plan; **`nestjs-pro`** for DTO shape if applicable.
 
 ## Checklist before calling the skill done
 
@@ -91,3 +115,5 @@ Use these files for deeper detail when concise guidance in this file is not enou
 - [ ] At least one edge-case risk (warmup/data scale/GC/contention) is considered.
 - [ ] Code section includes actionable changes or benchmark/check commands.
 - [ ] Residual risks include monitoring and rollback guidance.
+- [ ] **Profiling evidence** cited before micro-optimizations.
+- [ ] **Cache** changes include invalidation or TTL rationale.

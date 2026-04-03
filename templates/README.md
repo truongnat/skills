@@ -11,6 +11,9 @@ Authoring and **output** templates for skills, workflows, prompts, and reports.
 | Report — security audit | [`report/security-audit.md`](report/security-audit.md) |
 | Report — performance | [`report/performance-report.md`](report/performance-report.md) |
 | Report — incident | [`report/incident-report.md`](report/incident-report.md) |
+| Report — test strategy | [`report/test-strategy.md`](report/test-strategy.md) |
+| Report — dependency audit | [`report/dependency-audit.md`](report/dependency-audit.md) |
+| Report — debug / RCA | [`report/debug-report.md`](report/debug-report.md) |
 | Report — ADR | [`report/architecture-decision-record.md`](report/architecture-decision-record.md) |
 | Issue — bug | [`issue/bug-report.md`](issue/bug-report.md) |
 | Issue — feature | [`issue/feature-request.md`](issue/feature-request.md) |

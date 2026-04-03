@@ -6,7 +6,7 @@ This repo does **not** require an automated engine: an agent (or you) reads the 
 
 ## Naming
 
-- **Runnable workflow files** use the prefix **`w-`**: pattern **`w-<slug>.md`** (e.g. `w-ticket.md`, `w-hotfix.md`, `w-release.md`). This matches slash commands **`/w-<slug>`** when you add **`.claude/commands/w-<slug>.md`** and **`.cursor/commands/w-<slug>.md`**.
+- **Runnable workflow files** use the prefix **`w-`**: pattern **`w-<slug>.md`** (e.g. `w-ticket.md`, `w-hotfix.md`, `w-release.md`). This matches slash commands **`/w-<slug>`** via a single stub in **`commands/w-<slug>.md`** (deployed to **`.cursor/commands/`** and **`.claude/commands/`** by the installer, or symlinked in this repo for dev).
 - **Index files** only: `README.md` in `workflows/` or `workflows/<domain>/` — **no** `w-` prefix.
 
 ## Bundled workflows (by domain)
@@ -15,7 +15,7 @@ This repo does **not** require an automated engine: an agent (or you) reads the 
 |--------|--------|-----------|
 | **dev** | [`dev/README.md`](dev/README.md) | [`dev/w-ticket.md`](dev/w-ticket.md) (`ticket`, **`/w-ticket`**), [`dev/w-hotfix.md`](dev/w-hotfix.md) (`hotfix`, **`/w-hotfix`**), [`dev/w-release.md`](dev/w-release.md) (`release`, **`/w-release`**), [`dev/w-code-review.md`](dev/w-code-review.md), [`dev/w-debug.md`](dev/w-debug.md), [`dev/w-security-audit.md`](dev/w-security-audit.md), [`dev/w-arch-review.md`](dev/w-arch-review.md), [`dev/w-perf-investigation.md`](dev/w-perf-investigation.md), [`dev/w-refactor.md`](dev/w-refactor.md), [`dev/w-incident.md`](dev/w-incident.md), [`dev/w-data-migration.md`](dev/w-data-migration.md), [`dev/w-onboarding.md`](dev/w-onboarding.md), [`dev/w-api-design.md`](dev/w-api-design.md), [`dev/w-test-strategy.md`](dev/w-test-strategy.md), [`dev/w-dep-audit.md`](dev/w-dep-audit.md) |
 
-Slash commands live under **`.claude/commands/`** and **`.cursor/commands/`** (e.g. `w-ticket.md`, `w-hotfix.md`, `w-release.md`).
+Slash commands are authored once under **`commands/`** (see [`commands/README.md`](../commands/README.md)). **`w-*.md`** stubs include **`targets: [cursor, claude]`** by default. Routing helpers (`route`, `optimize`, `find-skill`, `run-workflow`) use **`targets: [claude]`** only. **`.cursor/commands/`** and **`.claude/commands/`** in this repo are symlinks into **`commands/`** for IDE discovery.
 
 ## Convention (Markdown)
 

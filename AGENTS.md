@@ -14,7 +14,9 @@ Each skill needs a `SKILL.md` with clear frontmatter `name` and `description`.
 **New skills:** read [`skills/SKILL_AUTHORING_RULES.md`](skills/SKILL_AUTHORING_RULES.md) first. Do not create a new skill directory unless those mandatory rules are met. When you add, remove, or rename a bundled skill, update **§8** there (README files, **§1** list, **`knowledge-base/documents/repo/skills-layout.md`**) in the same change.
 
 
-## Prompt routing (Claude Code slash commands)
+## Prompt routing (slash commands)
+
+Canonical command stubs live in **`commands/`** at repo root (YAML `targets:` chooses **Cursor** vs **Claude** deployment). In this repo, **`.cursor/commands/`** and **`.claude/commands/`** are symlinks into **`commands/`** for local dev. After **`npx … install`** into another project, the bundle is synced to **`.agents/devkit/`** and the installer symlinks from **`commands/`** into that project’s **`.cursor/commands/`** and **`.claude/commands/`** per `targets`. Full install also installs skills to **`.cursor/skills/`**, **`.claude/skills/`**, **`.codex/skills/`**, and **`.agent/skills/`** when “all IDEs” is selected.
 
 Use these commands to analyze, optimize, and route prompts to the best skills:
 

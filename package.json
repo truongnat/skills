@@ -1,9 +1,10 @@
 {
-  "name": "own-skills-bundle",
+  "name": "devkit-bundle",
   "version": "1.0.0",
-  "description": "npx installer for the own-skills bundle (skills, workflows, KB tooling) into your project",
+  "description": "npx installer: sync devkit bundle to .agents/devkit (skills, workflows, rules, commands, KB tooling)",
   "type": "module",
   "bin": {
+    "devkit": "./dist/own-skills.js",
     "own-skills": "./dist/own-skills.js"
   },
   "engines": {
@@ -50,6 +51,8 @@
     "cursor",
     "skills",
     "claude",
+    "codex",
+    "devkit",
     "installer",
     "cli"
   ],

@@ -72,4 +72,7 @@ Use this **visual contract** for workflow outputs, skill responses, audits, and 
 - Security audit: [`templates/report/security-audit.md`](templates/report/security-audit.md)
 - Performance investigation: [`templates/report/performance-report.md`](templates/report/performance-report.md)
 - Incident: [`templates/report/incident-report.md`](templates/report/incident-report.md)
+- Test strategy: [`templates/report/test-strategy.md`](templates/report/test-strategy.md)
+- Dependency audit: [`templates/report/dependency-audit.md`](templates/report/dependency-audit.md)
+- Debug / RCA: [`templates/report/debug-report.md`](templates/report/debug-report.md)
 - ADR: [`templates/report/architecture-decision-record.md`](templates/report/architecture-decision-record.md)

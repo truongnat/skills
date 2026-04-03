@@ -4,6 +4,7 @@ import matter from 'gray-matter';
 const IDE_TARGETS = {
     cursor: ['.cursor', 'skills'],
     claude: ['.claude', 'skills'],
+    codex: ['.codex', 'skills'],
     antigravity: ['.agent', 'skills'],
 };
 function parseName(skillMdText) {
@@ -32,7 +33,7 @@ export function installSkill(opts) {
         throw new Error(`Missing SKILL.md: ${skillMd}`);
     const parsedName = parseName(readFileSync(skillMd, 'utf8'));
     const installName = opts.name || parsedName;
-    const ides = opts.allIdes ? ['cursor', 'claude', 'antigravity'] : opts.ides || ['cursor'];
+    const ides = opts.allIdes ? ['cursor', 'claude', 'codex', 'antigravity'] : opts.ides || ['cursor'];
     const targets = {};
     for (const ide of Array.from(new Set(ides))) {
         const pair = IDE_TARGETS[ide];

@@ -1,19 +1,77 @@
 #!/usr/bin/env node
-import { cpSync, existsSync, mkdtempSync, readdirSync, readFileSync, rmSync, symlinkSync, unlinkSync, writeFileSync } from 'node:fs';
+import {
+  cpSync,
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readdirSync,
+  readFileSync,
+  rmSync,
+  symlinkSync,
+  unlinkSync,
+  writeFileSync,
+} from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, relative, resolve } from 'node:path';
-import { execFileSync } from 'node:child_process';
 import chalk from 'chalk';
 import degit from 'degit';
 import inquirer from 'inquirer';
+import matter from 'gray-matter';
 import ora from 'ora';
 import minimist from 'minimist';
+import { execFileSync } from 'node:child_process';
 import { installSkill } from './commands/installSkill.js';
 
 const DEFAULT_REPO = 'truongnat/skills';
 
+/** Installed bundle directory (single source of truth on disk). */
+const BUNDLE_DIR_SEGMENTS = ['.agents', 'devkit'] as const;
+const BUNDLE_MARKER = '.devkit-bundle';
+/** Legacy install path (uninstall + verify still honor). */
+const LEGACY_VENDOR_SEGMENTS = ['vendor', 'own-skills'] as const;
+
+const COMMAND_IDE_DIRS: Record<string, [string, string]> = {
+  cursor: ['.cursor', 'commands'],
+  claude: ['.claude', 'commands'],
+};
+
+function bundlePath(projectDir: string) {
+  return join(projectDir, ...BUNDLE_DIR_SEGMENTS);
+}
+
+function legacyBundlePath(projectDir: string) {
+  return join(projectDir, ...LEGACY_VENDOR_SEGMENTS);
+}
+
+function parseCommandTargets(raw: string): string[] {
+  const { data } = matter(raw);
+  const t = data.targets;
+  let list: string[] = [];
+  if (Array.isArray(t)) list = t.map((x) => String(x).trim()).filter(Boolean);
+  else if (typeof t === 'string') list = [t.trim()].filter(Boolean);
+  if (list.length === 0) list = ['cursor', 'claude'];
+  const allowed = new Set(Object.keys(COMMAND_IDE_DIRS));
+  const filtered = [...new Set(list.filter((k) => allowed.has(k)))];
+  return filtered.length > 0 ? filtered : ['cursor', 'claude'];
+}
+
+function collectCommandExcludePatterns(bundleDir: string): string[] {
+  const cmdRoot = join(bundleDir, 'commands');
+  if (!existsSync(cmdRoot)) return [];
+  const out: string[] = [];
+  for (const f of readdirSync(cmdRoot)) {
+    if (!f.endsWith('.md')) continue;
+    const text = readFileSync(join(cmdRoot, f), 'utf8');
+    for (const ide of parseCommandTargets(text)) {
+      const pair = COMMAND_IDE_DIRS[ide];
+      out.push(`${pair[0]}/${pair[1]}/${f}`);
+    }
+  }
+  return out;
+}
+
 function printHelp() {
-  console.log(`own-skills
+  console.log(`devkit / own-skills
 
 Usage:
   npx github:${DEFAULT_REPO} [install|uninstall] [options]
@@ -67,6 +125,7 @@ function shouldIgnore(rel: string): boolean {
     p.startsWith('.git/') ||
     p.startsWith('.venv/') ||
     p.startsWith('knowledge-base/embeddings/') ||
+    p.startsWith('.claude/worktrees/') ||
     p.includes('/__pycache__/') ||
     p.endsWith('.pyc') ||
     p.endsWith('.DS_Store') ||
@@ -74,7 +133,7 @@ function shouldIgnore(rel: string): boolean {
   );
 }
 
-function syncVendor(src: string, dest: string) {
+function syncBundle(src: string, dest: string) {
   rmSync(dest, { recursive: true, force: true });
   cpSync(src, dest, {
     recursive: true,
@@ -83,13 +142,14 @@ function syncVendor(src: string, dest: string) {
       return !shouldIgnore(rel);
     },
   });
-  writeFileSync(join(dest, '.own-skills-bundle'), '');
+  writeFileSync(join(dest, BUNDLE_MARKER), '');
 }
 
-function linkRules(vendor: string, project: string) {
-  const rulesSrc = join(vendor, '.cursor', 'rules');
+function linkRules(bundleDir: string, project: string) {
+  const rulesSrc = join(bundleDir, '.cursor', 'rules');
   const rulesDst = join(project, '.cursor', 'rules');
   if (!existsSync(rulesSrc)) return;
+  mkdirSync(rulesDst, { recursive: true });
   cpSync(rulesSrc, rulesDst, { recursive: true, force: true });
   for (const f of readdirSync(rulesSrc)) {
     if (!f.endsWith('.mdc')) continue;
@@ -99,7 +159,7 @@ function linkRules(vendor: string, project: string) {
       rmSync(d, { force: true });
       symlinkSync(s, d, 'file');
     } catch {
-      // Keep copied file
+      // Keep copied file from cpSync
     }
   }
 }
@@ -133,24 +193,21 @@ function registerCreatedPath(projectDir: string, manifest: InstalledArtifactMani
   if (!manifest.createdPaths.includes(rel)) manifest.createdPaths.push(rel);
 }
 
-function installCommandFiles(vendor: string, project: string, manifest: InstalledArtifactManifest) {
-  const sources = [
-    { src: join(vendor, '.cursor', 'commands'), dst: join(project, '.cursor', 'commands') },
-    { src: join(vendor, '.claude', 'commands'), dst: join(project, '.claude', 'commands') },
-  ];
-  for (const pair of sources) {
-    if (!existsSync(pair.src)) continue;
-    cpSync(pair.src, pair.dst, { recursive: true, force: false });
-    for (const f of readdirSync(pair.src)) {
-      if (!f.endsWith('.md')) continue;
-      const src = join(pair.src, f);
-      const dst = join(pair.dst, f);
-      if (existsSync(dst)) {
-        const sameContent = readFileSync(dst, 'utf8') === readFileSync(src, 'utf8');
-        if (sameContent) registerCreatedPath(project, manifest, dst);
-        continue;
-      }
+function installCommands(bundleDir: string, project: string, manifest: InstalledArtifactManifest) {
+  const cmdRoot = join(bundleDir, 'commands');
+  if (!existsSync(cmdRoot)) return;
+  for (const f of readdirSync(cmdRoot)) {
+    if (!f.endsWith('.md')) continue;
+    const src = join(cmdRoot, f);
+    const raw = readFileSync(src, 'utf8');
+    const ides = parseCommandTargets(raw);
+    for (const ide of ides) {
+      const pair = COMMAND_IDE_DIRS[ide];
+      const dstDir = join(project, pair[0], pair[1]);
+      mkdirSync(dstDir, { recursive: true });
+      const dst = join(dstDir, f);
       try {
+        rmSync(dst, { force: true });
         symlinkSync(src, dst, 'file');
       } catch {
         cpSync(src, dst, { force: true });
@@ -249,6 +306,7 @@ function uninstall(projectDir: string, nuclear: boolean) {
   for (const s of skills) {
     rmSync(join(projectDir, '.cursor', 'skills', s), { recursive: true, force: true });
     rmSync(join(projectDir, '.claude', 'skills', s), { recursive: true, force: true });
+    rmSync(join(projectDir, '.codex', 'skills', s), { recursive: true, force: true });
     rmSync(join(projectDir, '.agent', 'skills', s), { recursive: true, force: true });
   }
   cleanupGitExclude(projectDir, skills);
@@ -256,22 +314,26 @@ function uninstall(projectDir: string, nuclear: boolean) {
   if (nuclear) {
     rmSync(join(projectDir, '.cursor'), { recursive: true, force: true });
   } else {
-    const vendor = join(projectDir, 'vendor', 'own-skills');
-    const vendorRules = join(vendor, '.cursor', 'rules');
     const projRules = join(projectDir, '.cursor', 'rules');
-    if (existsSync(vendorRules) && existsSync(projRules)) {
-      const removable = new Set(readdirSync(vendorRules).filter((f) => f.endsWith('.mdc')));
-      for (const f of readdirSync(projRules)) {
-        if (!removable.has(f)) continue;
-        const p = join(projRules, f);
-        try {
-          unlinkSync(p);
-        } catch {
-          rmSync(p, { force: true });
+    const tryCleanRules = (bundleBase: string) => {
+      const vendorRules = join(bundleBase, '.cursor', 'rules');
+      if (existsSync(vendorRules) && existsSync(projRules)) {
+        const removable = new Set(readdirSync(vendorRules).filter((f) => f.endsWith('.mdc')));
+        for (const f of readdirSync(projRules)) {
+          if (!removable.has(f)) continue;
+          const p = join(projRules, f);
+          try {
+            unlinkSync(p);
+          } catch {
+            rmSync(p, { force: true });
+          }
         }
       }
-    }
-    rmSync(vendor, { recursive: true, force: true });
+    };
+    tryCleanRules(bundlePath(projectDir));
+    tryCleanRules(legacyBundlePath(projectDir));
+    rmSync(bundlePath(projectDir), { recursive: true, force: true });
+    rmSync(legacyBundlePath(projectDir), { recursive: true, force: true });
     const manifest = loadInstallManifest(projectDir);
     for (const relPath of manifest.createdPaths) {
       const abs = join(projectDir, relPath);
@@ -313,7 +375,7 @@ async function main() {
           name: 'mode',
           message: 'Install mode',
           choices: [
-            { name: 'Full bundle (vendor/own-skills + rules + all IDE skills)', value: 'full' },
+            { name: 'Full bundle (.agents/devkit + rules + IDE skills)', value: 'full' },
             { name: 'Skills only (copy into project; no vendor bundle)', value: 'skills' },
           ],
           default: mode,
@@ -323,7 +385,7 @@ async function main() {
           name: 'allIdes',
           message: 'IDE targets',
           choices: [
-            { name: 'All IDEs (.cursor + .claude + .agent)', value: true },
+            { name: 'All IDEs (.cursor + .claude + .codex + .agent)', value: true },
             { name: 'Cursor only (.cursor)', value: false },
           ],
           default: allIdes,
@@ -338,50 +400,37 @@ async function main() {
     try {
       if (mode === 'skills') {
         installAllSkills(temp, projectDir, 'copy', allIdes);
-        ensureGitExcludeBlock(projectDir, [
-          '.cursor/skills/',
-          '.claude/skills/',
-          '.agent/skills/',
-        ]);
+        const skillDirs = ['.cursor/skills/', '.claude/skills/', '.agent/skills/'];
+        if (allIdes) skillDirs.push('.codex/skills/');
+        ensureGitExcludeBlock(projectDir, skillDirs);
       } else {
-        const vendor = join(projectDir, 'vendor', 'own-skills');
+        const bundle = bundlePath(projectDir);
         const s = ora('Syncing bundle...').start();
-        syncVendor(temp, vendor);
-        linkRules(vendor, projectDir);
+        syncBundle(temp, bundle);
+        linkRules(bundle, projectDir);
         const manifest = loadInstallManifest(projectDir);
-        installCommandFiles(vendor, projectDir, manifest);
+        installCommands(bundle, projectDir, manifest);
         saveInstallManifest(projectDir, manifest);
         s.succeed('Bundle synced');
-        installAllSkills(vendor, projectDir, process.platform === 'win32' ? 'copy' : 'symlink', allIdes);
-        // Collect installed command/rule file patterns for git exclusion
-        const cmdExcludes: string[] = [];
-        for (const [srcRel, dstBase] of [
-          [join(vendor, '.cursor', 'commands'), '.cursor/commands'],
-          [join(vendor, '.claude', 'commands'), '.claude/commands'],
-        ] as [string, string][]) {
-          if (existsSync(srcRel)) {
-            for (const f of readdirSync(srcRel)) {
-              if (f.endsWith('.md')) cmdExcludes.push(`${dstBase}/${f}`);
-            }
-          }
-        }
+        installAllSkills(bundle, projectDir, process.platform === 'win32' ? 'copy' : 'symlink', allIdes);
+        const cmdExcludes = collectCommandExcludePatterns(bundle);
         const rulesExcludes: string[] = [];
-        const rulesSrc = join(vendor, '.cursor', 'rules');
+        const rulesSrc = join(bundle, '.cursor', 'rules');
         if (existsSync(rulesSrc)) {
           for (const f of readdirSync(rulesSrc)) {
             if (f.endsWith('.mdc')) rulesExcludes.push(`.cursor/rules/${f}`);
           }
         }
+        const skillDirs = ['.cursor/skills/', '.claude/skills/', '.agent/skills/'];
+        if (allIdes) skillDirs.push('.codex/skills/');
         ensureGitExcludeBlock(projectDir, [
-          'vendor/own-skills/',
-          '.cursor/skills/',
-          '.claude/skills/',
-          '.agent/skills/',
+          '.agents/devkit/',
+          ...skillDirs,
           '.cursor/.own-skills-install.json',
           ...cmdExcludes,
           ...rulesExcludes,
         ]);
-        console.log(chalk.cyan('Verify: node dist/tools.js verify-bundle-install --project-dir .'));
+        console.log(chalk.cyan('Verify: node .agents/devkit/dist/tools.js verify-bundle-install --project-dir .'));
       }
     } finally {
       rmSync(temp, { recursive: true, force: true });

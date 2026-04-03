@@ -43,6 +43,7 @@
 ## Output format
 
 Follow **[`OUTPUT_CONVENTIONS.md`](../../OUTPUT_CONVENTIONS.md)** (🔴🟡🟠🟢 for findings).  
+Final artifact SHOULD align with **[`templates/report/dependency-audit.md`](../../templates/report/dependency-audit.md)**.  
 Align narrative with **`prompts/analysis/dependency-audit.md`** when used as a companion prompt.
 
 ## Time estimate

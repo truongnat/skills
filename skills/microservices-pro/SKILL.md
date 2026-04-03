@@ -63,6 +63,15 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Anti-patterns (summary)
+
+- **Distributed monolith**, **chatty sync**, **no timeouts**, **dual writes** — [references/anti-patterns.md](references/anti-patterns.md).
+
+### Integration map (summary)
+
+- **`api-design-pro`**, **`performance-tuning-pro`**, **`deployment-pro`**, **`security-pro`** — [references/integration-map.md](references/integration-map.md).  
+- Boundary and sync/async: [references/decision-tree.md](references/decision-tree.md).
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** - define architecture/problem scope and success criteria.
@@ -78,11 +87,26 @@ Use these files for deeper detail when concise guidance in this file is not enou
 |-------|------|
 | Practical microservices patterns | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Distributed-system failure modes and edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Decision trees | [references/decision-tree.md](references/decision-tree.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
 
 ## Quick example
 
+### 1 — Simple (common)
+
 **Input:** "Refactor core platform into microservices with safe migration from monolith."  
 **Expected output:** Boundary and migration strategy with contracts, resilience controls, and operational risk handling.
+
+### 2 — Tricky (edge case)
+
+**Input:** Two teams need the same `orders` table with different write paths.  
+**Expected output:** Single writer service or explicit saga; forbid silent dual-writer; data ownership table.
+
+### 3 — Cross-skill
+
+**Input:** Gateway adds auth but services still trust internal headers.  
+**Expected output:** **`security-pro`** for zero-trust service identity; **`microservices-pro`** for mTLS or signed tokens; **`api-design-pro`** for contract.
 
 ## Checklist before calling the skill done
 
@@ -91,3 +115,5 @@ Use these files for deeper detail when concise guidance in this file is not enou
 - [ ] At least one consistency edge case and one resilience edge case are addressed.
 - [ ] Code section includes concrete contract/topology/checklist guidance.
 - [ ] Residual risks include migration and operational readiness concerns.
+- [ ] **Timeouts and circuit breakers** called out for sync calls.
+- [ ] **Idempotency** considered for retries and events.

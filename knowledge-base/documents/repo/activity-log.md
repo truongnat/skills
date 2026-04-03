@@ -3,7 +3,7 @@
 | title | Activity and decisions log |
 | summary | Dated entries: user/agent decisions, audits, follow-ups for this skills template repo |
 | tags | repo, activity, decisions |
-| updated | 2026-04-02 |
+| updated | 2026-04-03 |
 
 # Activity and decisions log
 
@@ -12,6 +12,14 @@
 **Policy:** See [documentation-persistence.md](../policies/documentation-persistence.md) and Cursor rule **`.cursor/rules/documentation-persistence.mdc`**.
 
 ---
+
+### 2026-04-03
+
+- **Change:** **Source-of-truth / devkit install:** Full bundle now syncs to **`.agents/devkit/`** (marker **`.devkit-bundle`**) instead of **`vendor/own-skills/`**; **`uninstall`** and **`verify-bundle-install`** still honor legacy **`vendor/own-skills/`** + **`.own-skills-bundle`**. **Slash commands:** single canonical copy under **`commands/`** with YAML **`targets`** (default Cursor+Claude; routing stubs Claude-only); **`.cursor/commands/`** and **`.claude/commands/`** are repo **symlinks** for dev. Installer **`installCommands`** reads **`commands/`** and symlinks into the consumer project. **`installSkill`:** added **`.codex/skills/`** when **`--all-ides`**. **`verify-bundle-install`:** resolves bundle path correctly, runs **`validate-skills`** via **`bundle/dist/tools.js`**, optional **`--strict`** drift warnings. **`package.json`:** **`devkit-bundle`**, bins **`devkit`** + **`own-skills`**. Docs: **`README.md`**, **`AGENTS.md`**, **`workflows/README.md`**, **`commands/README.md`**.
+
+- **Change:** **Post–repo-review build:** [`.github/workflows/ci.yml`](../../../.github/workflows/ci.yml) — `npm ci`, `npm run build`, `validate-skills`, `build-kb`, `verify-kb` on push/PR. **`.claude/commands/`** — copied all **`w-*.md`** from **`.cursor/commands/`** so Claude Code can run `/w-ticket`, `/w-code-review`, … parity with Cursor. **Report templates:** [`templates/report/test-strategy.md`](../../../templates/report/test-strategy.md), [`dependency-audit.md`](../../../templates/report/dependency-audit.md), [`debug-report.md`](../../../templates/report/debug-report.md); linked from [`OUTPUT_CONVENTIONS.md`](../../../OUTPUT_CONVENTIONS.md), [`templates/README.md`](../../../templates/README.md), and workflows [`w-test-strategy.md`](../../../workflows/dev/w-test-strategy.md), [`w-dep-audit.md`](../../../workflows/dev/w-dep-audit.md), [`w-debug.md`](../../../workflows/dev/w-debug.md). **`templates/PROMPT_TEMPLATES.md`** — explicit deprecation notice (canonical: `prompts/`). **`IMPROVEMENT_PLAN.md`** — expanded **Implementation status** table (CI, Claude parity, new reports). **Skills:** **`clean-code-architecture-pro`**, **`performance-tuning-pro`**, **`microservices-pro`** — added `references/decision-tree.md`, `anti-patterns.md`, `integration-map.md` + **`SKILL.md`** (summaries, three quick examples, checklist). **`workflows/README.md`**, **`AGENTS.md`** — document `.claude` `/w-*` mirror. Ran `node dist/tools.js validate-skills` + `build-skill-index`.
+
+- **Source:** user + agent
 
 ### 2026-04-02
 
@@ -57,7 +65,7 @@
 - **Change:** Simplified **remote** docs: two `curl` lines (install/uninstall) in README; removed zx / `install-remote.mjs` / `package.json`; streamlined `install-remote.sh` / `uninstall-remote.sh`; re-run install = **update** (messages in `install.sh`); removed `install-bundle-layout.md`.
 - **Change:** Bundled skill **`cli-pro`** (advanced CLI: argv, exit/stderr, pipes/TTY, completion); updated §8 (`README`, `AGENTS`, `skills-layout`, `SKILL_AUTHORING_RULES` §1).
 - **Change:** Remote install defaults to **multi-IDE**: `install-remote.sh` calls `install.sh --all-ides` (Cursor `.cursor/skills`, Claude Code `.claude/skills`, Antigravity `.agent/skills`); `install_skill.py` adds `--ides` / `--all-ides`; `uninstall.sh` removes all three paths; README / `scripts/README` updated.
-- **Change:** **Full bundle install**: `install.sh --full` / remote default copies the repo into `<project>/vendor/own-skills`, symlinks `.cursor/rules`, then installs skills from vendor (avoids broken symlinks after temp clone); `--skills-only` keeps skills-only behavior; `uninstall.sh` removes `vendor/own-skills` and related rule symlinks.
+- **Change:** **Full bundle install** (historical): `install.sh --full` / remote default copied the repo into `<project>/vendor/own-skills`, … — **superseded:** default bundle root is now **`.agents/devkit/`** (2026-04-03); uninstall/verify still clean legacy **`vendor/own-skills`** when present.
 - **Change:** **Remote uninstall via pipe**: `uninstall-remote.sh` sets `--force` when stdin is not a TTY (avoids `read` EOF + `set -e`); `uninstall.sh` skips `read` when non-TTY; fixed `((removed_count++))` with `set -e`; README notes non-interactive behavior.
 
 ### 2026-03-31

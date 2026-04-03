@@ -16,7 +16,7 @@ Template repo: **`skills/`** (`SKILL.md` bundles), **`workflows/`** (Markdown st
 ## Directory layout
 
 ```
-skills/                        # repo root (remote install → vendor/own-skills/)
+skills/                        # repo root (remote full install → .agents/devkit/)
 ├── config.example.md          # kb-config block for scripts
 ├── requirements.txt           # Legacy file (Python runtime no longer required)
 ├── skills/
@@ -35,7 +35,8 @@ skills/                        # repo root (remote install → vendor/own-skills
 │   ├── README.md
 │   ├── planning/, review/, debugging/, generation/, analysis/, chains/
 │   └── templates/example-skill-assisted-task.md
-├── package.json               # npx CLI (`own-skills`) + Node deps
+├── commands/                  # Single source for slash stubs (see commands/README.md)
+├── package.json               # npx CLI (`devkit` / `own-skills`) + Node deps
 ├── src/                       # TypeScript source (CLI + tool commands)
 │   ├── own-skills.ts
 │   ├── tools.ts
@@ -46,7 +47,8 @@ skills/                        # repo root (remote install → vendor/own-skills
 ├── scripts/
 │   ├── README.md
 │   └── (documentation only; runtime commands are in `dist/tools.js`)
-├── .claude/commands/          # Slash commands (e.g. /w-ticket, /route)
+├── .cursor/commands/          # Symlinks → ../commands/ (dev ergonomics)
+├── .claude/commands/          # Symlinks → ../commands/
 └── templates/
 ```
 
@@ -79,7 +81,7 @@ flowchart LR
 
 From the **target project root**. Re-running install **updates** the bundle.
 
-**Node 18+** — use the **`own-skills`** CLI (`npx` downloads this package, fetches the repo with degit or shallow git, then performs install/uninstall in Node). Requires **git** on `PATH`.
+**Node 18+** — use the **`devkit`** / **`own-skills`** CLI (`npx` downloads this package, fetches the repo with degit or shallow git, then performs install/uninstall in Node). Requires **git** on `PATH`.
 
 ```bash
 # Interactive (default command = install)
@@ -91,19 +93,24 @@ npx --yes github:truongnat/skills -- install --yes --project-dir .
 npx --yes github:truongnat/skills -- uninstall --force --yes
 ```
 
-If `npx` does not pick the binary automatically: `npx --yes github:truongnat/skills own-skills install --yes`.
+If `npx` does not pick the binary automatically: `npx --yes github:truongnat/skills devkit install --yes` (or `own-skills`).
 
 **From a local clone**: `npm install && npm run build`, then `node dist/own-skills.js --help`.
 
 **`npm error enoent … package.json`** when running `npx github:…/skills`: the **default branch on GitHub** must contain **`package.json`** at repo root (and `dist/own-skills.js` published by build output).
 
-Bundle root: `./vendor/own-skills/`. Flags: `--repo`, `--skills-only`, `--cursor-only` (see `node dist/own-skills.js --help`).
+Bundle root: **`.agents/devkit/`** (single copy on disk; rules/commands/skills symlink from the bundle into `.cursor/`, `.claude/`, `.codex/`, `.agent/`). Legacy installs may still use **`vendor/own-skills/`** — `verify-bundle-install` accepts both. Flags: `--repo`, `--skills-only`, `--cursor-only` (see `node dist/own-skills.js --help`).
+
+**Strict source-of-truth:** the installer overwrites managed command/rule symlinks from the bundle. After install, run **`verify-bundle-install --strict`** to warn if project-local commands/rules/skills are not symlinks into the bundle.
 
 **Sanity check** (after a full install, not `--skills-only`):
 
 ```bash
-node vendor/own-skills/dist/tools.js verify-bundle-install --project-dir .
+node .agents/devkit/dist/tools.js verify-bundle-install --project-dir .
+node .agents/devkit/dist/tools.js verify-bundle-install --project-dir . --strict
 ```
+
+To run **`validate-skills`** inside verification, install bundle dependencies once: `cd .agents/devkit && npm ci` (the installer copies the tree without `node_modules`).
 
 ### Work in this repo (Node + TypeScript)
 
@@ -115,6 +122,8 @@ cp config.example.md config.md   # optional
 node dist/tools.js build-kb
 node dist/tools.js query-kb "…" -k 5
 ```
+
+**CI:** Push/PR on `main` / `master` runs `npm ci`, `npm run build`, `validate-skills`, `build-kb`, and `verify-kb` — see [`.github/workflows/ci.yml`](.github/workflows/ci.yml).
 
 See [`scripts/README.md`](scripts/README.md) for full command map.
 
@@ -138,7 +147,7 @@ Model paths live in the `<!-- kb-config-start -->` … `<!-- kb-config-end -->` 
 
 ## Workflows
 
-Conventions and **`w-<slug>.md`** naming: [`workflows/README.md`](workflows/README.md). Slash commands live in **`.claude/commands/`** and **`.cursor/commands/`**.
+Conventions and **`w-<slug>.md`** naming: [`workflows/README.md`](workflows/README.md). Slash stubs live in **`commands/`** (symlinked under **`.cursor/commands/`** and **`.claude/commands/`** in this repo).
 
 | Slash | File | Purpose |
 |-------|------|---------|

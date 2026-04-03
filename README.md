@@ -7,6 +7,7 @@ Template repo: **`skills/`** (`SKILL.md` bundles), **`workflows/`** (Markdown st
 - [Directory layout](#directory-layout)
 - [Quick start](#quick-start)
 - [Knowledge base & RAG](#knowledge-base--rag)
+- [Project indexing (any codebase)](#project-indexing-any-codebase)
 - [Skills](#skills)
 - [Workflows](#workflows)
 - [Prompt templates](#prompt-templates)
@@ -16,40 +17,40 @@ Template repo: **`skills/`** (`SKILL.md` bundles), **`workflows/`** (Markdown st
 ## Directory layout
 
 ```
-skills/                        # repo root (remote full install → .agents/devkit/)
-├── config.example.md          # kb-config block for scripts
-├── requirements.txt           # Legacy file (Python runtime no longer required)
+.                              # repo root (full install → consumer `.agents/devkit/`)
+├── AGENTS.md                  # Cursor/agent hints (skills, commands, KB)
+├── OUTPUT_CONVENTIONS.md      # Report shape for workflows
+├── LICENSE                    # MIT
+├── config.example.md          # kb-config block for KB tooling
+├── package.json               # npx CLI (`devkit` / `own-skills`) + npm scripts
 ├── skills/
 │   ├── README.md
+│   ├── SKILL_AUTHORING_RULES.md
 │   ├── examples/skill-template/SKILL.md
-│   ├── <skill-name>/          # e.g. react-pro, nextjs-pro, …
-│   └── …
+│   └── <skill-name>/          # e.g. react-pro, repo-tooling-pro, …
 ├── workflows/
-│   ├── README.md              # Conventions + naming (`w-<slug>.md`)
-│   └── dev/                   # /w-ticket, /w-release, /w-hotfix
+│   ├── README.md              # Conventions, parallel execution, `w-<slug>.md`
+│   └── dev/                   # /w-ticket, /w-index-project, …
 ├── knowledge-base/
 │   ├── INDEX.md
-│   ├── documents/             # Source .md for RAG
-│   └── embeddings/            # rag_*.npy, .json (generated, gitignored)
+│   ├── documents/             # Source .md for template KB RAG
+│   └── embeddings/            # rag_*.json, skill_index.json (partly gitignored)
 ├── prompts/
 │   ├── README.md
-│   ├── planning/, review/, debugging/, generation/, analysis/, chains/
-│   └── templates/example-skill-assisted-task.md
-├── commands/                  # Single source for slash stubs (see commands/README.md)
-├── package.json               # npx CLI (`devkit` / `own-skills`) + Node deps
-├── src/                       # TypeScript source (CLI + tool commands)
-│   ├── own-skills.ts
-│   ├── tools.ts
-│   └── ...
-├── dist/                      # compiled runtime (used by npx bin)
-│   ├── own-skills.js
-│   └── tools.js
+│   └── planning/, review/, …
+├── commands/                  # Canonical slash-command stubs → IDE symlinks
+├── src/                       # TypeScript: `own-skills.ts`, `tools.ts`, lib/
+├── dist/                      # Compiled JS (`npm run build`)
 ├── scripts/
+│   └── README.md              # Command map (implementation is `dist/tools.js`)
+├── templates/
 │   ├── README.md
-│   └── (documentation only; runtime commands are in `dist/tools.js`)
-├── .cursor/commands/          # Symlinks → ../commands/ (dev ergonomics)
-├── .claude/commands/          # Symlinks → ../commands/
-└── templates/
+│   └── report/                # e.g. project-index-report.md
+├── .cursor/
+│   ├── commands/              # Symlinks → ../commands/
+│   └── rules/                 # Editor rules
+└── .claude/
+    └── commands/              # Symlinks → ../commands/
 ```
 
 ## Architecture overview
@@ -74,6 +75,8 @@ flowchart LR
   VALIDATE --> USER
   ANALYZE --> USER
 ```
+
+**Optional — index another project’s tree** (not the template KB): run **`index-project`** on that repo, then **`query-kb … --index <dir>`** for retrieval; **`generate-wiki`** can turn index docs into static HTML. Agent-driven flow: **`/w-index-project`** ([`workflows/dev/w-index-project.md`](workflows/dev/w-index-project.md)) — parallel Steps 3–4 where the IDE supports sub-agents; Step 7 wiki (built-in CLI or GitNexus). See [Project indexing](#project-indexing-any-codebase).
 
 ## Quick start
 
@@ -139,6 +142,15 @@ Model paths live in the `<!-- kb-config-start -->` … `<!-- kb-config-end -->` 
 
 **After changing bundled skills** (under `skills/*/`), run `node dist/tools.js build-skill-index` so `knowledge-base/embeddings/skill_index.json` stays current (used by `/route`, `/find-skill`, etc.).
 
+## Project indexing (any codebase)
+
+Use this when you need a **local vector index + Markdown overview** of a **different** repository (onboarding, architecture prep), without mixing its files into `knowledge-base/documents/`.
+
+1. **CLI:** `node dist/tools.js index-project --dir <project_root> --out <index_dir>` — writes `embeddings.json` + `manifest.json` (see [`scripts/README.md`](scripts/README.md)).
+2. **Query:** `node dist/tools.js query-kb "your question" -k 5 --index <index_dir>` (same embedding model as `build-kb`).
+3. **Wiki (static HTML):** after human/agent-written docs exist under `<index_dir>/docs/`, run `node dist/tools.js generate-wiki --docs <index_dir>/docs --out <index_dir>/wiki` — optional **`--watch`**, **`--open`**.
+4. **Workflow:** **`/w-index-project`** — structured steps, optional parallel module docs, report template [`templates/report/project-index-report.md`](templates/report/project-index-report.md).
+
 ## Skills
 
 - **Rules:** [`skills/SKILL_AUTHORING_RULES.md`](skills/SKILL_AUTHORING_RULES.md) — do not add a skill folder until every mandatory item passes; **section 8** lists repo files to update with the same change.
@@ -147,7 +159,7 @@ Model paths live in the `<!-- kb-config-start -->` … `<!-- kb-config-end -->` 
 
 ## Workflows
 
-Conventions and **`w-<slug>.md`** naming: [`workflows/README.md`](workflows/README.md). Slash stubs live in **`commands/`** (symlinked under **`.cursor/commands/`** and **`.claude/commands/`** in this repo).
+Conventions, **`w-<slug>.md`** naming, and **parallel execution** markers (`parallel-with`, `parallel-each`): [`workflows/README.md`](workflows/README.md). Slash stubs live in **`commands/`** (symlinked under **`.cursor/commands/`** and **`.claude/commands/`** in this repo).
 
 | Slash | File | Purpose |
 |-------|------|---------|
@@ -166,7 +178,7 @@ Conventions and **`w-<slug>.md`** naming: [`workflows/README.md`](workflows/READ
 | **`/w-api-design`** | [`workflows/dev/w-api-design.md`](workflows/dev/w-api-design.md) | API design review — contract, authz, errors |
 | **`/w-test-strategy`** | [`workflows/dev/w-test-strategy.md`](workflows/dev/w-test-strategy.md) | Testing strategy — pyramid, risk, CI gates |
 | **`/w-dep-audit`** | [`workflows/dev/w-dep-audit.md`](workflows/dev/w-dep-audit.md) | Dependency / supply-chain audit |
-| **`/w-index-project`** | [`workflows/dev/w-index-project.md`](workflows/dev/w-index-project.md) | Project overview + vector index (`index-project`, `query-kb --index`) |
+| **`/w-index-project`** | [`workflows/dev/w-index-project.md`](workflows/dev/w-index-project.md) | Index any project: overview docs, `index-project`, `query-kb --index`, optional parallel steps, **`generate-wiki`** / GitNexus wiki |
 
 Index: [`workflows/dev/README.md`](workflows/dev/README.md) — Markdown step contracts; no automated runner required.
 
@@ -186,4 +198,4 @@ Index: [`workflows/dev/README.md`](workflows/dev/README.md) — Markdown step co
 
 ## License
 
-MIT (add a `LICENSE` file if you publish the repo).
+[MIT](LICENSE) — see [`package.json`](package.json) `license` field.

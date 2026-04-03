@@ -15,6 +15,8 @@
 
 ### 2026-04-03
 
+- **Change:** **Repo hygiene + README:** Removed stray **`.claude/worktrees/`** (untracked duplicate tree); **`.gitignore`** — ignore `.claude/worktrees/`, fixed RAG comment. Root **[`LICENSE`](../../../LICENSE)** (MIT). **[`README.md`](../../../README.md)** — directory layout aligned with tree, **Project indexing** section, `/w-index-project` row + parallel note, License pointer.
+
 - **Change:** **`generate-wiki` extensions:** [`src/tools.ts`](../../../src/tools.ts) — **pipe tables**; relative **`.md`→`.html`** in link hrefs; sidebar **keyword search** (embedded script); CLI **`--watch`** (1.5s poll on `docs/`) and **`--open`** (system browser). Docs: [`workflows/dev/w-index-project.md`](../../../workflows/dev/w-index-project.md), [`commands/w-index-project.md`](../../../commands/w-index-project.md), [`scripts/README.md`](../../../scripts/README.md), [`skills/repo-tooling-pro/SKILL.md`](../../../skills/repo-tooling-pro/SKILL.md).
 
 - **Change:** **`generate-wiki` renderer:** [`src/tools.ts`](../../../src/tools.ts) — fix indented `-` list markers; **`[text](url)`** links with `javascript:`/`data:` blocked; **ordered lists** (`1.`); **dark mode** (`prefers-color-scheme`). [`skills/repo-tooling-pro/SKILL.md`](../../../skills/repo-tooling-pro/SKILL.md) — `index-project` / `generate-wiki` in description, triggers, When to use. Ran `build-skill-index`.

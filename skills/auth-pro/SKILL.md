@@ -94,6 +94,18 @@ Details: [references/decision-tree.md](references/decision-tree.md)
 
 Details: [references/anti-patterns.md](references/anti-patterns.md)
 
+### Cross-skill handoffs (summary)
+
+- **`security-pro`**, **`nestjs-pro`**, **`nextjs-pro`**, **`postgresql-pro`**, **`deployment-pro`**, **`testing-pro`**.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Versions (summary)
+
+- OAuth/OIDC provider behavior, JWT library majors, framework auth breaking changes.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** - Auth problem, actors, and required assurance.
@@ -114,6 +126,8 @@ Details: [references/anti-patterns.md](references/anti-patterns.md)
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
 | Decision trees | [references/decision-tree.md](references/decision-tree.md) |
 | Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Versions | [references/versions.md](references/versions.md) |
 
 ## Quick example
 
@@ -140,3 +154,4 @@ Details: [references/anti-patterns.md](references/anti-patterns.md)
 - [ ] Token/session lifecycle controls are complete (issue/rotate/revoke/expire).
 - [ ] Residual risks and verification strategy are documented.
 - [ ] Client-side-only authorization is not relied on for sensitive operations.
+- [ ] **Token storage** and **CSRF** posture explicit for cookie- vs bearer-based sessions.

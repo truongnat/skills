@@ -7,7 +7,7 @@ description: |
 
   Use **with** **`nextjs-pro`** (Metadata API, `sitemap.ts`, `robots.ts`, RSC/SSR for crawlable HTML), **`react-pro`** (SPA rendering constraints, document head), **`deployment-pro`** (CDN, caching, TTFB). This skill (`seo-pro`) owns **search strategy and SEO mechanics**; framework skills own **framework-specific implementation**.
 
-  Triggers: "SEO", "organic search", "Google Search Console", "GSC", "sitemap", "robots.txt", "canonical", "hreflang", "meta title", "meta description", "structured data", "schema", "JSON-LD", "Core Web Vitals", "LCP", "CLS", "INP", "indexing", "crawl", "noindex", "duplicate content", "international SEO", "E-E-A-T", "rich results", "Bing Webmaster".
+  Triggers: "SEO", "organic search", "Google Search Console", "GSC", "sitemap", "robots.txt", "canonical", "hreflang", "meta title", "meta description", "structured data", "schema", "JSON-LD", "Core Web Vitals", "LCP", "CLS", "INP", "indexing", "crawl", "noindex", "duplicate content", "international SEO", "E-E-A-T", "rich results", "Bing Webmaster", "faceted navigation SEO", "soft 404", "crawl budget", "JS rendering SEO", "snippet".
 
 metadata:
   short-description: SEO — lifecycle, technical crawl, on-page, CWV, edge cases
@@ -75,6 +75,24 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision flow and anti-patterns (summary)
+
+- Channel priority, rendering model, duplicate URL policy; thin pages and attribution mistakes.
+
+Details: [references/decision-tree.md](references/decision-tree.md) · [references/anti-patterns.md](references/anti-patterns.md)
+
+### Cross-skill handoffs (summary)
+
+- **`nextjs-pro`**, **`react-pro`**, **`deployment-pro`**, **`market-research-pro`**.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Guidelines and metric versions (summary)
+
+- Search Central updates, CWV field lag, framework majors.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — Query/market, URL scope, or metric (impressions, CWV, coverage).
@@ -84,7 +102,7 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 
 ## Resources in this skill
 
-- `references/` — lifecycle, technical SEO, tips, edge cases.
+- `references/` — lifecycle, technical SEO, tips, edge cases, Tier A maps.
 
 | Topic | File |
 |-------|------|
@@ -92,11 +110,21 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Technical SEO & crawl | [references/technical-seo-and-crawl.md](references/technical-seo-and-crawl.md) |
 | Tips and patterns | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision tree | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Versions | [references/versions.md](references/versions.md) |
 
-## Quick example
+## Quick examples
 
-**Input:** Next.js site: `/products?color=red` and `/products?color=blue` both indexed with thin differences.  
+**Input (simple):** Next.js site: `/products?color=red` and `/products?color=blue` both indexed with thin differences.  
 **Expected output:** Recommend **canonical** to `/products` or faceted policy; **noindex** low-value params if appropriate; internal link hygiene; **`nextjs-pro`** for `metadata`/route rules implementation.
+
+**Input (tricky):** “Ship 10 SEO fixes Friday” — GSC already noisy.  
+**Expected output:** **Sequence** changes; one primary lever per window; document **deploy date** in annotations; warn on **attribution** limits.
+
+**Input (cross-skill):** “Core Web Vitals failed — fix for SEO.”  
+**Expected output:** Map LCP/INP/CLS to **likely** code paths; **`nextjs-pro`** / **`react-pro`** for bundles, RSC, images; **`deployment-pro`** for CDN/TTFB; **this skill** for **measurement** and **search** impact framing.
 
 ## Checklist before calling the skill done
 
@@ -105,3 +133,5 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] **Measurement** plan (GSC segments, before/after) — not only keyword positions.
 - [ ] Framework-specific work **delegated** to **`nextjs-pro`** / **`react-pro`** when applicable.
 - [ ] **Residual** uncertainty (algorithm, competition) acknowledged honestly.
+- [ ] **Structured data** matches visible content; no guideline violations assumed safe.
+- [ ] **Staging** / **preview** leak risks addressed (`noindex`, auth) when relevant.

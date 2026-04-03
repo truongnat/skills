@@ -7,7 +7,7 @@ description: |
 
   RLS-focused: row-level security, policies (USING / WITH CHECK), ENABLE ROW LEVEL SECURITY, FORCE ROW LEVEL SECURITY, BYPASSRLS, multi-tenant isolation, tenant_id policies, Supabase RLS, JWT claims in policies, session variables for tenant context, restrictive policies, or debugging "no rows" / wrong visibility after enabling RLS.
 
-  Triggers: "PostgreSQL", "Postgres", "SQL", "migration", "EXPLAIN", "index", "VACUUM", "MVCC", "transaction", "isolation", "deadlock", "lock", "replication", "read replica", "JSONB", "CTE", "partition", "pg_stat", "autovacuum", "connection pool", "RLS", "row level security", "policy", "USING", "WITH CHECK", "BYPASSRLS", "tenant", "multi-tenant", "Supabase RLS", "listen notify".
+  Triggers: "PostgreSQL", "Postgres", "SQL", "migration", "EXPLAIN", "ANALYZE", "index", "bloat", "VACUUM", "MVCC", "transaction", "isolation", "deadlock", "lock", "replication", "read replica", "JSONB", "CTE", "partition", "pg_stat", "autovacuum", "connection pool", "RLS", "row level security", "policy", "USING", "WITH CHECK", "BYPASSRLS", "tenant", "multi-tenant", "Supabase RLS", "listen notify", "serialization failure", "40P01".
 
 metadata:
   short-description: PostgreSQL — schema, queries, RLS, ops, edge cases

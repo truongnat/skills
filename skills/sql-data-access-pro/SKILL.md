@@ -7,7 +7,7 @@ description: |
 
   Use **with** **`postgresql-pro`** when the task **outgrows** SQLite (multi-tenant server, RLS, `EXPLAIN`, ops); **`data-analysis-pro`** for **pandas**-heavy profiling on **exports**; **`content-analysis-pro`** only for **narrative** “what’s in this file” framing, not SQL tuning.
 
-  Triggers: "SQLite", ".db", "sqlite3", "SQL injection", "parameterized query", "SELECT", "schema", "export CSV", "read-only database", "embedded database", "local SQL".
+  Triggers: "SQLite", ".db", "sqlite3", "SQL injection", "parameterized query", "SELECT", "schema", "export CSV", "read-only database", "embedded database", "local SQL", "database is locked", "WAL", "ATTACH", "sqlite_master".
 
 metadata:
   short-description: SQL data access — SQLite, safety, export, PG handoff
@@ -75,6 +75,30 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision tree (summary)
+
+- SQLite vs PostgreSQL handoff; read-only vs write; export vs in-DB analytics.
+
+Details: [references/decision-tree.md](references/decision-tree.md)
+
+### Anti-patterns (summary)
+
+- String interpolation, dialect confusion, writable opens for read jobs, ignoring lock errors.
+
+Details: [references/anti-patterns.md](references/anti-patterns.md)
+
+### Integration map (summary)
+
+- **`postgresql-pro`**, **`data-analysis-pro`**, **`security-pro`**, ORM stack skills.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Versions (summary)
+
+- Python `sqlite3` / SQLite library version; PG handoff types.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — Local **DB** path, **query** intent, or **export** need.
@@ -92,14 +116,28 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Safety & PG handoff | [references/sql-safety-and-postgresql-handoff.md](references/sql-safety-and-postgresql-handoff.md) |
 | Tips | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision tree | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Versions | [references/versions.md](references/versions.md) |
 
 ## Quick example
 
 **Input:** “Read `app.db` and list tables with row counts.”  
 **Expected output:** Query **`sqlite_master`**, **parameterized** `COUNT(*)` per table (or single query with **group by**); **read-only** URI if no writes; warn on **large** tables.
 
+**Input:** “User supplies table name from a form — `SELECT * FROM ` + name.”  
+**Expected output:** Reject dynamic identifiers without strict allowlist; use fixed query or validated identifier list; cite injection risk; **`security-pro`** for app policy.
+
+**Input:** “Need row-level security and replicas — still on SQLite file share.”  
+**Expected output:** Hand off to **`postgresql-pro`**; explain SQLite limits; migration outline only if asked.
+
 ## Checklist before calling the skill done
 
 - [ ] **Parameters** bound for **any** external input.
 - [ ] **PostgreSQL** topics (**RLS**, **migration**, **EXPLAIN** server-side) **delegated** when applicable.
 - [ ] **Export** path for **analytics** is **explicit** and **PII**-aware (**`security-pro`**).
+- [ ] **Read-only** mode used when no writes are required.
+- [ ] **Locking / WAL / concurrency** behavior mentioned if writes or NFS involved.
+- [ ] **Dialect** assumptions stated when SQL may run on Postgres later.
+- [ ] **Path trust** (who can replace `.db`) considered for sensitive data.

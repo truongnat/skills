@@ -7,7 +7,7 @@ description: |
 
   Use **with** **`market-research-pro`** for market and competitor evidence, **`business-analysis-pro`** for requirements and execution planning, and **`web-research-pro`** for external source validation. This skill (`strategic-consulting-pro`) owns **strategy framing and option evaluation**; other skills own deep domain analysis and implementation detail.
 
-  Triggers: "strategy", "strategic consulting", "go-to-market strategy", "market entry", "prioritization", "portfolio strategy", "build vs buy", "partner strategy", "operating model", "scenario planning", "decision memo", "north star".
+  Triggers: "strategy", "strategic consulting", "go-to-market strategy", "market entry", "prioritization", "portfolio strategy", "build vs buy", "partner strategy", "operating model", "scenario planning", "decision memo", "north star", "strategic options", "kill criteria", "RACI strategy", "initiative sequencing", "moat", "where to play", "how to win", "strategic risk".
 
 metadata:
   short-description: Strategic consulting - options, prioritization, scenarios, decision memos
@@ -88,6 +88,24 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision flow and anti-patterns (summary)
+
+- Decision type, uncertainty handling, stakeholder conflict; analysis paralysis.
+
+Details: [references/decision-tree.md](references/decision-tree.md) · [references/anti-patterns.md](references/anti-patterns.md)
+
+### Cross-skill handoffs (summary)
+
+- **`market-research-pro`**, **`planning-pro`**, **`feedback-pro`**.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Versions and memo hygiene (summary)
+
+- Planning period, framework shorthand, revision when assumptions change.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** - Strategic decision and constraints.
@@ -97,7 +115,7 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 
 ## Resources in this skill
 
-- `references/` - framing, prioritization, scenario planning, executive reporting, tips, edge cases.
+- `references/` - framing, prioritization, scenario planning, executive reporting, tips, edge cases, Tier A maps.
 
 | Topic | File |
 |-------|------|
@@ -107,11 +125,21 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Executive communication | [references/reporting-and-executive-communication.md](references/reporting-and-executive-communication.md) |
 | Tips | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision tree | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Versions & memo hygiene | [references/versions.md](references/versions.md) |
 
-## Quick example
+## Quick examples
 
-**Input:** "Should we prioritize enterprise upsell or SME expansion next two quarters?"  
+**Input (simple):** "Should we prioritize enterprise upsell or SME expansion next two quarters?"  
 **Expected output:** Present option criteria, scenario outcomes, capability constraints, and a sequenced recommendation with confidence and risks.
+
+**Input (tricky):** "CEO wants one slide — but we need 20 pages of analysis."  
+**Expected output:** **One-slide** thesis + **appendix** map; **time-box**; **decision** and **rejected** options explicit; avoid jargon-only deck.
+
+**Input (cross-skill):** "Pick build vs buy for auth — then roadmap it."  
+**Expected output:** **This skill** for criteria, options, risk; **`auth-pro`** for technical trade-offs; **`planning-pro`** for waves/dependencies; **`market-research-pro`** if vendor landscape unclear.
 
 ## Checklist before calling the skill done
 
@@ -120,3 +148,5 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] Assumptions and confidence are visible.
 - [ ] Recommendation links to measurable outcomes and next steps.
 - [ ] Handoffs to `market-research-pro` / `business-analysis-pro` are clear where needed.
+- [ ] At least **two** credible **alternatives** considered (not single-path theater).
+- [ ] **Execution** link: owners, metrics, or **`planning-pro`** handoff when roadmap needed.

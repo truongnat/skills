@@ -5,7 +5,7 @@ description: |
 
   Use this skill when designing GraphQL schemas, implementing resolvers, reviewing query/mutation patterns, or stabilizing GraphQL behavior in production.
 
-  Triggers: "graphql", "schema", "resolver", "query", "mutation", "subscription", "n+1", "dataloader", "federation", "persisted query", "graphql edge case".
+  Triggers: "graphql", "schema", "resolver", "query", "mutation", "subscription", "n+1", "dataloader", "federation", "persisted query", "graphql edge case", "Apollo", "Mercurius", "complexity limit", "introspection", "GraphQL Playground".
 
   Combine with `api-design-pro` for contract governance and `security-pro` for GraphQL-specific hardening.
 metadata:
@@ -63,6 +63,30 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision tree (summary)
+
+- Schema shape, mutation idempotency, federation vs monolith, security limits — see reference.
+
+Details: [references/decision-tree.md](references/decision-tree.md)
+
+### Anti-patterns (summary)
+
+- N+1 resolvers, nullable churn, leaky `extensions`, unbounded lists.
+
+Details: [references/anti-patterns.md](references/anti-patterns.md)
+
+### Integration map (summary)
+
+- **`api-design-pro`**, **`security-pro`**, **`nestjs-pro`**, **`postgresql-pro`**, **`testing-pro`**.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Stack versions (summary)
+
+- Server major, federation compatibility, client codegen pins.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** - define schema/resolver problem or target.
@@ -78,11 +102,21 @@ Use these files for deeper detail when concise guidance in this file is not enou
 |-------|------|
 | Practical GraphQL design/resolver patterns | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | GraphQL failure modes and edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision tree | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Versions | [references/versions.md](references/versions.md) |
 
 ## Quick example
 
 **Input:** "Review GraphQL resolver layer for N+1 and auth gaps before release."  
 **Expected output:** Prioritized resolver/schema fixes with concrete SDL/resolver actions and residual risk notes.
+
+**Input:** "Introspection enabled in production — security audit flagged it."  
+**Expected output:** Threat model (schema enumeration, field discovery); gate by env or auth; pair with **`security-pro`**; document operational need if kept.
+
+**Input:** "Federation: two subgraphs both expose `User.name` with different nullability."  
+**Expected output:** Composition error root cause; ownership rule; migration with `@override` / deprecation; compatibility checklist.
 
 ## Checklist before calling the skill done
 
@@ -91,3 +125,6 @@ Use these files for deeper detail when concise guidance in this file is not enou
 - [ ] At least one compatibility edge case and one security edge case are covered.
 - [ ] Code section includes concrete SDL/resolver/checklist guidance.
 - [ ] Residual risks include migration and runtime monitoring concerns.
+- [ ] Nullable/non-null changes and client impact are assessed.
+- [ ] AuthZ checked at field level, not only HTTP layer.
+- [ ] Subscription fan-out / scaling risks noted if subscriptions exist.

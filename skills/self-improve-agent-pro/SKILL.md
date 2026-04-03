@@ -7,7 +7,7 @@ description: |
 
   Use **with** **`feedback-pro`** for high-quality review signals, **`planning-pro`** for iteration roadmaps, and **`testing-pro`** to validate that improvements actually reduce failures.
 
-  Triggers: "self improve agent", "agent improvement", "reflection loop", "learning loop", "improve accuracy", "reduce failures", "retrospective", "continuous improvement", "quality iteration".
+  Triggers: "self improve agent", "agent improvement", "reflection loop", "learning loop", "improve accuracy", "reduce failures", "retrospective", "continuous improvement", "quality iteration", "eval harness", "quality drift", "PDCA", "before after metrics", "rollback prompt", "experiment table".
 
 metadata:
   short-description: Self-improve agent - reflection loops, diagnosis, measurable uplift
@@ -82,6 +82,24 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision flow and anti-patterns (summary)
+
+- Signal sparsity vs richness; one change at a time; overfitting eval.
+
+Details: [references/decision-tree.md](references/decision-tree.md) · [references/anti-patterns.md](references/anti-patterns.md)
+
+### Cross-skill handoffs (summary)
+
+- **`feedback-pro`**, **`planning-pro`**, **`testing-pro`**, **`repo-tooling-pro`**, **`skills-self-review-pro`**.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Versions (summary)
+
+- Model snapshot IDs, framework majors, eval fixture versioning.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** - Current quality gap and target improvement.
@@ -91,7 +109,7 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 
 ## Resources in this skill
 
-- `references/` - deeper playbooks for diagnosis, iteration design, and measurable verification.
+- `references/` - deeper playbooks for diagnosis, iteration design, measurable verification, Tier A maps.
 
 | Topic | File |
 |-------|------|
@@ -100,11 +118,21 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Metrics and verification | [references/metrics-and-verification.md](references/metrics-and-verification.md) |
 | Tips | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision tree | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Versions | [references/versions.md](references/versions.md) |
 
-## Quick example
+## Quick examples
 
-**Input:** "Our coding agent keeps missing edge cases and repeats the same mistakes. Build a self-improvement routine."  
+**Input (simple):** "Our coding agent keeps missing edge cases and repeats the same mistakes. Build a self-improvement routine."  
 **Expected output:** Baseline metrics, failure taxonomy, iterative intervention plan, verification checkpoints, and stop/rollback criteria.
+
+**Input (tricky):** "We changed 5 prompts and the eval improved — ship to prod tonight."  
+**Expected output:** **Attribution** failure; require **isolated** diffs or **shadow** traffic; **holdout** set; document **residual** regression risk.
+
+**Input (cross-skill):** "Use `analyze-skills` to improve our agent bundle quality."  
+**Expected output:** **`skills-self-review-pro`** methodology; **`repo-tooling-pro`** for commands; **this skill** for **loop** (hypothesis → doc edit → validate → measure).
 
 ## Checklist before calling the skill done
 
@@ -113,3 +141,5 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] Interventions have measurable success/fail criteria.
 - [ ] Verification includes regression protection.
 - [ ] Residual risks and monitoring cadence are documented.
+- [ ] **Single-change** discipline or explicit **factorial** plan when multiple levers unavoidable.
+- [ ] **Human review** path for high-stakes domains noted when applicable.

@@ -7,7 +7,7 @@ description: |
 
   Use **with** **`deployment-pro`** when **images** must be **promoted** across environments; **`security-pro`** for **OIDC**, **secrets**, and **supply chain**; **`testing-pro`** for **what** runs in CI. This skill (`code-packaging-pro`) owns **build artifacts** and **workflow structure**; **`deployment-pro`** owns **release** and **runtime** promotion.
 
-  Triggers: "pyproject.toml", "Dockerfile", "multi-stage", "GitHub Actions", "workflow yml", "build wheel", "publish PyPI", "container image", "CI matrix", "dockerignore", "hatchling", "setuptools", "trusted publishing".
+  Triggers: "pyproject.toml", "Dockerfile", "multi-stage", "GitHub Actions", "workflow yml", "build wheel", "publish PyPI", "container image", "CI matrix", "dockerignore", "hatchling", "setuptools", "trusted publishing", "GHCR", "ECR", "non-root container", "OIDC PyPI", "cibuildwheel", "uv lock", "poetry export".
 
 metadata:
   short-description: Code packaging — pyproject, Docker, GitHub Actions, build & publish
@@ -75,6 +75,24 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision flow and anti-patterns (summary)
+
+- Library vs service image; trusted publishing; secrets in layers/workflows.
+
+Details: [references/decision-tree.md](references/decision-tree.md) · [references/anti-patterns.md](references/anti-patterns.md)
+
+### Cross-skill handoffs (summary)
+
+- **`deployment-pro`**, **`testing-pro`**, **`security-pro`**, stack skills.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Versions (summary)
+
+- Python matrix, base image digests, Actions majors.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — **Wheel**, **image**, or **workflow** change.
@@ -84,7 +102,7 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 
 ## Resources in this skill
 
-- `references/` — packaging, Actions, tips, edge cases.
+- `references/` — packaging, Actions, tips, edge cases, Tier A maps.
 
 | Topic | File |
 |-------|------|
@@ -92,14 +110,28 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | GitHub Actions | [references/github-actions-and-ci.md](references/github-actions-and-ci.md) |
 | Tips | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision tree | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Versions | [references/versions.md](references/versions.md) |
 
-## Quick example
+## Quick examples
 
-**Input:** “Add a **Dockerfile** for a FastAPI app with **multi-stage** and **non-root**.”  
+**Input (simple):** “Add a **Dockerfile** for a FastAPI app with **multi-stage** and **non-root**.”  
 **Expected output:** **build** stage installs deps; **runtime** `python:slim`, **copy** only needed files, **`USER`**, **`EXPOSE`**, **health** note; mention **`.dockerignore`**; **`deployment-pro`** for **orchestration**.
+
+**Input (tricky):** “Bake `DATABASE_URL` into the image for staging.”  
+**Expected output:** **Reject** secret-in-image; use **runtime** env / secret manager; **`security-pro`** pattern; rebuild vs **promote same artifact** story.
+
+**Input (cross-skill):** “PyPI publish from GHA with least privilege.”  
+**Expected output:** **This skill** for **trusted publishing** / OIDC workflow skeleton; **`security-pro`** for token scopes and **fork** PR safety; **`deployment-pro`** not required unless promoting runtime.
 
 ## Checklist before calling the skill done
 
 - [ ] **Artifact** type matches **library** vs **service** conventions.
 - [ ] **Secrets** not embedded in **Dockerfile** or **public** YAML.
 - [ ] **Deployment** concerns (**K8s**, **rollback**) **delegated** when beyond **build**.
+- [ ] **`.dockerignore`** and **multi-stage** hygiene explicitly considered for images.
+- [ ] **CI** job graph **lint → test → build** with fail-fast on cheap steps.
+- [ ] **Versioning** / **CHANGELOG** policy mentioned for **library** consumers.
+- [ ] **Pin** or **review** policy stated for **third-party Actions** when security-sensitive.

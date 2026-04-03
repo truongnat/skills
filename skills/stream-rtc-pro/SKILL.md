@@ -5,7 +5,7 @@ description: |
 
   Use this skill when building or reviewing WebRTC/RTC streaming architecture, call/session lifecycle, media transport behavior, and production scaling strategy.
 
-  Triggers: "webrtc", "rtc", "streaming", "rtp", "sfu", "turn", "stun", "signaling", "jitter", "packet loss", "media edge case".
+  Triggers: "webrtc", "rtc", "streaming", "rtp", "sfu", "mcu", "turn", "stun", "signaling", "jitter", "packet loss", "media edge case", "simulcast", "SVC", "Opus", "ICE restart", "getUserMedia".
 
   Combine with `websocket-pro` for signaling channels and `performance-tuning-pro` for realtime quality/latency optimization.
 metadata:
@@ -63,6 +63,30 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision tree (summary)
+
+- Mesh vs SFU; signaling transport; TURN necessity; codec ladder.
+
+Details: [references/decision-tree.md](references/decision-tree.md)
+
+### Anti-patterns (summary)
+
+- One-sided signaling state, no ICE restart, unlimited simulcast, SDP logging.
+
+Details: [references/anti-patterns.md](references/anti-patterns.md)
+
+### Integration map (summary)
+
+- **`websocket-pro`**, **`performance-tuning-pro`**, **`security-pro`**, **`deployment-pro`**, **`network-infra-pro`**.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Versions (summary)
+
+- Browser API surface, SFU vendor pins, codec matrix.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** - define media/realtime reliability or quality objective.
@@ -78,11 +102,21 @@ Use these files for deeper detail when concise guidance in this file is not enou
 |-------|------|
 | Practical stream/RTC patterns | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Realtime media failure modes and edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision tree | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Versions | [references/versions.md](references/versions.md) |
 
 ## Quick example
 
 **Input:** "Design scalable WebRTC architecture for 50k concurrent viewers with low-latency interactive audio."  
 **Expected output:** Topology + signaling + adaptation strategy with concrete reliability/security controls and rollout risks.
+
+**Input:** "Calls fail only on corporate Wi‑Fi — works at home."  
+**Expected output:** TURN deployment, UDP/TCP 443 fallback, firewall checklist; **`network-infra-pro`** for path diagnostics.
+
+**Input:** "iOS backgrounding kills audio — Android OK."  
+**Expected output:** Platform lifecycle limits; reconnect + renegotiation policy; UX for interrupted tracks; test matrix note.
 
 ## Checklist before calling the skill done
 
@@ -91,3 +125,6 @@ Use these files for deeper detail when concise guidance in this file is not enou
 - [ ] At least one QoE degradation edge case and one security edge case are addressed.
 - [ ] Code section includes concrete signaling/media policy actions.
 - [ ] Residual risks include scaling and multi-device compatibility concerns.
+- [ ] TURN cost and capacity considered when symmetric NAT is likely.
+- [ ] Codec fallback ladder stated for target browsers/devices.
+- [ ] Recording/consent/privacy called out if media is stored or processed server-side.

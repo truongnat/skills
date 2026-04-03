@@ -7,7 +7,7 @@ description: |
 
   Use **with** **`content-analysis-pro`** when **source documents or media** must be read in depth before structuring requirements; **`testing-pro`** (acceptance criteria and testability), **`security-pro`** (compliance and data sensitivity), **`design-system-pro`** / **`mobile-design-pro`** (UX requirements), stack skills when requirements imply technical constraints. This skill (`business-analysis-pro`) owns **analysis, reasoning trace, and communication artifacts**; implementation skills own **build details**.
 
-  Triggers: "business analysis", "BA", "BRD", "FRD", "SRS", "requirements", "stakeholder", "MoSCoW", "acceptance criteria", "user story", "as-is", "to-be", "gap analysis", "RACI", "traceability", "NFR", "functional requirement", "systems analyst", "SA", "elicitation", "scope", "prioritization", "decision log".
+  Triggers: "business analysis", "BA", "BRD", "FRD", "SRS", "requirements", "stakeholder", "MoSCoW", "acceptance criteria", "user story", "as-is", "to-be", "gap analysis", "RACI", "traceability", "NFR", "functional requirement", "systems analyst", "SA", "elicitation", "scope", "prioritization", "decision log", "ambiguous requirements", "scope creep", "who decides", "Definition of Ready", "INVEST", "non-functional", "compliance requirement", "stakeholder map".
 
 metadata:
   short-description: Business analysis — requirements, SA-style reasoning, reporting, deliverables
@@ -79,6 +79,24 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision flow and anti-patterns (summary)
+
+- When to deepen vs time-box; common BA mistakes (solution-first, untestable FRs).
+
+Details: [references/decision-tree.md](references/decision-tree.md) · [references/anti-patterns.md](references/anti-patterns.md)
+
+### Cross-skill handoffs (summary)
+
+- Pairing with **`content-analysis-pro`**, **`data-analysis-pro`**, stack skills.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Versions and templates (summary)
+
+- Org template versions; BABOK edition as external reference only.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — Business problem, audience, and decision needed.
@@ -88,7 +106,7 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 
 ## Resources in this skill
 
-- `references/` — requirements reasoning, reporting, tips, edge cases.
+- `references/` — requirements reasoning, reporting, tips, edge cases, Tier A maps.
 
 | Topic | File |
 |-------|------|
@@ -96,11 +114,21 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Reporting & deliverables | [references/reporting-and-deliverables.md](references/reporting-and-deliverables.md) |
 | Tips and patterns | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision tree | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Versions & templates | [references/versions.md](references/versions.md) |
 
-## Quick example
+## Quick examples
 
-**Input:** “We need the app to be fast and secure.”  
+**Input (simple):** “We need the app to be fast and secure.”  
 **Expected output:** Decompose into **measurable** NFRs (latency targets, authn/z); list **assumptions**; propose FR/NFR IDs; executive one-liner + table; flag **`security-pro`** for threat-aligned requirements.
+
+**Input (tricky):** “Legal says we must be GDPR-compliant” — no data map or DPA context.  
+**Expected output:** List **unknowns** (data categories, subprocessors, retention); propose **spike** FRs and **decision log** entries; route **legal interpretation** to humans; **`security-pro`** for technical controls wording.
+
+**Input (cross-skill):** “Turn this 40-page PDF procurement spec into user stories.”  
+**Expected output:** **`content-analysis-pro`** for extraction and citations; then **this skill** for story IDs, MoSCoW, AC, and traceability matrix to **page refs**; flag conflicts for stakeholder workshop.
 
 ## Checklist before calling the skill done
 
@@ -109,3 +137,5 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] **Decisions** and **rejected options** documented for auditability.
 - [ ] **Report structure** fits audience (summary + detail + appendix as needed).
 - [ ] Technical or security depth **delegated** to the right **`testing-pro`** / **`security-pro`** / stack skill when needed.
+- [ ] **Assumptions** and **open questions** listed; no hidden scope in “nice to have.”
+- [ ] **Change impact** noted when scope shifts (time, risk, dependencies).

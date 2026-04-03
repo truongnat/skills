@@ -5,7 +5,7 @@ description: |
 
   Use this skill when the user designs or refactors a **CLI** (any language), adds **subcommands** or **global flags**, implements **shell completion**, fixes **broken pipes** / **TTY** behavior, or aligns **machine-readable output** with human-readable logs. Combine with **`code-packaging-pro`** for distribution (pyproject entry points, npm `bin`, Go/Rust install); with **`security-pro`** for secrets and dangerous flags; with **`testing-pro`** for CLI integration tests.
 
-  Triggers: "CLI", "command line", "argparse", "click", "typer", "clap", "cobra", "commander", "yargs", "subcommand", "exit code", "stderr", "POSIX", "completion", "bash completion", "zsh completion", "machine readable", "JSON output", "TTY", "SIGPIPE", "getopt".
+  Triggers: "CLI", "command line", "argparse", "click", "typer", "clap", "cobra", "commander", "yargs", "subcommand", "exit code", "stderr", "POSIX", "completion", "bash completion", "zsh completion", "machine readable", "JSON output", "TTY", "SIGPIPE", "getopt", "EPIPE", "dry-run", "no-color", "FORCE_COLOR", "prompt stuck CI", "semver CLI".
 
 metadata:
   short-description: CLI — argv design, help/exit codes, pipes/TTY, completions, cross-platform tools
@@ -66,6 +66,24 @@ Details: [references/patterns-by-runtime.md](references/patterns-by-runtime.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision flow and anti-patterns (summary)
+
+- stdout/stderr split; destructive confirms; secrets on argv.
+
+Details: [references/decision-tree.md](references/decision-tree.md) · [references/anti-patterns.md](references/anti-patterns.md)
+
+### Cross-skill handoffs (summary)
+
+- **`code-packaging-pro`**, **`security-pro`**, **`testing-pro`**, **`javascript-pro`**.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Versions (summary)
+
+- Semver for published argv; completion generator coupling; Windows vs Unix.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — New CLI, refactor, or bug (pipes, CI, completion).
@@ -75,21 +93,28 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 
 ## Resources in this skill
 
-- `references/` — Deep dives; external baseline [clig.dev](https://clig.dev/).
+- `references/` — Deep dives, Tier A maps; external baseline [clig.dev](https://clig.dev/).
 
 | Topic | File |
 |-------|------|
 | Tips & CLI UX | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Patterns by runtime | [references/patterns-by-runtime.md](references/patterns-by-runtime.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision tree | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Versions | [references/versions.md](references/versions.md) |
 
-## Quick example
+## Quick examples
 
-**Input:** Users pipe our CLI to `head` and we get a traceback from a **broken pipe**.  
+**Input (simple):** Users pipe our CLI to `head` and we get a traceback from a **broken pipe**.  
 **Expected output:** Catch **SIGPIPE** or handle **EPIPE** on write; exit **0** or **141** per platform convention; document; avoid Python traceback noise on stderr for expected pipe closure.
 
-**Input:** Add **zsh** completion for subcommands.  
-**Expected output:** Prefer generator-supported frameworks (Click/Typer, Cobra, Clap); document **manual** install path; warn about **dynamic** completion needing a fast `--print-completion` hook.
+**Input (tricky):** “Default subcommand deletes files — users typo flags.”  
+**Expected output:** **Require** explicit subcommand or `--force` + **TTY** guard; **dry-run** mode; **`security-pro`** for safe-by-default narrative.
+
+**Input (cross-skill):** “Ship Python CLI on PyPI with completions.”  
+**Expected output:** **`code-packaging-pro`** for entry points and publish; **this skill** for **`--help`**, **exit codes**, completion hook; **`testing-pro`** for subprocess golden tests.
 
 ## Checklist before calling the skill done
 
@@ -98,3 +123,5 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] **Non-TTY** / **CI** behavior defined (no stuck prompts; or `--yes` with warning).
 - [ ] If **machine-readable** output exists, it is behind **`--json`** (or equivalent) and **stable**.
 - [ ] **Breaking** argv changes called out with migration or semver note for published tools.
+- [ ] **Color** / **progress** behavior defined for pipe and log contexts.
+- [ ] **Windows** path and quoting caveats noted when cross-platform.

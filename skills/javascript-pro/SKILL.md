@@ -5,7 +5,7 @@ description: |
 
   Use this skill when implementing or reviewing JavaScript/TypeScript application logic, debugging tricky runtime behavior, or handling language-level edge cases in browser/Node.js projects.
 
-  Triggers: "javascript", "js", "event loop", "promise", "closure", "this", "prototype", "hoisting", "microtask", "edge case", "tip", "trick".
+  Triggers: "javascript", "js", "event loop", "promise", "closure", "this", "prototype", "hoisting", "microtask", "edge case", "tip", "trick", "await", "async", "TypeError", "ReferenceError", "undefined is not a function", "ESM", "CommonJS", "cjs", "mjs", "import.meta".
 
   Combine with `testing-pro` for coverage strategy and `security-pro` for threat-focused hardening.
 metadata:
@@ -29,7 +29,7 @@ Use official [MDN JavaScript docs](https://developer.mozilla.org/en-US/docs/Web/
 - Reviewing JS code for runtime correctness, readability, and production safety.
 - Diagnosing hard bugs involving async ordering, object mutation, or scope capture.
 - Hardening browser/Node code against non-obvious language and runtime traps.
-- Trigger keywords: `javascript`, `js`, `event loop`, `promise`, `closure`, `this`, `prototype`, `hoisting`, `microtask`, `tip`, `trick`, `edge case`
+- Trigger keywords: `javascript`, `js`, `event loop`, `promise`, `closure`, `this`, `prototype`, `hoisting`, `microtask`, `await`, `async`, `ESM`, `CommonJS`, `TypeError`, `edge case`
 
 ## Workflow
 
@@ -63,6 +63,30 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision tree (summary)
+
+- Choose module system, async style, and mutability strategy from constraints; escalate to **`typescript-pro`** for static guarantees.
+
+Details: [references/decision-tree.md](references/decision-tree.md)
+
+### Anti-patterns (summary)
+
+- Avoid coercion traps, lost Promises, unbounded mutation, and `this` surprises — see reference for fixes.
+
+Details: [references/anti-patterns.md](references/anti-patterns.md)
+
+### Integration map (summary)
+
+- Pair with **`testing-pro`**, **`security-pro`**, **`typescript-pro`**, and stack skills for framework-specific runtime.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Versions and runtimes (summary)
+
+- Align ECMAScript target, Node LTS, and browserslist with actual features in use.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** - clarify the target behavior or defect.
@@ -78,11 +102,21 @@ Use these files for deeper detail when concise guidance in this file is not enou
 |-------|------|
 | High-level JavaScript tips/tricks | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Runtime and language edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision tree (module/async/mutation) | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration with other skills | [references/integration-map.md](references/integration-map.md) |
+| Versions and runtimes | [references/versions.md](references/versions.md) |
 
 ## Quick example
 
 **Input:** "Review this JS service for hidden async bugs and edge cases before release."  
 **Expected output:** A focused review using the four response labels, with concrete fixes for ordering/coercion issues plus test cases for discovered edge paths.
+
+**Input:** "`forEach` with `async` callback — some DB writes never complete in production."  
+**Expected output:** Explain fire-and-forget hazard; recommend `for…of` + `await`, `Promise.all` with bounded concurrency, or queue worker; add tests for completion and ordering.
+
+**Input:** "Same package must run on Node 18 ESM and old Jest CJS test runner — imports break."  
+**Expected output:** Map `typescript-pro`/`package.json` `exports` / conditional exports; document test runner config; list residual dual-package hazards.
 
 ## Checklist before calling the skill done
 
@@ -91,3 +125,6 @@ Use these files for deeper detail when concise guidance in this file is not enou
 - [ ] At least one relevant tip/trick and one edge case were checked.
 - [ ] Proposed fix includes concrete code or test guidance.
 - [ ] Residual compatibility and regression risks are explicitly stated.
+- [ ] If async ordering is involved, failure mode (lost Promise, race) is named and tested.
+- [ ] If numeric or `Date` logic is involved, precision/timezone assumptions are explicit.
+- [ ] Cross-skill handoff (`typescript-pro`, `security-pro`, `testing-pro`) noted when scope exceeds raw JS semantics.

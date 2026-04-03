@@ -3,7 +3,7 @@
 | title | Skills directory layout |
 | summary | Flat `skills/` tree: one folder per bundled skill plus `examples/skill-template` |
 | tags | repo, skills, convention |
-| updated | 2026-04-01 |
+| updated | 2026-04-03 |
 
 # Skills directory layout (current)
 
@@ -62,7 +62,7 @@ skills/
   repo-tooling-pro/
 ```
 
-Each skill requires **`SKILL.md`** with YAML frontmatter (`name`, `description`, optional `metadata.short-description`). Optional folders: `references/`, `scripts/`, `assets/`.
+Each skill requires **`SKILL.md`** with YAML frontmatter (`name`, `description`, optional `metadata.short-description`). Optional folders: `references/`, `scripts/`, `assets/`. Many bundles also ship a short **`README.md`** (entry point + links) for IDE or repo browsing — not required by validation, but preferred for Tier A polish.
 
 Cross-references between skills use sibling paths, e.g. from `nestjs-pro` to PostgreSQL RLS docs: `../postgresql-pro/references/row-level-security.md`.
 

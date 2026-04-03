@@ -101,6 +101,18 @@ Details: [references/decision-tree.md](references/decision-tree.md)
 
 Details: [references/anti-patterns.md](references/anti-patterns.md)
 
+### Cross-skill handoffs (summary)
+
+- **`docker-pro`**, **`deployment-pro`**, **`testing-pro`**, **`security-pro`**, **`git-operations-pro`**, **`code-packaging-pro`**.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Versions (summary)
+
+- Runner images, pinned Actions, platform YAML dialects.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Tips and tricks (summary)
 
 - Fail-fast job order, artifacts on failure, matrix trimming, environment protection — expanded in reference.
@@ -132,6 +144,8 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Deployment strategies | [references/deployment-strategies.md](references/deployment-strategies.md) |
 | Decision trees | [references/decision-tree.md](references/decision-tree.md) |
 | Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Versions | [references/versions.md](references/versions.md) |
 | Tips and tricks | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
 

@@ -7,7 +7,7 @@ description: |
 
   Use **with** **`design-system-pro`** (tokens, brand, dark mode), **`react-native-pro`** or **`flutter-pro`** (implementation: SafeArea, navigation APIs, keyboard avoiding). This skill (`mobile-design-pro`) owns **mobile-specific UX and layout rules**; framework skills own **code and APIs**.
 
-  Triggers: "mobile design", "mobile UX", "iOS HIG", "Material Design mobile", "touch target", "safe area", "notch", "bottom navigation", "thumb zone", "one-handed", "mobile keyboard", "gesture", "bottom sheet", "mobile onboarding", "tablet layout", "foldable", "mobile a11y", "VoiceOver", "TalkBack", "dynamic type".
+  Triggers: "mobile design", "mobile UX", "iOS HIG", "Material Design mobile", "touch target", "safe area", "notch", "bottom navigation", "thumb zone", "one-handed", "mobile keyboard", "gesture", "bottom sheet", "mobile onboarding", "tablet layout", "foldable", "mobile a11y", "VoiceOver", "TalkBack", "dynamic type", "hitSlop", "home indicator", "predictive back", "reduce motion", "large content size", "split view iPad", "Cupertino vs Material".
 
 metadata:
   short-description: Mobile design — touch, safe area, navigation, iOS/Android, edge cases
@@ -83,6 +83,24 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision flow and anti-patterns (summary)
+
+- Platform parity vs native patterns; shrunk desktop UI; safe-area misses.
+
+Details: [references/decision-tree.md](references/decision-tree.md) · [references/anti-patterns.md](references/anti-patterns.md)
+
+### Cross-skill handoffs (summary)
+
+- **`design-system-pro`**, **`react-native-pro`** / **`flutter-pro`**, **`performance-tuning-pro`**.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### OS and guideline versions (summary)
+
+- iOS/Android API level; HIG/Material edition when citing rules.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — Screen, flow, or pattern (e.g. “checkout on small phone”).
@@ -92,7 +110,7 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 
 ## Resources in this skill
 
-- `references/` — touch/layout, navigation/platforms, tips, edge cases.
+- `references/` — touch/layout, navigation/platforms, tips, edge cases, Tier A maps.
 
 | Topic | File |
 |-------|------|
@@ -101,11 +119,21 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Web responsive (cross-skill) | [`design-system-pro` / a11y & responsive](../design-system-pro/references/a11y-responsive-and-web-typography.md) |
 | Tips and patterns | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision tree | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Versions (OS, guidelines) | [references/versions.md](references/versions.md) |
 
-## Quick example
+## Quick examples
 
-**Input:** Primary “Save” button at top-right on a 6" phone — users miss it one-handed.  
+**Input (simple):** Primary “Save” button at top-right on a 6" phone — users miss it one-handed.  
 **Expected output:** Move **primary** action to **bottom** toolbar or sticky footer; keep top for **destructive** secondary; cite **thumb reach**; implementation details in **`react-native-pro`**.
+
+**Input (tricky):** Heavy animation on onboarding — users complain dizziness.  
+**Expected output:** Respect **`prefers-reduced-motion`** / system settings; offer **static** path; reduce **parallax**; test **large text** + **VoiceOver** order.
+
+**Input (cross-skill):** “Same nav as our React web app in RN.”  
+**Expected output:** **This skill** for **native** patterns (tabs, back, sheets); **`design-system-pro`** for **tokens**; **`react-native-pro`** for **React Navigation** / platform files; flag **web metaphor** mismatches (hover, URL bar).
 
 ## Checklist before calling the skill done
 
@@ -114,3 +142,5 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] **iOS vs Android** behavior called out where it diverges.
 - [ ] **Accessibility** (dynamic type, SR) not ignored.
 - [ ] Code-level work **delegated** to **`react-native-pro`** / **`flutter-pro`** when applicable.
+- [ ] **Motion** preferences and **haptics** used with restraint.
+- [ ] **Tablet / foldable** assumptions stated or deferred with test plan.

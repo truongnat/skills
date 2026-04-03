@@ -7,7 +7,7 @@ description: |
 
   Use **with** **`react-pro`** (or Vue/Svelte docs) for renderer UI patterns, **`security-pro`** for threat modeling and desktop-specific abuse cases, **`testing-pro`** for E2E (Playwright Electron) and CI. This skill (`electron-pro`) owns **Electron process model and IPC**; web-framework skills own **component-level UI**.
 
-  Triggers: "Electron", "electron", "BrowserWindow", "ipcMain", "ipcRenderer", "preload", "contextBridge", "contextIsolation", "electron-builder", "electron-forge", "electron-updater", "Chromium", "desktop app", "main process", "renderer".
+  Triggers: "Electron", "electron", "BrowserWindow", "ipcMain", "ipcRenderer", "preload", "contextBridge", "contextIsolation", "sandbox", "nodeIntegration", "remote module", "electron-builder", "electron-forge", "electron-updater", "Chromium", "desktop app", "main process", "renderer", "ASAR", "code signing", "notarization".
 
 metadata:
   short-description: Electron — main/preload/renderer, IPC, packaging, updates, security

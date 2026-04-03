@@ -7,7 +7,7 @@ description: |
 
   Use **with** **`repo-tooling-pro`** when the corpus is **this** repo’s KB; **`security-pro`** when sources might touch **secrets** or **unsafe** links. This skill (`web-research-pro`) owns **research method and citations**; stack skills own **implementation details**.
 
-  Triggers: "search the docs", "official documentation", "404", "source evaluation", "citation", "compare sources", "multi-step research", "API reference", "changelog", "is this still true", "link rot".
+  Triggers: "search the docs", "official documentation", "404", "source evaluation", "citation", "compare sources", "multi-step research", "API reference", "changelog", "is this still true", "link rot", "query_kb", "Wayback", "SEO blog wrong", "breaking change", "deprecation", "RFC", "MDN", "Stack Overflow outdated".
 
 metadata:
   short-description: Web research — sources, citations, recency, stale docs, KB complement
@@ -75,6 +75,24 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision flow and anti-patterns (summary)
+
+- Source hierarchy, freshness, KB-first vs web-first; single-blog authority.
+
+Details: [references/decision-tree.md](references/decision-tree.md) · [references/anti-patterns.md](references/anti-patterns.md)
+
+### Cross-skill handoffs (summary)
+
+- **`market-research-pro`**, **`skills-self-review-pro`**, stack **`*-pro`**.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Versions and archives (summary)
+
+- Pin runtime to doc generation; archive date when live site diverges.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — What must be **verified** externally vs **local** KB.
@@ -84,7 +102,7 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 
 ## Resources in this skill
 
-- `references/` — workflow, citations, tips, edge cases.
+- `references/` — workflow, citations, tips, edge cases, Tier A maps.
 
 | Topic | File |
 |-------|------|
@@ -92,11 +110,21 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Citations & stale URLs | [references/citations-and-stale-urls.md](references/citations-and-stale-urls.md) |
 | Tips | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision tree | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Versions & archives | [references/versions.md](references/versions.md) |
 
-## Quick example
+## Quick examples
 
-**Input:** “Does `fetch` in Next.js 15 cache by default?” — **official** doc link returns **404**.  
+**Input (simple):** “Does `fetch` in Next.js 15 cache by default?” — **official** doc link returns **404**.  
 **Expected output:** Search **Next.js** site for **fetch** + **cache** + **15**; cite **current** page; note **App Router** vs **Pages**; if still ambiguous, point to **release** or **GitHub** discussion with **caveat**.
+
+**Input (tricky):** Two blogs disagree on default — no changelog hit.  
+**Expected output:** Prefer **source repo** / **release notes** / **type defs**; rank sources; state **low confidence**; give **verification steps** (minimal repro).
+
+**Input (cross-skill):** “Refresh `nestjs-pro` skill references from official docs.”  
+**Expected output:** **`skills-self-review-pro`** scope; **this skill** for NestJS **current** docs + changelog; **`repo-tooling-pro`** only if checking in-repo KB; output **version-tagged** link list.
 
 ## Checklist before calling the skill done
 
@@ -104,3 +132,6 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] **Version** aligned with user’s **runtime** when it matters.
 - [ ] **Local** `knowledge-base` considered when **`build_kb`** has been run.
 - [ ] **404** / **moved** path handled with **search** or **archive** only as **secondary** evidence.
+- [ ] **Conflicting** sources triangulated; **single** weak source flagged.
+- [ ] **Citations** stable enough for follow-up (URL + section + date where useful).
+- [ ] **Untrusted** links / paste risks noted (**`security-pro`** when relevant).

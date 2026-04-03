@@ -7,7 +7,7 @@ description: |
 
   Widget-focused: composing StatelessWidget / StatefulWidget, pure `build`, `Key` (ValueKey, GlobalKey), `BuildContext` and InheritedWidget, widget lifecycle (`initState`, `dispose`, `mounted`), splitting widgets vs helper methods, const constructors, or refactoring widget trees.
 
-  Triggers: "Flutter", "Dart", "Widget", "StatelessWidget", "StatefulWidget", "State", "build method", "const widget", "Key", "ValueKey", "GlobalKey", "InheritedWidget", "Theme.of", "Material 3", "Cupertino", "go_router", "Navigator", "Riverpod", "Provider", "Bloc", "BuildContext", "mounted", "async gap", "Sliver", "ListView", "CustomScrollView", "RepaintBoundary", "Impeller", "platform channel", "MethodChannel", "FFI", "web", "Flutter desktop", "semantics", "a11y", "Golden test", "integration_test".
+  Triggers: "Flutter", "Dart", "Widget", "StatelessWidget", "StatefulWidget", "State", "setState", "build method", "const widget", "Key", "ValueKey", "GlobalKey", "InheritedWidget", "Theme.of", "Material 3", "Cupertino", "go_router", "Navigator", "Riverpod", "Provider", "Bloc", "BuildContext", "mounted", "async gap", "Sliver", "ListView", "CustomScrollView", "RepaintBoundary", "Impeller", "Skia", "platform channel", "MethodChannel", "FFI", "web", "Flutter desktop", "semantics", "a11y", "Golden test", "integration_test".
 
 metadata:
   short-description: Flutter — widgets, UI/UX, performance, multi-platform edge cases

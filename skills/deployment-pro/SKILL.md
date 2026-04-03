@@ -7,7 +7,7 @@ description: |
 
   Use **with** **`testing-pro`** for what runs **in** CI (tests, quality gates); **`deployment-pro`** owns **ship path**, **release strategy**, and **runtime promotion**. Use **`security-pro`** for secrets and supply chain; **`postgresql-pro`** for migration ordering; **`nextjs-pro`** / **`nestjs-pro`** for framework-specific deploy targets (e.g. Vercel, Node Docker); **`electron-pro`** / **`tauri-pro`** for desktop release channels.
 
-  Triggers: "deploy", "deployment", "CI/CD", "CD", "pipeline", "release", "rollback", "blue-green", "canary", "rolling deploy", "Kubernetes", "K8s", "Helm", "GitOps", "Argo CD", "Flux", "Docker", "container", "image", "registry", "serverless", "Lambda", "Cloud Functions", "Terraform", "IaC", "staging", "production", "promote", "environment", "Vercel", "Netlify", "Railway", "Render", "Fly.io", "zero downtime", "migration deploy".
+  Triggers: "deploy", "deployment", "CI/CD", "CD", "pipeline", "release", "rollback", "blue-green", "canary", "rolling deploy", "Kubernetes", "K8s", "Helm", "GitOps", "Argo CD", "Flux", "Docker", "container", "image", "registry", "serverless", "Lambda", "Cloud Functions", "Terraform", "IaC", "staging", "production", "promote", "environment", "Vercel", "Netlify", "Railway", "Render", "Fly.io", "zero downtime", "migration deploy", "readiness probe", "liveness probe", "PDB", "OIDC pipeline", "immutable artifact", "expand contract migration".
 
 metadata:
   short-description: Deployment — methods, CI/CD flows, release strategies, rollback, edge cases
@@ -80,6 +80,24 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision flow and anti-patterns (summary)
+
+- Runtime choice, blast radius, DB coupling; build-per-env and silent rollback gaps.
+
+Details: [references/decision-tree.md](references/decision-tree.md) · [references/anti-patterns.md](references/anti-patterns.md)
+
+### Cross-skill handoffs (summary)
+
+- **`testing-pro`**, **`security-pro`**, **`postgresql-pro`**, **`code-packaging-pro`**, **`git-operations-pro`**.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Platform versions (summary)
+
+- Pin K8s, Actions, serverless runtimes; IaC provider lock.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — Environment, strategy, or pipeline stage in question; which **Related skill** owns follow-up.
@@ -89,7 +107,7 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 
 ## Resources in this skill
 
-- `references/` — methods, flows, tips, edge cases.
+- `references/` — methods, flows, tips, edge cases, Tier A maps.
 
 | Topic | File |
 |-------|------|
@@ -97,11 +115,21 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Flows & pipelines | [references/flows-and-pipelines.md](references/flows-and-pipelines.md) |
 | Tips and patterns | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision tree | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Versions | [references/versions.md](references/versions.md) |
 
-## Quick example
+## Quick examples
 
-**Input:** Team deploys API and SPA together; DB migration drops a column on deploy — brief outage.  
+**Input (simple):** Team deploys API and SPA together; DB migration drops a column on deploy — brief outage.  
 **Expected output:** Recommend **expand/contract** migrations; deploy order (backward-compatible API first); reference **`postgresql-pro`**; use **`deployment-pro`** release strategy (rolling + health) not big-bang.
+
+**Input (tricky):** “We only test in prod” — leadership rejects staging.  
+**Expected output:** **Risk** articulation; smallest **safe** substitute (canary, feature flags, synthetic checks); **`testing-pro`** for shift-left minimum; never pretend parity.
+
+**Input (cross-skill):** “Rotate registry credentials in GitHub Actions.”  
+**Expected output:** **`security-pro`** for OIDC migration pattern; **this skill** for **workflow** stages and **rollback** if push fails; **`code-packaging-pro`** for build job wiring.
 
 ## Checklist before calling the skill done
 
@@ -110,3 +138,5 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] **Release strategy** (rolling/canary/blue-green) matches capacity and observability.
 - [ ] **Rollback** path and **migration** safety addressed; **`postgresql-pro`** if schema changes.
 - [ ] Secrets and pipeline **permissions** not hand-waved — **`security-pro`** when non-trivial.
+- [ ] **Observability** after promote (deploy markers, golden signals) mentioned when relevant.
+- [ ] **Artifact** immutability (same image/wheel across envs) stated where applicable.

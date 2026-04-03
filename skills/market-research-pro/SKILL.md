@@ -7,7 +7,7 @@ description: |
 
   Use **with** **`web-research-pro`** for official and current external sources, **`business-analysis-pro`** to convert findings into requirements/roadmaps, and **`data-analysis-pro`** when survey or tabular datasets need numeric analysis. This skill (`market-research-pro`) owns **research framing and synthesis quality**; other skills own deep implementation or analytics details.
 
-  Triggers: "market research", "TAM", "SAM", "SOM", "competitor analysis", "ICP", "go-to-market", "positioning", "pricing", "market size", "industry trends", "benchmark", "category landscape", "entry strategy".
+  Triggers: "market research", "TAM", "SAM", "SOM", "competitor analysis", "ICP", "go-to-market", "positioning", "pricing", "market size", "industry trends", "benchmark", "category landscape", "entry strategy", "bottom-up sizing", "top-down", "wedge", "category creation", "SAM vs SOM", "evidence scorecard", "substitute competitor".
 
 metadata:
   short-description: Market research - sizing, competitors, ICP, positioning, evidence synthesis
@@ -88,6 +88,24 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision flow and anti-patterns (summary)
+
+- Question type (sizing vs positioning); spurious precision and vendor-report bias.
+
+Details: [references/decision-tree.md](references/decision-tree.md) · [references/anti-patterns.md](references/anti-patterns.md)
+
+### Cross-skill handoffs (summary)
+
+- **`web-research-pro`**, **`strategic-consulting-pro`**, **`data-analysis-pro`**.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Versions, geo, currency (summary)
+
+- Fiscal vs calendar year; FX date; regional market definitions.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** - Business decision and market scope.
@@ -97,7 +115,7 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 
 ## Resources in this skill
 
-- `references/` - sizing, competitors, segmentation/GTM, evidence quality, tips, edge cases.
+- `references/` - sizing, competitors, segmentation/GTM, evidence quality, tips, edge cases, Tier A maps.
 
 | Topic | File |
 |-------|------|
@@ -107,11 +125,21 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Reporting quality | [references/reporting-and-evidence-quality.md](references/reporting-and-evidence-quality.md) |
 | Tips | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision tree | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Versions (geo, FX, fiscal) | [references/versions.md](references/versions.md) |
 
-## Quick example
+## Quick examples
 
-**Input:** "Should we launch B2B payroll SaaS in Vietnam first, then Thailand?"  
+**Input (simple):** "Should we launch B2B payroll SaaS in Vietnam first, then Thailand?"  
 **Expected output:** Define TAM/SAM assumptions per country, compare competitor intensity and ICP fit, propose entry sequence with confidence and key unknowns.
+
+**Input (tricky):** "TAM is $50B from one paid report — use it in the board deck."  
+**Expected output:** **Triangulate** with bottom-up; show **sensitivity**; label **vendor bias**; ranges not false precision; **`web-research-pro`** for corroboration.
+
+**Input (cross-skill):** "Survey CSV + decide EU vs US first."  
+**Expected output:** **`data-analysis-pro`** for weights, segments, significance caveats; **this skill** for market framing, competitor overlay, and **decision** narrative with confidence.
 
 ## Checklist before calling the skill done
 
@@ -120,3 +148,5 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] Source quality and recency are stated.
 - [ ] Recommendation is tied to a specific business decision.
 - [ ] Follow-up handoff to `business-analysis-pro` / `data-analysis-pro` when needed.
+- [ ] **Substitutes** and **category** definition sanity-checked (not narrow “no competitors”).
+- [ ] **Spurious precision** avoided — ranges and scenarios where data is thin.

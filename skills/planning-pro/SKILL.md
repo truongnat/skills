@@ -94,6 +94,18 @@ Details: [references/decision-tree.md](references/decision-tree.md)
 
 Details: [references/anti-patterns.md](references/anti-patterns.md)
 
+### Cross-skill handoffs (summary)
+
+- **`feedback-pro`**, **`testing-pro`**, **`deployment-pro`**, **`business-analysis-pro`**, **`strategic-consulting-pro`**.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Versions (summary)
+
+- Tooling exports, estimation units, roadmap calendar basis.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** - Target outcome, constraints, and planning horizon.
@@ -114,6 +126,8 @@ Details: [references/anti-patterns.md](references/anti-patterns.md)
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
 | Decision trees (optional) | [references/decision-tree.md](references/decision-tree.md) |
 | Anti-patterns (optional) | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Versions | [references/versions.md](references/versions.md) |
 
 ## Quick example
 
@@ -140,3 +154,4 @@ Details: [references/anti-patterns.md](references/anti-patterns.md)
 - [ ] Milestones have verifiable outputs and review gates.
 - [ ] Main risks and fallback triggers are documented.
 - [ ] Optional: [decision-tree.md](references/decision-tree.md) consulted when choosing spike vs full implementation path.
+- [ ] **Cross-skill** owners (**`deployment-pro`**, **`testing-pro`**, etc.) named where work leaves planning artifacts.

@@ -7,7 +7,7 @@ description: |
 
   Use **with** **`content-analysis-pro`** when the task mixes **narrative documents** and **tabular** extracts; **`postgresql-pro`** when analysis leads to **schema** or warehouse design; **`business-analysis-pro`** when outputs feed **requirements** or KPI definitions. This skill (`data-analysis-pro`) owns **tabular analytics and viz**; **`content-analysis-pro`** owns **semantic reading** of unstructured attachments.
 
-  Triggers: "analyze CSV", "pandas", "EDA", "Parquet", "pivot table", "matplotlib", "seaborn", "describe()", "missing values", "outliers", "correlation", "histogram", "openpyxl", "BarChart", "data validation", "freeze panes", "SQLite analyze", "profiling".
+  Triggers: "analyze CSV", "pandas", "EDA", "Parquet", "pivot table", "matplotlib", "seaborn", "describe()", "missing values", "outliers", "correlation", "histogram", "openpyxl", "BarChart", "data validation", "freeze panes", "SQLite analyze", "profiling", "groupby", "value_counts", "dtype", "leakage", "Simpson", "sample bias", "xlsxwriter", "read_parquet".
 
 metadata:
   short-description: Data analysis — EDA, pandas, viz, Parquet/SQLite, Excel charts & validation
@@ -83,6 +83,24 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision flow and anti-patterns (summary)
+
+- EDA depth vs question; kitchen-sink notebooks and silent imputation.
+
+Details: [references/decision-tree.md](references/decision-tree.md) · [references/anti-patterns.md](references/anti-patterns.md)
+
+### Cross-skill handoffs (summary)
+
+- **`content-analysis-pro`**, **`business-analysis-pro`**, **`postgresql-pro`**.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Library versions (summary)
+
+- Pin **pandas** / **numpy** for reproducible aggregates and Excel limits.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — Dataset shape, question, and deliverable (figure, table, `.xlsx`).
@@ -92,7 +110,7 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 
 ## Resources in this skill
 
-- `references/` — EDA, visualization, spreadsheets, tips, edge cases.
+- `references/` — EDA, visualization, spreadsheets, tips, edge cases, Tier A maps.
 
 | Topic | File |
 |-------|------|
@@ -101,11 +119,21 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Spreadsheets (charts, validation) | [references/spreadsheets-charts-and-validation.md](references/spreadsheets-charts-and-validation.md) |
 | Tips | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision tree | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Versions | [references/versions.md](references/versions.md) |
 
-## Quick example
+## Quick examples
 
-**Input:** “This CSV has 200k rows — is revenue trending up?”  
+**Input (simple):** “This CSV has 200k rows — is revenue trending up?”  
 **Expected output:** Load sample with dtypes; plot **time-aggregated** series; note **missing days** and **seasonality** caveats; suggest **grouped** analysis if multiple products.
+
+**Input (tricky):** “Train/test split already done in this file — is AUC 0.99 realistic?”  
+**Expected output:** Check for **leakage** (duplicate rows, future columns, target in features); plot and groupby sanity; **do not** celebrate metric without **audit** narrative.
+
+**Input (cross-skill):** “Survey export + leadership wants KPI definitions for the roadmap.”  
+**Expected output:** **This skill** for cleaning, weighting caveats, charts; **`business-analysis-pro`** for KPI definitions, MoSCoW, and **`content-analysis-pro`** only if free-text blocks need qualitative coding.
 
 ## Checklist before calling the skill done
 
@@ -114,3 +142,5 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] **Charts** have labels, units, and **n** where relevant.
 - [ ] **Excel** features justified if used (chart ranges, validation lists).
 - [ ] Unstructured **“read this PDF”** work routed to **`content-analysis-pro`** when dominant.
+- [ ] **Reproducibility** note (seed, versions) for non-trivial or published analysis.
+- [ ] **Leakage** / **bias** explicitly considered when metrics or splits are discussed.

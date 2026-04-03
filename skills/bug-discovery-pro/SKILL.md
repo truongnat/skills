@@ -7,7 +7,7 @@ description: |
 
   Use **with** **`testing-pro`** (repro, coverage gaps), **`security-pro`** (abuse and trust boundaries), and **external GitNexus Cursor skills** (`gitnexus-cli`, `gitnexus-debugging`, `gitnexus-exploring`, `gitnexus-impact-analysis`) for CLI and deeper graph usage. This skill (`bug-discovery-pro`) owns **bug-hunting workflow and graph-assisted discovery**; stack **`*-pro`** skills own framework fixes.
 
-  Triggers: "bug", "bugs", "find bug", "regression", "root cause", "blast radius", "who calls", "impact", "GitNexus", "knowledge graph", "related bug", "deep scan repo", "candidate defect", "shape mismatch", "API consumers", "stale index".
+  Triggers: "bug", "bugs", "find bug", "regression", "root cause", "blast radius", "who calls", "impact", "GitNexus", "knowledge graph", "related bug", "deep scan repo", "candidate defect", "shape mismatch", "API consumers", "stale index", "git bisect", "api_impact", "shape_check", "detect_changes", "false positive graph".
 
 metadata:
   short-description: Bug discovery — deep scan, GitNexus graph, candidates, related impact
@@ -77,6 +77,24 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision flow and anti-patterns (summary)
+
+- Graph vs no graph; intermittent repro; 100% claims; stale index.
+
+Details: [references/decision-tree.md](references/decision-tree.md) · [references/anti-patterns.md](references/anti-patterns.md)
+
+### Cross-skill handoffs (summary)
+
+- **`testing-pro`**, **`security-pro`**, **`content-analysis-pro`**, GitNexus Cursor skills.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Versions (summary)
+
+- Index schema, monorepo `repo` param, tool naming by CLI version.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — Symptom, scope, and whether GitNexus is available.
@@ -86,7 +104,7 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 
 ## Resources in this skill
 
-- `references/` — GitNexus workflow, confidence model, tips, edge cases.
+- `references/` — GitNexus workflow, confidence model, tips, edge cases, Tier A maps.
 - **MCP:** read tool schemas under your IDE’s GitNexus MCP folder before calling tools.
 
 | Topic | File |
@@ -95,11 +113,21 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Candidates & confidence | [references/bug-candidates-and-confidence.md](references/bug-candidates-and-confidence.md) |
 | Tips and patterns | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision tree | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Versions | [references/versions.md](references/versions.md) |
 
-## Quick example
+## Quick examples
 
-**Input:** Intermittent 500 on `/api/orders` after deploy — find related risk.  
+**Input (simple):** Intermittent 500 on `/api/orders` after deploy — find related risk.  
 **Expected output:** **`api_impact`** on route (if indexed); **`shape_check`** for mismatches; **`impact`** on handler symbol; list **candidates** and **tests** to add; no claim of finding “all” bugs.
+
+**Input (tricky):** “Graph says no callers — bug impossible.”  
+**Expected output:** **Dynamic import**, reflection, scripts, **unindexed** paths; **confidence** low; **`testing-pro`** repro; do not close on graph alone.
+
+**Input (cross-skill):** “Possible auth bypass in diff — triage.”  
+**Expected output:** **`security-pro`** threat model and abuse cases; **this skill** for **blast radius** / related endpoints via graph; **no** vuln certainty without tests + review.
 
 ## Checklist before calling the skill done
 
@@ -108,3 +136,5 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] **Candidates** labeled; **no false 100%** claim.
 - [ ] **Related** code paths considered via **impact** or equivalent.
 - [ ] Fix implementation **delegated** to appropriate **`*-pro`** skill when coding.
+- [ ] **Index freshness** considered after large refactors.
+- [ ] **Graph limitations** (dynamic imports, monorepo root) stated when relevant.

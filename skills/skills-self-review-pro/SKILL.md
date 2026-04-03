@@ -7,7 +7,7 @@ description: |
 
   Use **with** **`repo-tooling-pro`** for script flags and CI wiring; **`web-research-pro`** for **internet / official** doc verification; **`git-operations-pro`** when the output becomes a **commit** or **PR** artifact. Persist decisions in **`knowledge-base/documents/`** per **`.cursor/rules/documentation-persistence.mdc`**. This skill (`skills-self-review-pro`) owns **review methodology and report shape**; scripts own **deterministic checks**.
 
-  Triggers: "skill self review", "audit skills", "gap report", "improve bundled skills", "analyze_skills", "validate_skills inventory", "authoring checklist", "skill quality", "SKILL.md review", "tech refresh skills", "update skills for new React", "official docs check".
+  Triggers: "skill self review", "audit skills", "gap report", "improve bundled skills", "analyze_skills", "validate_skills inventory", "authoring checklist", "skill quality", "SKILL.md review", "tech refresh skills", "update skills for new React", "official docs check", "tier rubric", "with-references", "only-actionable", "build-skill-index", "false positive tier".
 
 metadata:
   short-description: Skills self-review — gaps, authoring check, scripts, web research for tech refresh
@@ -81,6 +81,24 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision flow and anti-patterns (summary)
+
+- PR vs quarterly audit; skipping validate; INDEX drift.
+
+Details: [references/decision-tree.md](references/decision-tree.md) · [references/anti-patterns.md](references/anti-patterns.md)
+
+### Cross-skill handoffs (summary)
+
+- **`repo-tooling-pro`**, **`web-research-pro`**, **`git-operations-pro`**.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Versions (summary)
+
+- `dist/tools.js` rebuild, Node alignment, upstream stack majors in logs.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — Audit scope (whole bundle vs one skill) and **deadline** if any.
@@ -90,7 +108,7 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 
 ## Resources in this skill
 
-- `references/` — report interpretation, authoring cross-check, tips, edge cases; canonical commands in **`scripts/README.md`**.
+- `references/` — report interpretation, authoring cross-check, tips, edge cases, Tier A maps; canonical commands in **`scripts/README.md`**.
 
 | Topic | File |
 |-------|------|
@@ -99,12 +117,22 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Tech refresh & web research | [references/tech-refresh-and-web-research.md](references/tech-refresh-and-web-research.md) |
 | Tips | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision tree | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Versions | [references/versions.md](references/versions.md) |
 | **Script index** | [`scripts/README.md`](../../scripts/README.md) |
 
-## Quick example
+## Quick examples
 
-**Input:** “Give me a gap report before we tag v2.”  
+**Input (simple):** “Give me a gap report before we tag v2.”  
 **Expected output:** Run **`node dist/tools.js validate-skills`** (must pass); **`node dist/tools.js analyze-skills --self-review`**; summarize **actionable** tier (if any) + **tier distribution**; list **manual** §2 checks for skills touched in the PR.
+
+**Input (tricky):** “Tier says we’re fine — merge.”  
+**Expected output:** **Human** pass on **Related skills**, triggers, and **neutral** wording; heuristics **miss** nuance; do not override failing **`validate-skills`**.
+
+**Input (cross-skill):** “Refresh Next.js skill from official docs and log it.”  
+**Expected output:** **`web-research-pro`** for docs/changelog; **`skills-self-review-pro`** report shape; **`knowledge-base/documents/`** + **INDEX** + **activity-log** per persistence rules.
 
 ## Checklist before calling the skill done
 
@@ -113,3 +141,5 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] **Authoring** checklist invoked for **structural** gaps, not only automation tiers.
 - [ ] **Limits** of automation stated (**false positives** / **neutral** wording).
 - [ ] If **tech refresh** was in scope: **`web-research-pro`** (or **Context7**) used for **official** sources; **activity-log** or **INDEX** updated when saving decisions.
+- [ ] **`build-skill-index`** / **`build-kb`** follow-ups noted when content or KB docs changed.
+- [ ] **Scope** respected — no unsolicited rewrite of untouched skills unless requested.

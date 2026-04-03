@@ -94,6 +94,18 @@ Details: [references/decision-tree.md](references/decision-tree.md)
 
 Details: [references/anti-patterns.md](references/anti-patterns.md)
 
+### Cross-skill handoffs (summary)
+
+- **`testing-pro`**, **`security-pro`**, **`planning-pro`**, **`git-operations-pro`**, **`self-improve-agent-pro`**.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Versions (summary)
+
+- Commit SHA context, severity rubric versioning, static-tool rule IDs.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** - Review intent, scope, and quality target.
@@ -114,6 +126,8 @@ Details: [references/anti-patterns.md](references/anti-patterns.md)
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
 | Decision trees (optional) | [references/decision-tree.md](references/decision-tree.md) |
 | Anti-patterns (optional) | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Versions | [references/versions.md](references/versions.md) |
 
 ## Quick example
 
@@ -140,3 +154,4 @@ Details: [references/anti-patterns.md](references/anti-patterns.md)
 - [ ] Must-fix vs optional items are clearly separated.
 - [ ] Residual risks and follow-up dependencies are documented.
 - [ ] Optional: [anti-patterns.md](references/anti-patterns.md) checked for severity inflation and vague wording.
+- [ ] **`security-pro`** (or other domain skill) **escalation** path clear when impact exceeds code quality.

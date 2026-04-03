@@ -7,7 +7,7 @@ description: |
 
   Use **with** **`testing-pro`** to design adversarial and property-based test coverage, **`data-analysis-pro`** when benchmark datasets or profiling outputs need interpretation, and stack/framework `*-pro` skills when integrating algorithms into production systems.
 
-  Triggers: "algorithm", "data structure", "dynamic programming", "graph", "greedy", "complexity", "Big-O", "optimize", "time complexity", "space complexity", "proof", "LeetCode", "competitive programming".
+  Triggers: "algorithm", "data structure", "dynamic programming", "graph", "greedy", "complexity", "Big-O", "optimize", "time complexity", "space complexity", "proof", "LeetCode", "competitive programming", "two pointers", "binary search on answer", "Dijkstra", "bitmask", "TLE", "WA", "overflow".
 
 metadata:
   short-description: Algorithm - deep modeling, correctness, complexity, optimization
@@ -81,6 +81,30 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision tree (summary)
+
+- Map constraints to algorithm family; know when greedy needs proof vs DP.
+
+Details: [references/decision-tree.md](references/decision-tree.md)
+
+### Anti-patterns (summary)
+
+- Code-first, no proof, float equality, recursion depth surprises, wrong bottleneck.
+
+Details: [references/anti-patterns.md](references/anti-patterns.md)
+
+### Integration map (summary)
+
+- **`testing-pro`**, **`data-analysis-pro`**, language skills for numeric limits.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Implementation environment (summary)
+
+- JS `BigInt`, Python big ints, library vs stdlib trade-offs.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** - Problem, constraints, and optimization target.
@@ -99,11 +123,21 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Optimization and trade-offs | [references/optimization-and-trade-offs.md](references/optimization-and-trade-offs.md) |
 | Tips | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision tree | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Implementation environment | [references/versions.md](references/versions.md) |
 
 ## Quick example
 
 **Input:** "Given up to 2e5 nodes and weighted edges, find minimum cost path with one discounted edge."  
 **Expected output:** Formalize state-space extension, compare Dijkstra variants, provide complexity/proof sketch, and list edge cases plus stress-test plan.
+
+**Input:** "Greedy interval scheduling variant — not sure if greedy works."  
+**Expected output:** Attempt exchange argument or show counterexample; if counterexample exists, switch to DP or known correct greedy conditions.
+
+**Input:** "Solution TLE on n=2e5 but O(n log n) on paper."  
+**Expected output:** Check hidden O(n²) from `map`/`find` in loop, cache misses, or JavaScript/Python constant factors; propose data structure swap; **`testing-pro`** for benchmark harness.
 
 ## Checklist before calling the skill done
 
@@ -112,3 +146,6 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] Correctness argument and complexity bounds are stated.
 - [ ] Implementation notes include key optimizations and limits.
 - [ ] Edge-case and adversarial test ideas are included.
+- [ ] Numeric overflow / precision risks named for language and constraints.
+- [ ] If greedy: proof sketch or counterexample search documented.
+- [ ] If graph: state directed vs undirected, weights, negative edges explicitly.

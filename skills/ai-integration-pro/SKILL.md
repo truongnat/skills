@@ -5,7 +5,7 @@ description: |
 
   Use this skill when the user integrates LLMs (Claude, GPT, Gemini, Llama), works with the Anthropic SDK or OpenAI SDK, designs prompts, implements streaming responses, tool use / function calling, multi-turn conversation state, retrieval-augmented generation (RAG), vector embeddings, semantic search, or builds AI-powered applications.
 
-  Triggers: "Claude", "Anthropic", "OpenAI", "GPT", "LLM", "prompt", "system prompt", "streaming", "tool use", "function calling", "embeddings", "RAG", "retrieval", "vector", "semantic search", "tokens", "context window", "temperature", "top_p", "completion", "chat completion", "anthropic SDK", "openai SDK", "messages API", "Gemini", "multi-turn", "conversation history", "AI agent", "agentic".
+  Triggers: "Claude", "Anthropic", "OpenAI", "GPT", "LLM", "prompt", "system prompt", "prompt injection", "jailbreak", "streaming", "SSE", "tool use", "function calling", "embeddings", "RAG", "retrieval", "vector", "semantic search", "tokens", "context window", "temperature", "top_p", "rate limit", "429", "completion", "chat completion", "anthropic SDK", "openai SDK", "messages API", "Gemini", "multi-turn", "conversation history", "AI agent", "agentic".
 
 metadata:
   short-description: AI/LLM — Claude/OpenAI APIs, prompts, streaming, tool use, RAG

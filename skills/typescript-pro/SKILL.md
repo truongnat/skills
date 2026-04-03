@@ -5,7 +5,7 @@ description: |
 
   Use this skill when the user works on TypeScript, tsconfig, type inference, generics, mapped/conditional/template-literal types, utility types (Partial, Required, Pick, Omit, Record, ReturnType, etc.), declaration files (.d.ts), type narrowing, discriminated unions, module resolution, path aliases, strict null checks, type guards, satisfies operator, const assertions, or migrating JavaScript to TypeScript.
 
-  Triggers: "TypeScript", "tsconfig", "type error", "generic", "interface", "type alias", "infer", "conditional type", "mapped type", "utility type", "ReturnType", "Partial", "Pick", "Omit", "satisfies", "as const", ".d.ts", "declaration file", "strict mode", "module resolution", "path alias", "tsc", "type guard", "discriminated union", "never", "unknown", "keyof", "typeof".
+  Triggers: "TypeScript", "tsconfig", "type error", "TS2322", "TS2532", "TS18048", "generic", "interface", "type alias", "infer", "conditional type", "mapped type", "utility type", "ReturnType", "Partial", "Pick", "Omit", "satisfies", "as const", ".d.ts", "declaration file", "strict mode", "noImplicitAny", "exactOptionalPropertyTypes", "module resolution", "path alias", "NodeNext", "verbatimModuleSyntax", "tsc", "type guard", "discriminated union", "never", "unknown", "keyof", "typeof", "branded type".
 
 metadata:
   short-description: TypeScript — type system, generics, strict config, migration
@@ -21,6 +21,7 @@ Use official [TypeScript docs](https://www.typescriptlang.org/docs/) for languag
 |-------|----------------|
 | `javascript-pro` | When JS runtime behavior (closures, prototypes, async) underlies the TS issue |
 | `react-pro` | TSX, component prop types, hook generics |
+| `nextjs-pro` | App Router types, `metadata`, server/client component boundaries |
 | `nestjs-pro` | Decorator metadata, controller/service types |
 | `testing-pro` | Typing test utilities, mock types |
 

@@ -109,6 +109,18 @@ Details: [references/decision-tree.md](references/decision-tree.md)
 
 Details: [references/anti-patterns.md](references/anti-patterns.md)
 
+### Cross-skill handoffs (summary)
+
+- **`ci-cd-pro`**, **`code-packaging-pro`**, **`deployment-pro`**, **`security-pro`**, **`network-infra-pro`**.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Versions (summary)
+
+- Engine/BuildKit, image digests, Compose format, multi-arch.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — Dockerfile problem, size optimization request, or compose design question.
@@ -129,6 +141,8 @@ Details: [references/anti-patterns.md](references/anti-patterns.md)
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
 | Decision trees | [references/decision-tree.md](references/decision-tree.md) |
 | Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Versions | [references/versions.md](references/versions.md) |
 
 ## Quick example
 

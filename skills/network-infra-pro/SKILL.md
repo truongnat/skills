@@ -7,7 +7,7 @@ description: |
 
   Use **with** **`deployment-pro`** for rollout/rollback strategy, **`security-pro`** for threat modeling and hardening controls, and **`nestjs-pro`** / **`nextjs-pro`** when infrastructure decisions depend on framework runtime behavior.
 
-  Triggers: "network", "infra", "VPC", "subnet", "NAT", "load balancer", "reverse proxy", "ingress", "egress", "DNS", "TLS", "service mesh", "connectivity", "latency", "firewall".
+  Triggers: "network", "infra", "VPC", "subnet", "NAT", "load balancer", "reverse proxy", "ingress", "egress", "DNS", "TLS", "service mesh", "connectivity", "latency", "firewall", "security group", "NACL", "MTU", "asymmetric routing", "private link", "mTLS east-west", "flow logs".
 
 metadata:
   short-description: Network infra - topology, traffic, reliability, observability
@@ -82,6 +82,24 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision flow and anti-patterns (summary)
+
+- Exposure model, egress policy, mesh vs LB; wide SG rules and DNS TTL mistakes.
+
+Details: [references/decision-tree.md](references/decision-tree.md) · [references/anti-patterns.md](references/anti-patterns.md)
+
+### Cross-skill handoffs (summary)
+
+- **`deployment-pro`**, **`security-pro`**, **`nextjs-pro`**, **`nestjs-pro`**, **`caching-pro`**.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Versions (summary)
+
+- Cloud API / K8s ingress / TLS policy generations.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** - Connectivity/reliability/security target and impacted scope.
@@ -91,7 +109,7 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 
 ## Resources in this skill
 
-- `references/` - detailed guidance for topology, edge traffic, observability, and tricky failure modes.
+- `references/` - detailed guidance for topology, edge traffic, observability, tricky failure modes, Tier A maps.
 
 | Topic | File |
 |-------|------|
@@ -100,11 +118,21 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Reliability and observability | [references/reliability-and-observability.md](references/reliability-and-observability.md) |
 | Tips | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision tree | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Versions | [references/versions.md](references/versions.md) |
 
-## Quick example
+## Quick examples
 
-**Input:** "Our API in private subnets intermittently times out after adding a new NAT route. How should we fix and roll out safely?"  
+**Input (simple):** "Our API in private subnets intermittently times out after adding a new NAT route. How should we fix and roll out safely?"  
 **Expected output:** Diagnose route/NAT dependency path, propose safer subnet/egress policy, add LB and flow-log checks, then provide staged rollout and rollback checkpoints.
+
+**Input (tricky):** "Open SG 0.0.0.0/0 on port 22 for debugging — temporary."  
+**Expected output:** **Reject** standing pattern; **break-glass** with time-bound IP allowlist, audit, auto-revert; **`security-pro`** for bastion/SASE alternatives.
+
+**Input (cross-skill):** "CDN in front of Next — users see stale API errors."  
+**Expected output:** **`nextjs-pro`** / **`caching-pro`** for cache keys and `Cache-Control`; **this skill** for **DNS/TLS/LB** path and **egress** to origin; align **error page** caching policy.
 
 ## Checklist before calling the skill done
 
@@ -113,3 +141,5 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] Failover and rollback path is defined before change execution.
 - [ ] Security exposure and least-privilege policy are reviewed.
 - [ ] Observability signals and alert thresholds are included.
+- [ ] **MTU / asymmetric routing** called out when cross-VPN or hybrid.
+- [ ] **Documentation** of traffic contracts (src/dst/proto/owner) for handoff.

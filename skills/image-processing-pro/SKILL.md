@@ -7,7 +7,7 @@ description: |
 
   Use **with** **`content-analysis-pro`** when a pipeline **extracts** frames then **processes** them; **`security-pro`** when stripping EXIF or handling **sensitive** screenshots. This skill (`image-processing-pro`) owns **imaging transforms**; vision **interpretation** belongs elsewhere.
 
-  Triggers: "Pillow", "PIL", "resize image", "crop", "convert to PNG", "WebP", "thumbnail", "composite", "alpha", "EXIF", "rotate image", "batch images", "strip metadata".
+  Triggers: "Pillow", "PIL", "resize image", "crop", "convert to PNG", "WebP", "thumbnail", "composite", "alpha", "EXIF", "rotate image", "batch images", "strip metadata", "LANCZOS", "RGBA to JPEG", "ImageOps.exif_transpose", "decompression bomb", "watermark", "ICO", "HEIC".
 
 metadata:
   short-description: Image processing — Pillow, resize, crop, formats, compositing, batch
@@ -68,6 +68,24 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision flow and anti-patterns (summary)
+
+- Pillow vs ML vision; EXIF, JPEG round-trip, memory bombs.
+
+Details: [references/decision-tree.md](references/decision-tree.md) · [references/anti-patterns.md](references/anti-patterns.md)
+
+### Cross-skill handoffs (summary)
+
+- **`content-analysis-pro`**, **`deployment-pro`**, **`web-research-pro`** for licenses.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Versions (summary)
+
+- Pillow major releases, codec wheels, format support flags.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — Input/output format, **transform** needed (not “explain image”).
@@ -77,21 +95,35 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 
 ## Resources in this skill
 
-- `references/` — Pillow ops, tips, edge cases.
+- `references/` — Pillow ops, tips, edge cases, Tier A maps.
 
 | Topic | File |
 |-------|------|
 | Pillow operations | [references/pillow-operations.md](references/pillow-operations.md) |
 | Tips | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision tree | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Versions | [references/versions.md](references/versions.md) |
 
-## Quick example
+## Quick examples
 
-**Input:** “Resize all PNGs in `./in` to max width 1200px, output JPEG 85% quality to `./out`.”  
+**Input (simple):** “Resize all PNGs in `./in` to max width 1200px, output JPEG 85% quality to `./out`.”  
 **Expected output:** Loop with `thumbnail` or proportional resize, `convert("RGB")`, `save(..., quality=85, optimize=True)`; warn about **alpha** loss on JPEG.
+
+**Input (tricky):** “Photos from phones look rotated wrong on the web.”  
+**Expected output:** Apply **`ImageOps.exif_transpose`** (or equivalent) before resize; document **EXIF strip** policy for **`security-pro`** if GPS embedded.
+
+**Input (cross-skill):** “Extract key frames from MP4 then blur faces for a blog.”  
+**Expected output:** FFmpeg frame extract (tooling) + **this skill** for per-frame **blur/composite**; **`content-analysis-pro`** only if detecting faces semantically — prefer dedicated CV or manual review for **PII**; **`security-pro`** for publication policy.
 
 ## Checklist before calling the skill done
 
 - [ ] **Transform** vs **interpretation** — correct skill (**`content-analysis-pro`** for the latter).
 - [ ] **Metadata** policy applied for **sharing**.
 - [ ] **Outputs** do not silently overwrite sources unless intended.
+- [ ] **Color mode** (`RGB`/`RGBA`) and **format** constraints (JPEG vs PNG) explicit.
+- [ ] **Memory** / max pixel guardrails for huge or untrusted inputs.
+- [ ] **Resampling** choice stated for down/upscale quality.
+- [ ] **Reproducible** paths/naming for batch pipelines.

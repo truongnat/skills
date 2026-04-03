@@ -5,7 +5,7 @@ description: |
 
   Use this skill when designing or reviewing microservices architecture, service decomposition, data ownership, integration patterns, and production operations.
 
-  Triggers: "microservices", "service boundary", "distributed system", "saga", "event-driven", "service mesh", "api gateway", "resilience", "observability", "edge case".
+  Triggers: "microservices", "service boundary", "bounded context", "distributed system", "CAP", "eventual consistency", "saga", "choreography", "orchestration", "event-driven", "outbox", "idempotency", "service mesh", "Istio", "Linkerd", "api gateway", "Kong", "resilience", "circuit breaker", "bulkhead", "retry storm", "observability", "distributed tracing", "correlation id", "split brain", "backpressure", "edge case".
 
   Combine with `api-design-pro` for service contracts and `performance-tuning-pro` for distributed latency/throughput optimization.
 metadata:
@@ -22,6 +22,10 @@ Use official [Martin Fowler microservices articles](https://martinfowler.com/mic
 |-------|------------------|
 | `api-design-pro` | Define stable service contracts and backward-compatible evolution. |
 | `performance-tuning-pro` | Diagnose cross-service latency chains and optimize bottlenecks. |
+| `deployment-pro` | Rollout, canary, multi-env promotion for many services. |
+| `network-infra-pro` | Ingress, mTLS, service-to-service networking, zones. |
+| `postgresql-pro` | Per-service data ownership, replication, RLS in multi-tenant stacks. |
+| `nestjs-pro` | Node service implementation, messaging adapters, DI modules. |
 
 ## When to use
 

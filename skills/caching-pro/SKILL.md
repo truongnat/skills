@@ -94,6 +94,18 @@ Details: [references/decision-tree.md](references/decision-tree.md)
 
 Details: [references/anti-patterns.md](references/anti-patterns.md)
 
+### Cross-skill handoffs (summary)
+
+- **`deployment-pro`**, **`network-infra-pro`**, **`nextjs-pro`**, **`postgresql-pro`**, **`performance-tuning-pro`**, **`seo-pro`**.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Versions (summary)
+
+- CDN product features, Redis/Memcached majors, framework cache defaults.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** - Performance/correctness objective and affected workloads.
@@ -114,6 +126,8 @@ Details: [references/anti-patterns.md](references/anti-patterns.md)
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
 | Decision trees | [references/decision-tree.md](references/decision-tree.md) |
 | Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Versions | [references/versions.md](references/versions.md) |
 
 ## Quick example
 
@@ -140,3 +154,4 @@ Details: [references/anti-patterns.md](references/anti-patterns.md)
 - [ ] Observability metrics and alert thresholds are included.
 - [ ] Rollout/rollback plan is clear for production changes.
 - [ ] Query/index optimization considered before relying on cache for DB load.
+- [ ] **Private** vs **public** response caching distinguished for auth-sensitive routes.

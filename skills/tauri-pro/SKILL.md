@@ -7,7 +7,7 @@ description: |
 
   Use **with** **`react-pro`** (or Vue/Svelte) for SPA patterns in the webview, **`security-pro`** for capability/CSP/shell hardening, **`testing-pro`** for CI and E2E. This skill (`tauri-pro`) owns **Tauri + Rust integration**; front-end framework skills own **component UI** details.
 
-  Triggers: "Tauri", "tauri", "src-tauri", "tauri.conf", "invoke", "tauri::command", "WebView", "WebView2", "Rust desktop", "Tauri plugin", "Tauri updater".
+  Triggers: "Tauri", "tauri", "src-tauri", "tauri.conf", "invoke", "tauri::command", "WebView", "WebView2", "Rust desktop", "Tauri plugin", "Tauri updater", "capability", "Tauri 2", "v1", "v2", "sidecar", "Cargo.toml".
 
 metadata:
   short-description: Tauri — Rust commands, capabilities, webview, bundle, updates
@@ -72,6 +72,30 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision tree (summary)
+
+- Tauri 1 vs 2; sidecar vs in-process; desktop vs mobile constraints.
+
+Details: [references/decision-tree.md](references/decision-tree.md)
+
+### Anti-patterns (summary)
+
+- Shell injection, broad capabilities, blocking commands, leaky errors, weak CSP.
+
+Details: [references/anti-patterns.md](references/anti-patterns.md)
+
+### Integration map (summary)
+
+- **`react-pro`**, **`security-pro`**, **`testing-pro`**, **`deployment-pro`**.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Versions (summary)
+
+- Tauri major, Rust MSRV, WebView2 / WebKitGTK baselines.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — Command design, config, bundle, or platform-specific bug.
@@ -88,11 +112,21 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | Rust core & commands | [references/rust-core-and-commands.md](references/rust-core-and-commands.md) |
 | Tips and patterns | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision tree | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Versions | [references/versions.md](references/versions.md) |
 
 ## Quick example
 
 **Input:** Front end calls `invoke('run_script', userPath)` and Rust uses `std::process::Command` with `shell true`.  
 **Expected output:** Forbid shell interpolation on user paths; use fixed programs + args list; narrow **capability** to specific use case; cite **`security-pro`** for command injection pattern.
+
+**Input:** "After Tauri 2 migration, window cannot read files it used to."  
+**Expected output:** Map old allowlist → capabilities per window; minimal repro; link to plugin permission names; document breaking permission changes.
+
+**Input:** "Updater works on Windows but macOS Gatekeeper blocks."  
+**Expected output:** Notarization + signing checklist; **`deployment-pro`** handoff for Apple pipeline; dev vs prod entitlements.
 
 ## Checklist before calling the skill done
 
@@ -101,3 +135,6 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] Shell, fs, and open-URL flows reviewed for injection and traversal.
 - [ ] Platform targets (WebView2, etc.) considered for release issues.
 - [ ] Pure React/UI work delegated to **`react-pro`** when that is the whole question.
+- [ ] Tauri **major** and Rust **MSRV** stated when behavior differs between versions.
+- [ ] CSP and remote content policy reviewed for shipped build.
+- [ ] Async vs blocking command usage justified for UI responsiveness.

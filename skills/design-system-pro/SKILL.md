@@ -7,7 +7,7 @@ description: |
 
   Use **with** **`mobile-design-pro`** for **mobile-native** touch, safe area, and iOS/Android UX depth; implementation skills: **`react-pro`** / **`nextjs-pro`** (web), **`react-native-pro`** / **`flutter-pro`** (mobile), **`electron-pro`** / **`tauri-pro`** (desktop), **`testing-pro`** (visual regression). This skill (`design-system-pro`) owns **design language, system rules, and UX patterns**; framework skills own **code APIs**.
 
-  Triggers: "design system", "design tokens", "UI kit", "Figma", "component library", "style guide", "baseline", "WCAG", "accessibility", "dark mode", "semantic color", "CSS variables theme", "dashboard", "data table", "UX", "UI", "visual design", "consistency", "spacing", "typography", "color palette", "HIG", "Material", "Fluent", "brand", "handoff", "trend", "motion", "responsive", "copilot", "chat UI", "AI assistant", "streaming UI", "RAG UI", "citations".
+  Triggers: "design system", "design tokens", "UI kit", "Figma", "component library", "style guide", "baseline", "WCAG", "accessibility", "dark mode", "semantic color", "CSS variables theme", "dashboard", "data table", "UX", "UI", "visual design", "consistency", "spacing", "typography", "color palette", "HIG", "Material", "Fluent", "brand", "handoff", "trend", "motion", "responsive", "copilot", "chat UI", "AI assistant", "streaming UI", "RAG UI", "citations", "focus ring", "live region", "token naming", "density scale", "glassmorphism".
 
 metadata:
   short-description: Design system — baseline, guidelines, data UI, dark theme deep dive, AI/copilot UI
@@ -114,6 +114,24 @@ Details: [references/tips-and-tricks.md](references/tips-and-tricks.md)
 
 Details: [references/edge-cases.md](references/edge-cases.md)
 
+### Decision flow and anti-patterns (summary)
+
+- Marketing vs data density; dark semantic surfaces; token vs one-off; web-on-native mistakes.
+
+Details: [references/decision-tree.md](references/decision-tree.md) · [references/anti-patterns.md](references/anti-patterns.md)
+
+### Cross-skill handoffs (summary)
+
+- **`mobile-design-pro`**, **`react-pro`** / **`nextjs-pro`**, RN/Flutter, desktop, **`testing-pro`**, **`seo-pro`**, **`ai-integration-pro`**.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Versions (summary)
+
+- WCAG edition, HIG/Material year, browser baseline, Figma variables API.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — Screen type, platform, or system-level decision (token, pattern, theme).
@@ -137,14 +155,21 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 | **AI & copilot UI (deep dive)** | [references/ai-copilot-ui-patterns-deep-dive.md](references/ai-copilot-ui-patterns-deep-dive.md) |
 | Tips and patterns | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
+| Decision tree | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Versions | [references/versions.md](references/versions.md) |
 
-## Quick example
+## Quick examples
 
-**Input:** Dashboard uses seven different grays and three border radii on one page.  
+**Input (simple):** Dashboard uses seven different grays and three border radii on one page.  
 **Expected output:** Propose **token** set for `border`, `surface`, `radius`; migration path; single **density** preset; defer CSS variable implementation to **`nextjs-pro`** / **`react-pro`**.
 
-**Input:** Shipping dark mode — body text looks fine in Figma but fails contrast on real surfaces.  
+**Input (tricky):** Shipping dark mode — body text looks fine in Figma but fails contrast on real surfaces.  
 **Expected output:** Walk **semantic** mapping per theme; **border/elevation** on dark; verify pairs on **raised** surfaces; cite [references/dark-mode-and-semantic-theming-deep-dive.md](references/dark-mode-and-semantic-theming-deep-dive.md).
+
+**Input (cross-skill):** “Copilot panel in Next.js app — layout and trust UI.”  
+**Expected output:** **This skill** for streaming, citations, tool states, live regions ([references/ai-copilot-ui-patterns-deep-dive.md](references/ai-copilot-ui-patterns-deep-dive.md)); **`nextjs-pro`** / **`ai-integration-pro`** for data fetching and SSE; **`testing-pro`** for a11y + visual regression.
 
 ## Checklist before calling the skill done
 
@@ -154,3 +179,4 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 - [ ] **Consistency** mechanism (tokens, governance) — not only one-off screens.
 - [ ] Pure **implementation** work pointed to the right **framework skill** when applicable.
 - [ ] For **dark theme** or **AI assistant** UI: opened the matching **deep-dive** reference when detail is needed.
+- [ ] **Motion** (`prefers-reduced-motion`) and **focus** visibility considered for interactive patterns.

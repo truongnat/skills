@@ -7,7 +7,7 @@ description: |
 
   Use **with** the relevant framework skill when tests are product-specific: **`react-pro`** / **`nextjs-pro`** (RTL, SSR/hydration test setup), **`nestjs-pro`** (TestingModule, e2e HTTP), **`flutter-pro`** (widget_test, integration_test), **`react-native-pro`** (Detox/Jest RN), **`postgresql-pro`** (DB fixtures, migration tests). This skill (`testing-pro`) owns **strategy, layers, CI, and flakiness**; framework skills own **APIs and project conventions** for that stack.
 
-  Triggers: "test", "testing", "unit test", "integration test", "e2e", "end-to-end", "automation", "CI", "CD", "GitHub Actions", "Jest", "Vitest", "Playwright", "Cypress", "pytest", "RTL", "React Testing Library", "mock", "stub", "spy", "fixture", "coverage", "flaky", "assertion", "TDD", "BDD", "Gherkin", "snapshot", "visual regression", "contract test", "Pact", "Load test", "k6", "Testcontainers", "MSW", "test harness", "arrange act assert", "given when then".
+  Triggers: "test", "testing", "unit test", "integration test", "e2e", "end-to-end", "automation", "CI", "CD", "GitHub Actions", "Jest", "Vitest", "Playwright", "Cypress", "pytest", "RTL", "React Testing Library", "mock", "stub", "spy", "fixture", "coverage", "flaky", "quarantine", "assertion", "TDD", "BDD", "Gherkin", "snapshot", "visual regression", "contract test", "Pact", "Load test", "k6", "Testcontainers", "MSW", "test harness", "arrange act assert", "given when then", "test timeout", "UnhandledPromiseRejection".
 
 metadata:
   short-description: Testing — strategy, automation, CI, unit/integration/e2e, flaky tests

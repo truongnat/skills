@@ -7,7 +7,7 @@ description: |
 
   Use **with** **`business-analysis-pro`** when findings must become requirements or BRD-style artifacts; **`security-pro`** when content may contain secrets or PII handling matters. This skill (`content-analysis-pro`) owns **multimodal analysis framing and reporting**; stack skills own **tooling implementation** (APIs, pipelines).
 
-  Triggers: "analyze this image", "analyze video", "analyze PDF", "analyze document", "summarize attachment", "OCR", "transcript", "what is in this screenshot", "extract from doc", "compare these files", "timeline", "scene breakdown", "chart in image", "detailed report", "multimodal", "ffmpeg", "ffprobe", "extract frames", "video audio track".
+  Triggers: "analyze this image", "analyze video", "analyze PDF", "analyze document", "summarize attachment", "OCR", "transcript", "what is in this screenshot", "extract from doc", "compare these files", "timeline", "scene breakdown", "chart in image", "detailed report", "multimodal", "ffmpeg", "ffprobe", "extract frames", "video audio track", "illegible text", "password protected PDF", "redact screenshot", "frame at timestamp", "what does this slide say", "compare two PDFs".
 
 metadata:
   short-description: Content analysis — docs, images, video, structured reports, limitations
@@ -85,6 +85,24 @@ Details: [references/edge-cases.md](references/edge-cases.md)
 
 Details: [references/file-formats-dispatch-and-scope.md](references/file-formats-dispatch-and-scope.md)
 
+### Decision flow and anti-patterns (summary)
+
+- Summarize vs extract vs compare; fabricated facts and OCR overconfidence.
+
+Details: [references/decision-tree.md](references/decision-tree.md) · [references/anti-patterns.md](references/anti-patterns.md)
+
+### Cross-skill handoffs (summary)
+
+- **`business-analysis-pro`**, **`data-analysis-pro`**, **`image-processing-pro`** boundaries.
+
+Details: [references/integration-map.md](references/integration-map.md)
+
+### Tooling and doc versions (summary)
+
+- FFmpeg flags, model/OCR limits; cite doc **date** when behavior shifts.
+
+Details: [references/versions.md](references/versions.md)
+
 ### Suggested response format (implement / review)
 
 1. **Issue or goal** — What the user provided and what they need from it.
@@ -94,7 +112,7 @@ Details: [references/file-formats-dispatch-and-scope.md](references/file-formats
 
 ## Resources in this skill
 
-- `references/` — methods, reporting, tips, edge cases.
+- `references/` — methods, reporting, tips, edge cases, Tier A maps.
 
 | Topic | File |
 |-------|------|
@@ -103,11 +121,21 @@ Details: [references/file-formats-dispatch-and-scope.md](references/file-formats
 | Tips and patterns | [references/tips-and-tricks.md](references/tips-and-tricks.md) |
 | Edge cases | [references/edge-cases.md](references/edge-cases.md) |
 | Scope & format dispatch | [references/file-formats-dispatch-and-scope.md](references/file-formats-dispatch-and-scope.md) |
+| Decision tree | [references/decision-tree.md](references/decision-tree.md) |
+| Anti-patterns | [references/anti-patterns.md](references/anti-patterns.md) |
+| Integration map | [references/integration-map.md](references/integration-map.md) |
+| Versions & tooling | [references/versions.md](references/versions.md) |
 
-## Quick example
+## Quick examples
 
-**Input:** User uploads a screenshot of a dashboard chart — “Is revenue growing?”  
+**Input (simple):** User uploads a screenshot of a dashboard chart — “Is revenue growing?”  
 **Expected output:** Describe **chart type**, **axes**, **visible** trend; **no** exact numbers if unreadable; **confidence**; suggest higher-res crop if ambiguous.
+
+**Input (tricky):** Password-protected PDF — “Extract all vendor names.”  
+**Expected output:** Cannot read without password; explain **limit**; offer **redacted** manual paste workflow or **`security-pro`**-safe handling; no guessed content.
+
+**Input (cross-skill):** “Summarize this webinar + give acceptance criteria for the feature they demoed.”  
+**Expected output:** **This skill** for transcript/scene summary with timestamps; then **`business-analysis-pro`** for AC, MoSCoW, and traceability; flag **demo ≠ contract** risk.
 
 ## Checklist before calling the skill done
 
@@ -116,3 +144,5 @@ Details: [references/file-formats-dispatch-and-scope.md](references/file-formats
 - [ ] **Limitations** and **uncertainty** stated; **inference** labeled.
 - [ ] **PII/sensitive** handling considered (**`security-pro`** if needed).
 - [ ] **Business packaging** delegated to **`business-analysis-pro`** when the task is “requirements from this doc” not just “summarize doc.”
+- [ ] **Modality** checks applied (scan vs text PDF, video sampling strategy).
+- [ ] **No fabricated** quotes, numbers, or UI labels — gaps explicit.

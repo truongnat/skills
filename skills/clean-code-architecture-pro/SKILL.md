@@ -5,7 +5,7 @@ description: |
 
   Use this skill when implementing or reviewing features that need clear module boundaries, low coupling, high cohesion, and long-term maintainability.
 
-  Triggers: "clean code", "clean architecture", "refactor", "separation of concerns", "dependency inversion", "layering", "module boundary", "maintainability", "tech debt".
+  Triggers: "clean code", "clean architecture", "hexagonal", "ports and adapters", "refactor", "SOLID", "SRP", "DIP", "separation of concerns", "dependency inversion", "layering", "module boundary", "circular dependency", "god object", "maintainability", "tech debt", "code smell", "feature envy".
 
   Combine with `testing-pro` for architecture-safe tests and `git-operations-pro` for safe incremental refactors.
 metadata:

@@ -5,7 +5,7 @@ description: |
 
   Use this skill when improving application latency/throughput, reducing resource usage, investigating slow paths, or reviewing performance-sensitive changes.
 
-  Triggers: "performance", "optimize", "bottleneck", "latency", "throughput", "cpu", "memory", "profiling", "slow query", "cache", "edge case".
+  Triggers: "performance", "optimize", "bottleneck", "latency", "p99", "p95", "throughput", "cpu", "memory", "heap", "GC pause", "profiling", "flamegraph", "slow query", "N+1", "cache", "cold start", "tail latency", "saturation", "load test", "edge case".
 
   Combine with `testing-pro` for repeatable performance checks and `repo-tooling-pro` for script-driven diagnostics.
 metadata:

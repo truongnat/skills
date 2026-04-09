@@ -21,7 +21,7 @@ import inquirer from 'inquirer';
 import matter from 'gray-matter';
 import ora from 'ora';
 import minimist from 'minimist';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { installSkill } from './commands/installSkill.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -122,17 +122,17 @@ async function fetchRepo(repo: string): Promise<string> {
     return temp;
   } catch {
     spin.info('degit failed, falling back to git clone --progress');
-    const cloneSpin = ora('Cloning repository...').start();
-    try {
-      // Use spawn to see progress if needed, but for simplicity we'll just show the spinner
-      execFileSync('git', ['clone', '--depth', '1', '--progress', url, temp], {
-        stdio: ['ignore', 'ignore', 'pipe'],
-      });
-      cloneSpin.succeed('Repository cloned');
+    // We want to see progress, but ora hides it. So we stop the spinner and use spawnSync with inherit.
+    console.log(chalk.gray('Cloning repository...'));
+    const res = spawnSync('git', ['clone', '--depth', '1', '--progress', url, temp], {
+      stdio: 'inherit',
+    });
+    if (res.status === 0) {
+      console.log(chalk.green('✔ Repository cloned'));
       return temp;
-    } catch (e) {
-      cloneSpin.fail('Failed to clone repository');
-      throw e;
+    } else {
+      console.error(chalk.red('Failed to clone repository'));
+      throw new Error('git clone failed');
     }
   }
 }

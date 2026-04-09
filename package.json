@@ -12,6 +12,14 @@
   },
   "files": [
     "dist",
+    "skills",
+    "commands",
+    "workflows",
+    "knowledge-base",
+    "prompts",
+    "templates",
+    "scripts",
+    "AGENTS.md",
     "package.json"
   ],
   "scripts": {

@@ -1,15 +1,19 @@
 #!/usr/bin/env node
-import { cpSync, existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, symlinkSync, unlinkSync, writeFileSync, } from 'node:fs';
+import { cpSync, existsSync, lstatSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, symlinkSync, unlinkSync, writeFileSync, } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join, relative, resolve } from 'node:path';
+import { join, relative, resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import chalk from 'chalk';
 import degit from 'degit';
 import inquirer from 'inquirer';
 import matter from 'gray-matter';
 import ora from 'ora';
 import minimist from 'minimist';
-import { execFileSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 import { installSkill } from './commands/installSkill.js';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const PKG_ROOT = resolve(__dirname, '..');
 const DEFAULT_REPO = 'truongnat/skills';
 /** Installed bundle directory (single source of truth on disk). */
 const BUNDLE_DIR_SEGMENTS = ['.agents', 'devkit'];
@@ -91,18 +95,31 @@ function httpsCloneUrl(repo) {
 }
 async function fetchRepo(repo) {
     const temp = mkdtempSync(join(tmpdir(), 'own-skills-'));
-    const spin = ora('Fetching bundle...').start();
+    const url = httpsCloneUrl(repo);
+    console.log(chalk.blue(`Source: ${url}`));
+    const spin = ora(`Fetching bundle from ${repo}...`).start();
     try {
         const emitter = degit(repo, { cache: false, force: true });
+        // degit doesn't have granular progress, so we just wait for it.
         await emitter.clone(temp);
-        spin.succeed('Bundle ready');
+        spin.succeed('Bundle fetched (via degit)');
         return temp;
     }
     catch {
-        spin.warn('degit failed, fallback to git clone');
-        execFileSync('git', ['clone', '--depth', '1', httpsCloneUrl(repo), temp], { stdio: 'pipe' });
-        spin.succeed('Repository cloned');
-        return temp;
+        spin.info('degit failed, falling back to git clone --progress');
+        // We want to see progress, but ora hides it. So we stop the spinner and use spawnSync with inherit.
+        console.log(chalk.gray('Cloning repository...'));
+        const res = spawnSync('git', ['clone', '--depth', '1', '--progress', url, temp], {
+            stdio: 'inherit',
+        });
+        if (res.status === 0) {
+            console.log(chalk.green('✔ Repository cloned'));
+            return temp;
+        }
+        else {
+            console.error(chalk.red('Failed to clone repository'));
+            throw new Error('git clone failed');
+        }
     }
 }
 function shouldIgnore(rel) {
@@ -117,15 +134,22 @@ function shouldIgnore(rel) {
         p.startsWith('node_modules/'));
 }
 function syncBundle(src, dest) {
+    const spin = ora('Cleaning bundle destination...').start();
     rmSync(dest, { recursive: true, force: true });
+    spin.text = 'Syncing files to bundle...';
     cpSync(src, dest, {
         recursive: true,
-        filter: (_s, d) => {
+        filter: (s, d) => {
             const rel = d.replace(dest, '').replace(/^[\\/]/, '');
-            return !shouldIgnore(rel);
+            const ok = !shouldIgnore(rel);
+            if (ok && existsSync(s) && lstatSync(s).isFile()) {
+                spin.text = `Syncing: ${rel}`;
+            }
+            return ok;
         },
     });
     writeFileSync(join(dest, BUNDLE_MARKER), '');
+    spin.succeed('Bundle synced to disk');
 }
 function linkRules(bundleDir, project) {
     const rulesSrc = join(bundleDir, '.cursor', 'rules');
@@ -210,6 +234,7 @@ function installAllSkills(repoRoot, projectDir, mode, allIdes) {
                 mode,
                 force: true,
                 allIdes,
+                noGitIsolation: true,
             });
             ok++;
         }
@@ -222,6 +247,7 @@ function installAllSkills(repoRoot, projectDir, mode, allIdes) {
                         mode: 'copy',
                         force: true,
                         allIdes,
+                        noGitIsolation: true,
                     });
                     ok++;
                     continue;
@@ -319,7 +345,14 @@ function uninstall(projectDir, nuclear) {
     }
     spin.succeed('Uninstall completed');
 }
+function isLocalRepo(repo) {
+    if (repo !== DEFAULT_REPO)
+        return false;
+    return existsSync(join(PKG_ROOT, 'skills')) && existsSync(join(PKG_ROOT, 'commands'));
+}
 async function main() {
+    const pkg = JSON.parse(readFileSync(join(PKG_ROOT, 'package.json'), 'utf8'));
+    console.log(chalk.bold(`\n${pkg.name} v${pkg.version}`));
     const argv = minimist(process.argv.slice(2), {
         boolean: ['full', 'skills-only', 'cursor-only', 'yes', 'force', 'nuclear', 'help'],
         string: ['repo', 'project-dir'],
@@ -366,7 +399,8 @@ async function main() {
             mode = a.mode;
             allIdes = a.allIdes;
         }
-        const temp = await fetchRepo(repo);
+        const useLocal = isLocalRepo(repo);
+        const temp = useLocal ? PKG_ROOT : await fetchRepo(repo);
         try {
             if (mode === 'skills') {
                 installAllSkills(temp, projectDir, 'copy', allIdes);
@@ -377,13 +411,13 @@ async function main() {
             }
             else {
                 const bundle = bundlePath(projectDir);
-                const s = ora('Syncing bundle...').start();
+                const s = ora(useLocal ? 'Using local bundle...' : 'Syncing bundle...').start();
                 syncBundle(temp, bundle);
                 linkRules(bundle, projectDir);
                 const manifest = loadInstallManifest(projectDir);
                 installCommands(bundle, projectDir, manifest);
                 saveInstallManifest(projectDir, manifest);
-                s.succeed('Bundle synced');
+                s.succeed(useLocal ? 'Local bundle ready' : 'Bundle synced');
                 installAllSkills(bundle, projectDir, process.platform === 'win32' ? 'copy' : 'symlink', allIdes);
                 const cmdExcludes = collectCommandExcludePatterns(bundle);
                 const rulesExcludes = [];
@@ -408,7 +442,8 @@ async function main() {
             }
         }
         finally {
-            rmSync(temp, { recursive: true, force: true });
+            if (!useLocal)
+                rmSync(temp, { recursive: true, force: true });
         }
     }
     else {

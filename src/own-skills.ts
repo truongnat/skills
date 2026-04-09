@@ -12,7 +12,8 @@ import {
   writeFileSync,
 } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join, relative, resolve } from 'node:path';
+import { join, relative, resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import chalk from 'chalk';
 import degit from 'degit';
 import inquirer from 'inquirer';
@@ -21,6 +22,10 @@ import ora from 'ora';
 import minimist from 'minimist';
 import { execFileSync } from 'node:child_process';
 import { installSkill } from './commands/installSkill.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const PKG_ROOT = resolve(__dirname, '..');
 
 const DEFAULT_REPO = 'truongnat/skills';
 
@@ -233,6 +238,7 @@ function installAllSkills(repoRoot: string, projectDir: string, mode: 'symlink' 
         mode,
         force: true,
         allIdes,
+        noGitIsolation: true,
       });
       ok++;
     } catch {
@@ -244,6 +250,7 @@ function installAllSkills(repoRoot: string, projectDir: string, mode: 'symlink' 
             mode: 'copy',
             force: true,
             allIdes,
+            noGitIsolation: true,
           });
           ok++;
           continue;
@@ -348,6 +355,11 @@ function uninstall(projectDir: string, nuclear: boolean) {
   spin.succeed('Uninstall completed');
 }
 
+function isLocalRepo(repo: string): boolean {
+  if (repo !== DEFAULT_REPO) return false;
+  return existsSync(join(PKG_ROOT, 'skills')) && existsSync(join(PKG_ROOT, 'commands'));
+}
+
 async function main() {
   const argv = minimist(process.argv.slice(2), {
     boolean: ['full', 'skills-only', 'cursor-only', 'yes', 'force', 'nuclear', 'help'],
@@ -396,7 +408,10 @@ async function main() {
       mode = a.mode;
       allIdes = a.allIdes;
     }
-    const temp = await fetchRepo(repo);
+
+    const useLocal = isLocalRepo(repo);
+    const temp = useLocal ? PKG_ROOT : await fetchRepo(repo);
+
     try {
       if (mode === 'skills') {
         installAllSkills(temp, projectDir, 'copy', allIdes);
@@ -405,13 +420,13 @@ async function main() {
         ensureGitExcludeBlock(projectDir, skillDirs);
       } else {
         const bundle = bundlePath(projectDir);
-        const s = ora('Syncing bundle...').start();
+        const s = ora(useLocal ? 'Using local bundle...' : 'Syncing bundle...').start();
         syncBundle(temp, bundle);
         linkRules(bundle, projectDir);
         const manifest = loadInstallManifest(projectDir);
         installCommands(bundle, projectDir, manifest);
         saveInstallManifest(projectDir, manifest);
-        s.succeed('Bundle synced');
+        s.succeed(useLocal ? 'Local bundle ready' : 'Bundle synced');
         installAllSkills(bundle, projectDir, process.platform === 'win32' ? 'copy' : 'symlink', allIdes);
         const cmdExcludes = collectCommandExcludePatterns(bundle);
         const rulesExcludes: string[] = [];
@@ -433,7 +448,7 @@ async function main() {
         console.log(chalk.cyan('Verify: node .agents/devkit/dist/tools.js verify-bundle-install --project-dir .'));
       }
     } finally {
-      rmSync(temp, { recursive: true, force: true });
+      if (!useLocal) rmSync(temp, { recursive: true, force: true });
     }
   } else {
     let projectDir = resolve(String(argv['project-dir'] || process.cwd()));

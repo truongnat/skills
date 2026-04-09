@@ -381,6 +381,9 @@ function isLocalRepo(repo: string): boolean {
 }
 
 async function main() {
+  const pkg = JSON.parse(readFileSync(join(PKG_ROOT, 'package.json'), 'utf8'));
+  console.log(chalk.bold(`\n${pkg.name} v${pkg.version}`));
+
   const argv = minimist(process.argv.slice(2), {
     boolean: ['full', 'skills-only', 'cursor-only', 'yes', 'force', 'nuclear', 'help'],
     string: ['repo', 'project-dir'],
@@ -394,9 +397,6 @@ async function main() {
   const interactive = !argv.yes && process.stdin.isTTY;
 
   if (cmd === 'install') {
-    const pkg = JSON.parse(readFileSync(join(PKG_ROOT, 'package.json'), 'utf8'));
-    console.log(chalk.bold(`\n${pkg.name} v${pkg.version}`));
-
     let repo = normalizeRepo(String(argv.repo || DEFAULT_REPO));
     let projectDir = resolve(String(argv['project-dir'] || process.cwd()));
     let mode: 'full' | 'skills' = argv['skills-only'] ? 'skills' : 'full';

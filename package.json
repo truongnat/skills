@@ -1,6 +1,6 @@
 {
   "name": "devkit-bundle",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "npx installer: sync devkit bundle to .agents/devkit (skills, workflows, rules, commands, KB tooling)",
   "type": "module",
   "bin": {

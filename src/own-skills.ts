@@ -2,6 +2,7 @@
 import {
   cpSync,
   existsSync,
+  lstatSync,
   mkdirSync,
   mkdtempSync,
   readdirSync,
@@ -110,17 +111,29 @@ function httpsCloneUrl(repo: string) {
 
 async function fetchRepo(repo: string): Promise<string> {
   const temp = mkdtempSync(join(tmpdir(), 'own-skills-'));
-  const spin = ora('Fetching bundle...').start();
+  const url = httpsCloneUrl(repo);
+  console.log(chalk.blue(`Source: ${url}`));
+  const spin = ora(`Fetching bundle from ${repo}...`).start();
   try {
     const emitter = degit(repo, { cache: false, force: true });
+    // degit doesn't have granular progress, so we just wait for it.
     await emitter.clone(temp);
-    spin.succeed('Bundle ready');
+    spin.succeed('Bundle fetched (via degit)');
     return temp;
   } catch {
-    spin.warn('degit failed, fallback to git clone');
-    execFileSync('git', ['clone', '--depth', '1', httpsCloneUrl(repo), temp], { stdio: 'pipe' });
-    spin.succeed('Repository cloned');
-    return temp;
+    spin.info('degit failed, falling back to git clone --progress');
+    const cloneSpin = ora('Cloning repository...').start();
+    try {
+      // Use spawn to see progress if needed, but for simplicity we'll just show the spinner
+      execFileSync('git', ['clone', '--depth', '1', '--progress', url, temp], {
+        stdio: ['ignore', 'ignore', 'pipe'],
+      });
+      cloneSpin.succeed('Repository cloned');
+      return temp;
+    } catch (e) {
+      cloneSpin.fail('Failed to clone repository');
+      throw e;
+    }
   }
 }
 
@@ -139,15 +152,22 @@ function shouldIgnore(rel: string): boolean {
 }
 
 function syncBundle(src: string, dest: string) {
+  const spin = ora('Cleaning bundle destination...').start();
   rmSync(dest, { recursive: true, force: true });
+  spin.text = 'Syncing files to bundle...';
   cpSync(src, dest, {
     recursive: true,
-    filter: (_s, d) => {
+    filter: (s, d) => {
       const rel = d.replace(dest, '').replace(/^[\\/]/, '');
-      return !shouldIgnore(rel);
+      const ok = !shouldIgnore(rel);
+      if (ok && existsSync(s) && lstatSync(s).isFile()) {
+        spin.text = `Syncing: ${rel}`;
+      }
+      return ok;
     },
   });
   writeFileSync(join(dest, BUNDLE_MARKER), '');
+  spin.succeed('Bundle synced to disk');
 }
 
 function linkRules(bundleDir: string, project: string) {

@@ -82,13 +82,16 @@ flowchart LR
 
 ### Install into another project (no manual clone)
 
-From the **target project root**. Re-running install **updates** the bundle.
+From the **target project root**. Re-running install or using the **`update`** command updates the bundle.
 
-**Node 18+** — use the **`devkit`** / **`own-skills`** CLI (`npx` downloads this package, fetches the repo with degit or shallow git, then performs install/uninstall in Node). Requires **git** on `PATH`.
+**Node 18+** — use the **`devkit`** / **`own-skills`** CLI (`npx` downloads this package, fetches the repo with degit or shallow git, then performs install/uninstall/update in Node). Requires **git** on `PATH`.
 
 ```bash
 # Interactive (default command = install)
 npx github:truongnat/skills
+
+# Update an existing installation and show changes
+npx github:truongnat/skills update
 
 # Non-interactive full install (forward args after --)
 npx --yes github:truongnat/skills -- install --yes --project-dir .

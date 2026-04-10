@@ -80,9 +80,9 @@ function printHelp() {
   console.log(`devkit / own-skills
 
 Usage:
-  npx github:${DEFAULT_REPO} [install|uninstall] [options]
+  npx github:${DEFAULT_REPO} [install|uninstall|update] [options]
 
-Install options:
+Install/Update options:
   --repo <user/repo|https://github.com/...>
   --project-dir <path>
   --full
@@ -393,14 +393,20 @@ async function main() {
     printHelp();
     return;
   }
-  const cmd = (argv._[0] as string) === 'uninstall' ? 'uninstall' : 'install';
+  const rawCmd = argv._[0] as string;
+  const cmd = rawCmd === 'uninstall' ? 'uninstall' : rawCmd === 'update' ? 'update' : 'install';
   const interactive = !argv.yes && process.stdin.isTTY;
 
-  if (cmd === 'install') {
+  if (cmd === 'install' || cmd === 'update') {
     let repo = normalizeRepo(String(argv.repo || DEFAULT_REPO));
     let projectDir = resolve(String(argv['project-dir'] || process.cwd()));
     let mode: 'full' | 'skills' = argv['skills-only'] ? 'skills' : 'full';
     let allIdes = !argv['cursor-only'];
+
+    if (cmd === 'update' && !existsSync(bundlePath(projectDir)) && mode === 'full') {
+      console.log(chalk.yellow(`No bundle found at ${bundlePath(projectDir)}. Switching to 'install' mode.`));
+    }
+
     if (interactive) {
       const a = await inquirer.prompt([
         { type: 'input', name: 'repo', message: 'GitHub repo (user/repo or HTTPS)', default: repo },
@@ -436,6 +442,31 @@ async function main() {
     const temp = useLocal ? PKG_ROOT : await fetchRepo(repo);
 
     try {
+      if (cmd === 'update' && mode === 'full') {
+        const bundle = bundlePath(projectDir);
+        if (existsSync(bundle)) {
+          const oldPkg = JSON.parse(readFileSync(join(bundle, 'package.json'), 'utf8'));
+          const newPkg = JSON.parse(readFileSync(join(temp, 'package.json'), 'utf8'));
+          console.log(chalk.bold(`\nUpdating bundle: ${chalk.yellow(oldPkg.version)} -> ${chalk.green(newPkg.version)}`));
+
+          const oldSkills = readdirSync(join(bundle, 'skills')).filter((f) =>
+            lstatSync(join(bundle, 'skills', f)).isDirectory(),
+          );
+          const newSkills = readdirSync(join(temp, 'skills')).filter((f) =>
+            lstatSync(join(temp, 'skills', f)).isDirectory(),
+          );
+          const added = newSkills.filter((s) => !oldSkills.includes(s));
+          const removed = oldSkills.filter((s) => !newSkills.includes(s));
+
+          if (added.length > 0) console.log(chalk.green(`  + New skills: ${added.join(', ')}`));
+          if (removed.length > 0) console.log(chalk.red(`  - Removed skills: ${removed.join(', ')}`));
+          if (added.length === 0 && removed.length === 0 && oldPkg.version === newPkg.version) {
+            console.log(chalk.cyan('  No structural changes detected in skills.'));
+          }
+          console.log('');
+        }
+      }
+
       if (mode === 'skills') {
         installAllSkills(temp, projectDir, 'copy', allIdes);
         const skillDirs = ['.cursor/skills/', '.claude/skills/', '.agent/skills/'];

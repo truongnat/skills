@@ -683,6 +683,12 @@ Replace plain text format suggestions in workflows with explicit templates that 
 27. Add `references/integration-map.md` to all core-tier skills
 28. Add `references/anti-patterns.md` to all core-tier and mid-tier skills
 
+### Phase 7 — Self-Optimization & Contributor Loop (New)
+29. **Token Tracking**: Standardize token reporting in all workflow outputs (Idea 2).
+30. **Contributor Workflow**: Add logic to `self-improve-agent-pro` to automatically create PRs to the skills repo when new knowledge is discovered (Idea 1).
+31. **Prompt Optimization**: Implement a feedback loop where high token usage triggers a prompt/skill review to reduce costs.
+32. **Edge Case Harvesting**: Create a mechanism to "harvest" fixed bugs from external repos and add them as edge cases in `SKILL.md` files.
+
 ---
 
 ## Success Criteria

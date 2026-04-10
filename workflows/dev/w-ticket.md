@@ -144,7 +144,7 @@ If the team uses a single `issue.md` at ticket root, align **`plan.md`** and **`
 - **Type:** skill
 - **Skill:** **`planning-pro`** (closure: finalize `report_ticket.md`, `summary.md`, `message.txt`; set `meta.json` `phase` → `done`) + **`git-operations-pro`**
 - **Input:** completed work — branch/PR hygiene per [`git-operations-pro`](../../skills/git-operations-pro/references/commits-and-branching.md).
-- **Output:** `closing_reports`
+- **Output:** `closing_reports` (Include a preliminary **Token Usage Summary** per [`OUTPUT_CONVENTIONS.md`](../../OUTPUT_CONVENTIONS.md)).
 
 ### Step 7 — `bundle-hygiene` (if skills changed in Step 2)
 
@@ -156,6 +156,17 @@ If the team uses a single `issue.md` at ticket root, align **`plan.md`** and **`
   2. Run **`node dist/tools.js analyze-skills --self-review`** (add **`--include-template`** if validating the template too).
   3. Cross-check output against **`skills/SKILL_AUTHORING_RULES.md`** — [references/authoring-rules-crosscheck.md](../../skills/skills-self-review-pro/references/authoring-rules-crosscheck.md), [references/report-structure-and-scripts.md](../../skills/skills-self-review-pro/references/report-structure-and-scripts.md).
 - **Output:** `report_md` + **`manual_followups`** — no authoring drift after new skills.
+
+### Step 8 — `post-workflow-reflection`
+
+- **Type:** skill
+- **Skill:** **`self-improve-agent-pro`**
+- **Input:** Full conversation history + `closing_reports` + Token Usage.
+- **Actions:**
+  1. **Token Audit**: Finalize the **Workflow Summary (Detailed)** for tokens per [`OUTPUT_CONVENTIONS.md`](../../OUTPUT_CONVENTIONS.md).
+  2. **Knowledge Harvest**: Identify any new edge cases, tricky bugs, or prompt optimizations discovered during this ticket.
+  3. **Contributor Loop**: If new knowledge was found, follow [**`references/contributor-workflow.md`**](../../skills/self-improve-agent-pro/references/contributor-workflow.md) to create a PR back to the skills repo.
+- **Output:** `reflection_summary` + (Optional) Contributor PR branch name.
 
 ## Notes
 

@@ -51,6 +51,8 @@ Use quality-improvement references such as [Deming cycle (PDCA)](https://en.wiki
 4. **Close every loop** - diagnosis -> intervention -> verification -> decision.
 5. **Prioritize by impact and recurrence** - solve frequent/high-cost failures first.
 6. **Guard against regressions** - every gain needs preservation checks.
+7. **Token efficiency is a quality metric** - High token usage (>50k per task) is a signal for prompt or skill optimization.
+8. **Knowledge must be harvested** - Every tricky bug fix or new edge case should be contributed back to the skills repo via PR.
 
 ### Failure diagnosis and pattern mining (summary)
 
@@ -90,9 +92,15 @@ Details: [references/decision-tree.md](references/decision-tree.md) · [referenc
 
 ### Cross-skill handoffs (summary)
 
-- **`feedback-pro`**, **`planning-pro`**, **`testing-pro`**, **`repo-tooling-pro`**, **`skills-self-review-pro`**.
+- **`feedback-pro`**, **`planning-pro`**, **`testing-pro`**, **`repo-tooling-pro`**, **`skills-self-review-pro`**, **`git-operations-pro`** (for contributor PRs).
 
 Details: [references/integration-map.md](references/integration-map.md)
+
+### Contributor workflow (summary)
+
+- How to harvest knowledge from external projects and create PRs back to this repo.
+
+Details: [references/contributor-workflow.md](references/contributor-workflow.md)
 
 ### Versions (summary)
 

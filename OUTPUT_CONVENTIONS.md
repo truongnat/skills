@@ -66,6 +66,27 @@ Use this **visual contract** for workflow outputs, skill responses, audits, and 
 | Reproduce | ✅ Done | … |
 | Root cause | 🔵 In progress | — |
 
+## Token Usage Reporting
+
+Every significant action and workflow completion MUST include a token usage summary at the very end of the response. This ensures transparency and provides data for self-optimization.
+
+### Action Summary (Short)
+Use at the end of individual tool calls or mid-workflow responses.
+`[Tokens: I:{{input}} | O:{{output}} | T:{{total}}]`
+
+### Workflow Summary (Detailed)
+Use at the end of a completed workflow (e.g., `/w-ticket`, `/w-hotfix`).
+
+| Metric | Count | Note |
+|--------|-------|------|
+| Input Tokens | {{count}} | |
+| Output Tokens | {{count}} | |
+| **Total Tokens** | **{{total}}** | |
+| Total Actions | {{count}} | Number of model interactions |
+
+> [!TIP]
+> If total tokens for a workflow exceed 50k, consider triggering `self-improve-agent-pro` to optimize prompting for this task.
+
 ## Related templates
 
 - Code review report: [`templates/report/code-review.md`](templates/report/code-review.md)

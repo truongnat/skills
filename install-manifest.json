@@ -1,0 +1,16 @@
+{
+  "copy": [
+    {
+      "from": "skills",
+      "to": "skills"
+    },
+    {
+      "from": "dist/tools",
+      "to": "tools"
+    },
+    {
+      "from": "AGENTS.md",
+      "to": "AGENTS.md"
+    }
+  ]
+}

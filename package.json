@@ -1,0 +1,30 @@
+{
+  "name": "simple-skills",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "cli": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "rolldown -c",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck && npm run build",
+    "install-self": "node dist/cli.js install --force ."
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.0",
+    "rolldown": "^1.1.4",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "glob": "^13.0.6",
+    "zod": "^4.4.3"
+  },
+  "files": [
+    "dist",
+    "docs",
+    "skills",
+    "AGENTS.md"
+  ]
+}

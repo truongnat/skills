@@ -1,0 +1,1862 @@
+{
+  "tool": "simple-skills",
+  "version": 1,
+  "sourceRoot": "C:\\Users\\truongdq\\Documents\\projects\\skills",
+  "installedAt": "2026-07-03T07:03:22.904Z",
+  "updatedAt": "2026-07-03T07:03:22.910Z",
+  "installedSkills": [
+    "brainstorming",
+    "business-analysis",
+    "done",
+    "execution",
+    "investigate",
+    "planning",
+    "research",
+    "review",
+    "review-pr",
+    "sync",
+    "tester"
+  ],
+  "files": [
+    {
+      "sourceRelative": "AGENTS.md",
+      "targetRelative": ".agents/AGENTS.md",
+      "hash": "da9e8c1dcc988755942b8d88db148e0ca6990709f8f0148689e5d6136c2242d9"
+    },
+    {
+      "sourceRelative": "agents-readme.md",
+      "targetRelative": ".agents/README.md",
+      "hash": "0821876acd2e40896f997c485c4fd57a670a478ad082164ca73ec8618c1010c5"
+    },
+    {
+      "sourceRelative": "sessions-readme.md",
+      "targetRelative": ".agents/sessions/README.md",
+      "hash": "d0fe2e2c1c334da72c2fe341fb599d5575da323bed263773f56fde86cb86191f"
+    },
+    {
+      "sourceRelative": "skills/brainstorming/SKILL.md",
+      "targetRelative": ".agents/skills/brainstorming/SKILL.md",
+      "hash": "3a840d8722e44eb379083e9b2da72f8ef79246c2748587000a8a896d51a39f74"
+    },
+    {
+      "sourceRelative": "skills/business-analysis/SKILL.md",
+      "targetRelative": ".agents/skills/business-analysis/SKILL.md",
+      "hash": "01e75e6b2363ceab554ce646be163ada21f09abd1da145ab974a25c108842180"
+    },
+    {
+      "sourceRelative": "skills/done/SKILL.md",
+      "targetRelative": ".agents/skills/done/SKILL.md",
+      "hash": "d519ce74c67a98be22d10f1f3d2617464e07cf9d8ae274a12aa63131c69217f2"
+    },
+    {
+      "sourceRelative": "skills/execution/SKILL.md",
+      "targetRelative": ".agents/skills/execution/SKILL.md",
+      "hash": "eaa0c827a9f3eade180dac1f89a24700ee112bdb814a6b3145a7502a5e68630c"
+    },
+    {
+      "sourceRelative": "skills/investigate/SKILL.md",
+      "targetRelative": ".agents/skills/investigate/SKILL.md",
+      "hash": "91ab6dfa0e4c6e1f521133bc19577b1034481dbcb1e4ee5a338c00db191e335c"
+    },
+    {
+      "sourceRelative": "skills/planning/SKILL.md",
+      "targetRelative": ".agents/skills/planning/SKILL.md",
+      "hash": "8eeb835d7223872371c66a52e9907417215935f13e9312d0ac2349a3aa88c75d"
+    },
+    {
+      "sourceRelative": "skills/research/SKILL.md",
+      "targetRelative": ".agents/skills/research/SKILL.md",
+      "hash": "a64ab72396939ab0c61a126a6f5f491045735aa7e0ff637763dd979c0eb90695"
+    },
+    {
+      "sourceRelative": "skills/review-pr/SKILL.md",
+      "targetRelative": ".agents/skills/review-pr/SKILL.md",
+      "hash": "0b6c75ea7c7a681e2b4f57bd3508f361856387ce5aaece0b053cad15772aa398"
+    },
+    {
+      "sourceRelative": "skills/review/SKILL.md",
+      "targetRelative": ".agents/skills/review/SKILL.md",
+      "hash": "0a42452d46976a9b0b163ecb4eaf14e0a381d66c672f7de33f44e2e95a78e7ce"
+    },
+    {
+      "sourceRelative": "skills/sync/SKILL.md",
+      "targetRelative": ".agents/skills/sync/SKILL.md",
+      "hash": "f4a6483158e20815ff3036271ee43fbad9ad7d5cefecc348ef93f4e51705a714"
+    },
+    {
+      "sourceRelative": "skills/tester/SKILL.md",
+      "targetRelative": ".agents/skills/tester/SKILL.md",
+      "hash": "2763025f4b44131b99ba53cf8bbc67a8bc454c0906d9cbf9021155822621b012"
+    },
+    {
+      "sourceRelative": "node_modules/.bin/rolldown",
+      "targetRelative": ".agents/tools/node_modules/.bin/rolldown",
+      "hash": "a40054dd5fb614ba43d43a40f2e6fffa274e17e94473e1dc57d4cc11ded403d4"
+    },
+    {
+      "sourceRelative": "node_modules/.bin/rolldown.cmd",
+      "targetRelative": ".agents/tools/node_modules/.bin/rolldown.cmd",
+      "hash": "ac280039a8f8e697cb7d2e906a22577ae2bda4c380ea7c239d03f34e016d4f7a"
+    },
+    {
+      "sourceRelative": "node_modules/.bin/rolldown.ps1",
+      "targetRelative": ".agents/tools/node_modules/.bin/rolldown.ps1",
+      "hash": "928851037cd811b90043e04143cb52a6f9e1055d7667f82f29ea3cbe3c3f9f1f"
+    },
+    {
+      "sourceRelative": "node_modules/.bin/tsc",
+      "targetRelative": ".agents/tools/node_modules/.bin/tsc",
+      "hash": "cc893489bc80c0c8bd137c0aa62ece3cf36253cba79fdd4c038dbe735edf9e7c"
+    },
+    {
+      "sourceRelative": "node_modules/.bin/tsc.cmd",
+      "targetRelative": ".agents/tools/node_modules/.bin/tsc.cmd",
+      "hash": "54c7c33889f405746bfaba0fda5e725d4a88b77a708d41806408b4662f88d509"
+    },
+    {
+      "sourceRelative": "node_modules/.bin/tsc.ps1",
+      "targetRelative": ".agents/tools/node_modules/.bin/tsc.ps1",
+      "hash": "9c5b1f7fbbf203efc30622746ea3760b2b438aaf1315d483a9d41b702bba3e7b"
+    },
+    {
+      "sourceRelative": "node_modules/.bin/tsserver",
+      "targetRelative": ".agents/tools/node_modules/.bin/tsserver",
+      "hash": "f80d3acdc6b3b3faa690b11a2a651d19d006638c2c0398cd4dba0549ae83aa09"
+    },
+    {
+      "sourceRelative": "node_modules/.bin/tsserver.cmd",
+      "targetRelative": ".agents/tools/node_modules/.bin/tsserver.cmd",
+      "hash": "e4af3fbb25f8cb566fcf0f795f3541370d6616b52c1f76d9856f03f6f930d62a"
+    },
+    {
+      "sourceRelative": "node_modules/.bin/tsserver.ps1",
+      "targetRelative": ".agents/tools/node_modules/.bin/tsserver.ps1",
+      "hash": "93b94ebfb5e8a4e9e17915160ef87c798912a058279b7f0f006baed343be706b"
+    },
+    {
+      "sourceRelative": "node_modules/.package-lock.json",
+      "targetRelative": ".agents/tools/node_modules/.package-lock.json",
+      "hash": "219989cee1033a4fb25d07206a5ee3cdab621a2a9d31eb713626333420dcbcac"
+    },
+    {
+      "sourceRelative": "node_modules/@oxc-project/types/LICENSE",
+      "targetRelative": ".agents/tools/node_modules/@oxc-project/types/LICENSE",
+      "hash": "95ced5ecf1133fbf41d409b5555c86c344f83f3b019926057ddbc07cfdcc27b3"
+    },
+    {
+      "sourceRelative": "node_modules/@oxc-project/types/package.json",
+      "targetRelative": ".agents/tools/node_modules/@oxc-project/types/package.json",
+      "hash": "71bab2e300d6a885c5a563ffb4464bf541343629373e09c56515d60563eeac54"
+    },
+    {
+      "sourceRelative": "node_modules/@oxc-project/types/README.md",
+      "targetRelative": ".agents/tools/node_modules/@oxc-project/types/README.md",
+      "hash": "a6d02a8c1016c2305e8cd9eeab91ad1b1d9c614b2b361edef0d0da3816a0775a"
+    },
+    {
+      "sourceRelative": "node_modules/@oxc-project/types/types.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@oxc-project/types/types.d.ts",
+      "hash": "e8e17dfef3cfa9f0847ac93dd535a9896af7fb57c1a1b164484bb1b0ee4a25d8"
+    },
+    {
+      "sourceRelative": "node_modules/@rolldown/binding-win32-x64-msvc/package.json",
+      "targetRelative": ".agents/tools/node_modules/@rolldown/binding-win32-x64-msvc/package.json",
+      "hash": "5c567f40407301170b843da5f141155f4308bc4e412b256f7b4777a4256459f0"
+    },
+    {
+      "sourceRelative": "node_modules/@rolldown/binding-win32-x64-msvc/README.md",
+      "targetRelative": ".agents/tools/node_modules/@rolldown/binding-win32-x64-msvc/README.md",
+      "hash": "327b514303b86e589a6d6bb831928bb9720678fb72648f81c8c2cdcb2f7a856f"
+    },
+    {
+      "sourceRelative": "node_modules/@rolldown/binding-win32-x64-msvc/rolldown-binding.win32-x64-msvc.node",
+      "targetRelative": ".agents/tools/node_modules/@rolldown/binding-win32-x64-msvc/rolldown-binding.win32-x64-msvc.node",
+      "hash": "377e0920a5be1a33df052def5d23b3eef8e609729e503b6ec901ff885b1b2301"
+    },
+    {
+      "sourceRelative": "node_modules/@rolldown/pluginutils/dist/filter-B_mD-HGz.mjs",
+      "targetRelative": ".agents/tools/node_modules/@rolldown/pluginutils/dist/filter-B_mD-HGz.mjs",
+      "hash": "a133ff74d88a2c230bd5581513467307c01f84a697998ddbb5680f065ebf76a2"
+    },
+    {
+      "sourceRelative": "node_modules/@rolldown/pluginutils/dist/filter/index.d.mts",
+      "targetRelative": ".agents/tools/node_modules/@rolldown/pluginutils/dist/filter/index.d.mts",
+      "hash": "638a22f8e16b31c37297483fa38cfc760ed309b16d4c606a7b4532f4394c9c0c"
+    },
+    {
+      "sourceRelative": "node_modules/@rolldown/pluginutils/dist/filter/index.mjs",
+      "targetRelative": ".agents/tools/node_modules/@rolldown/pluginutils/dist/filter/index.mjs",
+      "hash": "064650435c2293e3657ad0cf57a9ac374cad68ad9f3f001d5f741813c58041b2"
+    },
+    {
+      "sourceRelative": "node_modules/@rolldown/pluginutils/dist/index.d.mts",
+      "targetRelative": ".agents/tools/node_modules/@rolldown/pluginutils/dist/index.d.mts",
+      "hash": "9394183f4c37b8591156f32e41223c9e0dd211eefe7499155d4cdf15268eaea8"
+    },
+    {
+      "sourceRelative": "node_modules/@rolldown/pluginutils/dist/index.mjs",
+      "targetRelative": ".agents/tools/node_modules/@rolldown/pluginutils/dist/index.mjs",
+      "hash": "804098994718a742136af9efea50a097086a2730b3b0279271be5d23fb2751ee"
+    },
+    {
+      "sourceRelative": "node_modules/@rolldown/pluginutils/LICENSE",
+      "targetRelative": ".agents/tools/node_modules/@rolldown/pluginutils/LICENSE",
+      "hash": "e1919b3b98b8bf6c1b99fcc60a0ed46027c97ac947432e1278446c9606f50161"
+    },
+    {
+      "sourceRelative": "node_modules/@rolldown/pluginutils/package.json",
+      "targetRelative": ".agents/tools/node_modules/@rolldown/pluginutils/package.json",
+      "hash": "c3d2bfe0ff94de71fd5b82e6f3a01b12ee4d99b8f1b34cc00b984b9acde61cfa"
+    },
+    {
+      "sourceRelative": "node_modules/@rolldown/pluginutils/README.md",
+      "targetRelative": ".agents/tools/node_modules/@rolldown/pluginutils/README.md",
+      "hash": "4886d9da5238f5d7e44fa2558a3c8d4939e5eb212cc1a3e587472ee2b65fd3fd"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/assert.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/assert.d.ts",
+      "hash": "594ae90cacd813fa392ff80d2e0a8eff4e41f4a136329a940e321399dd8895b4"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/assert/strict.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/assert/strict.d.ts",
+      "hash": "d1f333ade8ff35a409b4984e1f11956fe11c61855b0c7e9b59f0313e48b40c4a"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/async_hooks.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/async_hooks.d.ts",
+      "hash": "0224aa4b3464895d69c413a640a19ac2166778a74eb5eb3b36b021c72d42b274"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/buffer.buffer.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/buffer.buffer.d.ts",
+      "hash": "cc2110f7decca6bfb9392e30421cfa1436479e4a6756e8fec6cbc22625d4f881"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/buffer.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/buffer.d.ts",
+      "hash": "2e6fca0024dd8a076a886d9ec031a936ea59ad878a25b944820495d92f8381dd"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/child_process.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/child_process.d.ts",
+      "hash": "177459cba484e2f1e08872a3d2fdbca3162d9d43ca5ec9dc0c946835b55f74be"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/cluster.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/cluster.d.ts",
+      "hash": "2fbf504c4791f9d32cd766cfe6b605bcda63289b925401953a7900db9af85348"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/console.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/console.d.ts",
+      "hash": "ed0fb633cae35948d9e144004299a4bdf1ab912667c787b7fbffcd6d8c7b92a2"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/constants.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/constants.d.ts",
+      "hash": "1678b04557dca52feab73cc67610918a7f5e25bfdba3e7fa081acd625d93106d"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/crypto.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/crypto.d.ts",
+      "hash": "0e312260895afc9de021ce9de3c8a857392f0ccc7f19d3a030e4d6136a4ac91e"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/dgram.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/dgram.d.ts",
+      "hash": "2ea729503db9793f2691162fec3dd1118cab62e96d025f8eeb376d43ec293395"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/diagnostics_channel.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/diagnostics_channel.d.ts",
+      "hash": "98fc7231d6c846a8ed19bdef026ddffe5e2182cc818be74899287421ad370a87"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/dns.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/dns.d.ts",
+      "hash": "3a40b5d34e014017539acb92f04cf2bc0aa71e49efb33c66039df93be97842a1"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/dns/promises.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/dns/promises.d.ts",
+      "hash": "2bc7aa4fba46df0bd495425a7c8201437a7d465f83854fac859df2d67f664df3"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/domain.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/domain.d.ts",
+      "hash": "41d17e1ad9a002feb11c8cdd2777e5bbc0cdb1e3f595d237e4dded0b6949983b"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/events.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/events.d.ts",
+      "hash": "8c7e618c2a91ea7f6b5cca272a295864e92c16413be8fc56a943e8c7d5320011"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/ffi.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/ffi.d.ts",
+      "hash": "79a85c64bf083c5f4dd7074e804d1000c0c47301b84d48417a224decd681be30"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/fs.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/fs.d.ts",
+      "hash": "9f1e3a76d5f509b5579e567de522b402cb79e201c4f47dcd014451c0580b290d"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/fs/promises.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/fs/promises.d.ts",
+      "hash": "2ddab5b6932f9a6327f71baeb82a1d6b0824e0d23a4c7a5de5d355857113c22f"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/globals.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/globals.d.ts",
+      "hash": "f53a7652392cf26ebbe4e29fd0672aa87c93bd6d0241289c13fab87b9ac35c8a"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/globals.typedarray.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/globals.typedarray.d.ts",
+      "hash": "0ccdaa19852d25ecd84eec365c3bfa16e7859cadecf6e9ca6d0dbbbee439743f"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/http.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/http.d.ts",
+      "hash": "70f3f8b2dcaf7388f26731a59c79437813e3620b594903525a303cb2a7901016"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/http2.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/http2.d.ts",
+      "hash": "62e8f884c3bc6dff6189b6e662ebe8b238a645938f2df7a97b8a82fca56773a4"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/https.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/https.d.ts",
+      "hash": "2c2bdaa1d8ead9f68628d6d9d250e46ee8e81aa4898b4769a36956ae15e060fe"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/index.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/index.d.ts",
+      "hash": "e50a7130339a951e6da9e968ed5521b0997a5b0479e148914087213839b5474c"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/inspector.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/inspector.d.ts",
+      "hash": "57a0d1b3d59063d4af2d3f8aac27cfe3c20a0f5d1faf0f8598ccf0b779637939"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/inspector.generated.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/inspector.generated.d.ts",
+      "hash": "5ff4433a2deae4f85ab1377e90a7554ce6b47ae51c69a84ca30a6e22fae85834"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/inspector/promises.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/inspector/promises.d.ts",
+      "hash": "82b91e4e42e6c41bc7fc1b6c2dc5eba6a2ba98375eb1f210e6ff6bba2d54177e"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/LICENSE",
+      "targetRelative": ".agents/tools/node_modules/@types/node/LICENSE",
+      "hash": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/module.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/module.d.ts",
+      "hash": "97234c5303866576f913d0ccae7d58d6322d9e803c7bf1228a3fda46ab8087b2"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/net.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/net.d.ts",
+      "hash": "93ecf87143cac7b9d05cffc1d6bdc075b7e4fdd48ff05f1fad85043f6ae678d3"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/os.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/os.d.ts",
+      "hash": "6f200afcb82b3e9a54bed6db23f2edf2508cd266801257312c0f124b47f2bdb9"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/package.json",
+      "targetRelative": ".agents/tools/node_modules/@types/node/package.json",
+      "hash": "4dfc18d676390f4971c5c8d7cfefa9d71a7cfa1d80c77c504791d5753b51126c"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/path.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/path.d.ts",
+      "hash": "ec501101c2a96133a6c695f934c8f6642149cc728571b29cbb7b770984c1088e"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/path/posix.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/path/posix.d.ts",
+      "hash": "b214ebcf76c51b115453f69729ee8aa7b7f8eccdae2a922b568a45c2d7ff52f7"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/path/win32.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/path/win32.d.ts",
+      "hash": "429c9cdfa7d126255779efd7e6d9057ced2d69c81859bbab32073bad52e9ba76"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/perf_hooks.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/perf_hooks.d.ts",
+      "hash": "39338f84e8c4d0e3de7b3c4a7024fb3925f42100eed5cbe73be58902799dff4d"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/process.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/process.d.ts",
+      "hash": "fbf83eb33bf5e329527add92acc65da59323876c702ddccf5f4bf1e848c92369"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/punycode.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/punycode.d.ts",
+      "hash": "230763250f20449fa7b3c9273e1967adb0023dc890d4be1553faca658ee65971"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/querystring.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/querystring.d.ts",
+      "hash": "c3e9078b60cb329d1221f5878e88cecfa3e74460550e605a58fcfb41a66029ff"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/quic.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/quic.d.ts",
+      "hash": "515318bc6e656f75e9e34db625316bfafbafd800dfb1642574af93735a24ad38"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/readline.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/readline.d.ts",
+      "hash": "441b9bb09013654aa3d050e68b06464d8959b473e85868249d9d18f692acd35b"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/readline/promises.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/readline/promises.d.ts",
+      "hash": "bc18a1991ba681f03e13285fa1d7b99b03b67ee671b7bc936254467177543890"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/README.md",
+      "targetRelative": ".agents/tools/node_modules/@types/node/README.md",
+      "hash": "c4b61e1c5484cc09477531a41c9ccce8aa06fb5203439c558f84981258ba4f03"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/repl.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/repl.d.ts",
+      "hash": "55246f15e33ff1e2e9e679b25fa9790a48db55dc63d567fe25fac8b6a0efe911"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/sea.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/sea.d.ts",
+      "hash": "fa94bbf532b7af8f394b95fa310980d6e20bd2d4c871c6a6cb9f70f03750a44b"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/sqlite.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/sqlite.d.ts",
+      "hash": "03b7804d69cecd66850abada858ed6d4a59001f8c228a9fe212306ee860a4ff6"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/stream.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/stream.d.ts",
+      "hash": "5b26c4dd672d88336bb929787c9bfb55119e80ba89ec6dc923da1c063892843e"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/stream/consumers.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/stream/consumers.d.ts",
+      "hash": "7fa2214bb0d64701bc6f9ce8cde2fd2ff8c571e0b23065fa04a8a5a6beb91511"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/stream/iter.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/stream/iter.d.ts",
+      "hash": "987fd1f85dc36f4b2c927aa3db814ac6b452e970f4f55d24ed4ecbb7df09be00"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/stream/promises.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/stream/promises.d.ts",
+      "hash": "f12624a4a8d042b68914eac1b0a16571fc1c523173fcdf2517c65d191bd5a86c"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/stream/web.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/stream/web.d.ts",
+      "hash": "b4769767f13a1692a66186e01c3aa186ff808d5ff72ed36eda8c37738fb2ac92"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/string_decoder.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/string_decoder.d.ts",
+      "hash": "841983e39bd4cbb463be385e92fda11057cab368bf27100a801c492f1d86cbaa"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/test.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/test.d.ts",
+      "hash": "683edfc4f2b411ebe04729cb6dc09ddd26fbac2c57771a6d7c55964af776e176"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/test/reporters.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/test/reporters.d.ts",
+      "hash": "1ec3f3a5f04cc42df33274fbe5c0937d9a9e06f249a7a26288d7d54f0763ffd4"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/timers.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/timers.d.ts",
+      "hash": "e4156ddb25aa0e3b5303d372f26957b36778f0f6bbd4326359269873295e3058"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/timers/promises.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/timers/promises.d.ts",
+      "hash": "cc1b433a84cae05ddc5672d4823170af78606ad21ecef60dbc4570190cbf1357"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/tls.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/tls.d.ts",
+      "hash": "e47f532d6e1617833f13a5b0710c0089d402c89c2f2b54f324e5a20e418d287a"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/trace_events.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/trace_events.d.ts",
+      "hash": "7f78cfb2b343838612c192cb251746e3a7c62ac7675726a47e130d9b213f6580"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/ts5.6/buffer.buffer.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/ts5.6/buffer.buffer.d.ts",
+      "hash": "30c0b4546bd5c91429fffc790aa835c7a60cd9d5bcd23e2373a416fbbb75d1f1"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/ts5.6/compatibility/float16array.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/ts5.6/compatibility/float16array.d.ts",
+      "hash": "394fda71d5d6bd00a372437dff510feab37b92f345861e592f956d6995e9c1ce"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/ts5.6/globals.typedarray.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/ts5.6/globals.typedarray.d.ts",
+      "hash": "6f2442c0ca5e7fcb9d51ebbd7d43079844bcbfd947bb679b9419900745f871d5"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/ts5.6/index.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/ts5.6/index.d.ts",
+      "hash": "976053708a0a67fe02860c15016d3144a8d09bb40d725f179df19be450933908"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/ts5.7/compatibility/float16array.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/ts5.7/compatibility/float16array.d.ts",
+      "hash": "cebfeedf63623d54f7423d58cae1ec204c0d8d97a66d5fb17579e26a902085e1"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/ts5.7/index.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/ts5.7/index.d.ts",
+      "hash": "4766f672040686de370e39861552de0cd3b4f5e21fe1b8d69c97ec824a225c51"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/tty.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/tty.d.ts",
+      "hash": "201db9cf1687fab1adf5282fcba861f382b32303dc4f67c89d59655e78a25461"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/url.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/url.d.ts",
+      "hash": "8e2577e7262051fd3c5bd6ca2b2056d358ff8853565720f92455860824c25188"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/util.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/util.d.ts",
+      "hash": "7ec8d7d483f7394f9da611b10d3a0e402f76ff5c991261e6ce43a15f81ca4258"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/util/types.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/util/types.d.ts",
+      "hash": "bb9dbb4b2ad81e3e71ec5ba4314973718555b9d04ba2a17dfbf875efecb8e2c0"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/v8.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/v8.d.ts",
+      "hash": "82c3cc48c692438e41b94d936b8acd75ca97b18c50fa1af8a0715eb9d07d18cd"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/vm.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/vm.d.ts",
+      "hash": "045a210189ec63c5488410b33f9fca53d77d051599d0d6506d8048551399c5f3"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/wasi.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/wasi.d.ts",
+      "hash": "99ab6d0d660ce4d21efb52288a39fd35bb3f556980ec5463b1ae8f304a3bbc85"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/web-globals/abortcontroller.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/web-globals/abortcontroller.d.ts",
+      "hash": "e5e01375c9e124a83b52ee4b3244ed1a4d214a6cfb54ac73e164a823a4a7860a"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/web-globals/blob.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/web-globals/blob.d.ts",
+      "hash": "f90ae2bbce1505e67f2f6502392e318f5714bae82d2d969185c4a6cecc8af2fc"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/web-globals/console.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/web-globals/console.d.ts",
+      "hash": "4b58e207b93a8f1c88bbf2a95ddc686ac83962b13830fe8ad3f404ffc7051fb4"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/web-globals/crypto.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/web-globals/crypto.d.ts",
+      "hash": "1fefabcb2b06736a66d2904074d56268753654805e829989a46a0161cd8412c5"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/web-globals/domexception.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/web-globals/domexception.d.ts",
+      "hash": "b00a630557d1622ad312633bdbfbdb9c6b7220d948dca9f899db30679f160074"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/web-globals/encoding.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/web-globals/encoding.d.ts",
+      "hash": "c18a99f01eb788d849ad032b31cafd49de0b19e083fe775370834c5675d7df8e"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/web-globals/events.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/web-globals/events.d.ts",
+      "hash": "5247874c2a23b9a62d178ae84f2db6a1d54e6c9a2e7e057e178cc5eea13757fc"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/web-globals/fetch.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/web-globals/fetch.d.ts",
+      "hash": "c3f5289820990ab66b70c7fb5b63cb674001009ff84b13de40619619a9c8175f"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/web-globals/importmeta.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/web-globals/importmeta.d.ts",
+      "hash": "b3275d55fac10b799c9546804126239baf020d220136163f763b55a74e50e750"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/web-globals/messaging.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/web-globals/messaging.d.ts",
+      "hash": "fa68a0a3b7cb32c00e39ee3cd31f8f15b80cac97dce51b6ee7fc14a1e8deb30b"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/web-globals/navigator.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/web-globals/navigator.d.ts",
+      "hash": "1cf059eaf468efcc649f8cf6075d3cb98e9a35a0fe9c44419ec3d2f5428d7123"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/web-globals/performance.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/web-globals/performance.d.ts",
+      "hash": "6c36e755bced82df7fb6ce8169265d0a7bb046ab4e2cb6d0da0cb72b22033e89"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/web-globals/storage.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/web-globals/storage.d.ts",
+      "hash": "e7721c4f69f93c91360c26a0a84ee885997d748237ef78ef665b153e622b36c1"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/web-globals/streams.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/web-globals/streams.d.ts",
+      "hash": "7a93de4ff8a63bafe62ba86b89af1df0ccb5e40bb85b0c67d6bbcfdcf96bf3d4"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/web-globals/timers.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/web-globals/timers.d.ts",
+      "hash": "90e85f9bc549dfe2b5749b45fe734144e96cd5d04b38eae244028794e142a77e"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/web-globals/url.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/web-globals/url.d.ts",
+      "hash": "e0a5deeb610b2a50a6350bd23df6490036a1773a8a71d70f2f9549ab009e67ee"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/worker_threads.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/worker_threads.d.ts",
+      "hash": "632c45ccb4cdc2c3a80c7a36a63dd7763016e59cac5e07bfb3e37e3548957028"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/zlib.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/zlib.d.ts",
+      "hash": "c9a2daf6cd1eb854cd5b9e424247c5e306692055738c2effd35f7871d942b76e"
+    },
+    {
+      "sourceRelative": "node_modules/@types/node/zlib/iter.d.ts",
+      "targetRelative": ".agents/tools/node_modules/@types/node/zlib/iter.d.ts",
+      "hash": "afa1c49f8e559e413d57343339db857d2a8159435cf9cf7d4deb41718fff1b88"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/bin/cli.mjs",
+      "targetRelative": ".agents/tools/node_modules/rolldown/bin/cli.mjs",
+      "hash": "4f32d8fafabe786e739f8be56df684e56def00e63a32858ad9d5ede57406bc6c"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/cli.d.mts",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/cli.d.mts",
+      "hash": "4f1bad288ada6326583a3e6a0a54d7627a03eac3b668adeea9dded12ac5656b8"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/cli.mjs",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/cli.mjs",
+      "hash": "2f189ff4447672eca4283733794fc8708bd5004c2e77d1192a25b8753deee4f8"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/config.d.mts",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/config.d.mts",
+      "hash": "16488029f87f30dfd615d6cc219d04352113dbe0a333cb29d8eae1f407416529"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/config.mjs",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/config.mjs",
+      "hash": "d711ffa4717bac3b57eb4ec683f5135657298639d7bb60bf868db79b107b6810"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/experimental-index.d.mts",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/experimental-index.d.mts",
+      "hash": "ca637051aaddf86afbc2a4f6bcfbe2428787c06e8336fac54ced4df228d7f914"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/experimental-index.mjs",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/experimental-index.mjs",
+      "hash": "adfc1ba4c27239f087ec4a2b74689cfe0b9629f62c4f90025936e95eb40ffb8b"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/experimental-runtime-types.d.ts",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/experimental-runtime-types.d.ts",
+      "hash": "f294628e6f1c7984c17f84b294f33017fe9b45b4e48403d2f47bdbf64e872564"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/filter-index.d.mts",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/filter-index.d.mts",
+      "hash": "94325c2597b60c34988a0b335b1b4e94ee758c9cc28fdb3d6837c2b5771d5638"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/filter-index.mjs",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/filter-index.mjs",
+      "hash": "51721047fbb0fdc5a5c8973f18c5689464be6dbf0a2e935164d8890427009920"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/get-log-filter.d.mts",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/get-log-filter.d.mts",
+      "hash": "943cf205423e82a72a73e448ecf7b9140389e06f6ad83092b785243743c6e348"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/get-log-filter.mjs",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/get-log-filter.mjs",
+      "hash": "8d267b4293c32da393c1b189264ecce44a9f0ca767293de300904b006ad221f0"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/index.d.mts",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/index.d.mts",
+      "hash": "8f5dd83a487a147ef727ea1f134d3270feb6e5820c7cec2f3bea2b1896969987"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/index.mjs",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/index.mjs",
+      "hash": "e53f01ed8f22bfbd7f56a858eccc3b174916f855b0c080d1ca7252dfc2937e66"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/parallel-plugin-worker.d.mts",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/parallel-plugin-worker.d.mts",
+      "hash": "4f1bad288ada6326583a3e6a0a54d7627a03eac3b668adeea9dded12ac5656b8"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/parallel-plugin-worker.mjs",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/parallel-plugin-worker.mjs",
+      "hash": "700a59dbee84753d3db5ceddd211e3d9c89053b981dcaf01e28eb6602577d622"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/parallel-plugin.d.mts",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/parallel-plugin.d.mts",
+      "hash": "0fce0a11f36566227482174f1764a3612b54a9fdd5c6264d91fc132d3ed42dd4"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/parallel-plugin.mjs",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/parallel-plugin.mjs",
+      "hash": "0fff1fcfb26076a52caf31772881e55e8dbd7f039f268124e438638e8d84e0c2"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/parse-ast-index.d.mts",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/parse-ast-index.d.mts",
+      "hash": "ef4cf7840808d33d454407e836d7186000b25b5132d1e5e5d864a598541839fc"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/parse-ast-index.mjs",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/parse-ast-index.mjs",
+      "hash": "569b0613a7ce1ab4efb7f76152ecbafca368b49328d7a02b5093d10ff14b89a6"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/plugins-index.d.mts",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/plugins-index.d.mts",
+      "hash": "6209d9e7e93217ab3ff8cef7357ed16a457d8419038de522dafae421bfeeeaa6"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/plugins-index.mjs",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/plugins-index.mjs",
+      "hash": "904cf56aed665b7b1413f662f32df905b85f036d63e48dfb43708f5102077d16"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/shared/binding-B1q9aYT-.d.mts",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/shared/binding-B1q9aYT-.d.mts",
+      "hash": "f2ff36fddc8fdbadde620cdfc653ee3e7b722649e1769a527c84a88aa91a76bf"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/shared/binding-BmkJW3Wy.mjs",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/shared/binding-BmkJW3Wy.mjs",
+      "hash": "9f2ec751f985378c1c4f89b830af91f3c184d8c8868d3cf78d0e85ef05156897"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/shared/bindingify-input-options-BsDhfYrS.mjs",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/shared/bindingify-input-options-BsDhfYrS.mjs",
+      "hash": "e9023dce9da272144d55fdf4d66a7d5c3e4167478ef267e7e4bef87d8c7fc58b"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/shared/constructors-2i1T9YcF.d.mts",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/shared/constructors-2i1T9YcF.d.mts",
+      "hash": "c21183546a150db7c0619335e32af4fac9a633156a24c49985bd0c54ef93ae2e"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/shared/constructors-CE6zZSUt.mjs",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/shared/constructors-CE6zZSUt.mjs",
+      "hash": "2f659cf3f8dfe378bcf794f3dd6a65cd964eabb033cf05ffd23388bb690fb55c"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/shared/define-config-BBz954-q.d.mts",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/shared/define-config-BBz954-q.d.mts",
+      "hash": "7cd005825cded848f6aef39302c91906c828b56eb2a871f7ec2905be03c410ee"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/shared/define-config-Demdg3_4.mjs",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/shared/define-config-Demdg3_4.mjs",
+      "hash": "e887326cc80caa4248166a9ce863134fc4f7e1314ad9a3d7e380bd1a43f746ab"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/shared/error-BlQ0-ek7.mjs",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/shared/error-BlQ0-ek7.mjs",
+      "hash": "f882422c782682746f2cac90ccbb9e59fc6a069e8c6a1fe8804e51e611869a8f"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/shared/get-log-filter-BpNVNJ5-.d.mts",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/shared/get-log-filter-BpNVNJ5-.d.mts",
+      "hash": "612574f9831f5cf185ce3db6a21741b100a63276caaa07527c7bd02f1959e2e4"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/shared/load-config-FRmAU9xl.mjs",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/shared/load-config-FRmAU9xl.mjs",
+      "hash": "43f77352f18c282ed9d7cc79071bd1796c6dedfc96f43301902bd5b18bbbf7b2"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/shared/logging-BSNejiLS.d.mts",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/shared/logging-BSNejiLS.d.mts",
+      "hash": "c73fdf42528325dd17940937ed787b15ae3445c6a2dae1a2b74bc4d87d337ca2"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/shared/logs-aMKUxRpj.mjs",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/shared/logs-aMKUxRpj.mjs",
+      "hash": "c25fc16c6d826b417e3756bb8d6d01a93ccccfba2a4178f4d3cb9457e0962c4c"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/shared/misc-CoQm4NHO.mjs",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/shared/misc-CoQm4NHO.mjs",
+      "hash": "2d19de9fbda4fecd2f965a8ada67ab27f297f9234a9537cc480206f3dd0de6a1"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/shared/normalize-string-or-regex-BYkbbGqQ.mjs",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/shared/normalize-string-or-regex-BYkbbGqQ.mjs",
+      "hash": "8c3d496985d5ab70439c7e20356806aeddd4f21045f77dd06fce7f08b70673cf"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/shared/parse-DVMnkavl.mjs",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/shared/parse-DVMnkavl.mjs",
+      "hash": "065974eddc18535b63212de0abb911b6ee4f8e6951d3d475edec9c5fd73645e0"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/shared/prompt-B1Yc1NPt.mjs",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/shared/prompt-B1Yc1NPt.mjs",
+      "hash": "101e99178612aa19a474d2f9b6599050bc03ce689fbba89d0a4fa7f18d95f22d"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/shared/resolve-tsconfig-CdIAR1Eb.mjs",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/shared/resolve-tsconfig-CdIAR1Eb.mjs",
+      "hash": "540af38acd7f532ac88e71a49b71f10b5c9330ae76ca0ec6549461fd779042dd"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/shared/rolldown-build-aV0QeeTW.mjs",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/shared/rolldown-build-aV0QeeTW.mjs",
+      "hash": "f34e95c52859a3d76587a3504e1d8461ffe1762070bd7d2adda210a118dec1b9"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/shared/rolldown-tbHvKzVl.mjs",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/shared/rolldown-tbHvKzVl.mjs",
+      "hash": "39a8bc16506e5a64982e98aa99f6dbae1a6fb170028c732b5c0742a1f090af68"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/shared/transform-CEmFsvJW.d.mts",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/shared/transform-CEmFsvJW.d.mts",
+      "hash": "738aecb56bf52a994c4e3980f356255c5843b505c66ffa8a3142c8e13d30d2b2"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/shared/watch-DIhJ-T1s.mjs",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/shared/watch-DIhJ-T1s.mjs",
+      "hash": "3a8d7d9aaba31a2ee9d0b45cb2c93ba98ba97cdcc59b8e887e2573936acf7ebe"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/utils-index.d.mts",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/utils-index.d.mts",
+      "hash": "e04b33dbc442d710225fdc64ad081a202f8b6ac8c6965a46d34fecf1ba3c2a9b"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/dist/utils-index.mjs",
+      "targetRelative": ".agents/tools/node_modules/rolldown/dist/utils-index.mjs",
+      "hash": "9200c1aa75667b3272df96186c17cc5a4997e11657c772c1675c18600e620b4b"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/LICENSE",
+      "targetRelative": ".agents/tools/node_modules/rolldown/LICENSE",
+      "hash": "23ecfff35a5a2e80d92142f75228912c3b1abc4b5a8337a821ff4397e2f9f734"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/package.json",
+      "targetRelative": ".agents/tools/node_modules/rolldown/package.json",
+      "hash": "1fab8ea72b21432a35b084c69b209ae8ff0d56e106e37adc77bbf9103dd72691"
+    },
+    {
+      "sourceRelative": "node_modules/rolldown/README.md",
+      "targetRelative": ".agents/tools/node_modules/rolldown/README.md",
+      "hash": "3d65150aadb440393668579bd47674f9c6d51f32d1f352510e0c1d6ddf549005"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/bin/tsc",
+      "targetRelative": ".agents/tools/node_modules/typescript/bin/tsc",
+      "hash": "8d5fa5bd883fec0979fc2004f1fe1d99aef40570155d550eadc0b03b55513bf0"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/bin/tsserver",
+      "targetRelative": ".agents/tools/node_modules/typescript/bin/tsserver",
+      "hash": "a088f0c3419bcb2f7b860ad42e4c9f25ead067eda70af6a10d0a7d453954aada"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/_tsc.js",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/_tsc.js",
+      "hash": "1c59e77a54b186ec43fa7f3e0d3c4bb15ca5eb5ba43e96b1d3a267139eddd3e3"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/_tsserver.js",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/_tsserver.js",
+      "hash": "1992fc3518a4aa5443638a25794281995ec3ce84820692713296262997d5443b"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/_typingsInstaller.js",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/_typingsInstaller.js",
+      "hash": "71515c1c1aa29c8616309f7dea4d3a32eed662df3a4dbcf4345e7522ece56ac1"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/cs/diagnosticMessages.generated.json",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/cs/diagnosticMessages.generated.json",
+      "hash": "a00a333cb5ae58c1b1163bd90b6897eb9a2695de9d31dc12fc4a19c98843b6a7"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/de/diagnosticMessages.generated.json",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/de/diagnosticMessages.generated.json",
+      "hash": "1df64ca10607a09e7fdd217f06488ab0b107d557157cef81cc2c9496a4439099"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/es/diagnosticMessages.generated.json",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/es/diagnosticMessages.generated.json",
+      "hash": "85ad4bf3b496a74f37345af5a11c794379902b8d1b0ee68e90a7189222ddedbe"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/fr/diagnosticMessages.generated.json",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/fr/diagnosticMessages.generated.json",
+      "hash": "843a7a314c2ce9b3212c373f2694b7b166a60b8c1881c6651816c547110ae44a"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/it/diagnosticMessages.generated.json",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/it/diagnosticMessages.generated.json",
+      "hash": "018ff991423a0c2f27f6adabca0bd705ded5ca3406e9cf80b0357d454523e4e6"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/ja/diagnosticMessages.generated.json",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/ja/diagnosticMessages.generated.json",
+      "hash": "8ceafe4cae6fbc9af735427557030269e5419eaed535c923d622967aee2c50f9"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/ko/diagnosticMessages.generated.json",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/ko/diagnosticMessages.generated.json",
+      "hash": "1287462fc976b79a02e82fe4af906004d7d58f7df37b8de54235b77dc5552674"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.d.ts",
+      "hash": "0e6477e5049e579cc5de741a70ac91235252edc0468b2e569f22de9db3357786"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.decorators.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.decorators.d.ts",
+      "hash": "1ce14b81c5cc821994aa8ec1d42b220dd41b27fcc06373bce3958af7421b77d4"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.decorators.legacy.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.decorators.legacy.d.ts",
+      "hash": "b3a048b3e9302ef9a34ef4ebb9aecfb28b66abb3bce577206a79fee559c230da"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.dom.asynciterable.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.dom.asynciterable.d.ts",
+      "hash": "7f57fc4404ff020bc45b9c620aff2b40f700b95fe31164024c453a5e3c163c54"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.dom.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.dom.d.ts",
+      "hash": "d6b1eba8496bdd0eed6fc8a685768fe01b2da4a0388b5fe7df558290bffcf32f"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.dom.iterable.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.dom.iterable.d.ts",
+      "hash": "7f57fc4404ff020bc45b9c620aff2b40f700b95fe31164024c453a5e3c163c54"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2015.collection.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2015.collection.d.ts",
+      "hash": "105ba8ff7ba746404fe1a2e189d1d3d2e0eb29a08c18dded791af02f29fb4711"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2015.core.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2015.core.d.ts",
+      "hash": "eadcffda2aa84802c73938e589b9e58248d74c59cb7fcbca6474e3435ac15504"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2015.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2015.d.ts",
+      "hash": "3f88bedbeb09c6f5a6645cb24c7c55f1aa22d19ae96c8e6959cbd8b85a707bc6"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2015.generator.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2015.generator.d.ts",
+      "hash": "00343ca5b2e3d48fa5df1db6e32ea2a59afab09590274a6cccb1dbae82e60c7c"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2015.iterable.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2015.iterable.d.ts",
+      "hash": "ebd9f816d4002697cb2864bea1f0b70a103124e18a8cd9645eeccc09bdf80ab4"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2015.promise.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2015.promise.d.ts",
+      "hash": "2c1afac30a01772cd2a9a298a7ce7706b5892e447bb46bdbeef720f7b5da77ad"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2015.proxy.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2015.proxy.d.ts",
+      "hash": "7b0225f483e4fa685625ebe43dd584bb7973bbd84e66a6ba7bbe175ee1048b4f"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2015.reflect.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2015.reflect.d.ts",
+      "hash": "c0a4b8ac6ce74679c1da2b3795296f5896e31c38e888469a8e0f99dc3305de60"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2015.symbol.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2015.symbol.d.ts",
+      "hash": "3084a7b5f569088e0146533a00830e206565de65cae2239509168b11434cd84f"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts",
+      "hash": "c5079c53f0f141a0698faa903e76cb41cd664e3efb01cc17a5c46ec2eb0bef42"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2016.array.include.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2016.array.include.d.ts",
+      "hash": "32cafbc484dea6b0ab62cf8473182bbcb23020d70845b406f80b7526f38ae862"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2016.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2016.d.ts",
+      "hash": "7fe93b39b810eadd916be8db880dd7f0f7012a5cc6ffb62de8f62a2117fa6f1f"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2016.full.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2016.full.d.ts",
+      "hash": "19adadff5144f8f89fef0a10b299d7a96206f4913d4c17d4864171320e9edbd6"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2016.intl.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2016.intl.d.ts",
+      "hash": "fca4cdcb6d6c5ef18a869003d02c9f0fd95df8cfaf6eb431cd3376bc034cad36"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2017.arraybuffer.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2017.arraybuffer.d.ts",
+      "hash": "b93ec88115de9a9dc1b602291b85baf825c85666bf25985cc5f698073892b467"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2017.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2017.d.ts",
+      "hash": "bb0074cc08b84a2374af33d8bf044b80851ccc9e719a5e202eacf40db2c31600"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2017.date.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2017.date.d.ts",
+      "hash": "f5c06dcc3fe849fcb297c247865a161f995cc29de7aa823afdd75aaaddc1419b"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2017.full.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2017.full.d.ts",
+      "hash": "83635f912d414d0c5a855fba3e18418e9db7e73c2e0e170009c48275cc8c1a36"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2017.intl.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2017.intl.d.ts",
+      "hash": "c7b3542146734342e440a84b213384bfa188835537ddbda50d30766f0593aff9"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2017.object.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2017.object.d.ts",
+      "hash": "b77e16112127a4b169ef0b8c3a4d730edf459c5f25fe52d5e436a6919206c4d7"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2017.sharedmemory.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2017.sharedmemory.d.ts",
+      "hash": "fbffd9337146eff822c7c00acbb78b01ea7ea23987f6c961eba689349e744f8c"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2017.string.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2017.string.d.ts",
+      "hash": "a995c0e49b721312f74fdfb89e4ba29bd9824c770bbb4021d74d2bf560e4c6bd"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2017.typedarrays.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2017.typedarrays.d.ts",
+      "hash": "ce6180fa19b1cccd07ee7f7dbb9a367ac19c0ed160573e4686425060b6df7f57"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2018.asyncgenerator.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2018.asyncgenerator.d.ts",
+      "hash": "3f02e2476bccb9dbe21280d6090f0df17d2f66b74711489415a8aa4df73c9675"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2018.asynciterable.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2018.asynciterable.d.ts",
+      "hash": "45e3ab34c1c013c8ab2dc1ba4c80c780744b13b5676800ae2e3be27ae862c40c"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2018.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2018.d.ts",
+      "hash": "1a7daebe4f45fb03d9ec53d60008fbf9ac45a697fdc89e4ce218bc94b94f94d6"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2018.full.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2018.full.d.ts",
+      "hash": "63787dbe04141f5d3ebce2e08b64bc9bba589beb0a4d22e7994d3005af1e48a6"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2018.intl.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2018.intl.d.ts",
+      "hash": "805c86f6cca8d7702a62a844856dbaa2a3fd2abef0536e65d48732441dde5b5b"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2018.promise.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2018.promise.d.ts",
+      "hash": "e42e397f1a5a77994f0185fd1466520691456c772d06bf843e5084ceb879a0ad"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2018.regexp.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2018.regexp.d.ts",
+      "hash": "f4c2b41f90c95b1c532ecc874bd3c111865793b23aebcc1c3cbbabcd5d76ffb0"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2019.array.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2019.array.d.ts",
+      "hash": "ab26191cfad5b66afa11b8bf935ef1cd88fabfcb28d30b2dfa6fad877d050332"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2019.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2019.d.ts",
+      "hash": "f94b133a3cb14a288803be545ac2683e0d0ff6661bcd37e31aaaec54fc382aed"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2019.full.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2019.full.d.ts",
+      "hash": "e3de8409485b0c198a5a075bd4a1d06d8f42dc52b377709d33b131b97de56456"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2019.intl.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2019.intl.d.ts",
+      "hash": "689da16f46e647cef0d64b0def88910e818a5877ca5379ede156ca3afb780ac3"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2019.object.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2019.object.d.ts",
+      "hash": "2088bc26531e38fb05eedac2951480db5309f6be3fa4a08d2221abb0f5b4200d"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2019.string.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2019.string.d.ts",
+      "hash": "cb9d366c425fea79716a8fb3af0d78e6b22ebbab3bd64d25063b42dc9f531c1e"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2019.symbol.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2019.symbol.d.ts",
+      "hash": "500934a8089c26d57ebdb688fc9757389bb6207a3c8f0674d68efa900d2abb34"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2020.bigint.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2020.bigint.d.ts",
+      "hash": "bc21cc8b6fee4f4c2440d08035b7ea3c06b3511314c8bab6bef7a92de58a2593"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2020.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2020.d.ts",
+      "hash": "f59d0650799f8782fd74cf73c19223730c6d1b9198671b1c5b3a38e1188b5953"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2020.date.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2020.date.d.ts",
+      "hash": "7ca53d13d2957003abb47922a71866ba7cb2068f8d154877c596d63c359fed25"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2020.full.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2020.full.d.ts",
+      "hash": "577cc49be1979782a5a695b46049566d123e2a75382f10bb82f2e5c87e29059a"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2020.intl.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2020.intl.d.ts",
+      "hash": "48915f327cd1dea4d7bd358d9dc7732f58f9e1626a29cc0c05c8c692419d9bb7"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2020.number.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2020.number.d.ts",
+      "hash": "b7bf9377723203b5a6a4b920164df22d56a43f593269ba6ae1fdc97774b68855"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2020.promise.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2020.promise.d.ts",
+      "hash": "54725f8c4df3d900cb4dac84b64689ce29548da0b4e9b7c2de61d41c79293611"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2020.sharedmemory.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2020.sharedmemory.d.ts",
+      "hash": "e5594bc3076ac29e6c1ebda77939bc4c8833de72f654b6e376862c0473199323"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2020.string.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2020.string.d.ts",
+      "hash": "2f3eb332c2d73e729f3364fcc0c2b375e72a121e8157d25a82d67a138c83a95c"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2020.symbol.wellknown.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2020.symbol.wellknown.d.ts",
+      "hash": "6f4427f9642ce8d500970e4e69d1397f64072ab73b97e476b4002a646ac743b1"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2021.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2021.d.ts",
+      "hash": "8a15b4607d9a499e2dbeed9ec0d3c0d7372c850b2d5f1fb259e8f6d41d468a84"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2021.full.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2021.full.d.ts",
+      "hash": "e4a70ead7fea07d9abe520cc9e30c04ac035ebceaab28f9e67211610006c65de"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2021.intl.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2021.intl.d.ts",
+      "hash": "a917a49ac94cd26b754ab84e113369a75d1a47a710661d7cd25e961cc797065f"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2021.promise.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2021.promise.d.ts",
+      "hash": "db9709688f82c9e5f65a119c64d835f906efe5f559d08b11642d56eb85b79357"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2021.string.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2021.string.d.ts",
+      "hash": "4b25b8c874acd1a4cf8444c3617e037d444d19080ac9f634b405583fd10ce1f7"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2021.weakref.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2021.weakref.d.ts",
+      "hash": "37be57d7c90cf1f8112ee2636a068d8fd181289f82b744160ec56a7dc158a9f5"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2022.array.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2022.array.d.ts",
+      "hash": "6d3261badeb7843d157ef3e6f5d1427d0eeb0af0cf9df84a62cfd29fd47ac86e"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2022.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2022.d.ts",
+      "hash": "26e0fe14baee4e127f4365d1ae0b276f400562e45e19e35fd2d4c296684715e6"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2022.error.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2022.error.d.ts",
+      "hash": "195daca651dde22f2167ac0d0a05e215308119a3100f5e6268e8317d05a92526"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2022.full.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2022.full.d.ts",
+      "hash": "01a30f9e8582b369075c0808df71121e6855cb06fd8d3d39511d9ebb66405205"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2022.intl.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2022.intl.d.ts",
+      "hash": "8b11e4285cd2bb164a4dc09248bdec69e9842517db4ca47c1ba913011e44ff2f"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2022.object.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2022.object.d.ts",
+      "hash": "0508571a52475e245b02bc50fa1394065a0a3d05277fbf5120c3784b85651799"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2022.regexp.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2022.regexp.d.ts",
+      "hash": "fc611fea8d30ea72c6bbfb599c9b4d393ce22e2f5bfef2172534781e7d138104"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2022.string.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2022.string.d.ts",
+      "hash": "8f9af488f510c3015af3cc8c267a9e9d96c4dd38a1fdff0e11dc5a544711415b"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2023.array.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2023.array.d.ts",
+      "hash": "0bd714129fca875f7d4c477a1a392200b0bcd13fb2e80928cd334b63830ea047"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2023.collection.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2023.collection.d.ts",
+      "hash": "e2c9037ae6cd2c52d80ceef0b3c5ffdb488627d71529cf4f63776daf11161c9a"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2023.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2023.d.ts",
+      "hash": "1e9332c23e9a907175e0ffc6a49e236f97b48838cc8aec9ce7e4cec21e544b65"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2023.full.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2023.full.d.ts",
+      "hash": "821bd6049b8f96b9d24c9fbc49b542dcf7a80d76f9efb330b5ef32c373af83d4"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2023.intl.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2023.intl.d.ts",
+      "hash": "135d5cf4d345f59f1a9caadfafcd858d3d9cc68290db616cc85797224448cccc"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2024.arraybuffer.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2024.arraybuffer.d.ts",
+      "hash": "bc238c3f81c2984751932b6aab223cd5b830e0ac6cad76389e5e9d2ffc03287d"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2024.collection.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2024.collection.d.ts",
+      "hash": "4a07f9b76d361f572620927e5735b77d6d2101c23cdd94383eb5b706e7b36357"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2024.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2024.d.ts",
+      "hash": "3753fbc1113dc511214802a2342280a8b284ab9094f6420e7aa171e868679f91"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2024.full.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2024.full.d.ts",
+      "hash": "b9f65879de79a7647ad2e5b8089277c215911fa99d4b858d78014df6ba2852f3"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2024.object.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2024.object.d.ts",
+      "hash": "7c4e8dc6ab834cc6baa0227e030606d29e3e8449a9f67cdf5605ea5493c4db29"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2024.promise.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2024.promise.d.ts",
+      "hash": "de7ba0fd02e06cd9a5bd4ab441ed0e122735786e67dde1e849cced1cd8b46b78"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2024.regexp.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2024.regexp.d.ts",
+      "hash": "6148e4e88d720a06855071c3db02069434142a8332cf9c182cda551adedf3156"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2024.sharedmemory.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2024.sharedmemory.d.ts",
+      "hash": "d63dba625b108316a40c95a4425f8d4294e0deeccfd6c7e59d819efa19e23409"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2024.string.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2024.string.d.ts",
+      "hash": "0568d6befee03dd435bed4fc25c4e46865b24bdcb8c563fdc21f580a2c301904"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2025.collection.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2025.collection.d.ts",
+      "hash": "30d62269b05b584741f19a5369852d5d34895aa2ac4fd948956f886d15f9cc0d"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2025.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2025.d.ts",
+      "hash": "999ca32883495a866aa5737fe1babc764a469e4cde6ee6b136a4b9ae68853e4b"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2025.float16.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2025.float16.d.ts",
+      "hash": "f128dae7c44d8f35ee42e0a437000a57c9f06cc04f8b4fb42eebf44954d53dc8"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2025.full.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2025.full.d.ts",
+      "hash": "e03da518b01b46a4c99a1f88cd727ee98ddf14492c43dae1ae7a63e992971bab"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2025.intl.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2025.intl.d.ts",
+      "hash": "ffbe6d7b295306b2ba88030f65b74c107d8d99bdcf596ea99c62a02f606108b0"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2025.iterator.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2025.iterator.d.ts",
+      "hash": "996fb27b15277369c68a4ba46ed138b4e9e839a02fb4ec756f7997629242fd9f"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2025.promise.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2025.promise.d.ts",
+      "hash": "79b712591b270d4778c89706ca2cfc56ddb8c3f895840e477388f1710dc5eda9"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es2025.regexp.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es2025.regexp.d.ts",
+      "hash": "20884846cef428b992b9bd032e70a4ef88e349263f63aeddf04dda837a7dba26"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es5.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es5.d.ts",
+      "hash": "bcd24271a113971ba9eb71ff8cb01bc6b0f872a85c23fdbe5d93065b375933cd"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.es6.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.es6.d.ts",
+      "hash": "174a0fa01bb60bcb80e09b0b7bdcdddf688891433d6030244df5b44eb9ebd210"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.esnext.array.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.esnext.array.d.ts",
+      "hash": "5fcab789c73a97cd43828ee3cc94a61264cf24d4c44472ce64ced0e0f148bdb2"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.esnext.collection.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.esnext.collection.d.ts",
+      "hash": "db59a81f070c1880ad645b2c0275022baa6a0c4f0acdc58d29d349c6efcf0903"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.esnext.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.esnext.d.ts",
+      "hash": "17f13ecb98cbc39243f2eee1f16d45cd8ec4706b03ee314f1915f1a8b42f6984"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.esnext.date.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.esnext.date.d.ts",
+      "hash": "673294292640f5722b700e7d814e17aaf7d93f83a48a2c9b38f33cbc940ad8b0"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.esnext.decorators.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.esnext.decorators.d.ts",
+      "hash": "d786b48f934cbca483b3c6d0a798cb43bbb4ada283e76fb22c28e53ae05b9e69"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.esnext.disposable.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.esnext.disposable.d.ts",
+      "hash": "1ecb8e347cb6b2a8927c09b86263663289418df375f5e68e11a0ae683776978f"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.esnext.error.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.esnext.error.d.ts",
+      "hash": "142efd4ce210576f777dc34df121777be89eda476942d6d6663b03dcb53be3ff"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.esnext.full.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.esnext.full.d.ts",
+      "hash": "ef4a897cd2a3f91000c10264e400b3667c7e51e1b7365f03b62e8081dc53bde6"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.esnext.intl.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.esnext.intl.d.ts",
+      "hash": "379bc41580c2d774f82e828c70308f24a005b490c25ba34d679d84bcf05c3d9d"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.esnext.sharedmemory.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.esnext.sharedmemory.d.ts",
+      "hash": "ed484fb2aa8a1a23d0277056ec3336e0a0b52f9b8d6a961f338a642faf43235d"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.esnext.temporal.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.esnext.temporal.d.ts",
+      "hash": "4ffedae1d1c2d53fdbca1c96d3c7dda544281f7d262f99b6880634f8fd8d9820"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.esnext.typedarrays.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.esnext.typedarrays.d.ts",
+      "hash": "83a730b125d477dd264df8ba479afab27a3dae7152b005c214ab94dc7ee44fd3"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.scripthost.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.scripthost.d.ts",
+      "hash": "f13f4b465c99041e912db5c44129a94588e1aafee35a50eab51044833f50b4ee"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.webworker.asynciterable.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.webworker.asynciterable.d.ts",
+      "hash": "7f57fc4404ff020bc45b9c620aff2b40f700b95fe31164024c453a5e3c163c54"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.webworker.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.webworker.d.ts",
+      "hash": "d52ed68e7eb5881768a55713c9b5c7c443e6b46de15c04e348928b8efd20b110"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.webworker.importscripts.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.webworker.importscripts.d.ts",
+      "hash": "2a2de5b9459b3fc44decd9ce6100b72f1b002ef523126c1d3d8b2a4a63d74d78"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/lib.webworker.iterable.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/lib.webworker.iterable.d.ts",
+      "hash": "7f57fc4404ff020bc45b9c620aff2b40f700b95fe31164024c453a5e3c163c54"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/pl/diagnosticMessages.generated.json",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/pl/diagnosticMessages.generated.json",
+      "hash": "6b01538b70a7b5198df4fd73bad0b73b2dc677612840b1e57b689889d1af675c"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/pt-br/diagnosticMessages.generated.json",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/pt-br/diagnosticMessages.generated.json",
+      "hash": "bbe1683efe1d0fa34397a19d89685925f58fd2aa44078bdd35dc4d8431b23b54"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/ru/diagnosticMessages.generated.json",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/ru/diagnosticMessages.generated.json",
+      "hash": "6d74ebb94f11a576ad58c7b798f3fd5d56af31ae96e5f8faeb34560ddb7f76a6"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/tr/diagnosticMessages.generated.json",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/tr/diagnosticMessages.generated.json",
+      "hash": "cfad8d7530b1b75f4724bd3fa2aeadff2b7b981e5e7211b1eaa606506745c237"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/tsc.js",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/tsc.js",
+      "hash": "2cffde0b8c6760dfb0b5b0382bbb7e00ba6a8b2d981b9205b256a700a481d983"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/tsserver.js",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/tsserver.js",
+      "hash": "e3ccfeec65ec5c470b8ffc5611878a31182650c7e8a062c38a719f83b523edcb"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/tsserverlibrary.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/tsserverlibrary.d.ts",
+      "hash": "cee9e9bf9a8f67388ee878afd5e172189421bae6625076b774d68563d036fbfd"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/tsserverlibrary.js",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/tsserverlibrary.js",
+      "hash": "6a0b343fa3a3f53cf198c83a18035c104b6990b2a260272654f9a6b2f2380fdf"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/typescript.d.ts",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/typescript.d.ts",
+      "hash": "c967e03c8dbb4770f7e2f0b71b5d13593de679a41cc2b60266c4b69f1342a263"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/typescript.js",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/typescript.js",
+      "hash": "569177652966bd528c319171c7dd22860dbf72bde116cbc4f644f1d02bb12e39"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/typesMap.json",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/typesMap.json",
+      "hash": "4143fb8b1c5d4421dfa19a4b80ddf2da375fc0835a349c3b18519fda5955e1d9"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/typingsInstaller.js",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/typingsInstaller.js",
+      "hash": "2d48a038523ea7c626fa2796a30fa5fdc07612ea5fab83544423009d7683a213"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/watchGuard.js",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/watchGuard.js",
+      "hash": "008f2ceb504ee9b8c5d47054d43033e1ec3f2fef03f18d8aa1b2dd70cba6fc88"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/zh-cn/diagnosticMessages.generated.json",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/zh-cn/diagnosticMessages.generated.json",
+      "hash": "2c30286e82999f53b4dd4f563bbb720d787b79d5f34b8cb404c5ebbb1b858cb5"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/lib/zh-tw/diagnosticMessages.generated.json",
+      "targetRelative": ".agents/tools/node_modules/typescript/lib/zh-tw/diagnosticMessages.generated.json",
+      "hash": "166a9c81707df25d337216b1a7d196b268f247430773b832259d3ae8b306bb65"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/LICENSE.txt",
+      "targetRelative": ".agents/tools/node_modules/typescript/LICENSE.txt",
+      "hash": "a7d00bfd54525bc694b6e32f64c7ebcf5e6b7ae3657be5cc12767bce74654a47"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/package.json",
+      "targetRelative": ".agents/tools/node_modules/typescript/package.json",
+      "hash": "9332e97c30d3e53ed54910b89207ed657fb444066484df6e5b6965bf130865e9"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/README.md",
+      "targetRelative": ".agents/tools/node_modules/typescript/README.md",
+      "hash": "73147458477d90cd6236627cdd9b0871df12e6e8a21d2d0fda6d1ad2826bdc0e"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/SECURITY.md",
+      "targetRelative": ".agents/tools/node_modules/typescript/SECURITY.md",
+      "hash": "cec829e06ab53bb27e96fa6dcd8daa2b6cc4a6cc08b00ff5965fac1cbb54f7f1"
+    },
+    {
+      "sourceRelative": "node_modules/typescript/ThirdPartyNoticeText.txt",
+      "targetRelative": ".agents/tools/node_modules/typescript/ThirdPartyNoticeText.txt",
+      "hash": "1af3c68039c57e539422da82a4faada506ce6d0ea6f90e0b699d02dbcdb7a90c"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/agent.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/agent.d.ts",
+      "hash": "a70af845a2eb9dd6e2723e319e14ea7fb28b129ec1361c21509b49305448c323"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/api.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/api.d.ts",
+      "hash": "8aee8b6d4f9f62cf3776cda1305fb18763e2aade7e13cea5bbe699112df85214"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/balanced-pool.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/balanced-pool.d.ts",
+      "hash": "4d327f7d72ad0918275cea3eee49a6a8dc8114ae1d5b7f3f5d0774de75f7439a"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/cache-interceptor.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/cache-interceptor.d.ts",
+      "hash": "98498b101803bb3dde9f76a56e65c14b75db1cc8bec5f4db72be541570f74fc5"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/cache.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/cache.d.ts",
+      "hash": "c46e079fe54c76f95c67fb89081b3e399da2c7d109e7dca8e4b58d83e332e605"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/client-stats.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/client-stats.d.ts",
+      "hash": "68834d631c8838c715f225509cfc3927913b9cc7a4870460b5b60c8dbdb99baf"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/client.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/client.d.ts",
+      "hash": "829bc57ee8f287b490ab5bbc5a962fca57e432c1e38ec680ecd3ecaf12800613"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/connector.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/connector.d.ts",
+      "hash": "14e9acf826baba0ef4b5665704084896e7bcc06f65a9ab13af7e93d27d6b7069"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/content-type.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/content-type.d.ts",
+      "hash": "2e85db9e6fd73cfa3d7f28e0ab6b55417ea18931423bd47b409a96e4a169e8e6"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/cookies.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/cookies.d.ts",
+      "hash": "59af37caec41ecf7b2e76059c9672a49e682c1a2aa6f9d7dc78878f53aa284d6"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/diagnostics-channel.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/diagnostics-channel.d.ts",
+      "hash": "12950411eeab8563b349cb7959543d92d8d02c289ed893d78499a19becb5a8cc"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/dispatcher.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/dispatcher.d.ts",
+      "hash": "3a3ff14da53d5013f3e6d8c4ad55225e3649c08786c4421ce639c00d8d589b7d"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/dispatcher1-wrapper.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/dispatcher1-wrapper.d.ts",
+      "hash": "b53dc572d4f187904207ae1166652de47aab8eeb00c254d009cb226863076b56"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/env-http-proxy-agent.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/env-http-proxy-agent.d.ts",
+      "hash": "80aae6afc67faa5ac0b32b5b8bc8cc9f7fa299cff15cf09cc2e11fd28c6ae29e"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/errors.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/errors.d.ts",
+      "hash": "eec76bf6b9346f3f95fa402621b889489e96930e72295b0369022f332e9b4a6a"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/eventsource.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/eventsource.d.ts",
+      "hash": "adf27937dba6af9f08a68c5b1d3fce0ca7d4b960c57e6d6c844e7d1a8e53adae"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/fetch.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/fetch.d.ts",
+      "hash": "3ac40516c33b87f751f7507346933081a26cdb8a3e11a6b3aa07d23f803c85db"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/formdata.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/formdata.d.ts",
+      "hash": "615754924717c0b1e293e083b83503c0a872717ad5aa60ed7f1a699eb1b4ea5c"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/global-dispatcher.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/global-dispatcher.d.ts",
+      "hash": "ea6bc8de8b59f90a7a3960005fd01988f98fd0784e14bc6922dde2e93305ec7d"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/global-origin.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/global-origin.d.ts",
+      "hash": "36107995674b29284a115e21a0618c4c2751b32a8766dd4cb3ba740308b16d59"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/h2c-client.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/h2c-client.d.ts",
+      "hash": "e8a9dfa4c75ef6d25df8b40eaa9c31e0a69452aaf2ced4a3f4215dbdbaa876f4"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/handlers.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/handlers.d.ts",
+      "hash": "d243db6b25788f439e7e2f03c05688e92f46764351673bb0e7b2f3631232e186"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/header.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/header.d.ts",
+      "hash": "88809d6c1b9c78d04a133646a6feb926def05a8774c308c7c93bc32ee163d271"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/index.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/index.d.ts",
+      "hash": "e99963ae1e3a48ca7a7958c02f3e88bb963eb7978c28b68ae6b8c9f03309d83c"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/interceptors.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/interceptors.d.ts",
+      "hash": "7cb4f431a4591b0e23002bed805dc871a874dfed6b9a3994dce68a6df73e6739"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/LICENSE",
+      "targetRelative": ".agents/tools/node_modules/undici-types/LICENSE",
+      "hash": "a6db8096b2707bc0102d256917d4d33f298ba36d8c3f25de067a2b5bb379db27"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/mock-agent.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/mock-agent.d.ts",
+      "hash": "9666f2f84b985b62400d2e5ab0adae9ff44de9b2a34803c2c5bd3c8325b17dc0"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/mock-call-history.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/mock-call-history.d.ts",
+      "hash": "0b6e25234b4eec6ed96ab138d96eb70b135690d7dd01f3dd8a8ab291c35a683a"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/mock-client.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/mock-client.d.ts",
+      "hash": "40cd35c95e9cf22cfa5bd84e96408b6fcbca55295f4ff822390abb11afbc3dca"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/mock-errors.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/mock-errors.d.ts",
+      "hash": "40b463c6766ca1b689bfcc46d26b5e295954f32ad43e37ee6953c0a677e4ae2b"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/mock-interceptor.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/mock-interceptor.d.ts",
+      "hash": "0a60a292b89ca7218b8616f78e5bbd1c96b87e048849469cccb4355e98af959a"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/mock-pool.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/mock-pool.d.ts",
+      "hash": "b1616b8959bf557feb16369c6124a97a0e74ed6f49d1df73bb4b9ddf68acf3f3"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/package.json",
+      "targetRelative": ".agents/tools/node_modules/undici-types/package.json",
+      "hash": "fe5de6d50b3e426af5bbe08b9d83b6b3c5106d639ec28e5b90c79bfb1d7cddab"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/patch.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/patch.d.ts",
+      "hash": "addf417b9eb3f938fddf8d81e96393a165e4be0d4a8b6402292f9c634b1cb00d"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/pool-stats.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/pool-stats.d.ts",
+      "hash": "914a0ae30d96d71915fc519ccb4efbf2b62c0ddfb3a3fc6129151076bc01dc60"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/pool.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/pool.d.ts",
+      "hash": "38004e6801340cb890afb8cb5a9fc8972297e7f88ab94026e4b0b3c61fb32f8a"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/proxy-agent.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/proxy-agent.d.ts",
+      "hash": "9ac977503f15bf13ca7c82ad9a32a782f42d43e474824e8b3bffe228fd5f2639"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/readable.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/readable.d.ts",
+      "hash": "156a859e21ef3244d13afeeba4e49760a6afa035c149dda52f0c45ea8903b338"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/README.md",
+      "targetRelative": ".agents/tools/node_modules/undici-types/README.md",
+      "hash": "c8cced6ec588c55b07e35733258cb7d6b63e3426ee7490aa9267aab4bda0fb20"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/retry-agent.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/retry-agent.d.ts",
+      "hash": "499e5b055a5aba1e1998f7311a6c441a369831c70905cc565ceac93c28083d53"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/retry-handler.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/retry-handler.d.ts",
+      "hash": "f473cd2288991ff3221165dcf73cd5d24da30391f87e85b3dd4d0450c787a391"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/round-robin-pool.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/round-robin-pool.d.ts",
+      "hash": "149f9a9e7f04e67afa0e2a49fc0ff421035c01d6b793cfcae7d2e9f6819431e2"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/snapshot-agent.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/snapshot-agent.d.ts",
+      "hash": "f501234c5aeeeb5d7659412335227466aaacf30b952372d60afeb21c02c96348"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/socks5-proxy-agent.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/socks5-proxy-agent.d.ts",
+      "hash": "8b91ff5bb912be3ea213cbcf0075aace1f5d4ff249a0d227ed673868cb7bfabc"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/util.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/util.d.ts",
+      "hash": "5d0375ca7310efb77e3ef18d068d53784faf62705e0ad04569597ae0e755c401"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/utility.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/utility.d.ts",
+      "hash": "cdcf9ea426ad970f96ac930cd176d5c69c6c24eebd9fc580e1572d6c6a88f62c"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/webidl.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/webidl.d.ts",
+      "hash": "9d8e1ed7d67b6fde015da61316157b18cb84518cccc95da7e5545c1ab74a955b"
+    },
+    {
+      "sourceRelative": "node_modules/undici-types/websocket.d.ts",
+      "targetRelative": ".agents/tools/node_modules/undici-types/websocket.d.ts",
+      "hash": "436d7b4543b340b0f3eef4310d524242e41369b9652aa9c70428767c4dcac455"
+    },
+    {
+      "sourceRelative": "package-lock.json",
+      "targetRelative": ".agents/tools/package-lock.json",
+      "hash": "c9866c6b0c342f82a8f2b99ddcfa8e9cc50c492aefab8477ac416c07022d8b0f"
+    },
+    {
+      "sourceRelative": "package.json",
+      "targetRelative": ".agents/tools/package.json",
+      "hash": "c6afae30c14ac61658e68ef8697c880e8e7062b8d6e46d5b5c3e916074900893"
+    }
+  ]
+}

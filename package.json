@@ -2,15 +2,12 @@
   "name": "simple-skills",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
+  "type": "commonjs",
   "bin": {
-    "cli": "./dist/cli.js"
+    "simple-skills": "./index.js"
   },
   "scripts": {
-    "build": "rolldown -c",
-    "typecheck": "tsc --noEmit",
-    "check": "npm run typecheck && npm run build",
-    "install-self": "node dist/cli.js install --force ."
+   "install": "node index.js"
   },
   "devDependencies": {
     "@types/node": "^26.1.0",

@@ -169,3 +169,8 @@ Business Analyst dùng cùng vòng đời Developer nhưng nhấn mạnh:
 - Tài liệu quy trình.
 - Design/spec.
 - Data sources như database, SQL, Excel, CSV nếu task cần.
+
+
+### Tham khảo
+
+- [design-system.md](design-system.md)

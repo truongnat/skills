@@ -3,12 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "type": "commonjs",
-  "bin": {
-    "simple-skills": "./index.js"
-  },
-  "scripts": {
-   "install": "node index.js"
-  },
   "devDependencies": {
     "@types/node": "^26.1.0",
     "rolldown": "^1.1.4",

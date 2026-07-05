@@ -51,7 +51,8 @@ for skill_path in "${SOURCE}"/skills/*/; do
   cp -R "${skill_path}." "${TARGET}/.agents/skills/${skill}/"
 done
 
-cp -f "${SOURCE}/docs/design-system.md" "${TARGET}/.agents/design-system.md"
+cp -f "${SOURCE}/docs/DESIGN_SYSTEM.md" "${TARGET}/.agents/DESIGN_SYSTEM.md"
+cp -f "${SOURCE}/docs/TOOLS.md" "${TARGET}/.agents/TOOLS.md"
 cp -f "${SOURCE}/docs/AGENTS.md" "${TARGET}/.agents/AGENTS.md"
 
 echo "Skills installed successfully."

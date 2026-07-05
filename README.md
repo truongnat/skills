@@ -9,7 +9,8 @@ Chạy lệnh trong **thư mục dự án** cần cài skill. Script sẽ tạo 
 ```text
 .agents/
 ├── AGENTS.md
-├── design-system.md
+├── DESIGN_SYSTEM.md
+├── TOOLS.md
 └── skills/
     ├── brainstorming/
     ├── planning/
@@ -65,7 +66,8 @@ install.cmd
 simple-skills/
 ├── docs/
 │   ├── AGENTS.md          # Entrypoint quy tắc chung cho agent
-│   └── design-system.md   # Chuẩn thiết kế artifact
+│   └── DESIGN_SYSTEM.md   # Chuẩn thiết kế artifact
+│   └── TOOLS.md           # Reference tới các công cụ, tools support
 ├── skills/
 │   └── <skill-name>/
 │       └── SKILL.md       # Mô tả skill, workflow, contract

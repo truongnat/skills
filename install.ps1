@@ -49,7 +49,8 @@ try {
         Copy-Item -Path (Join-Path $skill.FullName "*") -Destination $dest -Recurse -Force
     }
 
-    Copy-Item -Path (Join-Path $Source "docs/design-system.md") -Destination ".agents/design-system.md" -Force
+    Copy-Item -Path (Join-Path $Source "docs/DESIGN_SYSTEM.md") -Destination ".agents/DESIGN_SYSTEM.md" -Force
+    Copy-Item -Path (Join-Path $Source "docs/TOOLS.md") -Destination ".agents/TOOLS.md" -Force
     Copy-Item -Path (Join-Path $Source "docs/AGENTS.md") -Destination ".agents/AGENTS.md" -Force
 
     Write-Host "Skills installed successfully."

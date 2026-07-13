@@ -11,7 +11,7 @@ Ensure the agent has the latest, reliable, and safe state before execution.
 
 This skill focuses on:
 
-- Sync session artifacts: `DISCUSSION.md`, `PLAN.md`, `EXECUTION.md`, `REVIEW.md`.
+- Sync session artifacts: DISCUSSION.md, PLAN.md, EXECUTION.md, REVIEW.md.
 - Refresh codebase context at plan-relevant scope.
 - Check workspace and git state.
 - Detect drift between plan and current codebase.
@@ -61,7 +61,7 @@ Do NOT use this skill when:
 Before moving to execution, verify:
 
 - Session path or task context exists.
-- `PLAN.md` or scope is clear.
+- PLAN.md or scope is clear.
 - Workspace exists and is readable.
 - Git repo is initialized if needed.
 - No dirty changes outside scope.
@@ -74,92 +74,75 @@ Before moving to execution, verify:
 
 If readiness is not met: do NOT move to execution. Document blockers and recommend the next step.
 
-## Inputs
-
-- Session path.
-- `DISCUSSION.md`.
-- `PLAN.md`.
-- `EXECUTION.md` if the task is resuming.
-- `REVIEW.md` if returning after review.
-- Current workspace.
-- User constraints.
-- Known affected files.
-- Known verification commands.
-- Git state if available.
-- Dependency files: `package.json`, lockfile, `pyproject.toml`, `go.mod`, etc.
-- Config metadata if relevant and safe to read.
-- Previous assumptions or open questions.
-
-## Outputs
-
-- Sync summary.
-- Observed facts.
-- Inferred context.
-- Drift detected.
-- Dirty changes / conflict state.
-- Dependency/config notes.
-- Sensitive file handling notes.
-- Risks.
-- Blockers.
-- Recommendation / next step.
-- Optional short update to `EXECUTION.md` if the workflow requires it.
-
 ## XML Contract
 
 ```xml
 <Contract>
   <Inputs>Session path, PLAN.md, workspace state, git state, dependency/config metadata, known affected files, user constraints.</Inputs>
-  <Outputs>Sync summary, observed facts, inferred context, drift, dirty changes, risks, blockers, recommended next step.</Outputs>
-  <Artifacts>Short update in EXECUTION.md if workflow requires; no separate file required.</Artifacts>
+  <Outputs>Sync summary with observed facts, inferred context, drift, dirty changes, risks, blockers, recommended next step.</Outputs>
+  <Artifacts>
+    <File name="EXECUTION.md" required="false" update="true">Append sync summary if workflow requires it. Not required for Lite Mode.</File>
+    <File name="SYNC.md" required="false">Optional standalone sync report for Full Mode.</File>
+    <Schema>
+      <summary>
+        <field name="scope" type="string" required="true">What was synced (artifacts, workspace, git, dependencies).</field>
+        <field name="observed_facts" type="array" required="true">List of observed facts with source for each.</field>
+        <field name="inferred_context" type="array" required="false">Inferences with basis and confidence level.</field>
+        <field name="drift_detected" type="array" required="false">Drift items with type, impact, suggested action.</field>
+        <field name="dirty_changes" type="array" required="false">Classified dirty changes with scope check (in-scope/out-of-scope/unknown).</field>
+        <field name="risks_blockers" type="array" required="true">Blockers with type, impact, next action.</field>
+        <field name="recommendation" type="string" required="true">Ready for execution: Yes/No. Suggested next step.</field>
+      </summary>
+    </Schema>
+  </Artifacts>
   <Safety>Read-only by default. Do NOT mutate workspace. Do NOT read secrets or sensitive files without a clear reason. Do NOT run destructive commands. Do NOT auto-resolve conflicts or unrelated dirty changes. Do NOT move to execution when plan is stale or blockers are unhandled.</Safety>
 </Contract>
 ```
 
-## Depth Modes
+## Quality Standards
 
-### Lite Mode
+Sync output must pass these checks:
 
-Use when: task is small, session is fresh, only a quick workspace/git/artifact check is needed, no deep codebase mapping needed, few affected files.
+- [ ] Observed facts have clear sources (file path, command output, user statement).
+- [ ] Inferred context is explicitly separated from observed facts.
+- [ ] Confidence levels (High/Medium/Low) are stated for each inference.
+- [ ] Drift items include type (File/API/Dependency/Config/Test/Scope/Data/Branch).
+- [ ] Dirty changes are classified: in-scope, out-of-scope, unknown ownership.
+- [ ] Blockers state why they block execution and what the next action is.
+- [ ] Recommendation is one of: Ready for execution / Return to planning / Run investigate / Ask user / Resolve workspace / Stop.
 
-### Full Mode
+## WRONG vs CORRECT
 
-Use when: session is old or context may be stale, many affected files, dirty changes, dependency/config drift, complex plan, migration/config/auth/security/data risk, thorough preparation is needed.
+```markdown
+// WRONG — no source, no confidence, vague
+Inferred: The task touches auth.
 
-## Read-only Policy
+// CORRECT — has source, confidence, and basis
+Inferred: The task touches auth login flow (confidence: High).
+Basis: Both PLAN.md and dirty file `src/auth/login.ts` reference the same feature code `RAB07001`.
+```
 
-Sync is read-only by default.
+```markdown
+// WRONG — single line, no classification
+Drift: File was renamed.
 
-Allowed: list relevant files/paths, read session artifacts, read source files relevant to the plan, read metadata files, read git status/diff summary, read dependency manifest at needed scope, read non-sensitive config at needed scope, run read-only commands (status/list/grep/test discovery) if safe.
+// CORRECT — typed, with impact and action
+Drift Type: File Drift
+Impact: Plan references `src/old.ts` but file is now `src/new.ts`. Execution would fail at verification step.
+Action: Update plan file paths or inspect new location before execution.
+```
 
-NOT allowed by default: modify files, format files, install/update dependencies, generate files, delete files, rename files, run migrations, run seeds, change env/config, resolve merge conflicts, checkout/reset/rebase/merge branches, modify lockfiles. If an action may mutate workspace, move to `execution` or ask the user.
+## Edge Cases
 
-## Sensitive File Policy
-
-Do NOT read contents of: `.env`, `.env.*`, `*.pem`, `*.key`, `*.p12`, `*.pfx`, private keys, certificates, credentials, tokens, cloud credential files, SSH keys, database dumps, backup files, production config with secrets, files containing PII or customer data.
-
-Safe to read: file existence, file name, file size, modified time, tracked/ignored status. Do NOT copy sensitive content into artifacts or responses.
-
-## Git State Checks
-
-Check at needed scope: current branch, working tree dirty/clean, staged changes, untracked files, merge/rebase/cherry-pick state, conflict markers, diff summary, changes outside plan scope.
-
-Read-only commands: `git status --short`, `git branch --show-current`, `git diff --name-only`, `git diff --stat`, `git diff --cached --name-only`.
-
-Do NOT auto-run: `git reset`, `git checkout`, `git clean`, `git merge`, `git rebase`, `git stash`, `git add`, `git commit`.
-
-## Dirty Changes Policy
-
-If dirty changes exist:
-1. Classify: in-scope changes, out-of-scope changes, unknown ownership, generated/lockfile changes, conflict-related changes.
-2. If out-of-scope or unknown ownership: do NOT overwrite. Do NOT auto-revert. Document blocker/risk. Ask user or recommend resolution before execution.
-3. If in-scope and belongs to current task: document as observed fact. May continue if no conflict.
-4. If merge conflict: do NOT resolve during sync. Document blocker. Recommend conflict resolution.
-
-## Drift Detection
-
-Drift types: File Drift (plan file renamed/deleted/moved), API Drift (function/interface changed), Dependency Drift (package/runtime version different), Config Drift (config path/key different), Test Drift (test command missing/renamed), Artifact Drift (PLAN.md older than changes), Scope Drift (codebase shows wider/different scope), Data Drift (schema/sample data different), Branch Drift (on wrong branch).
-
-Serious drift must block execution until resolved.
+| Situation | Handling |
+|---|---|
+| No git repo in workspace | Skip git checks, document "not a git repo" as observed fact. |
+| .env file exists but not in plan scope | Do NOT read contents. Note existence as metadata only. |
+| PLAN.md missing for a simple task | If scope is still clear from user's request, proceed in Lite Mode. |
+| Dirty changes with unknown ownership | Block execution. Ask user to confirm ownership or commit/stash first. |
+| Merge conflict markers detected | Block execution. Recommend conflict resolution before proceeding. |
+| Workspace directory does not exist | Block. Cannot proceed without a valid workspace. |
+| User says "skip sync, just do it" | Skip sync, but note the risk of stale context in execution artifact. |
 
 ## Workflow
 
@@ -174,7 +157,7 @@ Serious drift must block execution until resolved.
 9. Map codebase at plan-relevant scope.
 10. Check dependency/config/tooling if plan needs it.
 11. Compare plan with actual state.
-12. Document observed facts.
+12. Document observed facts with sources.
 13. Document inferred context separately from observed facts.
 14. Document drift, risks, and blockers.
 15. Recommend next step.
@@ -190,9 +173,7 @@ Serious drift must block execution until resolved.
 - This skill does NOT guarantee detecting all drift if context is missing.
 - This skill does NOT read secrets or sensitive data without a clear reason and user permission.
 
-<Contract>
-  <Inputs>Session path, PLAN.md, workspace state, git state, dependency/config metadata, known affected files, user constraints.</Inputs>
-  <Outputs>Sync summary: observed facts, inferred context, drift, dirty changes, risks, blockers, recommended next step.</Outputs>
-  <Artifacts>Short update in EXECUTION.md if workflow requires.</Artifacts>
-  <Safety>Read-only by default. Do NOT mutate workspace. Do NOT read secrets. Do NOT run destructive commands. Do NOT auto-resolve conflicts.</Safety>
-</Contract>
+## References
+
+- [Git Status Documentation](https://git-scm.com/docs/git-status)
+- [OWASP Secrets Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html)

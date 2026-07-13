@@ -9,115 +9,78 @@ description: Review changes after execution: bugs, regression, missing tests, se
 
 Evaluate changes after execution before marking done, creating a PR, or handing off.
 
-This skill focuses on:
-
-- Verify changes match goal/scope in the plan.
-- Find actual bugs, regression risks, and missed edge cases.
-- Check missing tests or verification gaps.
-- Check security, auth, permission, secrets, data, and migration risks.
-- Check maintainability, readability, and consistency if there is real impact.
-- Document findings with severity, evidence, and clear recommendations.
-- Document residual risks and testing gaps even when no findings exist.
-- Provide a clear recommendation: ready, ready with risks, or needs fix.
-
-The goal: produce a review with real value, helping decide if changes are safe for done/merge/deploy or need to return to execution.
-
-## When to Use
-
-Use this skill when:
-
-- After execution.
-- Before creating a done report.
-- Before creating a PR message.
-- Before merging or handing off to QA/user.
-- When reviewing a diff, changed files, or artifacts.
-- When `REVIEW.md` is needed.
-- When a quality gate is needed before done.
-- When assessing testing gaps, residual risks, or missed requirements.
-- When the user requests code review without asking you to fix it.
-
-## When NOT to Use
-
-Do NOT use this skill when:
-
-- No changes, diff, or artifacts exist to review.
-- User only needs brainstorming or research.
-- Requirements are unclear and no execution has happened.
-- Immediate implementation/fix is needed; use `execution`.
-- Planning a fix is needed; use `planning`.
-- Reviewing an external pull request under a separate workflow; use `review-pr` if available.
-- User only needs pure style/lint formatting without risk review.
-
 ## XML Contract
 
 ```xml
 <Contract>
-  <Inputs>Diff/file changes, PLAN.md, EXECUTION.md, test/check results, verification evidence, scope/context if available.</Inputs>
-  <Outputs>REVIEW.md or review artifact with scope reviewed, findings, testing gaps, residual risks, open questions, recommendation, handoff.</Outputs>
-  <Artifacts>REVIEW.md in session path if applicable; otherwise, review artifact in response.</Artifacts>
+  <Inputs>Diff/file changes, PLAN.md, EXECUTION.md, test/check results, verification evidence, scope/context.</Inputs>
+  <Outputs>REVIEW.md with scope reviewed, findings, testing gaps, residual risks, recommendation, handoff.</Outputs>
+  <Artifacts>
+    <File name="REVIEW.md" required="true">
+      <Schema>
+        <field name="scope_reviewed" type="string" required="true">What changes were reviewed.</field>
+        <field name="inputs" type="array" required="true">What was read: PLAN.md, EXECUTION.md, diff, test results.</field>
+        <field name="findings" type="array" required="false">Finding ID, severity, category, location, evidence, impact, recommendation, confidence.</field>
+        <field name="requirement_coverage" type="array" required="true">Requirement/task, covered by change? evidence, notes.</field>
+        <field name="verification_reviewed" type="array" required="true">Check, result, evidence, concern.</field>
+        <field name="testing_gaps" type="array" required="false">Gap, risk, suggested follow-up.</field>
+        <field name="residual_risks" type="array" required="false">Risk, impact, acceptance/mitigation.</field>
+        <field name="recommendation" type="string" required="true">Ready / Ready with risks / Needs fix / Blocked / Needs more verification.</field>
+      </Schema>
+    </File>
+  </Artifacts>
   <Safety>Do NOT auto-fix code if user only requested review. Do NOT create findings without evidence. Do NOT claim safe if verification is missing. Do NOT ignore security/data risks when changes touch input, auth, permission, secrets, files, network, DB, or infra.</Safety>
 </Contract>
 ```
 
-## Severity Taxonomy
+## Quality Standards
 
-| Severity | Meaning | Typical Action |
-|---|---|---|
-| Critical | Data loss, secret leak, auth bypass, severe crash, production outage, or security breach. | Must fix before done/merge/deploy. |
-| High | Serious bug, major regression, wrong logic, wrong permission, dangerous migration, missing verification for a high-risk area. | Should fix before done/merge. |
-| Medium | Real bug or risk with narrow scope or a workaround. | Fix soon or explicitly accept risk. |
-| Low | Minor issue that may cause confusion or have a minor maintainability impact. | Fix if cheap or track follow-up. |
-| Info | Non-blocking observation, improvement suggestion, note for reviewer. | Optional follow-up. |
+- [ ] Every finding has severity (Critical/High/Medium/Low/Info).
+- [ ] Every finding has evidence (file path, line, or diff context).
+- [ ] No findings → explicitly state "No findings found" + document residual risks.
+- [ ] Security/data/migration risks checked if changes touch those areas.
+- [ ] Recommendation uses one of: Ready / Ready with risks / Needs fix / Blocked / Needs more verification.
 
-## Finding Categories
+## WRONG vs CORRECT
 
-| Category | Examples |
+```markdown
+// WRONG — vague, no evidence
+Code could be cleaner.
+
+// CORRECT — specific, evidence-based
+Finding H-001: Missing server-side permission check.
+Location: `src/export/export-handler.ts`, no guard before processing request.
+Evidence: UI hides export button, but API endpoint still accepts direct requests.
+Impact: Unauthorized users can export data by calling the endpoint directly.
+Recommendation: Add server-side permission check + negative API test.
+Severity: High
+```
+
+```markdown
+// WRONG — claiming safe without checking
+No security issues found.
+
+// CORRECT — qualified statement
+Security check:
+- Auth: no changes touched auth middleware.
+- Permission: server-side guard not added (Finding H-001).
+- Input: existing validation still in place.
+- Secrets: no new secrets introduced.
+Residual risk: Missing permission check needs to be addressed before merge.
+```
+
+## Edge Cases
+
+| Situation | Handling |
 |---|---|
-| Correctness | Wrong logic, wrong edge case, wrong state, wrong validation. |
-| Regression | Change breaks existing behavior. |
-| Requirement Gap | Does not meet plan, AC, or user request. |
-| Missing Test | No test/verification for critical logic. |
-| Security | Auth, permission, injection, XSS, CSRF, secrets, unsafe file/network. |
-| Data/Migration | Data loss, invalid migration, backward compatibility, wrong mapping. |
-| API/Contract | Breaking API, response shape changes, missing error handling. |
-| UX/Accessibility | Poor flow, wrong error state, accessibility issue with impact. |
-| Performance | Slow query, large bundle increase, unnecessary loop/re-render. |
-| Maintainability | Duplication or overly complex code that creates real bug risk. |
-
-## Workflow
-
-1. Determine if review has enough input.
-2. Choose Lite Mode or Full Mode.
-3. Read `PLAN.md` if available.
-4. Read `EXECUTION.md` if available.
-5. Identify goals/scopes and expected outcomes.
-6. Identify actual changed files/diff/artifacts.
-7. Compare changes against plan and acceptance criteria.
-8. Check correctness and edge cases.
-9. Check regression risk.
-10. Check missing tests and verification gaps.
-11. Check security if changes touch input, auth, secrets, files, network, DB, or infra.
-12. Check data/migration/API compatibility if relevant.
-13. Check maintainability risk with real impact.
-14. Document findings by severity.
-15. If no findings, explicitly state "No findings found."
-16. Document testing gaps.
-17. Document residual risks.
-18. Provide a recommendation: ready, ready with risks, needs fix, or blocked.
-19. Save `REVIEW.md` if Full Mode/session applicable.
+| No review findings | State "No findings found" explicitly. Document residual risks. |
+| User only asks "is this ready?" | Answer with recommendation status — if blocked, explain why. |
+| Review input is incomplete (no diff) | Document limitation in scope. Do NOT claim full review. |
+| Pre-existing issue found during review | Document as info finding. Note it's pre-existing, not introduced. |
+| Security review without enough context | Document as testing gap. Do NOT claim security is safe. |
 
 ## Limitations
 
-- Review does NOT auto-fix code if the user only requested review.
-- Review does NOT replace execution.
-- Review does NOT replace full QA or deep security audit.
-- Review cannot guarantee no remaining bugs if diffs, tests, or context are missing.
-- If fixes are needed, return to `planning` or `execution`.
-- If review input is insufficient, document the limitation instead of over-confidently concluding.
-
-<Contract>
-  <Inputs>Diff/file changes, PLAN.md, EXECUTION.md, test/check result, verification evidence, scope/context.</Inputs>
-  <Outputs>REVIEW.md with scope reviewed, findings, testing gaps, residual risks, recommendation, handoff.</Outputs>
-  <Artifacts>REVIEW.md in session path.</Artifacts>
-  <Safety>Do NOT auto-fix code if user only requested review. Do NOT create findings without evidence. Do NOT ignore security/data risks.</Safety>
-</Contract>
+- Does NOT auto-fix code.
+- Does NOT replace full QA or deep security audit.
+- If fixes are needed, return to planning or execution.

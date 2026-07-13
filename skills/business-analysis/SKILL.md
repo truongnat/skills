@@ -9,95 +9,58 @@ description: Clarify business problems, stakeholder needs, scope, processes, use
 
 Clarify business requirements before planning, technical design, implementation, or testing.
 
-This skill focuses on:
-
-- Business problem.
-- Stakeholders and actors.
-- Current state and desired state.
-- Scope, out-of-scope, and non-goals.
-- User stories and use cases.
-- Business rules.
-- Data sources and data assumptions.
-- Verifiable acceptance criteria.
-- Open questions requiring stakeholder confirmation.
-
-The goal: turn vague input into clear, traceable requirement notes good enough to hand off to planning or implementation.
-
-## When to Use
-
-Use this skill when:
-
-- Business requirements are unclear.
-- User only describes an idea, pain point, or problem.
-- Need to analyze requirements before starting technical work.
-- Need to write user stories, use cases, or functional specs.
-- Need to define scope, non-goals, or feature boundaries.
-- Need to identify business rules.
-- Need to write acceptance criteria.
-- Need to analyze current and desired processes.
-- Need to analyze data sources: Excel, CSV, SQL, API response, or business docs.
-- Need to prepare documentation for stakeholders, PM, dev, or QA.
-
-## When NOT to Use
-
-Do NOT use this skill when:
-
-- Task is purely technical with a clear spec.
-- User only needs code review, debug, or implementation.
-- User needs detailed technical architecture; use technical design or planning.
-- User needs deep external source research; use `research`.
-- User needs UI style, visual concept, or product brainstorming; use the appropriate skill.
-- Input is already a complete requirement and only needs to be turned into implementation tasks.
-
 ## XML Contract
 
 ```xml
 <Contract>
-  <Inputs>User request, business context, existing requirement documents, data samples (Excel, CSV, SQL, JSON, API response), screenshots, bug reports with business factors, stakeholder feedback.</Inputs>
-  <Outputs>Requirement notes: problem statement, stakeholders, current/desired state, scope, non-goals, user stories/use cases, business rules, data assumptions, acceptance criteria, assumptions, open questions, recommended next step.</Outputs>
-  <Safety>Do NOT treat assumptions as requirements. Do NOT decide for stakeholders. Do NOT hide unclear points. Do NOT write vague or untestable acceptance criteria.</Safety>
-</Contract>
-```
-
-## Operating Principles
-
-- Do NOT treat assumptions as requirements.
-- Do NOT decide for stakeholders when information is missing.
-- If information is missing, record it in `Assumptions` or `Open Questions`.
-- Requirements must clearly state actor, behavior, condition, and expected outcome.
-- Acceptance criteria must be verifiable.
-- Business rules should have IDs for traceability to tasks, test cases, or implementation.
-- Scope and non-goals must be separated to prevent scope creep.
-- Data assumptions must document source, owner, validation, and freshness.
-- Do NOT turn BA docs into long essays; prefer bullets, tables, and scannable formats.
-
-## Workflow
-
-1. Restate the business problem.
-2. Identify goals and expected outcomes.
-3. Identify stakeholders and actors.
-4. Identify current state.
-5. Identify desired state.
-6. Identify in-scope, out-of-scope, and non-goals.
-7. Identify user stories or use cases.
-8. Identify business rules.
-9. Identify data sources, required fields, validation, and assumptions.
-10. Write verifiable acceptance criteria.
-11. Separate assumptions from confirmed requirements.
-12. Record open questions for stakeholders.
-13. Recommend next step: brainstorming, planning, technical design, implementation, or QA test design.
-
-## Limitations
-
-- This skill does NOT replace stakeholder decisions.
-- This skill does NOT auto-implement.
-- This skill does NOT auto-confirm business rules without a source.
-- This skill does NOT replace research when deep external sources are needed.
-- This skill does NOT guarantee correct requirements if input is missing or stakeholders have not confirmed.
-- This skill should NOT produce detailed technical architecture; recommend moving to technical design if needed.
-
-<Contract>
-  <Inputs>User request, business context, existing requirements, data samples, screenshots, stakeholder feedback.</Inputs>
+  <Inputs>User request, business context, existing requirements, data samples (Excel, CSV, SQL, JSON, API response), screenshots, stakeholder feedback.</Inputs>
   <Outputs>Requirement notes: problem statement, stakeholders, scope, user stories/use cases, business rules, data assumptions, acceptance criteria, open questions.</Outputs>
   <Safety>Do NOT treat assumptions as requirements. Do NOT decide for stakeholders. Do NOT write vague or untestable acceptance criteria.</Safety>
 </Contract>
+```
+
+## Quality Standards
+
+- [ ] Problem statement is one sentence.
+- [ ] Stakeholders/actors are listed with role and pain point.
+- [ ] Business rules have IDs (BR-001, BR-002) for traceability.
+- [ ] Acceptance criteria use Given/When/Then format.
+- [ ] Assumptions are separated from confirmed requirements.
+- [ ] Open questions have owners (if known) and blocking status.
+
+## WRONG vs CORRECT
+
+```markdown
+// WRONG — vague, untestable
+The system should handle data well.
+
+// CORRECT — specific, testable
+BR-001: Admin users can create, update, deactivate, and export teacher accounts within their assigned school only.
+AC-001: Given an admin user with school assignment X, when they open the teacher list, then only teachers in school X are shown.
+```
+
+```markdown
+// WRONG — assumption presented as fact
+Teacher ID is unique.
+
+// CORRECT — assumption with caveat
+ASM-001: We assume teacher ID is unique within a school year.
+Risk if wrong: Import may merge wrong records.
+Needs confirmation from: Product owner.
+```
+
+## Edge Cases
+
+| Situation | Handling |
+|---|---|
+| Stakeholder feedback contradicts | Document both positions as open questions. Flag for resolution. |
+| Requirement is too vague to write AC | Write best-effort AC. Mark as "needs clarification." |
+| Data sample is inconsistent with description | Document the inconsistency. Recommend confirming which source is correct. |
+| Business rules conflict with each other | Document the conflict. Flag to stakeholder for decision. |
+
+## Limitations
+
+- Does NOT replace stakeholder decisions.
+- Does NOT auto-implement.
+- Does NOT auto-confirm business rules without a source.
+- Does NOT produce technical architecture.

@@ -57,7 +57,7 @@ install.cmd
 
 | Skill | Purpose |
 | --- | --- |
-| `brainstorming` | Clarify goals, scope, trade-offs, and direction before starting |
+| `brainstorming` | Step workflow: seed DISCUSSION template → frame → options → recommend → self-check |
 | `business-analysis` | Clarify business requirements, scope, and process documentation |
 | `basic-design` | System-level design: boundaries, components, flows, interfaces, data ownership |
 | `detail-design` | Implementable design: contracts, data model, sequences, rules/operations (dynamic depth) |

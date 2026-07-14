@@ -1,13 +1,17 @@
 display_name: "Brainstorming"
-short_description: "Clarify goals, scope, constraints, options, trade-offs, risks, and recommendations before basic design, planning, or implementation."
-default_prompt: "Use $brainstorming to clarify goals, scope, constraints, and trade-offs before basic design, planning, or implementation."
-required_input: "Initial request, repo context, existing documents, constraints, current behavior, desired outcome, stakeholder feedback if available."
-required_output: "Light discussion or full DISCUSSION.md with goal, facts, assumptions, unknowns, constraints, scope, options, trade-offs, recommendation, risks, open questions, handoff to next skill."
-note_important: "Do NOT implement code during brainstorming. Do NOT treat assumptions as facts. Do NOT create detailed planning or design before a clear recommendation. Do NOT create large extra artifacts unless requested."
+short_description: "Step workflow: seed DISCUSSION template, then frame → scope/options → recommend → self-check before design/planning."
+default_prompt: "Use $brainstorming: follow steps/step-01-init.md then step-02..05. Copy DISCUSSION.template.md first; do not chat-only."
+required_input: "Initial request, repo context, existing documents, constraints, current behavior, desired outcome, stakeholder feedback if available; session path."
+required_output: "Session DISCUSSION.md seeded from templates/DISCUSSION.template.md and filled via steps/. Incomplete if chat-only or steps skipped."
+note_important: "Do NOT skip step-01-init. Do NOT invent DISCUSSION without copying the template first. Do NOT treat assumptions as facts. Do NOT implement code. Do NOT create PLAN/TASKS or detailed design in this skill. Do NOT claim complete before step-05 self-check."
 artifacts:
   DISCUSSION.md:
     required: true
     schema:
+      source_template:
+        type: string
+        required: true
+        description: "Must be seeded from templates/DISCUSSION.template.md via step-01."
       goal:
         type: string
         required: true
@@ -59,4 +63,4 @@ artifacts:
       handoff:
         type: string
         required: true
-        description: "Suggested next skill: business-analysis, basic-design, planning, research, or execution (Lite skip design when task is small/clear)."
+        description: "Next skill: business-analysis, basic-design, planning, research, or execution."

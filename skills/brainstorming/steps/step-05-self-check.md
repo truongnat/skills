@@ -1,0 +1,26 @@
+# Step 05 — Self-check and handoff
+
+## Goal
+
+Verify `DISCUSSION.md` against the brainstorming contract. Fail closed.
+
+## Checks (run all)
+
+1. Session folder listing shows `DISCUSSION.md`.
+2. File was seeded from template (has expected section headings: Goal, Facts, Scope, Options, Recommendation, Handoff).
+3. Goal is one sentence — not a paragraph.
+4. Facts / assumptions / unknowns are separated (no assumption labeled as fact).
+5. Scope in and scope out both present.
+6. Options matrix has ≥1 real option with verify method.
+7. Recommendation has Choose + Reason + Confidence.
+8. Handoff names one of: business-analysis, basic-design, planning, research, execution.
+9. No PLAN.md/TASKS.md/code changes invented by this skill (unless user explicitly asked outside contract).
+
+## Done when
+
+- [ ] All checks pass **or** blockers documented and handoff says not ready.
+- [ ] User is told next skill and path to `DISCUSSION.md`.
+
+## Stop
+
+Brainstorming ends here. Do **not** auto-run planning/design unless user asks.

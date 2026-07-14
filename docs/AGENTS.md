@@ -46,7 +46,8 @@ Base folder for runtime artifacts: `.agents/sessions/<Task-N-short-description>/
 ### Dev Lifecycle per Task
 
 1. `brainstorming` → `DISCUSSION.md`
-   - Clarify goals, scope, trade-offs, and direction.
+   - Step workflow: seed template → frame → scope/options → recommend → self-check.
+   - Templates: `skills/brainstorming/templates/`; steps: `step-01` … `step-05`.
 2. `business-analysis` (optional) → requirement notes
    - Clarify business rules, AC, and process when needed.
 3. `basic-design` → `BASIC_DESIGN.md`

@@ -1,6 +1,6 @@
 ---
 name: sync
-description: Read-only sync of session artifacts, codebase context, git state, dirty changes, dependency/config drift, plan mismatch, and blockers before execution.
+description: "Read-only sync of session artifacts, codebase context, git state, dirty changes, dependency/config drift, plan mismatch, and blockers before execution. (Hard contract in this SKILL.md — MUST follow.)"
 ---
 
 # Sync
@@ -23,6 +23,40 @@ This skill focuses on:
 - Maintain read-only mode by default.
 
 The goal: avoid executing against stale context, wrong plans, dirty workspaces, drifted dependencies, or outdated assumptions.
+
+## Contract (mandatory)
+
+This skill is a **hard contract**. Obey it before any other action. Do NOT treat as optional. Do NOT skip required artifacts.
+
+| Field | Requirement |
+|-------|-------------|
+| Inputs | Session path, PLAN.md, TASKS.md, workspace state, git state, dependency/config metadata, known affected files, user constraints. |
+| Outputs | Sync summary with observed facts, inferred context, drift, dirty changes, risks, blockers, recommended next step. |
+| Safety | Read-only by default. Do NOT mutate workspace. Do NOT read secrets or sensitive files without a clear reason. Do NOT run destructive commands. Do NOT auto-resolve conflicts or unrelated dirty changes. Do NOT move to execution when PLAN.md or TASKS.md is stale or blockers are unhandled. |
+
+### Required artifacts
+
+#### `EXECUTION.md`
+- Required: no
+- Append sync summary if workflow requires it. Not required for Lite Mode.
+
+#### `SYNC.md`
+- Required: no
+- Optional standalone sync report for Full Mode.
+
+#### `schema`
+- Required: shared (applies to sync report content)
+- **scope** (required, string): What was synced (artifacts, workspace, git, dependencies).
+- **observed_facts** (required, array): List of observed facts with source for each.
+- **inferred_context** (optional, array): Inferences with basis and confidence level.
+- **drift_detected** (optional, array): Drift items with type, impact, suggested action.
+- **dirty_changes** (optional, array): Classified dirty changes with scope check (in-scope/out-of-scope/unknown).
+- **risks_blockers** (required, array): Blockers with type, impact, next action.
+- **recommendation** (required, string): Ready for execution: Yes/No. Suggested next step.
+
+### Reference
+
+`agents/openai.yaml` is a machine-readable duplicate for tooling. The Contract in this SKILL.md is authoritative for agents.
 
 ## When to Use
 
@@ -73,10 +107,6 @@ Before moving to execution, verify:
 - Any blockers require returning to planning or asking the user.
 
 If readiness is not met: do NOT move to execution. Document blockers and recommend the next step.
-
-## XML Contract
-
-See [openai.yaml](./agents/openai.yaml)
 
 ## Quality Standards
 

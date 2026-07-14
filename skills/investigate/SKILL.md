@@ -1,6 +1,6 @@
 ---
 name: investigate
-description: Investigate codebase, bugs, system behavior, or technical questions before implementing. Root-cause analysis, reproduction, impact mapping, and evidence-based recommendations.
+description: "Investigate codebase, bugs, system behavior, or technical questions before implementing. Root-cause analysis, reproduction, impact mapping, and evidence-based recommendations. (Hard contract in this SKILL.md — MUST follow.)"
 ---
 
 # Investigate
@@ -9,9 +9,37 @@ description: Investigate codebase, bugs, system behavior, or technical questions
 
 Find technical truth before deciding to fix, plan, or implement.
 
-## XML Contract
+## Contract (mandatory)
 
-See [openai.yaml](./agents/openai.yaml)
+This skill is a **hard contract**. Obey it before any other action. Do NOT treat as optional. Do NOT skip required artifacts.
+
+| Field | Requirement |
+|-------|-------------|
+| Inputs | Problem description, expected/actual behavior, logs/errors/reproduction, codebase context, environment details. |
+| Outputs | INVESTIGATE.md with question, status, evidence, reproduction, observed facts, hypotheses, code path, impact map, root cause, recommendation, open questions. |
+| Safety | Read-only by default. Do NOT modify code unless requested. Do NOT run destructive commands. Do NOT read secrets without a clear reason. Do NOT claim root cause when evidence is insufficient. |
+
+### Required artifacts
+
+#### `INVESTIGATE.md`
+- Required: yes
+- **question** (required, string): The investigation question.
+- **status** (required, string): Root Cause Confirmed / Likely Root Cause / Hypotheses Identified / Needs More Evidence / Blocked.
+- **context** (optional, string): Environment, version, related setup.
+- **evidence** (required, array): Evidence ID, source, observation, supports hypothesis?, confidence.
+- **reproduction** (optional, array): Step, action, expected, actual, result.
+- **observed_facts** (required, array): Fact with source.
+- **hypotheses** (optional, array): Hypothesis, supporting evidence, counter evidence, verification method, confidence.
+- **code_path** (optional, array): Layer, file/component, role, observation.
+- **root_cause** (optional, string): Confirmed or likely root cause.
+- **impact** (required, array): Area affected, impact, confidence.
+- **recommendation** (required, string): Fix recommendation / workaround / next investigation.
+- **open_questions** (optional, array): Question, owner, blocking status.
+- **handoff** (required, string): Ready for planning? Ready for execution? Suggested next skill.
+
+### Reference
+
+`agents/openai.yaml` is a machine-readable duplicate for tooling. The Contract in this SKILL.md is authoritative for agents.
 
 ## Quality Standards
 

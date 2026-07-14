@@ -1,6 +1,6 @@
 ---
 name: basic-design
-description: Turn an approved DISCUSSION.md direction into system-level design — boundaries, components, flows, interfaces, and data ownership — before detail design or planning. Domain-agnostic; omit unused sections.
+description: "Turn an approved DISCUSSION.md direction into system-level design — boundaries, components, flows, interfaces, and data ownership — before detail design or planning. Domain-agnostic; omit unused sections. (Hard contract in this SKILL.md — MUST follow.)"
 ---
 
 # Basic Design
@@ -30,6 +30,39 @@ The goal: lock boundaries before writing implementable contracts or task plans. 
 - Mark gaps as open questions instead of guessing.
 - Lite Mode: short goal + components + flows + handoff (5–10 bullets).
 
+## Contract (mandatory)
+
+This skill is a **hard contract**. Obey it before any other action. Do NOT treat as optional. Do NOT skip required artifacts.
+
+| Field | Requirement |
+|-------|-------------|
+| Inputs | DISCUSSION.md with clear recommendation; business-analysis notes if available; repo context or investigate findings when useful. |
+| Outputs | BASIC_DESIGN.md with goal, context, architecture overview, components, flows, data ownership, optional surfaces/data sources/interfaces/NFRs, open questions, handoff to detail-design. Omit sections that do not apply. |
+| Safety | Do NOT implement code. Do NOT invent file paths without inspecting the codebase. Do NOT write full contracts or field/query specs (detail-design). Do NOT re-litigate business rules — point to BA. Do NOT force domain-specific or UI-only sections. Do NOT create PLAN.md. |
+
+### Required artifacts
+
+#### `BASIC_DESIGN.md`
+- Required: yes
+- **goal** (required, string): One sentence aligned with DISCUSSION recommendation.
+- **context** (required, string): Chosen direction and scope summary from DISCUSSION (and BA if present).
+- **architecture_overview** (required, string): Short overview of system shape; optional mermaid for boundaries.
+- **components** (required, array): Components/modules with responsibility.
+- **user_or_system_flows** (required, array): Main actor or system flows (happy paths only).
+- **data_ownership** (required, array): Logical entities/stores and which component owns them.
+- **surfaces_or_entry_points** (optional, array): Major in-scope entry points or surfaces (API routes area, UI areas, jobs, CLI commands, message topics). Omit if single obvious surface.
+- **logical_data_sources** (optional, array): Logical data sources with access mode (read / write / both). Names only — no full schemas.
+- **shape_sketch** (optional, string): Optional short sketch of interaction or output shape (ASCII or bullets). Omit if flows already enough.
+- **interfaces_external** (optional, array): Named external systems, APIs, events, or libraries with purpose only (not full contracts).
+- **nfrs** (optional, array): Relevant NFRs only if they affect design.
+- **out_of_scope_design** (optional, array): Design topics explicitly deferred or excluded.
+- **open_questions** (optional, array): Open questions with blocking flag.
+- **handoff** (required, string): Suggested next skill: detail-design, research, or investigate.
+
+### Reference
+
+`agents/openai.yaml` is a machine-readable duplicate for tooling. The Contract in this SKILL.md is authoritative for agents.
+
 ## When to Use
 
 Use this skill when:
@@ -52,10 +85,6 @@ Do NOT use this skill when:
 - User needs code changes — use execution.
 - Deep external comparison is needed first — use research.
 - Root-cause debugging is needed — use investigate.
-
-## XML Contract
-
-See [openai.yaml](./agents/openai.yaml)
 
 ## Quality Standards
 

@@ -1,6 +1,6 @@
 ---
 name: done
-description: Close a task after execution/review with DONE.md, PR_MESSAGE.md, PR_DESCRIPTION.md, and optional RELEASE_NOTE.md.
+description: "Close a task after execution/review with DONE.md, PR_MESSAGE.md, PR_DESCRIPTION.md, and optional RELEASE_NOTE.md. (Hard contract in this SKILL.md — MUST follow.)"
 ---
 
 # Done
@@ -11,9 +11,46 @@ Close a task with clear, honest, reviewable artifacts.
 
 Prefer inputs from `EXECUTION.md`, `REVIEW.md`, `PLAN.md` (DoD/rollback), and `TASKS.md` when present (task completion vs intended cards).
 
-## XML Contract
+## Contract (mandatory)
 
-See [openai.yaml](./agents/openai.yaml)
+This skill is a **hard contract**. Obey it before any other action. Do NOT treat as optional. Do NOT skip required artifacts.
+
+| Field | Requirement |
+|-------|-------------|
+| Inputs | PLAN.md, TASKS.md when present, EXECUTION.md, REVIEW.md, diff/file changes, verification evidence, skipped checks, blockers, risks, PR/MR template. |
+| Outputs | DONE.md, PR_MESSAGE.md, PR_DESCRIPTION.md, optional RELEASE_NOTE.md. |
+| Safety | Do NOT overclaim verification. Do NOT hide skipped/failed checks. Do NOT mark complete if blockers remain. Do NOT describe changes that were not made. Do NOT put secrets into final artifacts. |
+
+### Required artifacts
+
+#### `DONE.md`
+- Required: yes
+- **status** (required, string): Done / Done with risks / Needs fix / Blocked / Partial.
+- **summary** (required, string): Outcome-focused summary (not file list).
+- **scope_completed** (required, array): Scope item, status, evidence.
+- **what_changed** (required, array): Area, change summary, reason.
+- **files_changed** (required, array): File path, summary.
+- **verification** (required, array): Check, command/method, result, evidence.
+- **review_result** (optional, string): Findings and resolution, or 'No findings.'
+- **skipped_failed_checks** (optional, array): Check, status, reason, risk.
+- **risks_followups** (optional, array): Item, type (risk/follow-up/blocker), impact, owner/next action.
+- **handoff** (required, string): Next step, reviewer focus, QA focus, deployment notes.
+
+#### `PR_MESSAGE.md`
+- Required: no
+- Conventional commit format: feat/fix/refactor(scope): summary.
+
+#### `PR_DESCRIPTION.md`
+- Required: no
+- Summary, Changes, Verification, Review Notes, Risks/Follow-ups.
+
+#### `RELEASE_NOTE.md`
+- Required: no
+- Only when change is user-facing or user requests it.
+
+### Reference
+
+`agents/openai.yaml` is a machine-readable duplicate for tooling. The Contract in this SKILL.md is authoritative for agents.
 
 ## Quality Standards
 

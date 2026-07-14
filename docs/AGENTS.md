@@ -12,21 +12,32 @@ All communication, code comments, documentation, and agent output MUST be in **E
 - `DESIGN_SYSTEM.md`: UI baseline for previews and artifacts.
 - `TOOLS.md`: Tool references.
 - `skills/`: Each directory is an independent skill.
-  - `SKILL.md`: Skill definition with `name`, `description`, workflow, quality standards, and examples.
-  - `agents/openai.yaml`: Contract fields (`required_input`, `required_output`, `artifacts`, `note_important`).
+  - `SKILL.md`: **Authoritative** skill definition. Contains a **Contract (mandatory)** section agents MUST obey.
+  - `agents/openai.yaml`: Machine-readable duplicate of the contract for tooling. Not a substitute for reading `SKILL.md`.
+
+## Skill compliance
+
+When a skill applies:
+
+1. Read its `SKILL.md` fully **before** other actions for that skill.
+2. Obey the **Contract (mandatory)** section first (Inputs, Outputs, Safety, Required artifacts).
+3. Produce required artifacts with required fields.
+4. Treat Safety lines as hard stops — do not violate for convenience.
+5. If the contract cannot be satisfied, stop and report what is missing.
+6. Do **not** rely on opening `agents/openai.yaml` alone — the Contract in `SKILL.md` is binding.
 
 ## Contract Compliance
 
-Every skill's `agents/openai.yaml` defines a `<Contract>` with fields that require strict agent adherence:
+Every skill embeds a Contract in `SKILL.md` (mirrored in `agents/openai.yaml`):
 
-| Field | Source | Description |
-|-------|--------|-------------|
-| `required_input` | `<Inputs>` | What the skill expects as input |
-| `required_output` | `<Outputs>` | What the skill produces as output |
-| `artifacts` | `<Artifacts>` | What files are created or updated |
-| `note_important` | `<Safety>` | Constraints the agent MUST NOT violate |
+| Field | Description |
+|-------|-------------|
+| Inputs | What the skill expects as input |
+| Outputs | What the skill produces as output |
+| Required artifacts | Files that MUST be created or updated, with required fields |
+| Safety | Constraints the agent MUST NOT violate |
 
-The agent MUST obey the contract fields strictly — they are not advisory. If the contract says "do not modify code", the agent MUST NOT modify code. If it says "create a file", the agent MUST create that file.
+The agent MUST obey the Contract strictly — it is not advisory. If the contract says "do not modify code", the agent MUST NOT modify code. If it says "create a file", the agent MUST create that file.
 
 ## Workflow
 

@@ -1,6 +1,6 @@
 ---
 name: research
-description: Research internal or external sources before making technical/product decisions. Source-backed findings, comparison matrix, recommendations with citations and caveats.
+description: "Research internal or external sources before making technical/product decisions. Source-backed findings, comparison matrix, recommendations with citations and caveats. (Hard contract in this SKILL.md — MUST follow.)"
 ---
 
 # Research
@@ -9,9 +9,35 @@ description: Research internal or external sources before making technical/produ
 
 Collect, verify, and synthesize evidence to support technical, product, or operational decisions.
 
-## XML Contract
+## Contract (mandatory)
 
-See [openai.yaml](./agents/openai.yaml)
+This skill is a **hard contract**. Obey it before any other action. Do NOT treat as optional. Do NOT skip required artifacts.
+
+| Field | Requirement |
+|-------|-------------|
+| Inputs | Research question, decision context, local evidence, external source constraints, freshness requirement, quality bar. |
+| Outputs | RESEARCH.md with source strategy, evidence, findings, comparison matrix, recommendation, confidence, caveats, residual risks. |
+| Safety | Do NOT fabricate citations. Do NOT copy long source content. Do NOT use stale sources for decisions needing fresh information. Do NOT present inference as fact. Do NOT omit caveats or residual risks. |
+
+### Required artifacts
+
+#### `RESEARCH.md`
+- Required: yes
+- **question** (required, string): Research question.
+- **decision_context** (required, string): What decision this research supports.
+- **status** (required, string): Complete / Complete with caveats / Partial / Blocked.
+- **source_strategy** (required, array): Source type, purpose, notes.
+- **sources_reviewed** (required, array): Source ID, name, type, date/version, relevance.
+- **findings** (required, array): Finding, evidence, confidence.
+- **comparison_matrix** (optional, table): Option columns x criteria rows.
+- **recommendation** (required, string): Recommended option, confidence, reason, why not alternatives.
+- **caveats** (optional, array): Caveat with impact and mitigation.
+- **residual_risks** (optional, array): Risk, impact, suggested follow-up.
+- **handoff** (required, string): Ready for planning/execution? Required verification?
+
+### Reference
+
+`agents/openai.yaml` is a machine-readable duplicate for tooling. The Contract in this SKILL.md is authoritative for agents.
 
 ## Quality Standards
 

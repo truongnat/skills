@@ -1,6 +1,6 @@
 ---
 name: business-analysis
-description: Clarify business problems, stakeholder needs, scope, processes, user stories, business rules, data sources, assumptions, acceptance criteria, and functional specs before basic design, planning, or testing.
+description: "Clarify business problems, stakeholder needs, scope, processes, user stories, business rules, data sources, assumptions, acceptance criteria, and functional specs before basic design, planning, or testing. (Hard contract in this SKILL.md — MUST follow.)"
 ---
 
 # Business Analysis
@@ -9,9 +9,23 @@ description: Clarify business problems, stakeholder needs, scope, processes, use
 
 Clarify business requirements before basic design, planning, implementation, or testing.
 
-## XML Contract
+## Contract (mandatory)
 
-See [openai.yaml](./agents/openai.yaml)
+This skill is a **hard contract**. Obey it before any other action. Do NOT treat as optional. Do NOT skip required artifacts.
+
+| Field | Requirement |
+|-------|-------------|
+| Inputs | User request, business context, existing requirements, data samples (Excel, CSV, SQL, JSON, API response), screenshots, stakeholder feedback. |
+| Outputs | Requirement notes: problem statement, stakeholders, scope, user stories/use cases, business rules, data assumptions, acceptance criteria, open questions, handoff (usually basic-design when technical work follows). |
+| Safety | Do NOT treat assumptions as requirements. Do NOT decide for stakeholders. Do NOT write vague or untestable acceptance criteria. Do NOT produce technical architecture — hand off to basic-design. |
+
+### Required artifacts
+
+_No file artifacts — follow Outputs above._
+
+### Reference
+
+`agents/openai.yaml` is a machine-readable duplicate for tooling. The Contract in this SKILL.md is authoritative for agents.
 
 ## Quality Standards
 

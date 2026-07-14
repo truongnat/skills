@@ -1,6 +1,6 @@
 ---
 name: detail-design
-description: Produce implementable design from BASIC_DESIGN.md — contracts, data model, sequences, rules, operations, client mapping when needed — before planning. Domain-agnostic; omit unused sections.
+description: "Produce implementable design from BASIC_DESIGN.md — contracts, data model, sequences, rules, operations, client mapping when needed — before planning. Domain-agnostic; omit unused sections. (Hard contract in this SKILL.md — MUST follow.)"
 ---
 
 # Detail Design
@@ -33,6 +33,39 @@ The goal: give planning enough precision without inventing architecture or a fix
 - If a needed input is missing, list it under `gaps` and do not invent.
 - Multi-surface work: one DETAIL_DESIGN with sections per surface, or linked child notes — stay consistent with BASIC surfaces.
 
+## Contract (mandatory)
+
+This skill is a **hard contract**. Obey it before any other action. Do NOT treat as optional. Do NOT skip required artifacts.
+
+| Field | Requirement |
+|-------|-------------|
+| Inputs | BASIC_DESIGN.md (required); DISCUSSION.md and business-analysis notes for AC/BR traceability when available. |
+| Outputs | DETAIL_DESIGN.md with goal, applicable contracts/models/sequences/rules/operations, optional client mapping and persistence, errors/states, gaps, assumptions, handoff to planning. Omit unused sections. |
+| Safety | Do NOT implement code. Do NOT expand scope beyond BASIC_DESIGN.md. Do NOT invent fields or joins as facts — mark inferred. Do NOT force UI-only or domain-specific sections. Do NOT create PLAN.md, task IDs, DoD, or rollback. |
+
+### Required artifacts
+
+#### `DETAIL_DESIGN.md`
+- Required: yes
+- **goal** (required, string): One sentence linked to basic-design decisions.
+- **contracts** (optional, array): In-scope contracts: HTTP/RPC/events/CLI/library APIs with inputs, outputs, and errors. Omit if no external or public surface.
+- **data_model** (optional, array): Entities/collections, key fields, relations; confidence known or inferred. Omit if no durable data.
+- **sequences** (required, array): Main happy path plus 1–2 error paths when errors matter.
+- **rules_and_validation** (optional, array): Validation and business-rule application at design level (when, condition, severity or outcome).
+- **operations** (optional, array): Structured data/ops access when relevant: base source, joins/links, filters with operators, sort/group, projections.
+- **client_mapping** (optional, array): Consumer mapping when UI/CLI/SDK is in scope: inputs/views → contract fields; optional initial state and interaction steps.
+- **persistence_spec** (optional, array): Write/update behavior when stores change; or state read-only. Omit if no persistence side effects.
+- **field_provenance** (optional, array): When outputs or views need it: display/export field → source field/entity + confidence.
+- **error_and_state_handling** (required, array): Error codes/states and how callers or clients should behave.
+- **gaps** (optional, array): Missing inputs or undecided details that block or soften the design. Do not invent to fill these.
+- **traceability** (optional, array): BR/AC IDs mapped to design sections when BA exists.
+- **assumptions** (required, array): Assumptions with risk and confirmation status.
+- **handoff** (required, string): Suggested next skill: planning. Call out blocking items.
+
+### Reference
+
+`agents/openai.yaml` is a machine-readable duplicate for tooling. The Contract in this SKILL.md is authoritative for agents.
+
 ## When to Use
 
 Use this skill when:
@@ -52,10 +85,6 @@ Do NOT use this skill when:
 - Task is small/clear (Lite skip from brainstorming) — planning or execution is enough.
 - User wants task IDs, DoD, verification commands, or rollback — use planning.
 - User wants code changes — use execution.
-
-## XML Contract
-
-See [openai.yaml](./agents/openai.yaml)
 
 ## Quality Standards
 

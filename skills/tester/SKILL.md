@@ -1,6 +1,6 @@
 ---
 name: tester
-description: Support tester/QA in the agent lifecycle: analyze acceptance criteria, create test plans/cases, map requirements, define test data, and identify gaps.
+description: "Support tester/QA in the agent lifecycle: analyze acceptance criteria, create test plans/cases, map requirements, define test data, and identify gaps. (Hard contract in this SKILL.md — MUST follow.)"
 ---
 
 # Tester
@@ -11,9 +11,35 @@ Act as a tester/QA in the agent workflow to ensure requirements, plans, or chang
 
 Prefer acceptance criteria and verify steps from `TASKS.md` when present; use `PLAN.md` for overall DoD / `test_strategy`.
 
-## XML Contract
+## Contract (mandatory)
 
-See [openai.yaml](./agents/openai.yaml)
+This skill is a **hard contract**. Obey it before any other action. Do NOT treat as optional. Do NOT skip required artifacts.
+
+| Field | Requirement |
+|-------|-------------|
+| Inputs | Requirements, TASKS.md (preferred for AC/verify per task), PLAN.md (strategy/DoD), acceptance criteria, user stories, business rules, current/expected behavior, test environment, existing tests, test data. |
+| Outputs | Test cases, traceability matrix, test data, manual verification steps, automated test suggestions, regression checklist, testing gaps. |
+| Safety | Do NOT claim pass if not run or no evidence. Do NOT decide expected behavior when requirements are unclear. Do NOT use real/sensitive data as test data without permission. |
+
+### Required artifacts
+
+#### `testcases.md`
+- Required: yes
+- **session_timestamp** (required, string): ISO 8601 with timezone.
+- **test_scope** (required, string): In scope, out of scope, assumptions.
+- **applicable_groups** (required, string): Which test groups apply (A/B/C/D) and which are skipped with reasons.
+- **test_cases** (required, array): ID, priority, type, title, preconditions, steps, test data, expected result, requirement mapping, verification method, status.
+- **regression_checklist** (optional, array): Area, scenario, expected result, priority.
+- **test_data** (optional, array): Data, purpose, source/setup, notes.
+- **testing_gaps** (optional, array): Gap, risk, suggested follow-up.
+
+#### `testcases.csv`
+- Required: no
+- CSV file for Excel/Google Sheets import when user requests.
+
+### Reference
+
+`agents/openai.yaml` is a machine-readable duplicate for tooling. The Contract in this SKILL.md is authoritative for agents.
 
 ## Quality Standards
 

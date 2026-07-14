@@ -1,6 +1,6 @@
 ---
 name: review
-description: Review changes after execution: bugs, regression, missing tests, security/data risks, maintainability, and readiness before done/PR.
+description: "Review changes after execution: bugs, regression, missing tests, security/data risks, maintainability, and readiness before done/PR. (Hard contract in this SKILL.md — MUST follow.)"
 ---
 
 # Review
@@ -11,9 +11,32 @@ Evaluate changes after execution before marking done, creating a PR, or handing 
 
 Compare the diff and `EXECUTION.md` against `PLAN.md` (DoD/scope) and `TASKS.md` when present (per-task AC and intended files).
 
-## XML Contract
+## Contract (mandatory)
 
-See [openai.yaml](./agents/openai.yaml)
+This skill is a **hard contract**. Obey it before any other action. Do NOT treat as optional. Do NOT skip required artifacts.
+
+| Field | Requirement |
+|-------|-------------|
+| Inputs | Diff/file changes, PLAN.md, TASKS.md when present, EXECUTION.md, test/check results, verification evidence, scope/context. |
+| Outputs | REVIEW.md with scope reviewed, findings, testing gaps, residual risks, recommendation, handoff. |
+| Safety | Do NOT auto-fix code if user only requested review. Do NOT create findings without evidence. Do NOT claim safe if verification is missing. Do NOT ignore security/data risks when changes touch input, auth, permission, secrets, files, network, DB, or infra. |
+
+### Required artifacts
+
+#### `REVIEW.md`
+- Required: yes
+- **scope_reviewed** (required, string): What changes were reviewed.
+- **inputs** (required, array): What was read: PLAN.md, TASKS.md, EXECUTION.md, diff, test results.
+- **findings** (optional, array): Finding ID, severity, category, location, evidence, impact, recommendation, confidence.
+- **requirement_coverage** (required, array): Requirement/task, covered by change? evidence, notes.
+- **verification_reviewed** (required, array): Check, result, evidence, concern.
+- **testing_gaps** (optional, array): Gap, risk, suggested follow-up.
+- **residual_risks** (optional, array): Risk, impact, acceptance/mitigation.
+- **recommendation** (required, string): Ready / Ready with risks / Needs fix / Blocked / Needs more verification.
+
+### Reference
+
+`agents/openai.yaml` is a machine-readable duplicate for tooling. The Contract in this SKILL.md is authoritative for agents.
 
 ## Quality Standards
 

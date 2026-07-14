@@ -1,6 +1,6 @@
 ---
 name: brainstorming
-description: Clarify goals, scope, constraints, options, trade-offs, risks, and recommendations before basic design, planning, or implementation.
+description: "Clarify goals, scope, constraints, options, trade-offs, risks, and recommendations before basic design, planning, or implementation. (Hard contract in this SKILL.md — MUST follow.)"
 ---
 
 # Brainstorming
@@ -21,6 +21,38 @@ This skill focuses on:
 - Prepare handoff to business-analysis, basic-design, planning, or implementation.
 
 The goal: help the team settle on the smallest, clearest, verifiable direction before investing larger effort.
+
+## Contract (mandatory)
+
+This skill is a **hard contract**. Obey it before any other action. Do NOT treat as optional. Do NOT skip required artifacts.
+
+| Field | Requirement |
+|-------|-------------|
+| Inputs | Initial request, repo context, existing documents, constraints, current behavior, desired outcome, stakeholder feedback if available. |
+| Outputs | Light discussion or full DISCUSSION.md with goal, facts, assumptions, unknowns, constraints, scope, options, trade-offs, recommendation, risks, open questions, handoff to next skill. |
+| Safety | Do NOT implement code during brainstorming. Do NOT treat assumptions as facts. Do NOT create detailed planning or design before a clear recommendation. Do NOT create large extra artifacts unless requested. |
+
+### Required artifacts
+
+#### `DISCUSSION.md`
+- Required: yes
+- **goal** (required, string): One sentence describing the goal.
+- **desired_outcome** (required, string): What success looks like.
+- **confirmed_facts** (required, array): Known facts from user, repo, or research.
+- **constraints** (optional, array): Time, platform, tech stack, budget, tool limits.
+- **assumptions** (optional, array): Assumptions with risk level and confirmation status.
+- **unknowns** (optional, array): Open questions with blocking flag.
+- **scope_in** (required, array): What is in scope.
+- **scope_out** (required, array): What is out of scope.
+- **non_goals** (optional, array): Goals explicitly not pursued.
+- **options_considered** (required, table): Option, pros, cons, effort, risk, reversibility, verify method.
+- **recommendation** (required, string): Recommended option with reason and confidence.
+- **risks** (optional, array): Risks with impact and mitigation.
+- **handoff** (required, string): Suggested next skill: business-analysis, basic-design, planning, research, or execution (Lite skip design when task is small/clear).
+
+### Reference
+
+`agents/openai.yaml` is a machine-readable duplicate for tooling. The Contract in this SKILL.md is authoritative for agents.
 
 ## When to Use
 
@@ -50,10 +82,6 @@ Do NOT use this skill when:
 - User needs detailed business requirement analysis; use business-analysis.
 - User needs system-level or implementable technical design; use basic-design then detail-design.
 - User needs deep external source research; use research.
-
-## XML Contract
-
-See [openai.yaml](./agents/openai.yaml)
 
 ## Quality Standards
 

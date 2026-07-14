@@ -81,9 +81,9 @@ simple-skills/
 │   └── TOOLS.md           # Tool references
 ├── skills/
 │   └── <skill-name>/
-│       ├── SKILL.md       # Skill description, workflow, quality standards
+│       ├── SKILL.md       # Authoritative skill + mandatory Contract
 │       └── agents/
-│           └── openai.yaml # Flat contract fields (inputs, outputs, artifacts, safety)
+│           └── openai.yaml # Machine-readable contract duplicate
 ├── install.sh             # Installer for Linux / macOS
 ├── install.ps1            # Installer for Windows (PowerShell)
 └── install.cmd            # Wrapper calling install.ps1 on Windows
@@ -105,7 +105,7 @@ After installation, agents read `.agents/AGENTS.md` as the entrypoint. Each task
 └── DONE.md            # done
 ```
 
-Each skill's contract (required inputs, outputs, artifacts, safety constraints) is defined in `agents/openai.yaml`. The `SKILL.md` references it and provides the workflow, quality standards, and examples.
+Each skill's **binding Contract** lives in `SKILL.md` under `## Contract (mandatory)` (Inputs, Outputs, Safety, required artifacts). `agents/openai.yaml` mirrors the same fields for tooling — agents must follow `SKILL.md`, not rely on opening the yaml alone.
 
 For detailed workflow, see [docs/AGENTS.md](docs/AGENTS.md).
 

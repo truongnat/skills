@@ -1,6 +1,6 @@
 ---
 name: planning
-description: Build PLAN.md (strategy, DoD, rollback) and TASKS.md (detailed executable tasks) from DETAIL_DESIGN.md (preferred), design/discussion artifacts, or clear requests.
+description: "Build PLAN.md (strategy, DoD, rollback) and TASKS.md (detailed executable tasks) from DETAIL_DESIGN.md (preferred), design/discussion artifacts, or clear requests. (Hard contract in this SKILL.md — MUST follow.)"
 ---
 
 # Planning
@@ -22,9 +22,44 @@ Do **not** put full task cards in PLAN.md. PLAN may only list a `task_index` (or
 - Full Mode: both artifacts with complete schemas.
 - Omit unused optional PLAN sections; keep TASKS cards independently verifiable.
 
-## XML Contract
+## Contract (mandatory)
 
-See [openai.yaml](./agents/openai.yaml)
+This skill is a **hard contract**. Obey it before any other action. Do NOT treat as optional. Do NOT skip required artifacts.
+
+| Field | Requirement |
+|-------|-------------|
+| Inputs | DETAIL_DESIGN.md when present; else BASIC_DESIGN.md / DISCUSSION.md / requirement notes; user request; codebase mapping; affected systems; constraints. |
+| Outputs | PLAN.md with goal, scope, approach, verification strategy, DoD, rollback, task_index; TASKS.md with detailed task cards, dependencies, AC, verification, execution_order. |
+| Safety | Do NOT implement code during planning. Do NOT dump full task cards into PLAN.md — those belong in TASKS.md. Do NOT invent affected files without inspecting the codebase. Do NOT treat assumptions as confirmed. Do NOT skip rollback for destructive changes. Do NOT re-design architecture when design artifacts already exist. |
+
+### Required artifacts
+
+#### `PLAN.md`
+- Required: yes
+- **goal** (required, string): One sentence.
+- **scope** (required, string): In scope summary.
+- **non_goals** (optional, array): Explicitly excluded outcomes.
+- **assumptions** (required, array): Assumptions with risk and confirmation status.
+- **approach** (required, string): Phased strategy (how work will proceed). Not step-by-step file edits.
+- **affected_areas** (optional, array): Systems/dirs to touch with confidence (known / inferred / unknown). High level only.
+- **test_strategy** (optional, string): Optional coverage summary (dimensions, frameworks in project, estimated depth).
+- **verification_strategy** (required, string): Automated and manual verification approach for the whole change.
+- **definition_of_done** (required, array): Checklist of verifiable completion conditions.
+- **rollback_strategy** (required, string): How to undo changes per type (code/config/data).
+- **risks** (optional, array): Risks with impact and mitigation.
+- **task_index** (required, array): Ordered task IDs summarizing TASKS.md (e.g. T-001 Write tests, T-002 Implement API).
+- **handoff** (required, string): Ready for sync/execution? Blocking items? Review required?
+
+#### `TASKS.md`
+- Required: yes
+- **plan_ref** (required, string): Reference to PLAN.md.
+- **tasks** (required, array): Task cards: ID, title, description, dependencies, acceptance_criteria, verification, files_or_scope, confidence, status (todo/in_progress/done).
+- **execution_order** (required, array): Ordered list of task IDs.
+- **notes** (optional, array): Sequencing notes, blockers, or split-file references.
+
+### Reference
+
+`agents/openai.yaml` is a machine-readable duplicate for tooling. The Contract in this SKILL.md is authoritative for agents.
 
 ## Quality Standards
 

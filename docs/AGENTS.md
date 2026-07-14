@@ -12,22 +12,21 @@ All communication, code comments, documentation, and agent output MUST be in **E
 - `DESIGN_SYSTEM.md`: UI baseline for previews and artifacts.
 - `TOOLS.md`: Tool references.
 - `skills/`: Each directory is an independent skill.
-  - `SKILL.md`: Skill definition with `name`, `description`, workflow, and `<Contract>` XML block.
+  - `SKILL.md`: Skill definition with `name`, `description`, workflow, quality standards, and examples.
+  - `agents/openai.yaml`: Contract fields (`required_input`, `required_output`, `artifacts`, `note_important`).
 
 ## Contract Compliance
 
-Every `SKILL.md` MUST contain a `<Contract>` XML block at the section that needs strict agent adherence:
+Every skill's `agents/openai.yaml` defines a `<Contract>` with fields that require strict agent adherence:
 
-```xml
-<Contract>
-  <Inputs>What the skill expects as input.</Inputs>
-  <Outputs>What the skill produces as output.</Outputs>
-  <Artifacts>What files are created or updated.</Artifacts>
-  <Safety>Constraints the agent MUST NOT violate.</Safety>
-</Contract>
-```
+| Field | Source | Description |
+|-------|--------|-------------|
+| `required_input` | `<Inputs>` | What the skill expects as input |
+| `required_output` | `<Outputs>` | What the skill produces as output |
+| `artifacts` | `<Artifacts>` | What files are created or updated |
+| `note_important` | `<Safety>` | Constraints the agent MUST NOT violate |
 
-The agent MUST obey the `<Contract>` block strictly — it is not advisory. If the contract says "do not modify code", the agent MUST NOT modify code. If it says "create a file", the agent MUST create that file.
+The agent MUST obey the contract fields strictly — they are not advisory. If the contract says "do not modify code", the agent MUST NOT modify code. If it says "create a file", the agent MUST create that file.
 
 ## Workflow
 

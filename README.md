@@ -1,16 +1,16 @@
 # simple-skills
 
-Bộ skill và quy tắc tối giản cho AI agent, tập trung vào workflow rõ ràng, dễ đọc và dễ mở rộng. Repo này không cố biến skill thành một framework phức tạp; thay vào đó, nó cung cấp các mẫu làm việc ngắn gọn cho agent khi xử lý task.
+A minimal set of skills and rules for AI agents, focused on clear workflows, readability, and extensibility. This repo does not turn skills into a complex framework — it provides concise working templates for agents handling tasks.
 
-## Mục tiêu
+## Goals
 
-- Giúp agent làm việc theo một vòng đời rõ ràng: suy nghĩ → lập kế hoạch → thực thi → review → kết thúc.
-- Khuyến khích tạo artifact và session thay vì chạy task một cách mơ hồ.
-- Dễ dàng cài đặt vào bất kỳ repo nào bằng cách tạo thư mục `.agents`.
+- Help agents work through a clear lifecycle: think → plan → execute → review → done.
+- Encourage artifact and session creation instead of running tasks vaguely.
+- Easy to install into any repo by creating a `.agents` directory.
 
-## Cài đặt
+## Installation
 
-Chạy lệnh trong thư mục dự án cần cài skill. Script sẽ tạo thư mục `.agents/` tại đó:
+Run from the project directory where you want to install the skills. The script will create `.agents/` there:
 
 ```text
 .agents/
@@ -19,6 +19,9 @@ Chạy lệnh trong thư mục dự án cần cài skill. Script sẽ tạo thư
 ├── TOOLS.md
 └── skills/
     ├── brainstorming/
+    │   ├── SKILL.md
+    │   └── agents/
+    │       └── openai.yaml
     ├── planning/
     └── ...
 ```
@@ -35,9 +38,9 @@ curl -fsSL https://raw.githubusercontent.com/truongnat/simple-skills/main/instal
 irm https://raw.githubusercontent.com/truongnat/simple-skills/main/install.ps1 | iex
 ```
 
-### Cài từ repo đã clone
+### Install from cloned repo
 
-Nếu đã clone repo này, có thể chạy script trực tiếp:
+If you already cloned this repo, run the install script directly:
 
 ```bash
 # Linux / macOS
@@ -50,41 +53,43 @@ Nếu đã clone repo này, có thể chạy script trực tiếp:
 install.cmd
 ```
 
-## Skills hiện có
+## Available Skills
 
-| Skill | Mục đích |
+| Skill | Purpose |
 | --- | --- |
-| `brainstorming` | Làm rõ mục tiêu, phạm vi, trade-off trước khi bắt đầu |
-| `planning` | Chia task, dependency, acceptance criteria và Definition of Done |
-| `sync` | Đồng bộ hiểu biết codebase, git state và context (mặc định read-only) |
-| `execution` | Ghi lại từng bước thực thi và thay đổi đã làm |
-| `review` | Review tính đúng đắn, regression risk, security và maintainability |
-| `done` | Tổng kết công việc, tạo PR message và handoff |
-| `investigate` | Tìm hiểu, debug hoặc phân tích trước khi quyết định implement |
-| `research` | Nghiên cứu nội bộ hoặc bên ngoài trước khi đưa ra quyết định |
-| `review-pr` | Review pull request hoặc diff một cách có cấu trúc |
-| `tester` | Tạo test case, kiểm chứng và ghi nhận evidence |
-| `business-analysis` | Làm rõ yêu cầu nghiệp vụ, scope và tài liệu quy trình |
+| `brainstorming` | Clarify goals, scope, trade-offs, and direction before starting |
+| `planning` | Break down tasks, dependencies, acceptance criteria, and Definition of Done |
+| `sync` | Sync codebase understanding, git state, and context (read-only by default) |
+| `execution` | Record execution steps and changes made |
+| `review` | Review correctness, regression risk, security, and maintainability |
+| `done` | Summarize work, generate PR message, and handoff |
+| `investigate` | Debug, analyze, or trace root cause before deciding to implement |
+| `research` | Research internal or external sources before making decisions |
+| `review-pr` | Review pull requests or diffs in a structured way |
+| `tester` | Create test cases, verify, and record evidence |
+| `business-analysis` | Clarify business requirements, scope, and process documentation |
 
-## Cấu trúc repo
+## Repo Structure
 
 ```text
 simple-skills/
 ├── docs/
-│   ├── AGENTS.md          # Entrypoint quy tắc chung cho agent
-│   ├── DESIGN_SYSTEM.md   # Chuẩn thiết kế artifact
-│   └── TOOLS.md           # Reference về các công cụ hỗ trợ
+│   ├── AGENTS.md          # Entrypoint with general agent rules
+│   ├── DESIGN_SYSTEM.md   # Artifact design standards
+│   └── TOOLS.md           # Tool references
 ├── skills/
 │   └── <skill-name>/
-│       └── SKILL.md       # Mô tả skill, workflow và contract
-├── install.sh             # Cài đặt cho Linux / macOS
-├── install.ps1            # Cài đặt cho Windows (PowerShell)
-└── install.cmd            # Wrapper gọi install.ps1 trên Windows
+│       ├── SKILL.md       # Skill description, workflow, quality standards
+│       └── agents/
+│           └── openai.yaml # Flat contract fields (inputs, outputs, artifacts, safety)
+├── install.sh             # Installer for Linux / macOS
+├── install.ps1            # Installer for Windows (PowerShell)
+└── install.cmd            # Wrapper calling install.ps1 on Windows
 ```
 
-## Cách dùng nhanh
+## Quick Start
 
-Sau khi cài đặt, agent sẽ đọc `.agents/AGENTS.md` làm entrypoint. Với mỗi task, nên tạo một session riêng:
+After installation, agents read `.agents/AGENTS.md` as the entrypoint. Each task should create its own session:
 
 ```text
 .agents/sessions/<Task-<number>-<short-description>>/
@@ -95,8 +100,10 @@ Sau khi cài đặt, agent sẽ đọc `.agents/AGENTS.md` làm entrypoint. Vớ
 └── DONE.md          # done
 ```
 
-Chi tiết workflow xem [docs/AGENTS.md](docs/AGENTS.md).
+Each skill's contract (required inputs, outputs, artifacts, safety constraints) is defined in `agents/openai.yaml`. The `SKILL.md` references it and provides the workflow, quality standards, and examples.
 
-## Phát triển
+For detailed workflow, see [docs/AGENTS.md](docs/AGENTS.md).
 
-Repo vẫn có `package.json` cho tooling TypeScript/Rolldown nếu sau này cần mở rộng. Việc cài đặt skill không yêu cầu Node.js — chỉ cần `curl` trên Linux/macOS hoặc PowerShell trên Windows.
+## Development
+
+`package.json` provides TypeScript/Rolldown tooling for future extensions. Installing skills does not require Node.js — only `curl` on Linux/macOS or PowerShell on Windows.

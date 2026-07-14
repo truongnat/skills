@@ -48,7 +48,7 @@ This skill is a **hard contract**. Obey it before any other action.
 |-------|-------------|
 | Inputs | Initial request, repo context, existing documents, constraints, current behavior, desired outcome, stakeholder feedback if available. |
 | Outputs | Session `DISCUSSION.md` seeded from template then filled via steps. Incomplete if chat-only or free-form file without template sections. |
-| Safety | Do NOT implement code. Do NOT skip steps. Do NOT treat assumptions as facts. Do NOT create PLAN/TASKS or detailed design before a clear recommendation. Do NOT create large extra artifacts unless requested. |
+| Safety | Do NOT implement code. Do NOT skip steps. Do NOT treat assumptions as facts. Do NOT create PLAN/TASKS or detailed design before a clear recommendation. Do NOT hide blocking unknowns (must appear under Handoff blockers). Do NOT create large extra artifacts unless requested. |
 
 ### Required artifact
 
@@ -67,6 +67,7 @@ goal, desired_outcome, confirmed_facts, constraints, assumptions, unknowns, scop
 | Chat-only brainstorm | Write `DISCUSSION.md` |
 | Assumptions labeled as facts | Move to Assumptions / Unknowns |
 | No recommendation or no handoff skill | Complete step-04 |
+| “No blockers” while blocking Unknowns remain | List them under Handoff Blockers |
 | Jumped to planning/design in this skill | Stop; handoff only |
 
 ## When to Use / NOT

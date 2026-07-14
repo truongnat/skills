@@ -32,7 +32,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 |-------|-------------|
 | Inputs | Session path, PLAN.md, TASKS.md, workspace state, git state, dependency/config metadata, known affected files, user constraints. |
 | Outputs | Sync summary with observed facts, inferred context, drift, dirty changes, risks, blockers, recommended next step. |
-| Safety | Read-only by default. Do NOT mutate workspace. Do NOT read secrets or sensitive files without a clear reason. Do NOT run destructive commands. Do NOT auto-resolve conflicts or unrelated dirty changes. Do NOT move to execution when PLAN.md or TASKS.md is stale or blockers are unhandled. |
+| Safety | Read-only by default. Do NOT mutate workspace. Do NOT read secrets or sensitive files without a clear reason. Do NOT run destructive commands. Do NOT auto-resolve conflicts or unrelated dirty changes. Do NOT move to execution when PLAN.md or TASKS.md is stale, PLAN Ready=No / open blockers, SYNC.md is older than PLAN/TASKS, or blockers are unhandled. |
 
 ### Required artifacts
 
@@ -96,6 +96,8 @@ Before moving to execution, verify:
 
 - Session path or task context exists.
 - PLAN.md and TASKS.md are present and aligned (both required before execution).
+- **PLAN.md Handoff Ready = Yes** and PLAN Handoff blockers are empty/`none`. If Ready=No or open blockers exist → **not** ready for execution (recommend resolve / re-plan / ask user).
+- If `SYNC.md` exists but is **older** than PLAN.md or TASKS.md (mtime or version/date) → treat prior SYNC as **stale**; rewrite SYNC.md this run.
 - Workspace exists and is readable.
 - Git repo is initialized if needed.
 - No dirty changes outside scope.
@@ -107,6 +109,8 @@ Before moving to execution, verify:
 - Any blockers require returning to planning or asking the user.
 
 If readiness is not met: do NOT move to execution. Document blockers and recommend the next step.
+
+**Full Mode:** write/update `SYNC.md` every sync run after planning changes — do not leave a pre-planning SYNC as the latest gate.
 
 ## Quality Standards
 
@@ -148,6 +152,8 @@ Action: Update plan file paths or inspect new location before execution.
 | No git repo in workspace | Skip git checks, document "not a git repo" as observed fact. |
 | .env file exists but not in plan scope | Do NOT read contents. Note existence as metadata only. |
 | PLAN.md or TASKS.md missing | Block execution. Return to planning — both files are required (do not fold tasks into PLAN.md). |
+| PLAN Handoff Ready=No or open blockers | Block execution. Resolve blockers or return to planning/ask user. |
+| SYNC.md older than PLAN.md/TASKS.md | Stale sync — rewrite SYNC.md this run before any Ready recommendation. |
 | TASKS.md stale vs PLAN task_index | Block execution. Return to planning to realign. |
 | Dirty changes with unknown ownership | Block execution. Ask user to confirm ownership or commit/stash first. |
 | Merge conflict markers detected | Block execution. Recommend conflict resolution before proceeding. |

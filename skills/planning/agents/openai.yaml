@@ -3,7 +3,7 @@ short_description: "Step workflow: seed PLAN/TASKS templates, fill PLAN slim the
 default_prompt: "Use $planning: follow steps/step-01-init.md then step-02..04. Copy templates first; never PLAN-only or tasks-inside-PLAN."
 required_input: "DETAIL_DESIGN.md when present; else BASIC_DESIGN.md / DISCUSSION.md / BA notes; user request; codebase mapping; session path; constraints."
 required_output: "Session PLAN.md + TASKS.md seeded from templates/ then filled via steps/. Incomplete if steps skipped, PLAN-only, or task bodies inside PLAN.md."
-note_important: "Do NOT skip steps/step-01-init.md. Do NOT invent PLAN/TASKS without copying templates first. Do NOT fill TASKS before PLAN step completes. Do NOT put ### T-00x AC/Verify/Files in PLAN.md. Do NOT make first tasks a test-case matrix before feature code. Do NOT implement code. Do NOT finish without both files on disk and step-04 self-check."
+note_important: "Do NOT skip steps/step-01-init.md. Do NOT invent PLAN/TASKS without copying templates first. Do NOT fill TASKS before PLAN step completes. Do NOT put ### T-00x AC/Verify/Files in PLAN.md. Do NOT make first tasks a test-case matrix before feature code. Do NOT emit epic cards (step-03 size). Do NOT set Ready=Yes while blockers remain. Do NOT implement code. Do NOT finish without both files on disk and step-04 self-check."
 artifacts:
   PLAN.md:
     required: true

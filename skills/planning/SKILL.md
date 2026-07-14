@@ -52,7 +52,7 @@ This skill is a **hard contract**. Obey it before any other action.
 |-------|-------------|
 | Inputs | DETAIL_DESIGN.md when present; else BASIC_DESIGN.md / DISCUSSION.md / BA notes; user request; codebase mapping; constraints. |
 | Outputs | Session folder MUST contain filled `PLAN.md` + `TASKS.md` seeded from templates. Incomplete if PLAN-only, chat-only, or tasks embedded in PLAN. |
-| Safety | Do NOT implement code. Do NOT skip steps. Do NOT finish without both files on disk. Do NOT put `### T-00x` AC/Verify/Files bodies in PLAN.md. Do NOT make first tasks a test-case matrix before feature code. Do NOT emit epic-level tasks when design has detail. Do NOT invent file paths without inspect. Do NOT treat assumptions as confirmed. Do NOT skip rollback for destructive changes. |
+| Safety | Do NOT implement code. Do NOT skip steps. Do NOT finish without both files on disk. Do NOT put `### T-00x` AC/Verify/Files bodies in PLAN.md. Do NOT make first tasks a test-case matrix before feature code. Do NOT emit epic-level tasks when design has detail (see step-03 size rules). Do NOT set Handoff Ready=Yes while blockers remain. Do NOT invent file paths without inspect. Do NOT treat assumptions as confirmed. Do NOT skip rollback for destructive changes. |
 
 ### Required artifacts
 
@@ -74,7 +74,8 @@ plan_ref, execution_order, micro-task cards (Trace, Depends, Description, AC, Ve
 | Only `PLAN.md` | Continue step-03 |
 | Full task cards inside `PLAN.md` | Move cards to `TASKS.md`; slim PLAN |
 | T-001 = test matrix before code | Reorder: implement then tests |
-| Epic FE/BE single card | Split in step-03 |
+| Epic / multi-layer / ≥3 deliverables in one card | Split per step-03 Task size |
+| Ready=Yes with open Blockers (or DISCUSSION blockers ignored) | Set Ready=No; copy blockers; re-run step-04 |
 
 ## What a TASK is
 

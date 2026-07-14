@@ -73,5 +73,7 @@ T-001 _(title)_ → T-002 _(title)_ → … → T-00N _(tests after code)_ (see 
 
 ## Handoff
 
-- Ready for sync/execution? **No** until step-04 self-check passes.
-- Blockers: _(TODO or none)_
+<!-- Ready=Yes ONLY if blockers is "none" (or all resolved with evidence). Never Yes + open blockers. -->
+
+- Ready for sync/execution? **No**
+- Blockers: _(list unresolved items, or `none`)_

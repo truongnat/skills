@@ -3,7 +3,7 @@ short_description: "Step workflow: seed DISCUSSION template, then frame → scop
 default_prompt: "Use $brainstorming: follow steps/step-01-init.md then step-02..05. Copy DISCUSSION.template.md first; do not chat-only."
 required_input: "Initial request, repo context, existing documents, constraints, current behavior, desired outcome, stakeholder feedback if available; session path."
 required_output: "Session DISCUSSION.md seeded from templates/DISCUSSION.template.md and filled via steps/. Incomplete if chat-only or steps skipped."
-note_important: "Do NOT skip step-01-init. Do NOT invent DISCUSSION without copying the template first. Do NOT treat assumptions as facts. Do NOT implement code. Do NOT create PLAN/TASKS or detailed design in this skill. Do NOT claim complete before step-05 self-check."
+note_important: "Do NOT skip step-01-init. Do NOT invent DISCUSSION without copying the template first. Do NOT treat assumptions as facts. Do NOT hide blocking unknowns from Handoff blockers. Do NOT implement code. Do NOT create PLAN/TASKS or detailed design in this skill. Do NOT claim complete before step-05 self-check."
 artifacts:
   DISCUSSION.md:
     required: true

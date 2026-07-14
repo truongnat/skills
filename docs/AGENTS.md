@@ -57,9 +57,10 @@ Base folder for runtime artifacts: `.agents/sessions/<Task-N-short-description>/
 5. `planning` → `PLAN.md` + `TASKS.md` (**both required on disk**)
    - Step workflow: seed templates → fill PLAN (slim) → fill TASKS (micro) → self-check.
    - Templates: `skills/planning/templates/`; steps: `skills/planning/steps/step-01` … `step-04`.
-   - Reject if: steps skipped, PLAN-only, tasks inside PLAN, or test-matrix as T-001 before code.
+   - Reject if: steps skipped, PLAN-only, tasks inside PLAN, test-matrix as T-001 before code, epic micro-tasks, or **Ready=Yes with open blockers**.
 6. `sync`
    - Read-only refresh of codebase, git state, and artifacts before execution.
+   - Respect PLAN Ready/blockers; rewrite `SYNC.md` if older than PLAN/TASKS.
 7. `execution` → `EXECUTION.md`
    - Implement changes step by step, record commands and verification.
 8. `review` → `REVIEW.md`

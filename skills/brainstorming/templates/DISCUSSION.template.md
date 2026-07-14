@@ -75,6 +75,8 @@ _(TODO)_
 
 ## Handoff
 
+<!-- Next skill ≠ ready to code. If Unknowns still block implement, list them under Blockers. -->
+
 - **Next skill:** business-analysis / basic-design / planning / research / execution _(pick one)_
 - **Why:** _(one line)_
-- **Blockers before next skill:** _(none or list)_
+- **Blockers before next skill:** _(none or list — do not leave empty while blocking unknowns remain)_

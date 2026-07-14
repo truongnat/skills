@@ -12,18 +12,19 @@ Write a clear recommendation, risks, and next-skill handoff in `DISCUSSION.md`.
 - Lite skip design only when task is small/clear — say so in Why.
 - Do **not** start planning/design/code in this step — only handoff pointer.
 - Do **not** treat assumptions as confirmed facts.
+- **Handoff clarity:** “Next skill = planning” means *continue the design→plan lifecycle*, **not** “ready to write production code”. List open blockers honestly; later planning must keep Ready=No until they clear.
 
 ## Fill these sections
 
 1. Recommendation (Choose / Reason / Not choosing / Confidence)
 2. Risks (impact + mitigation)
-3. Handoff (Next skill / Why / Blockers)
+3. Handoff (Next skill / Why / Blockers) — blockers must be non-empty if Unknowns still block implementation
 
 ## Done when
 
 - [ ] Recommendation names an option + confidence.
 - [ ] Handoff names exactly one next skill.
-- [ ] Blocking unknowns (if any) appear under Handoff blockers or Unknowns.
+- [ ] Blocking unknowns appear under Handoff blockers (do not hide them because next skill is planning).
 
 ## Next
 

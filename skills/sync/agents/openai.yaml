@@ -3,7 +3,7 @@ short_description: "Read-only sync of session artifacts, codebase context, git s
 default_prompt: "Use $sync to ensure the agent has the latest, reliable, and safe state before execution."
 required_input: "Session path, PLAN.md, TASKS.md, workspace state, git state, dependency/config metadata, known affected files, user constraints."
 required_output: "Sync summary with observed facts, inferred context, drift, dirty changes, risks, blockers, recommended next step."
-note_important: "Read-only by default. Do NOT mutate workspace. Do NOT read secrets or sensitive files without a clear reason. Do NOT run destructive commands. Do NOT auto-resolve conflicts or unrelated dirty changes. Do NOT move to execution when PLAN.md or TASKS.md is stale or blockers are unhandled."
+note_important: "Read-only by default. Do NOT mutate workspace. Do NOT read secrets or sensitive files without a clear reason. Do NOT run destructive commands. Do NOT auto-resolve conflicts or unrelated dirty changes. Do NOT move to execution when PLAN Ready=No, blockers open, PLAN.md/TASKS.md stale, or SYNC.md older than PLAN/TASKS."
 artifacts:
   EXECUTION.md:
     required: false

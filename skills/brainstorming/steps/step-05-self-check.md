@@ -14,12 +14,13 @@ Verify `DISCUSSION.md` against the brainstorming contract. Fail closed.
 6. Options matrix has ≥1 real option with verify method.
 7. Recommendation has Choose + Reason + Confidence.
 8. Handoff names one of: business-analysis, basic-design, planning, research, execution.
-9. No PLAN.md/TASKS.md/code changes invented by this skill (unless user explicitly asked outside contract).
+9. If Unknowns/Risks still block code merge, Handoff **Blockers** is not empty (must not claim “no blockers” while Unknowns list open decision/data/auth items).
+10. No PLAN.md/TASKS.md/code changes invented by this skill (unless user explicitly asked outside contract).
 
 ## Done when
 
-- [ ] All checks pass **or** blockers documented and handoff says not ready.
-- [ ] User is told next skill and path to `DISCUSSION.md`.
+- [ ] All checks pass **or** remaining issues sit under Unknowns + Handoff Blockers.
+- [ ] User is told next skill and path to `DISCUSSION.md` (and that blockers still apply downstream).
 
 ## Stop
 

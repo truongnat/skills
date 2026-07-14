@@ -1,9 +1,9 @@
 display_name: "Execution"
-short_description: "Execute a plan or agreed scope: modify files, run verification, record EXECUTION.md, handle failures, and handoff to review."
-default_prompt: "Use $execution to execute a locked plan in a controlled, safe, and verifiable way."
-required_input: "PLAN.md, locked scope, repo context, affected files, constraints, verification commands."
+short_description: "Execute TASKS.md (task cards + order) guided by PLAN.md strategy/DoD/rollback: modify files, run verification, record EXECUTION.md, handle failures, and handoff to review."
+default_prompt: "Use $execution to execute locked TASKS.md items (guided by PLAN.md DoD/rollback) in a controlled, safe, and verifiable way."
+required_input: "TASKS.md (task cards + execution_order), PLAN.md (strategy/DoD/rollback), locked scope, repo context, affected files, constraints, verification commands."
 required_output: "Workspace changes within scope, EXECUTION.md with files changed, commands run, verification evidence, blockers, deviations."
-note_important: "Do NOT modify outside scope. Do NOT put secrets in files/logs. Do NOT delete sensitive files/config/migration/data without a plan or confirmation. Do NOT revert changes not belonging to you without permission. Do NOT claim completion without verification or documenting skipped checks."
+note_important: "Do NOT modify outside scope. Execute by task ID from TASKS.md; use PLAN.md for DoD/rollback only. Do NOT put secrets in files/logs. Do NOT delete sensitive files/config/migration/data without a plan or confirmation. Do NOT revert changes not belonging to you without permission. Do NOT claim completion without verification or documenting skipped checks."
 artifacts:
   EXECUTION.md:
     required: true
@@ -11,11 +11,11 @@ artifacts:
       plan_source:
         type: string
         required: true
-        description: "Reference to PLAN.md or scope source."
+        description: "Reference to PLAN.md and TASKS.md (or clear scope source)."
       current_task:
         type: string
         required: true
-        description: "Task ID currently being executed."
+        description: "Task ID from TASKS.md currently being executed."
       scope:
         type: string
         required: true

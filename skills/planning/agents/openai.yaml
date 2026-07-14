@@ -1,9 +1,9 @@
 display_name: "Planning"
-short_description: "Build an execution plan from DETAIL_DESIGN.md (preferred), design/discussion artifacts, or clear requests. Task breakdown, dependencies, acceptance criteria, DoD, verification, and rollback strategy."
-default_prompt: "Use $planning to turn a clear goal (and DETAIL_DESIGN.md when present) into a concrete execution plan with order, dependencies, acceptance criteria, verification, and rollback."
+short_description: "Build PLAN.md (strategy, DoD, rollback) and TASKS.md (detailed executable tasks) from design/discussion artifacts or clear requests."
+default_prompt: "Use $planning to produce PLAN.md (strategy) and TASKS.md (detailed task cards) from DETAIL_DESIGN.md when present."
 required_input: "DETAIL_DESIGN.md when present; else BASIC_DESIGN.md / DISCUSSION.md / requirement notes; user request; codebase mapping; affected systems; constraints."
-required_output: "PLAN.md with goal, scope, assumptions, non-goals, affected files, task breakdown, dependencies, acceptance criteria, verification, DoD, rollback, risks."
-note_important: "Do NOT implement code during planning. Do NOT invent affected files without inspecting the codebase. Do NOT treat assumptions as confirmed requirements. Do NOT skip rollback for destructive changes. Do NOT re-design architecture or invent API/DB contracts when DETAIL_DESIGN.md or BASIC_DESIGN.md already exists."
+required_output: "PLAN.md with goal, scope, approach, verification strategy, DoD, rollback, task_index; TASKS.md with detailed task cards, dependencies, AC, verification, execution_order."
+note_important: "Do NOT implement code during planning. Do NOT dump full task cards into PLAN.md — those belong in TASKS.md. Do NOT invent affected files without inspecting the codebase. Do NOT treat assumptions as confirmed. Do NOT skip rollback for destructive changes. Do NOT re-design architecture when design artifacts already exist."
 artifacts:
   PLAN.md:
     required: true
@@ -24,22 +24,22 @@ artifacts:
         type: array
         required: true
         description: "Assumptions with risk and confirmation status."
-      affected_files:
-        type: array
+      approach:
+        type: string
         required: true
-        description: "Files/systems to change with expected change and confidence."
-      tasks:
+        description: "Phased strategy (how work will proceed). Not step-by-step file edits."
+      affected_areas:
         type: array
-        required: true
-        description: "Task ID, description, dependencies, acceptance criteria, verification method, files/scope."
-      execution_order:
-        type: array
-        required: true
-        description: "Ordered list of task IDs."
+        required: false
+        description: "Systems/dirs to touch with confidence (known / inferred / unknown). High level only."
+      test_strategy:
+        type: string
+        required: false
+        description: "Optional coverage summary (dimensions, frameworks in project, estimated depth)."
       verification_strategy:
         type: string
         required: true
-        description: "Automated and manual verification commands/steps."
+        description: "Automated and manual verification approach for the whole change."
       definition_of_done:
         type: array
         required: true
@@ -52,7 +52,30 @@ artifacts:
         type: array
         required: false
         description: "Risks with impact and mitigation."
+      task_index:
+        type: array
+        required: true
+        description: "Ordered task IDs summarizing TASKS.md (e.g. T-001 Write tests, T-002 Implement API)."
       handoff:
         type: string
         required: true
-        description: "Ready for execution? Blocking items? Review required?"
+        description: "Ready for sync/execution? Blocking items? Review required?"
+  TASKS.md:
+    required: true
+    schema:
+      plan_ref:
+        type: string
+        required: true
+        description: "Reference to PLAN.md."
+      tasks:
+        type: array
+        required: true
+        description: "Task cards: ID, title, description, dependencies, acceptance_criteria, verification, files_or_scope, confidence, status (todo/in_progress/done)."
+      execution_order:
+        type: array
+        required: true
+        description: "Ordered list of task IDs."
+      notes:
+        type: array
+        required: false
+        description: "Sequencing notes, blockers, or split-file references."

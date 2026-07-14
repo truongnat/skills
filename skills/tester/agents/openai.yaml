@@ -1,7 +1,7 @@
 display_name: "Tester"
 short_description: "Support tester/QA in the agent lifecycle: analyze acceptance criteria, create test plans/cases, map requirements, define test data, and identify gaps."
 default_prompt: "Use $tester to act as a tester/QA in the agent workflow to ensure requirements, plans, or changes have clear verification methods."
-required_input: "Requirements, PLAN.md, acceptance criteria, user stories, business rules, current/expected behavior, test environment, existing tests, test data."
+required_input: "Requirements, TASKS.md (preferred for AC/verify per task), PLAN.md (strategy/DoD), acceptance criteria, user stories, business rules, current/expected behavior, test environment, existing tests, test data."
 required_output: "Test cases, traceability matrix, test data, manual verification steps, automated test suggestions, regression checklist, testing gaps."
 note_important: "Do NOT claim pass if not run or no evidence. Do NOT decide expected behavior when requirements are unclear. Do NOT use real/sensitive data as test data without permission."
 artifacts:

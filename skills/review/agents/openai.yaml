@@ -1,7 +1,7 @@
 display_name: "Review"
 short_description: "Review changes after execution: bugs, regression, missing tests, security/data risks, maintainability, and readiness before done/PR."
 default_prompt: "Use $review to evaluate changes after execution before marking done, creating a PR, or handing off."
-required_input: "Diff/file changes, PLAN.md, EXECUTION.md, test/check results, verification evidence, scope/context."
+required_input: "Diff/file changes, PLAN.md, TASKS.md when present, EXECUTION.md, test/check results, verification evidence, scope/context."
 required_output: "REVIEW.md with scope reviewed, findings, testing gaps, residual risks, recommendation, handoff."
 note_important: "Do NOT auto-fix code if user only requested review. Do NOT create findings without evidence. Do NOT claim safe if verification is missing. Do NOT ignore security/data risks when changes touch input, auth, permission, secrets, files, network, DB, or infra."
 artifacts:
@@ -15,7 +15,7 @@ artifacts:
       inputs:
         type: array
         required: true
-        description: "What was read: PLAN.md, EXECUTION.md, diff, test results."
+        description: "What was read: PLAN.md, TASKS.md, EXECUTION.md, diff, test results."
       findings:
         type: array
         required: false

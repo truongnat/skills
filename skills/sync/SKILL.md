@@ -11,10 +11,10 @@ Ensure the agent has the latest, reliable, and safe state before execution.
 
 This skill focuses on:
 
-- Sync session artifacts: DISCUSSION.md, PLAN.md, EXECUTION.md, REVIEW.md.
+- Sync session artifacts: DISCUSSION.md, PLAN.md, TASKS.md, EXECUTION.md, REVIEW.md.
 - Refresh codebase context at plan-relevant scope.
 - Check workspace and git state.
-- Detect drift between plan and current codebase.
+- Detect drift between PLAN/TASKS and current codebase.
 - Detect dirty changes, conflicts, or out-of-scope modifications.
 - Check dependency/config when the plan requires it.
 - Check for missing or renamed files, and outdated assumptions.
@@ -61,13 +61,13 @@ Do NOT use this skill when:
 Before moving to execution, verify:
 
 - Session path or task context exists.
-- PLAN.md or scope is clear.
+- PLAN.md and TASKS.md (or clear scope) are present and aligned.
 - Workspace exists and is readable.
 - Git repo is initialized if needed.
 - No dirty changes outside scope.
 - No conflict markers or merge/rebase state.
-- Files in the plan still exist.
-- Affected files have not changed significantly vs the plan.
+- Files referenced in TASKS.md still exist (or confidence unknown is documented).
+- Affected areas have not drifted significantly vs PLAN/TASKS.
 - Dependency/config assumptions still hold if the plan depends on them.
 - No sensitive files need special handling.
 - Any blockers require returning to planning or asking the user.
@@ -117,7 +117,8 @@ Action: Update plan file paths or inspect new location before execution.
 |---|---|
 | No git repo in workspace | Skip git checks, document "not a git repo" as observed fact. |
 | .env file exists but not in plan scope | Do NOT read contents. Note existence as metadata only. |
-| PLAN.md missing for a simple task | If scope is still clear from user's request, proceed in Lite Mode. |
+| PLAN.md or TASKS.md missing for a simple task | If scope is still clear from user's request, proceed in Lite Mode. |
+| TASKS.md stale vs PLAN task_index | Block execution. Return to planning to realign. |
 | Dirty changes with unknown ownership | Block execution. Ask user to confirm ownership or commit/stash first. |
 | Merge conflict markers detected | Block execution. Recommend conflict resolution before proceeding. |
 | Workspace directory does not exist | Block. Cannot proceed without a valid workspace. |
@@ -145,7 +146,7 @@ Action: Update plan file paths or inspect new location before execution.
 ## Limitations
 
 - This skill does NOT replace execution.
-- This skill does NOT replace planning when the plan is stale.
+- This skill does NOT replace planning when PLAN.md or TASKS.md is stale.
 - This skill does NOT replace investigate when the root cause is unknown.
 - This skill does NOT write tools or automation.
 - This skill does NOT auto-handle conflicts or unrelated dirty changes.

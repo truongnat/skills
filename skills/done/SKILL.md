@@ -9,6 +9,8 @@ description: Close a task after execution/review with DONE.md, PR_MESSAGE.md, PR
 
 Close a task with clear, honest, reviewable artifacts.
 
+Prefer inputs from `EXECUTION.md`, `REVIEW.md`, `PLAN.md` (DoD/rollback), and `TASKS.md` when present (task completion vs intended cards).
+
 ## XML Contract
 
 See [openai.yaml](./agents/openai.yaml)
@@ -22,6 +24,7 @@ See [openai.yaml](./agents/openai.yaml)
 - [ ] Review result is included.
 - [ ] PR_MESSAGE.md follows Conventional Commits format.
 - [ ] PR_DESCRIPTION.md answers: what changed, why, how verified, reviewer focus.
+- [ ] When TASKS.md exists, DONE summary reflects completed vs remaining task IDs honestly.
 
 ## WRONG vs CORRECT
 
@@ -61,4 +64,5 @@ Residual risk: Main flow not verified by automated tests. Manual check done.
 
 - Does NOT auto-fix code.
 - Does NOT turn unverified tasks into done.
+- When TASKS.md exists, do not claim Done if open task IDs remain without documented blockers.
 - If review found blockers, return to execution before done.

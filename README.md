@@ -61,7 +61,7 @@ install.cmd
 | `business-analysis` | Clarify business requirements, scope, and process documentation |
 | `basic-design` | System-level design: boundaries, components, flows, interfaces, data ownership |
 | `detail-design` | Implementable design: contracts, data model, sequences, rules/operations (dynamic depth) |
-| `planning` | Break down tasks, dependencies, acceptance criteria, and Definition of Done |
+| `planning` | PLAN.md (strategy/DoD/rollback) + TASKS.md (detailed executable task cards) |
 | `sync` | Sync codebase understanding, git state, and context (read-only by default) |
 | `execution` | Record execution steps and changes made |
 | `review` | Review correctness, regression risk, security, and maintainability |
@@ -98,7 +98,8 @@ After installation, agents read `.agents/AGENTS.md` as the entrypoint. Each task
 ├── DISCUSSION.md      # brainstorming
 ├── BASIC_DESIGN.md    # basic-design
 ├── DETAIL_DESIGN.md   # detail-design
-├── PLAN.md            # planning
+├── PLAN.md            # planning (strategy)
+├── TASKS.md           # planning (detailed tasks)
 ├── EXECUTION.md       # execution
 ├── REVIEW.md          # review
 └── DONE.md            # done

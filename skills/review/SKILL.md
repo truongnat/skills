@@ -9,6 +9,8 @@ description: Review changes after execution: bugs, regression, missing tests, se
 
 Evaluate changes after execution before marking done, creating a PR, or handing off.
 
+Compare the diff and `EXECUTION.md` against `PLAN.md` (DoD/scope) and `TASKS.md` when present (per-task AC and intended files).
+
 ## XML Contract
 
 See [openai.yaml](./agents/openai.yaml)
@@ -20,6 +22,7 @@ See [openai.yaml](./agents/openai.yaml)
 - [ ] No findings → explicitly state "No findings found" + document residual risks.
 - [ ] Security/data/migration risks checked if changes touch those areas.
 - [ ] Recommendation uses one of: Ready / Ready with risks / Needs fix / Blocked / Needs more verification.
+- [ ] When TASKS.md exists, check unfinished or unverified task IDs against EXECUTION evidence.
 
 ## WRONG vs CORRECT
 
@@ -63,4 +66,4 @@ Residual risk: Missing permission check needs to be addressed before merge.
 
 - Does NOT auto-fix code.
 - Does NOT replace full QA or deep security audit.
-- If fixes are needed, return to planning or execution.
+- If fixes are needed, return to planning (update PLAN/TASKS) or execution.

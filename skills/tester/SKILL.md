@@ -9,6 +9,8 @@ description: Support tester/QA in the agent lifecycle: analyze acceptance criter
 
 Act as a tester/QA in the agent workflow to ensure requirements, plans, or changes have clear verification methods.
 
+Prefer acceptance criteria and verify steps from `TASKS.md` when present; use `PLAN.md` for overall DoD / `test_strategy`.
+
 ## XML Contract
 
 See [openai.yaml](./agents/openai.yaml)
@@ -17,9 +19,10 @@ See [openai.yaml](./agents/openai.yaml)
 
 - [ ] Each test case has: ID, type (Positive/Negative/Boundary/Security/Concurrency), priority (P0/P1/P2), steps, and expected result.
 - [ ] Happy path, negative cases, and edge cases are covered.
-- [ ] Acceptance criteria are checked for testability.
+- [ ] Acceptance criteria are checked for testability (from TASKS.md cards and/or requirements).
 - [ ] Test data does NOT contain real personal information.
 - [ ] Manual steps are precise enough to repeat.
+- [ ] When TASKS.md exists, map test cases to task IDs / AC where useful.
 
 ## WRONG vs CORRECT
 

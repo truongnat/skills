@@ -1,13 +1,13 @@
 ---
 name: execution
-description: Execute a plan or agreed scope: modify files, run verification, record EXECUTION.md, handle failures, and handoff to review.
+description: Execute TASKS.md guided by PLAN.md: modify files, run verification, record EXECUTION.md, handle failures, and handoff to review.
 ---
 
 # Execution
 
 ## Purpose
 
-Execute a locked plan in a controlled, safe, and verifiable way.
+Execute locked work from TASKS.md (task cards + order), guided by PLAN.md strategy/DoD/rollback, in a controlled and verifiable way.
 
 ## XML Contract
 
@@ -19,7 +19,8 @@ See [openai.yaml](./agents/openai.yaml)
 - [ ] Every verification command has a result (pass/fail/skipped).
 - [ ] Skipped checks have a documented reason and risk.
 - [ ] Pre-existing failures are labeled "pre-existing" with evidence.
-- [ ] Deviations from plan are documented with justification.
+- [ ] Work follows TASKS.md IDs and execution_order; PLAN.md DoD/rollback are respected.
+- [ ] Deviations from PLAN/TASKS are documented with justification.
 - [ ] Rollback notes exist for all changed areas.
 
 ## WRONG vs CORRECT

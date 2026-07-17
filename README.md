@@ -40,8 +40,8 @@ on first use.
 `language: vi` to control the language of agent replies and saved artifacts.
 Set `rules.reports.output_format` to `markdown` (default) or `html` to choose
 the representation of lifecycle reports while keeping the same contract
-sections and logical filenames. HTML uses one enterprise theme (Tailwind CDN);
-see `.agents/DESIGN_SYSTEM.md`.
+sections and logical filenames. HTML uses one enterprise theme (Tailwind CDN + anime.js CDN for static
+open; decision-server for interactive choices). See `.agents/DESIGN_SYSTEM.md`.
 Reinstalling preserves an existing `settings.yaml`.
 
 After installation, run the `init` skill once. It inspects the project and
@@ -198,14 +198,16 @@ the Feasibility, Correctness, and Capability recommendations review before
 writing downstream scope, stories/acceptance criteria, recommendations, or
 task cards. Blocking findings stop the workflow for focused user questions.
 
-Visual decision HTML pages can be served locally:
+Visual decision HTML pages support dual load: static open via CDN tags, or
+local serve for interactive choices:
 
 ```bash
 python .agents/tools/session-serve/serve.py
 ```
 
 The wrapper finds the latest session containing `VISUAL_DECISION.html`, opens
-it, and writes logs under that session. Read the latest user choice with:
+it, and writes logs under that session. Static preview still works because the
+HTML itself includes Tailwind + anime.js CDN tags. Read the latest user choice with:
 
 ```bash
 python .agents/tools/choice-reader/read.py --issue-id <issue-id>

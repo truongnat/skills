@@ -12,9 +12,31 @@ rules:
     output_format: html
 ```
 
-Serve via `session-serve` (not `file://`). Runtime may inject
-`cdn.tailwindcss.com`, `/tailwind-theme.js`, `/styles.css`, `animejs@3.2.2`,
-`/animate.js`, `/client.js`.
+## Dual load mode (mandatory)
+
+HTML artifacts must work in **both** modes:
+
+| Mode | How | What loads |
+|---|---|---|
+| **Static** | Open the `.html` file directly (editor preview, browser `file://`, or any static host) | Tailwind + anime.js from **CDN tags written into the HTML** |
+| **Server** | `session-serve` / decision-server | Same CDNs if present; also serves local `/styles.css`, `/tailwind-theme.js`, `/animate.js`, `/client.js` and records choices |
+
+**Agent rule:** always write the CDN `<script>` tags into the HTML. Do **not**
+rely on the server to add them. The server only injects missing tags as a
+safety net.
+
+Allowed external CDNs (and only these):
+
+- `https://cdn.tailwindcss.com`
+- `https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js`
+
+Local theme/helpers (best-effort for static; always available via server):
+
+- Absolute (server): `/styles.css`, `/tailwind-theme.js`, `/animate.js`, `/client.js`
+- Relative from a session file (static): `../../tools/decision-server/styles.css` (and siblings)
+
+Interactive `data-choice` posting still needs the decision server. Viewing and
+layout must not depend on the server.
 
 ## Design plan (locked)
 
@@ -28,16 +50,33 @@ Serve via `session-serve` (not `file://`). Runtime may inject
 
 ## Agent rules
 
-1. Use `.ss-*` only — do not invent long Tailwind stacks.
-2. Semantic: skip → `header` → `main#main.ss-main` → `footer`; one `h1`; ordered `h2`/`h3`.
-3. Real `ul`/`ol`/`dl`/`table` (`th scope`); decisions = `role="group"` + `article` + `button[data-choice]`.
-4. Anime only for charts/flows (`data-ss-animate`); respect reduced-motion.
-5. Use progressive disclosure: summary first, large tables/technical detail later via `.ss-details`.
-6. Semantic color communicates module/status only; never rely on color without text.
+1. Always include Tailwind CDN + anime.js CDN in every generated HTML head/body.
+2. Use `.ss-*` only — do not invent long Tailwind stacks.
+3. Semantic: skip → `header` → `main#main.ss-main` → `footer`; one `h1`; ordered `h2`/`h3`.
+4. Real `ul`/`ol`/`dl`/`table` (`th scope`); decisions = `role="group"` + `article` + `button[data-choice]`.
+5. Anime only for charts/flows (`data-ss-animate`); respect reduced-motion.
+6. Use progressive disclosure: summary first, large tables/technical detail later via `.ss-details`.
+7. Semantic color communicates module/status only; never rely on color without text.
+8. Do not claim “no external assets” — CDN tags are required for static viewing.
 
 ## Skeleton
 
 ```html
+<!doctype html>
+<html lang="en" data-ss-theme="enterprise">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>…</title>
+  <!-- Required for static + server viewing -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Local theme: relative for static open from .agents/sessions/<task>/ -->
+  <script src="../../tools/decision-server/tailwind-theme.js"></script>
+  <link rel="stylesheet" href="../../tools/decision-server/styles.css">
+  <!-- Absolute paths work when served by decision-server -->
+  <script src="/tailwind-theme.js"></script>
+  <link rel="stylesheet" href="/styles.css">
+</head>
 <body class="ss-page">
   <a class="ss-skip" href="#main">Skip to content</a>
   <header class="ss-header"><div class="ss-header-inner">
@@ -45,8 +84,20 @@ Serve via `session-serve` (not `file://`). Runtime may inject
   </div></header>
   <main id="main" class="ss-main">…</main>
   <footer class="ss-footer"><div class="ss-footer-inner"><p>…</p></div></footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
+  <script src="../../tools/decision-server/animate.js" defer></script>
+  <script src="/animate.js" defer></script>
+  <!-- client.js only needed for interactive choice logging via decision-server -->
+  <script src="../../tools/decision-server/client.js" defer></script>
+  <script src="/client.js" defer></script>
 </body>
+</html>
 ```
+
+Duplicate relative + absolute local links are intentional: static open uses the
+relative paths; the server uses `/…` and skips reinjecting tags that already
+exist.
 
 ## Classes
 

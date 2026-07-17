@@ -3,7 +3,7 @@ short_description: "Step workflow: seed DISCUSSION template, then frame → scop
 default_prompt: "Use $brainstorming: seed the template, triage issues and visual needs, stop to ask about unresolved Critical/blocking items, then scope/options/recommend/self-check."
 required_input: "Initial request, repo context, existing documents, constraints, current behavior, desired outcome, stakeholder feedback if available; session path."
 required_output: "Session DISCUSSION.md seeded from templates/DISCUSSION.template.md and filled via steps/. Incomplete if chat-only or steps skipped."
-note_important: "Do NOT skip step-01-init. Stop and ask focused questions when a Critical issue, blocking unknown, or blocking Spec quality finding is unresolved; never continue by choosing defaults. Challenge Feasibility, Correctness, and Capability gaps before recommending. Classify visual need as text/table/diagram/html-recommended/none. Create self-contained accessible HTML only after user confirmation unless explicitly requested. Do NOT treat assumptions/specs as facts, hide blockers, implement code, or create PLAN/TASKS."
+note_important: "Do NOT skip step-01-init. Stop and ask focused questions when a Critical issue, blocking unknown, or blocking Spec quality finding is unresolved; never continue by choosing defaults. Challenge Feasibility, Correctness, and Capability gaps before recommending. Classify visual need as text/table/diagram/html-recommended/none. Create accessible HTML with Tailwind + anime.js CDN tags (static + server dual load) only after user confirmation unless explicitly requested. Do NOT treat assumptions/specs as facts, hide blockers, implement code, or create PLAN/TASKS."
 workflow:
   - "Seed DISCUSSION.md from the template."
   - "Frame facts/assumptions/unknowns; classify material issues by severity, clarity, blocking status, owner, and visual need."
@@ -112,4 +112,4 @@ artifacts:
     description: "Session developer landing page with status, progress chart, open decisions, next action."
   VISUAL_DECISION.html:
     required: false
-    description: "User-confirmed self-contained accessible decision aid for html-recommended issues; serve via session-serve and retrieve logged choices via choice-reader; no external network/sensitive data (local decision client only)."
+    description: "User-confirmed accessible decision aid for html-recommended issues; must include Tailwind + anime.js CDN tags for static viewing; serve via session-serve to record choices; no sensitive data."

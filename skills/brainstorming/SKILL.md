@@ -38,7 +38,7 @@ Do not invent PLAN/TASKS or implement code here.
 | Path | Role |
 |------|------|
 | [templates/DISCUSSION.template.md](./templates/DISCUSSION.template.md) | Seed for session `DISCUSSION.md` |
-| [templates/VISUAL_DECISION.template.html](./templates/VISUAL_DECISION.template.html) | Optional self-contained visual decision aid |
+| [templates/VISUAL_DECISION.template.html](./templates/VISUAL_DECISION.template.html) | Optional visual decision aid (CDN + dual load) |
 | [steps/step-01-init.md](./steps/step-01-init.md) | Copy template into session |
 | [steps/step-02-frame.md](./steps/step-02-frame.md) | Goal, facts, Spec quality review, triage |
 | [steps/step-03-scope-options.md](./steps/step-03-scope-options.md) | Scope + options matrix |
@@ -57,7 +57,7 @@ This skill is a **hard contract**. Obey it before any other action.
 |-------|-------------|
 | Inputs | Initial request, repo context, existing documents, constraints, current behavior, desired outcome, stakeholder feedback if available. |
 | Outputs | Session `DISCUSSION.md` seeded from template, with issue/visual triage and clarification decisions; session `OVERVIEW.md`; optional `VISUAL_DECISION.html`. |
-| Safety | Do NOT implement code. Do NOT skip steps. Stop and ask before continuing when Critical issues, blocking unknowns, or blocking Spec quality findings are unresolved. Do NOT treat specs/assumptions as automatically correct or feasible. Do NOT create PLAN/TASKS or detailed design before a clear recommendation. Do NOT hide blocking unknowns or omitted feature capabilities. HTML must be self-contained, accessible, free of external network calls/sensitive data (local decision-server client only), and created only after user confirmation (unless explicitly requested). |
+| Safety | Do NOT implement code. Do NOT skip steps. Stop and ask before continuing when Critical issues, blocking unknowns, or blocking Spec quality findings are unresolved. Do NOT treat specs/assumptions as automatically correct or feasible. Do NOT create PLAN/TASKS or detailed design before a clear recommendation. Do NOT hide blocking unknowns or omitted feature capabilities. HTML must include Tailwind + anime.js CDN tags for static viewing, stay accessible, avoid sensitive data, and be created only after user confirmation (unless explicitly requested). Choice logging still requires session-serve. |
 
 ### Required artifact
 
@@ -78,7 +78,10 @@ options_considered, recommendation, risks, handoff.
 - Use only for issues classified `html-recommended` and confirmed by the user.
 - Show the decision question, alternatives/states, differences, risks, and the
   decision requested. It is a decision aid, not production UI.
-- Serve with `python .agents/tools/session-serve/serve.py <session>`.
+- Must include Tailwind CDN + anime.js CDN tags so static open still renders;
+  include relative + absolute local theme links per `.agents/DESIGN_SYSTEM.md`.
+- Viewing works statically; recording a choice needs
+  `python .agents/tools/session-serve/serve.py <session>`.
 - Read the result with `python .agents/tools/choice-reader/read.py <session> --issue-id <issue-id>` and write it into Clarification checkpoint.
 
 ### Reference

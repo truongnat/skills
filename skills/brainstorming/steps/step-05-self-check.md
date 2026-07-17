@@ -33,8 +33,9 @@ If precondition fails → return to the earliest incomplete step.
     recommendations; no leftover `_(TODO)_` on verdicts unless ledger 02/04 is
     `blocked`. No recommendation was made while Feasibility/Correctness is
     Fail/Unknown+blocking, or while Blocking=Yes capability gaps are open.
-15. Visual triage distinguishes text/table/diagram/HTML. Any generated HTML is
-    user-confirmed, self-contained, accessible, and linked to an Issue ID.
+15. Visual triage distinguishes text/table/diagram/HTML. Any generated HTML
+    includes Tailwind + anime.js CDN tags, is user-confirmed, accessible, and
+    linked to an Issue ID. Choice logging may still require session-serve.
 16. Mark Step ledger 05 `done` or `blocked` with checklist evidence.
 
 ## Done when

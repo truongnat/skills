@@ -160,9 +160,10 @@ Brainstorming, business-analysis, and planning must fail closed:
   `.agents/tools/session-serve/serve.py`, read the result with
   `.agents/tools/choice-reader/read.py --issue-id <issue-id>`, and record that
   answer in the clarification checkpoint before continuing.
-- Visual HTML must be self-contained, accessible, contain no external
-  scripts/network calls/sensitive data (except the local decision-server
-  client), and be treated as a decision aid rather than production UI.
+- Visual HTML must include Tailwind + anime.js CDN tags for static viewing,
+  remain accessible, contain no sensitive data, and use only the allowed CDNs
+  plus local decision-server helpers. Treat it as a decision aid rather than
+  production UI. Choice logging still requires session-serve.
 
 ## Video evidence
 
@@ -281,14 +282,19 @@ traceability, test data, or verification evidence.
   Prefer short `.ss-*` classes from `.agents/DESIGN_SYSTEM.md` (do not invent
   long Tailwind utility stacks). Theme follows Anthropic frontend-design +
   OpenAI Apps SDK UI (system fonts, hairline cards, green accent signature).
-  Runtime may inject Tailwind CDN, `/tailwind-theme.js`, `/styles.css`,
-  anime.js, `/animate.js`, `/client.js`. Allowed external CDNs:
+- **Dual load mode:** every HTML artifact must include Tailwind CDN and
+  anime.js CDN tags so static open (`file://` / editor preview) still
+  renders. Also include relative local theme links from the session folder
+  (`../../tools/decision-server/...`) plus absolute `/styles.css` (and
+  siblings) for decision-server. The server injects missing tags only as a
+  safety net — agents must not omit the CDN tags. Allowed external CDNs:
   `cdn.tailwindcss.com`, `cdn.jsdelivr.net/npm/animejs@3.2.2`. No sensitive
   data. Replace Mermaid with an accessible table or inline SVG.
-- Interactive HTML decisions use `data-issue-id` and `data-choice` and must be
-  served with `.agents/tools/session-serve/serve.py <session> --file
-  <ARTIFACT>.html`. After the user chooses, the sticky banner confirmation is
-  required; read the result with `choice-reader` and record it in the artifact.
+- Interactive HTML decisions use `data-issue-id` and `data-choice`. Viewing
+  works statically; recording a choice requires
+  `.agents/tools/session-serve/serve.py <session> --file <ARTIFACT>.html`.
+  After the user chooses, the sticky banner confirmation is required; read
+  the result with `choice-reader` and record it in the artifact.
 
 ## Artifact Quality
 

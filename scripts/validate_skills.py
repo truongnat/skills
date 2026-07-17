@@ -121,6 +121,16 @@ def main() -> int:
     )
     if not visual_template.is_file():
         errors.append("brainstorming: missing VISUAL_DECISION.template.html")
+    else:
+        visual_html = visual_template.read_text(encoding="utf-8")
+        if "cdn.tailwindcss.com" not in visual_html:
+            errors.append("VISUAL_DECISION.template.html missing Tailwind CDN")
+        if "animejs@3.2.2" not in visual_html:
+            errors.append("VISUAL_DECISION.template.html missing anime.js CDN")
+        if "Do not open this file via file://" in visual_html:
+            errors.append(
+                "VISUAL_DECISION.template.html must support static open (remove file:// hard block)"
+            )
     for name, required_fields in {
         "brainstorming": (
             "issue_triage:",
@@ -292,6 +302,10 @@ def main() -> int:
     design_system = (ROOT / "docs" / "DESIGN_SYSTEM.md").read_text(encoding="utf-8")
     if "cdn.tailwindcss.com" not in design_system and "ss-card" not in design_system:
         errors.append("docs/DESIGN_SYSTEM.md missing Tailwind CDN / ss-card enterprise theme")
+    if "Dual load mode" not in design_system:
+        errors.append("docs/DESIGN_SYSTEM.md missing Dual load mode guidance")
+    if "Always include Tailwind CDN" not in design_system:
+        errors.append("docs/DESIGN_SYSTEM.md missing mandatory CDN agent rule")
     if "astryx.atmeta.com" in design_system.lower():
         errors.append("docs/DESIGN_SYSTEM.md must not depend on Astryx")
     decision_dir = ROOT / "tools" / "decision-server"

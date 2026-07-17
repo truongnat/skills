@@ -19,6 +19,10 @@ Verify `DISCUSSION.md` against the brainstorming contract. Fail closed.
 10. No PLAN.md/TASKS.md/code changes invented by this skill (unless user explicitly asked outside contract).
 11. Executive summary has at most five decision-oriented bullets; 5W1H uses
     N/A/Unknown rather than invented filler.
+12. Issue triage covers material decisions; no Critical/blocking item was
+    bypassed without a recorded user answer.
+13. Visual triage distinguishes text/table/diagram/HTML. Any generated HTML is
+    user-confirmed, self-contained, accessible, and linked to an Issue ID.
 
 ## Done when
 

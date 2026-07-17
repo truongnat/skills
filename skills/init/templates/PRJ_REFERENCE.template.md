@@ -82,8 +82,17 @@ workflow, and biggest unknown/risk. Put the most decision-useful facts first. --
 ### Reports
 
 - Executive-summary style:
+- Developer overview panel:
+- Charts/diagrams (Mermaid):
+- Session OVERVIEW.md policy:
 - 5W1H usage:
 - Custom sections:
+
+### Decision and visual gates
+
+- Critical/blocking question policy:
+- Preferred diagram format:
+- HTML decision-aid policy:
 
 ## Security notes
 

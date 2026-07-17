@@ -19,6 +19,14 @@ artifacts:
         type: array
         required: true
         description: "Maximum five bullets with outcome, progress, verification, blocker/risk, and next action."
+      developer_overview:
+        type: object
+        required: true
+        description: "Status, current task, done/total, blockers, next action."
+      charts:
+        type: array
+        required: false
+        description: "Mermaid progress/flow chart when useful; otherwise N/A."
       context_5w1h:
         type: object
         required: false
@@ -75,3 +83,7 @@ artifacts:
         type: string
         required: true
         description: "Ready for review? Suggested focus area. List remaining todo/in_progress/blocked IDs."
+  OVERVIEW.md:
+    required: true
+    update: true
+    description: "Refresh developer landing page: status, progress chart, open decisions, next action."

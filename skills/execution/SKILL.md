@@ -18,7 +18,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 | Field | Requirement |
 |-------|-------------|
 | Inputs | TASKS.md (task cards + Progress board + execution_order), PLAN.md (strategy/DoD/rollback), `.agents/PRJ_REFERENCE.md`, project settings, locked scope, affected files, constraints, verification commands. |
-| Outputs | Workspace changes within scope; **updated TASKS.md progress** (Status, Done column, Work item checkboxes); EXECUTION.md with files changed, commands run, verification evidence, blockers, deviations. |
+| Outputs | Workspace changes within scope; **updated TASKS.md progress** (Status, Done column, Work item checkboxes, progress chart); EXECUTION.md; refreshed `OVERVIEW.md`. |
 | Safety | Do NOT modify outside scope. Execute by task ID from TASKS.md; use PLAN.md for DoD/rollback only. Do NOT put secrets in files/logs. Do NOT delete sensitive files/config/migration/data without a plan or confirmation. Do NOT revert changes not belonging to you without permission. Do NOT claim completion without verification or documenting skipped checks. Do NOT leave TASKS.md progress stale after finishing a Work item or card (must check off / set Status). |
 
 ### Required artifacts
@@ -29,11 +29,14 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
   - Card **Status:** `todo` → `in_progress` when started → `done` when AC+Verify pass → `blocked` / `skipped` with reason if stopped.
   - Card **Work items:** flip `- [ ]` → `- [x]` as each step completes (do not wait until the whole card is done).
   - **Progress board:** same Status as the card; Done=`[x]` only when Status=`done`.
+  - **Progress chart:** keep the Mermaid pie/status chart aligned with the board.
 - Status values: `todo` | `in_progress` | `done` | `blocked` | `skipped` (see TASKS Status legend).
 
 #### `EXECUTION.md`
 - Required: yes
 - **executive_summary** (required, array): Maximum five bullets with outcome, progress, verification, blocker/risk, and next action.
+- **developer_overview** (required, object): Status, current task, done/total, blockers, next action.
+- **charts** (optional, array): Mermaid progress/flow chart when useful; otherwise N/A.
 - **context_5w1h** (optional, object): What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly.
 - **plan_source** (required, string): Reference to PLAN.md and TASKS.md (or clear scope source).
 - **current_task** (required, string): Task ID from TASKS.md currently being executed.
@@ -49,6 +52,10 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 - **final_status** (required, string): Completed / Partially completed / Blocked.
 - **handoff** (required, string): Ready for review? Suggested focus area. List remaining `todo`/`in_progress`/`blocked` IDs.
 
+#### `OVERVIEW.md`
+- Required: yes (update in place after each card or at handoff).
+- Refresh status, progress chart counts from TASKS, blockers, and next action.
+
 ### Reference
 
 `agents/openai.yaml` is a machine-readable duplicate for tooling. The Contract in this SKILL.md is authoritative for agents.
@@ -62,6 +69,7 @@ On every task card in `execution_order`:
 3. **Finish card:** run card Verify; if pass → Status=`done`, Progress board Done=`[x]`; if blocked → Status=`blocked` and note reason (leave unfinished Work items as `[ ]`).
 4. **Stop mid-run / user stop:** leave accurate Status (`in_progress` or `blocked`); do not mark Done; handoff lists remaining IDs.
 5. **Never** mark Status=`done` if Verify failed or was skipped without documenting risk + Status=`blocked`/`skipped`.
+6. **Refresh OVERVIEW.md** At a glance + progress chart so a developer can skim status without opening EXECUTION.md.
 
 ```markdown
 // WRONG — code done but TASKS still all todo

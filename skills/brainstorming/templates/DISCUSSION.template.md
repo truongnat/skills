@@ -10,6 +10,28 @@ risk, and next action. Fill this last, keep it first. -->
 
 - _(TODO)_
 
+## Developer overview
+
+| Field | Value |
+|---|---|
+| Status | `needs_info` / `ready_to_recommend` / `recommended` |
+| Open Critical/blocking | `0` |
+| Visual decisions pending | `0` |
+| Next action | _(ask user / fill options / handoff)_ |
+
+## Charts (when useful)
+
+```mermaid
+flowchart TD
+  Goal[Goal] --> Facts[Facts / Assumptions / Unknowns]
+  Facts --> Options[Options]
+  Options --> Rec[Recommendation]
+  Rec --> Handoff[Handoff]
+```
+
+<!-- Replace with a real options/risk chart when trade-offs exist. Use N/A if a
+chart adds no decision value. -->
+
 ## Context (5W1H, when useful)
 
 | What | Why | Who | When | Where | How |
@@ -51,6 +73,30 @@ _(TODO)_
 | Unknown | Blocking? | Owner |
 |---------|-----------|-------|
 | _(TODO)_ | Yes / No | _(if known)_ |
+
+## Issue triage
+
+<!-- Severity: Critical/High/Medium/Low. Clarity: Clear/Partial/Unknown.
+Blocking=Yes means recommendation/planning must stop until answered. -->
+
+| ID | Issue / decision | Severity | Clarity | Blocking? | Owner | Status |
+|---|---|---|---|---|---|---|
+| ISS-001 | _(TODO)_ | Critical / High / Medium / Low | Clear / Partial / Unknown | Yes / No | _(TODO)_ | Open / Answered |
+
+## Clarification checkpoint
+
+| Issue ID | Focused question | Why it blocks | User answer / evidence | Resolved? |
+|---|---|---|---|---|
+| ISS-001 | _(TODO)_ | _(TODO)_ | _(wait for answer)_ | Yes / No |
+
+> **STOP gate:** Do not continue to Scope/Options while any Critical issue or
+> blocking unknown is unresolved.
+
+## Visual triage
+
+| Issue ID | Visual need | Recommended format | Why this format helps | User confirmed? | Artifact/status |
+|---|---|---|---|---|---|
+| ISS-001 | none / useful / required | text / table / diagram / html-recommended | _(TODO)_ | Yes / No / N/A | _(path or not needed)_ |
 
 ## Scope in
 

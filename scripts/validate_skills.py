@@ -113,7 +113,50 @@ def main() -> int:
     if not init_required.is_file():
         errors.append("init: missing PRJ_REFERENCE.template.md")
 
+    visual_template = (
+        SKILLS_ROOT
+        / "brainstorming"
+        / "templates"
+        / "VISUAL_DECISION.template.html"
+    )
+    if not visual_template.is_file():
+        errors.append("brainstorming: missing VISUAL_DECISION.template.html")
+    for name, required_fields in {
+        "brainstorming": (
+            "issue_triage:",
+            "clarification_checkpoint:",
+            "visual_triage:",
+            "developer_overview:",
+        ),
+        "planning": (
+            "pre_planning_decision_gate:",
+            "clarification_questions:",
+            "visual_triage:",
+            "developer_overview:",
+        ),
+    }.items():
+        yaml_text = (
+            SKILLS_ROOT / name / "agents" / "openai.yaml"
+        ).read_text(encoding="utf-8")
+        for field in required_fields:
+            if field not in yaml_text:
+                errors.append(f"{name}: decision gate missing {field[:-1]}")
+
+    for overview_template in (
+        SKILLS_ROOT / "brainstorming" / "templates" / "OVERVIEW.template.md",
+        SKILLS_ROOT / "planning" / "templates" / "OVERVIEW.template.md",
+    ):
+        if not overview_template.is_file():
+            errors.append(f"missing overview template: {overview_template}")
+
     agents = (ROOT / "docs" / "AGENTS.md").read_text(encoding="utf-8")
+    if "Developer UX / DX" not in agents:
+        errors.append("docs/AGENTS.md missing Developer UX / DX section")
+    if "session_overview: required" not in (
+        ROOT / "docs" / "settings.yaml"
+    ).read_text(encoding="utf-8"):
+        errors.append("docs/settings.yaml missing session_overview setting")
+
     for required in (
         ".agents/settings.yaml",
         ".agents/PRJ_REFERENCE.md",

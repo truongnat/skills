@@ -13,7 +13,8 @@ description: >-
 Produce **two session files on disk** via a **forced step sequence** (BMAD-style micro-file):
 
 1. Seed templates → `PLAN.md` + `TASKS.md`
-2. Fill **PLAN.md** (strategy + task_index only)
+2. Run decision gate; **stop and ask** on unresolved Critical/blocking/visual
+   decisions; then fill **PLAN.md**
 3. Fill **TASKS.md** (micro-tasks from design)
 4. Self-check before handoff
 
@@ -26,6 +27,8 @@ This skill uses **sequential step files**. Obey:
 - Read **one** step file fully and finish it before opening the next.
 - **NEVER** skip step-01 (template seed).
 - **NEVER** fill TASKS before PLAN step is done.
+- **NEVER** fill strategy or TASKS while a Critical issue, blocking unknown, or
+  unconfirmed `html-recommended` item is open.
 - **NEVER** claim complete until step-04 passes (or Ready=No with blockers).
 - Do **not** dump full task cards into `PLAN.md`.
 
@@ -50,17 +53,23 @@ This skill is a **hard contract**. Obey it before any other action.
 
 | Field | Requirement |
 |-------|-------------|
-| Inputs | DETAIL_DESIGN.md when present; else BASIC_DESIGN.md / DISCUSSION.md / BA notes; user request; codebase mapping; constraints. |
+| Inputs | DETAIL_DESIGN.md when present; else BASIC_DESIGN.md / DISCUSSION.md / BUSINESS_ANALYSIS.md; issue/visual triage and clarification answers; user request; codebase mapping; constraints. |
 | Outputs | Session folder MUST contain filled `PLAN.md` + `TASKS.md` seeded from templates. `TASKS.md` MUST include Work inventory + specific micro-cards (not layer epithets only). Incomplete if PLAN-only, chat-only, tasks embedded in PLAN, empty template left, or vague epic cards. |
-| Safety | Do NOT implement code. Do NOT skip steps. Do NOT finish without both files on disk. Do NOT put `### T-00x` AC/Verify/Files bodies in PLAN.md. Do NOT make first tasks a test-case matrix before feature code. Do NOT emit epic-level or vague layer tasks when design has detail (see step-03 inventory + specificity). Do NOT set Handoff Ready=Yes while blockers remain. Do NOT invent file paths without inspect. Do NOT treat assumptions as confirmed. Do NOT skip rollback for destructive changes. |
+| Safety | Do NOT implement code. Do NOT skip steps. Stop and ask focused questions before strategy/tasks when Critical issues or blocking unknowns remain. Do NOT silently choose defaults. Planning classifies visual need but does not create HTML itself; route confirmed HTML needs to brainstorming/basic-design and resume after the decision. Do NOT finish without both files, set Ready=Yes with blockers, invent paths, or treat assumptions as confirmed. |
 
 ### Required artifacts
 
 #### `PLAN.md` (from template)
-Strategy only: executive_summary, context_5w1h (when useful), goal, scope,
-non_goals, assumptions, approach, affected_areas, test_strategy (optional),
-verification_strategy, definition_of_done, rollback_strategy, risks,
-**task_index** (ID + title only), handoff.
+Strategy only: executive_summary, developer_overview, charts (Mermaid when
+useful), context_5w1h (when useful), pre_planning_decision_gate,
+clarification_questions, visual_triage, goal, scope, non_goals, assumptions,
+approach, affected_areas, test_strategy (optional), verification_strategy,
+definition_of_done, rollback_strategy, risks, **task_index** (ID + title only),
+handoff.
+
+#### `OVERVIEW.md`
+- Required: yes in the session folder.
+- Refresh At a glance, progress chart, open decisions, and next action.
 
 #### `TASKS.md` (from template)
 Work inventory table, Progress board (Done checkbox + Status per ID), plan_ref, execution_order, micro-task cards (Trace with §/AC, Status=`todo`, Work items ≥2 as `- [ ] N. …`, Description, AC observable, Verify, Flow/comment notes, Files/scope concrete, confidence, out-of-scope). Implement before automated tests. Planning seeds progress; execution marks completion.
@@ -80,6 +89,8 @@ Work inventory table, Progress board (Done checkbox + Status per ID), plan_ref, 
 | No Work inventory / one “implement feature” row | Build inventory per step-03 §A |
 | Epic / vague layer titles / multi-endpoint card | Split + add Work items + Trace § per step-03 §B–C |
 | Ready=Yes with open Blockers (or DISCUSSION blockers ignored) | Set Ready=No; copy blockers; re-run step-04 |
+| Filled strategy/tasks before Critical/blocking clarification | Stop, ask, record answer, then resume |
+| Planning generated HTML without a visual decision handoff | Set Ready=No; route to brainstorming/basic-design |
 
 ## What a TASK is
 
@@ -99,3 +110,5 @@ Still run **all four steps**. TASKS may have 1–3 cards; templates still requir
 - Does NOT implement code.
 - Does NOT replace design skills when contracts/architecture are missing (non-Lite).
 - Does NOT require tests-before-code.
+- Does NOT create visual HTML. It triages the need and blocks/hands off until
+  the visual decision is resolved.

@@ -88,6 +88,19 @@ try {
     Copy-Item -Path (Join-Path $Source "docs/DESIGN_SYSTEM.md") -Destination ".agents/DESIGN_SYSTEM.md" -Force
     Copy-Item -Path (Join-Path $Source "docs/THIRD_PARTY_SKILLS.md") -Destination ".agents/THIRD_PARTY_SKILLS.md" -Force
 
+    $toolsSource = Join-Path $Source "tools"
+    if (Test-Path $toolsSource -PathType Container) {
+        Write-Host "Installing tools into .agents/tools ..."
+        $toolsDest = Join-Path ".agents" "tools"
+        New-Item -ItemType Directory -Force -Path $toolsDest | Out-Null
+        Get-ChildItem -Path $toolsDest -Force |
+            Where-Object { $_.Name -ne "decision-logs" } |
+            Remove-Item -Recurse -Force
+        Get-ChildItem -Path $toolsSource -Force |
+            Where-Object { $_.Name -ne "decision-logs" } |
+            Copy-Item -Destination $toolsDest -Recurse -Force
+    }
+
     # Preserve the user's existing settings (e.g. language choice) on reinstall.
     $settingsDest = Join-Path ".agents" "settings.yaml"
     if (Test-Path $settingsDest -PathType Leaf) {

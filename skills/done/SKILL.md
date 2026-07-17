@@ -18,7 +18,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 | Field | Requirement |
 |-------|-------------|
 | Inputs | PLAN.md, TASKS.md when present, EXECUTION.md, REVIEW.md, diff/file changes, verification evidence, skipped checks, blockers, risks, PR/MR template. |
-| Outputs | DONE.md, PR_MESSAGE.md, PR_DESCRIPTION.md, optional RELEASE_NOTE.md. |
+| Outputs | DONE.md, refreshed `OVERVIEW.md`, PR_MESSAGE.md, PR_DESCRIPTION.md, optional RELEASE_NOTE.md. |
 | Safety | Do NOT overclaim verification. Do NOT hide skipped/failed checks. Do NOT mark complete if blockers remain. Do NOT describe changes that were not made. Do NOT put secrets into final artifacts. |
 
 ### Required artifacts
@@ -26,6 +26,8 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 #### `DONE.md`
 - Required: yes
 - **executive_summary** (required, array): Maximum five bullets with final status, delivered value, verification, residual risk, and next action.
+- **developer_overview** (required, object): Final status, verification summary, residual risks, next action.
+- **charts** (optional, array): Mermaid delivery/verification chart when useful; otherwise N/A.
 - **context_5w1h** (optional, object): What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly.
 - **status** (required, string): Done / Done with risks / Needs fix / Blocked / Partial.
 - **summary** (required, string): Outcome-focused summary (not file list).
@@ -37,6 +39,10 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 - **skipped_failed_checks** (optional, array): Check, status, reason, risk.
 - **risks_followups** (optional, array): Item, type (risk/follow-up/blocker), impact, owner/next action.
 - **handoff** (required, string): Next step, reviewer focus, QA focus, deployment notes.
+
+#### `OVERVIEW.md`
+- Required: yes (update in place to final status).
+- Mark lifecycle complete or blocked; keep next action concrete.
 
 #### `PR_MESSAGE.md`
 - Required: no

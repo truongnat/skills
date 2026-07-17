@@ -15,7 +15,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 
 | Field | Requirement |
 |-------|-------------|
-| Inputs | User request, business context, existing requirements, data samples (Excel, CSV, SQL, JSON, API response), screenshots, stakeholder feedback. |
+| Inputs | User request, business context, existing requirements, data samples (Excel, CSV, SQL, JSON, API response), screenshots or demo recordings, stakeholder feedback. |
 | Outputs | `BUSINESS_ANALYSIS.md`: problem statement, stakeholders, scope, user stories/use cases, business rules, data assumptions, acceptance criteria, open questions, handoff. |
 | Safety | Do NOT treat assumptions as requirements. Do NOT decide for stakeholders. Do NOT write vague or untestable acceptance criteria. Do NOT produce technical architecture — hand off to basic-design. |
 
@@ -24,6 +24,8 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 #### `BUSINESS_ANALYSIS.md`
 - Required: yes.
 - **executive_summary** (required, array): Maximum five bullets with the problem, key rule/decision, top risk, and next action.
+- **developer_overview** (required, object): Status, top rules/AC gaps, open questions, next action.
+- **charts** (optional, array): Mermaid process/actor flow when useful; otherwise N/A.
 - **context_5w1h** (optional, object): What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly.
 - **problem_statement** (required, string): One-sentence business problem.
 - **stakeholders** (required, array): Actor, goal, pain point, authority.
@@ -48,6 +50,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 - [ ] Assumptions are separated from confirmed requirements.
 - [ ] Open questions have owners (if known) and blocking status.
 - [ ] Handoff to next skill is specified (usually basic-design when technical work follows).
+- [ ] When a demo recording is supplied, relevant sampled frames are cited as sources and interpretation gaps are kept as open questions.
 
 ## WRONG vs CORRECT
 
@@ -78,6 +81,7 @@ Needs confirmation from: Product owner.
 | Requirement is too vague to write AC | Write best-effort AC. Mark as "needs clarification." |
 | Data sample is inconsistent with description | Document the inconsistency. Recommend confirming which source is correct. |
 | Business rules conflict with each other | Document the conflict. Flag to stakeholder for decision. |
+| Demo recording is supplied | Extract keyframes with `.agents/tools/video-keyframes/extract.py`; cite frames as observed UI/process evidence, not stakeholder-approved requirements. |
 
 ## Limitations
 

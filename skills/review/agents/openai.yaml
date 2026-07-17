@@ -12,6 +12,14 @@ artifacts:
         type: array
         required: true
         description: "Maximum five bullets with recommendation, top findings/risks, verification status, and next action."
+      developer_overview:
+        type: object
+        required: true
+        description: "Recommendation, finding counts by severity, verification gaps, next action."
+      charts:
+        type: array
+        required: false
+        description: "Mermaid finding-severity or coverage chart when useful; otherwise N/A."
       context_5w1h:
         type: object
         required: false
@@ -52,3 +60,7 @@ artifacts:
         type: string
         required: true
         description: "Next action/skill, owner, and blocking status."
+  OVERVIEW.md:
+    required: true
+    update: true
+    description: "Refresh developer landing page: status, progress chart, open decisions, next action."

@@ -50,7 +50,7 @@ artifacts:
       conventions:
         type: object
         required: true
-        description: "Code, branch, commit, PR, and report conventions."
+        description: "Code, branch, commit, PR, report, decision-gate, and visual conventions."
       security_notes:
         type: array
         required: true

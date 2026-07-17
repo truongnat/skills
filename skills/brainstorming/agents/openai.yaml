@@ -1,9 +1,15 @@
 display_name: "Brainstorming"
 short_description: "Step workflow: seed DISCUSSION template, then frame → scope/options → recommend → self-check before design/planning."
-default_prompt: "Use $brainstorming: follow steps/step-01-init.md then step-02..05. Copy DISCUSSION.template.md first; do not chat-only."
+default_prompt: "Use $brainstorming: seed the template, triage issues and visual needs, stop to ask about unresolved Critical/blocking items, then scope/options/recommend/self-check."
 required_input: "Initial request, repo context, existing documents, constraints, current behavior, desired outcome, stakeholder feedback if available; session path."
 required_output: "Session DISCUSSION.md seeded from templates/DISCUSSION.template.md and filled via steps/. Incomplete if chat-only or steps skipped."
-note_important: "Do NOT skip step-01-init. Do NOT invent DISCUSSION without copying the template first. Do NOT treat assumptions as facts. Do NOT hide blocking unknowns from Handoff blockers. Do NOT implement code. Do NOT create PLAN/TASKS or detailed design in this skill. Do NOT claim complete before step-05 self-check."
+note_important: "Do NOT skip step-01-init. Stop and ask focused questions when a Critical issue or blocking unknown is unresolved; never continue by choosing defaults. Classify visual need as text/table/diagram/html-recommended/none. Create self-contained accessible HTML only after user confirmation unless explicitly requested. Do NOT treat assumptions as facts, hide blockers, implement code, or create PLAN/TASKS."
+workflow:
+  - "Seed DISCUSSION.md from the template."
+  - "Frame facts/assumptions/unknowns; classify material issues by severity, clarity, blocking status, owner, and visual need."
+  - "STOP and ask at most three focused blocking questions when Critical/blocking items remain; record answers before continuing."
+  - "Choose text/table/diagram/HTML by decision value; HTML only for spatial/state comparison and with user confirmation."
+  - "Fill scope/options, recommendation/handoff, then run self-check."
 artifacts:
   DISCUSSION.md:
     required: true
@@ -16,6 +22,14 @@ artifacts:
         type: array
         required: true
         description: "Maximum five bullets with direction, key facts/unknowns, recommendation, risk, and next action."
+      developer_overview:
+        type: object
+        required: true
+        description: "Status, open Critical/blocking count, visual decisions pending, next action."
+      charts:
+        type: array
+        required: false
+        description: "Mermaid charts for options/flows/risks when useful; otherwise N/A with reason."
       context_5w1h:
         type: object
         required: false
@@ -44,6 +58,18 @@ artifacts:
         type: array
         required: false
         description: "Open questions with blocking flag."
+      issue_triage:
+        type: array
+        required: true
+        description: "Issue ID, decision, severity, clarity, blocking, owner, status."
+      clarification_checkpoint:
+        type: array
+        required: true
+        description: "Issue ID, focused question, why it blocks, user answer/evidence, resolved status."
+      visual_triage:
+        type: array
+        required: true
+        description: "Issue ID, visual need, format, reason, user confirmation, artifact/status."
       scope_in:
         type: array
         required: true
@@ -72,3 +98,9 @@ artifacts:
         type: string
         required: true
         description: "Next skill: business-analysis, basic-design, planning, research, or execution."
+  OVERVIEW.md:
+    required: true
+    description: "Session developer landing page with status, progress chart, open decisions, next action."
+  VISUAL_DECISION.html:
+    required: false
+    description: "User-confirmed self-contained accessible decision aid for html-recommended issues; serve via session-serve and retrieve logged choices via choice-reader; no external network/sensitive data (local decision client only)."

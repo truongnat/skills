@@ -24,6 +24,8 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 #### `REVIEW_PR.md`
 - Required: yes
 - **executive_summary** (required, array): Maximum five bullets with merge recommendation, top findings/risks, verification status, and next action.
+- **developer_overview** (required, object): Merge recommendation, finding counts, verification status, next action.
+- **charts** (optional, array): Mermaid finding/coverage chart when useful; otherwise N/A.
 - **context_5w1h** (optional, object): What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly.
 - **review_mode** (required, string): remote-diff / worktree / current-branch.
 - **base** (required, string): Base branch or commit (e.g. `origin/develop`).

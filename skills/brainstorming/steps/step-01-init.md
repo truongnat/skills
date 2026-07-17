@@ -14,16 +14,20 @@ Create session `DISCUSSION.md` from the skill template **before** filling conten
 ## Actions
 
 1. Resolve session dir: `.agents/sessions/<Task-N-short-description>/` (create if missing).
-2. Locate template: `{skill-root}/templates/DISCUSSION.template.md`
-3. Copy (Write tool) → `{session}/DISCUSSION.md`
+2. Locate templates:
+   - `{skill-root}/templates/DISCUSSION.template.md`
+   - `{skill-root}/templates/OVERVIEW.template.md`
+3. Copy (Write tool) → `{session}/DISCUSSION.md` and `{session}/OVERVIEW.md`
 4. If `DISCUSSION.md` already exists with real content:
    - Ask user: overwrite with fresh template, or keep and continue from step-02.
-   - Default if user says redo brainstorming: overwrite with template.
-5. List the session directory and confirm `DISCUSSION.md` exists.
+   - Default if user says redo brainstorming: overwrite DISCUSSION with template;
+     refresh OVERVIEW only if it is still a template or missing.
+5. List the session directory and confirm both files exist.
 
 ## Done when
 
 - [ ] `DISCUSSION.md` exists in session (from template).
+- [ ] `OVERVIEW.md` exists in session (developer landing page).
 - [ ] Confirmed via directory listing.
 
 ## Next

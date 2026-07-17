@@ -9,6 +9,8 @@ Create session folder artifacts from templates **before** filling content.
 - Read this step fully. Do **not** skip to filling strategy or tasks yet.
 - Do **not** invent PLAN/TASKS from scratch — copy templates.
 - Do **not** proceed to step-02 until both template files exist on disk in the session folder.
+- After seeding, inspect upstream DISCUSSION/BA/design blockers and fill only
+  `Pre-planning decision gate` before proceeding.
 
 ## Actions
 
@@ -16,19 +18,30 @@ Create session folder artifacts from templates **before** filling content.
 2. Locate skill templates:
    - `{skill-root}/templates/PLAN.template.md`
    - `{skill-root}/templates/TASKS.template.md`
+   - `{skill-root}/templates/OVERVIEW.template.md`
 3. Copy (Write tool) into the session dir as:
    - `PLAN.md` ← PLAN.template.md
    - `TASKS.md` ← TASKS.template.md
+   - `OVERVIEW.md` ← OVERVIEW.template.md (create if missing; keep existing
+     non-template overview content and refresh status fields only)
 4. If `PLAN.md` / `TASKS.md` already exist and are non-template content:
    - Ask user: overwrite with fresh templates, or keep and continue from step-02/03.
    - Default if user says redo planning: overwrite with templates.
-5. List the session directory and confirm both files exist.
+5. Copy unresolved issues/unknowns from DISCUSSION, BUSINESS_ANALYSIS, and
+   design artifacts into PLAN's decision gate. Classify severity, clarity,
+   blocking status, and visual need.
+6. If any Critical/blocking/unconfirmed `html-recommended` item is open, ask
+   focused questions (at most three at a time), record answers, and **stop**.
+7. Seed/refresh `OVERVIEW.md` At a glance + Open decisions from the gate.
+8. List the session directory and confirm files exist.
 
 ## Done when
 
 - [ ] `PLAN.md` exists in session (from template).
 - [ ] `TASKS.md` exists in session (from template).
+- [ ] `OVERVIEW.md` exists as the developer landing page.
 - [ ] Confirmed via directory listing.
+- [ ] Upstream issues were triaged; unresolved blockers caused a user-question stop.
 
 ## Next
 

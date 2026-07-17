@@ -1,9 +1,15 @@
 display_name: "Planning"
 short_description: "Step workflow: seed PLAN/TASKS, inventory→specific micro-tasks, self-check. Implement before tests."
-default_prompt: "Use $planning: follow steps/step-01-init.md then step-02..04. Copy templates first; build Work inventory before cards; never vague epics or PLAN-only."
-required_input: "DETAIL_DESIGN.md when present; else BASIC_DESIGN.md / DISCUSSION.md / BA notes; user request; codebase mapping; session path; constraints."
+default_prompt: "Use $planning: seed templates, run the pre-planning decision gate, stop to ask about unresolved Critical/blocking items, then fill PLAN/TASKS and self-check."
+required_input: "DETAIL_DESIGN.md when present; else BASIC_DESIGN.md / DISCUSSION.md / BUSINESS_ANALYSIS.md; issue/visual triage and answers; user request; codebase mapping; session path; constraints."
 required_output: "Session PLAN.md + TASKS.md with Work inventory and specific cards. Incomplete if steps skipped, PLAN-only, empty template, or vague layer/epic tasks."
-note_important: "Do NOT skip step-01. Do NOT fill TASKS before PLAN. Do NOT skip Work inventory. Do NOT emit vague layer titles or multi-endpoint/multi-screen cards. Each card needs Trace§ + Work items≥2 + concrete Files/scope + observable AC + Flow/comment notes (or N/A with reason). Do NOT set Ready=Yes while blockers remain. Do NOT implement code."
+note_important: "Seed templates, then STOP and ask focused questions before strategy/tasks when Critical issues, blocking unknowns, or unconfirmed html-recommended decisions remain. Never choose defaults silently. Planning classifies visual need but routes confirmed HTML work to brainstorming/basic-design. Do NOT skip Work inventory, emit vague cards, set Ready=Yes with blockers, or implement code."
+workflow:
+  - "Seed PLAN.md and TASKS.md, then inherit issue/blocker/visual triage from upstream artifacts."
+  - "Classify new issues by severity, clarity, blocking status, owner, and visual format."
+  - "STOP and ask at most three focused blocking questions; record answers before strategy/tasks."
+  - "Route confirmed html-recommended issues to brainstorming/basic-design; resume only after decision evidence exists."
+  - "Fill PLAN strategy, then TASKS inventory/cards, then self-check the decision gate and readiness."
 artifacts:
   PLAN.md:
     required: true
@@ -16,10 +22,30 @@ artifacts:
         type: array
         required: true
         description: "Maximum five bullets with goal, approach, key risk, readiness, and next action."
+      developer_overview:
+        type: object
+        required: true
+        description: "Status, cards drafted, critical open decisions, next action."
+      charts:
+        type: array
+        required: false
+        description: "Mermaid charts for plan flow/progress/risks when useful; otherwise N/A with reason."
       context_5w1h:
         type: object
         required: false
         description: "What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly."
+      pre_planning_decision_gate:
+        type: array
+        required: true
+        description: "Issue/source, decision, severity, clarity, blocking, visual need, resolution evidence, status."
+      clarification_questions:
+        type: array
+        required: true
+        description: "Focused question, why the plan changes, user answer/evidence."
+      visual_triage:
+        type: array
+        required: true
+        description: "Issue, text/table/diagram/html-recommended/none, rationale, handoff/status."
       goal:
         type: string
         required: true
@@ -103,3 +129,7 @@ artifacts:
         type: array
         required: false
         description: "Sequencing notes or blockers."
+  OVERVIEW.md:
+    required: true
+    update: true
+    description: "Refresh developer landing page: status, progress chart, open decisions, next action."

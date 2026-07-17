@@ -33,6 +33,16 @@ plan_ref: PLAN.md
 | [ ] | T-001 | _(short title)_ | todo |
 | [ ] | T-002 | _(short title)_ | todo |
 
+## Progress chart
+
+```mermaid
+pie title Card status
+  "todo" : 2
+  "in_progress" : 0
+  "done" : 0
+  "blocked" : 0
+```
+
 ## Execution order
 
 <!-- Must match PLAN.md Task index IDs after cards are written. -->

@@ -15,7 +15,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 
 | Field | Requirement |
 |-------|-------------|
-| Inputs | Problem description, expected/actual behavior, logs/errors/reproduction, codebase context, environment details. |
+| Inputs | Problem description, expected/actual behavior, logs/errors/reproduction, screenshots or screen recordings, codebase context, environment details. |
 | Outputs | INVESTIGATE.md with question, status, evidence, reproduction, observed facts, hypotheses, code path, impact map, root cause, recommendation, open questions. |
 | Safety | Read-only by default. Do NOT modify code unless requested. Do NOT run destructive commands. Do NOT read secrets without a clear reason. Do NOT claim root cause when evidence is insufficient. |
 
@@ -24,6 +24,8 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 #### `INVESTIGATE.md`
 - Required: yes
 - **executive_summary** (required, array): Maximum five bullets with status, likely/confirmed cause, strongest evidence, impact, and next action.
+- **developer_overview** (required, object): Investigation status, strongest hypothesis, evidence gap, next action.
+- **charts** (optional, array): Mermaid cause/flow chart when useful; otherwise N/A.
 - **context_5w1h** (optional, object): What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly.
 - **question** (required, string): The investigation question.
 - **status** (required, string): Root Cause Confirmed / Likely Root Cause / Hypotheses Identified / Needs More Evidence / Blocked.
@@ -51,6 +53,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 - [ ] If root cause is claimed: evidence is sufficient to explain all observed symptoms.
 - [ ] Recommendation distinguishes: fix / workaround / next investigation.
 - [ ] Reproduction steps include environment, preconditions, and both expected and actual results.
+- [ ] When video evidence is supplied, keyframes and timestamps are cited; unsampled transitions and audio are documented as limitations.
 
 ## WRONG vs CORRECT
 
@@ -86,6 +89,7 @@ Next step: Inspect the database value for user 11716's password attribute safely
 | Sensitive data in logs (PII, tokens) | Redact before quoting. Document as security risk if exposure is found. |
 | Multiple root causes are possible | List as multiple hypotheses with confidence for each. Do NOT pick one arbitrarily. |
 | Issue is environment-specific | Document environment differences. Recommend cross-env comparison. |
+| Screen recording is supplied | Extract session-local keyframes with `.agents/tools/video-keyframes/extract.py`; cite specific frames and do not infer continuous behavior from samples. |
 
 ## Limitations
 

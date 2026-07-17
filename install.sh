@@ -119,6 +119,23 @@ fi
 cp -f "${SOURCE}/docs/DESIGN_SYSTEM.md" "${TARGET}/.agents/DESIGN_SYSTEM.md"
 cp -f "${SOURCE}/docs/THIRD_PARTY_SKILLS.md" "${TARGET}/.agents/THIRD_PARTY_SKILLS.md"
 
+# Install local agent tools (HTML decision server, etc.).
+if [ -d "${SOURCE}/tools" ]; then
+  echo "Installing tools into ${TARGET}/.agents/tools ..."
+  mkdir -p "${TARGET}/.agents/tools"
+  shopt -s dotglob nullglob
+  for item in "${TARGET}/.agents/tools"/*; do
+    # Preserve runtime logs if a previous install left them here.
+    [ "$(basename "$item")" = "decision-logs" ] && continue
+    rm -rf "$item"
+  done
+  for item in "${SOURCE}/tools"/*; do
+    [ "$(basename "$item")" = "decision-logs" ] && continue
+    cp -R "$item" "${TARGET}/.agents/tools/"
+  done
+  shopt -u dotglob nullglob
+fi
+
 # Preserve the user's existing settings (e.g. language choice) on reinstall.
 if [ -f "${TARGET}/.agents/settings.yaml" ]; then
   echo "Keeping existing .agents/settings.yaml."

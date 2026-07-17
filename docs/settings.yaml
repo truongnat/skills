@@ -15,6 +15,13 @@ project:
   reference: .agents/PRJ_REFERENCE.md
 
 rules:
+  decisions:
+    stop_on: [critical-unresolved, blocking-unknown]
+    max_blocking_questions_per_round: 3
+  visuals:
+    triage: required
+    html: ask-before-create
+    prefer_diagram_for_flows: true
   branch:
     base: ""
     naming: ""
@@ -29,6 +36,9 @@ rules:
     style: 80-20
     context: 5w1h-when-useful
     executive_summary_max_items: 5
+    overview: required
+    charts: mermaid-when-useful
+    session_overview: required
     custom_sections: []
   code:
     comments:

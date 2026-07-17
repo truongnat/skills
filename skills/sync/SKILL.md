@@ -31,7 +31,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 | Field | Requirement |
 |-------|-------------|
 | Inputs | Session path, PLAN.md, TASKS.md (including Progress board/Status/checkboxes when present), workspace state, git state, dependency/config metadata, known affected files, user constraints. |
-| Outputs | Sync summary with observed facts (include TASKS resume point / in_progress|blocked IDs), inferred context, drift, dirty changes, risks, blockers, recommended next step. |
+| Outputs | Sync summary with observed facts (include TASKS resume point / in_progress|blocked IDs), inferred context, drift, dirty changes, risks, blockers, recommended next step; refreshed `OVERVIEW.md`. |
 | Safety | Read-only by default. Do NOT mutate TASKS progress during sync. Prefer scope from PLAN/TASKS affected areas. Do NOT read secrets or sensitive files without a clear reason. Do NOT run destructive commands. Do NOT auto-resolve conflicts or unrelated dirty changes. Do NOT move to execution when PLAN Ready=No, blockers open, PLAN.md/TASKS.md stale, or SYNC.md older than PLAN/TASKS. |
 
 ### Required artifacts
@@ -43,6 +43,8 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 #### `SYNC.md`
 - Required: yes in Full Mode; optional in Lite Mode when the summary is appended to `EXECUTION.md`.
 - **executive_summary** (required, array): Maximum five bullets with readiness, drift, blockers, and next action.
+- **developer_overview** (required, object): Status, resume task IDs, blocker count, next action.
+- **charts** (optional, array): Mermaid readiness/drift chart when useful; otherwise N/A.
 - **context_5w1h** (optional, object): What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly.
 - **scope** (required, string): What was synced (artifacts, workspace, git, dependencies).
 - **observed_facts** (required, array): List of observed facts with source for each.
@@ -51,6 +53,10 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 - **dirty_changes** (optional, array): Classified dirty changes with scope check (in-scope/out-of-scope/unknown).
 - **risks_blockers** (required, array): Blockers with type, impact, next action.
 - **recommendation** (required, string): Ready for execution: Yes/No. Suggested next step.
+
+#### `OVERVIEW.md`
+- Required: yes (update in place).
+- Refresh At a glance, progress chart from TASKS, open decisions, and next action.
 
 ### Reference
 

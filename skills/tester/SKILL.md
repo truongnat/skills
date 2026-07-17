@@ -17,7 +17,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 
 | Field | Requirement |
 |-------|-------------|
-| Inputs | Requirements, TASKS.md (preferred for AC/verify per task), PLAN.md (strategy/DoD), acceptance criteria, user stories, business rules, current/expected behavior, test environment, existing tests, test data. |
+| Inputs | Requirements, TASKS.md (preferred for AC/verify per task), PLAN.md (strategy/DoD), acceptance criteria, user stories, business rules, current/expected behavior, test environment, existing tests, test data, screenshots or test-run recordings. |
 | Outputs | Test cases, traceability matrix, test data, manual verification steps, automated test suggestions, regression checklist, testing gaps. |
 | Safety | Do NOT claim pass if not run or no evidence. Do NOT decide expected behavior when requirements are unclear. Do NOT use real/sensitive data as test data without permission. |
 
@@ -26,6 +26,8 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 #### `TESTCASES.md`
 - Required: yes
 - **executive_summary** (required, array): Maximum five bullets with scope, highest-risk coverage, critical gaps, and next action.
+- **developer_overview** (required, object): Test scope status, P0 coverage, critical gaps, next action.
+- **charts** (optional, array): Mermaid coverage/priority chart when useful; otherwise N/A.
 - **context_5w1h** (optional, object): What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly.
 - **session_timestamp** (required, string): ISO 8601 with timezone.
 - **test_scope** (required, string): In scope, out of scope, assumptions.
@@ -51,6 +53,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 - [ ] Test data does NOT contain real personal information.
 - [ ] Manual steps are precise enough to repeat.
 - [ ] When TASKS.md exists, map test cases to task IDs / AC where useful.
+- [ ] Video evidence cites sampled frames/timestamps and does not substitute for an executed, repeatable test result.
 
 ## WRONG vs CORRECT
 
@@ -87,6 +90,7 @@ Note: All test data is fake. Emails use safe domain (example.com).
 | Existing tests already cover some cases | Reference existing tests. Do NOT duplicate them. |
 | No test environment available | Document as constraint. Suggest manual verification only. |
 | Business rules are missing | Mark as assumption. Recommend business-analysis first. |
+| Test-run recording is supplied | Extract keyframes with `.agents/tools/video-keyframes/extract.py`; map relevant frames to test cases and retain sampling/audio limitations. |
 
 ## Limitations
 

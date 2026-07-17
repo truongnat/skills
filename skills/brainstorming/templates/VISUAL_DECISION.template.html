@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en" data-issue-id="ISS-000" data-session="">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Visual decision — replace title</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      font-family: system-ui, sans-serif;
+      line-height: 1.5;
+    }
+    body { margin: 0 auto; max-width: 72rem; padding: 2rem; }
+    header, section { margin-bottom: 2rem; }
+    .summary { border-inline-start: .35rem solid #4f7cff; padding-inline-start: 1rem; }
+    .options { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
+    .option { border: 1px solid #8888; border-radius: .75rem; padding: 1rem; }
+    .state { background: #8881; border-radius: .5rem; padding: .75rem; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #8888; padding: .65rem; text-align: start; vertical-align: top; }
+    button {
+      margin-top: .75rem;
+      padding: .55rem .9rem;
+      border-radius: .5rem;
+      border: 1px solid #4f7cff;
+      background: #4f7cff;
+      color: white;
+      cursor: pointer;
+    }
+    button:disabled { opacity: .6; cursor: not-allowed; }
+    :focus-visible { outline: .2rem solid #4f7cff; outline-offset: .15rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <p>Issue: ISS-000 · Status: awaiting decision</p>
+    <h1>Replace with the decision question</h1>
+    <div class="summary">
+      <strong>Why a visual is needed:</strong>
+      Replace with the spatial/state ambiguity this page resolves.
+    </div>
+  </header>
+
+  <main>
+    <section aria-labelledby="options-heading">
+      <h2 id="options-heading">Options or states</h2>
+      <div class="options">
+        <article class="option">
+          <h3>Option A</h3>
+          <div class="state">Replace with a simple visual representation.</div>
+          <p>Benefit, limitation, risk.</p>
+          <button type="button" data-choice="A" data-issue-id="ISS-000">Choose A</button>
+        </article>
+        <article class="option">
+          <h3>Option B</h3>
+          <div class="state">Replace with a simple visual representation.</div>
+          <p>Benefit, limitation, risk.</p>
+          <button type="button" data-choice="B" data-issue-id="ISS-000">Choose B</button>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="comparison-heading">
+      <h2 id="comparison-heading">Decision comparison</h2>
+      <table>
+        <thead><tr><th>Criterion</th><th>Option A</th><th>Option B</th></tr></thead>
+        <tbody><tr><td>Replace criterion</td><td>TODO</td><td>TODO</td></tr></tbody>
+      </table>
+    </section>
+
+    <section aria-labelledby="decision-heading">
+      <h2 id="decision-heading">Decision requested</h2>
+      <p>State exactly what the user needs to confirm and what changes based on it.</p>
+      <p>Serve with <code>python .agents/tools/session-serve/serve.py &lt;session&gt;</code>.</p>
+    </section>
+  </main>
+  <script src="/client.js" defer></script>
+</body>
+</html>

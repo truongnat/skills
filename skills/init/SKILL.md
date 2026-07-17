@@ -35,7 +35,7 @@ project-specific behavior without inventing conventions.
 - **business_rules**: Rule, source, affected area, confidence.
 - **key_constraints**: Technical, business, compliance, compatibility.
 - **commands**: Setup, build, test, lint, run, migration commands.
-- **conventions**: Code, branch, commit, PR, reporting conventions.
+- **conventions**: Code, branch, commit, PR, reporting, decision-gate, and visual conventions.
 - **security_notes**: Security boundaries and handling rules, without secrets.
 - **references**: Authoritative file/path/URL references.
 - **unknowns**: Missing or conflicting information requiring confirmation.

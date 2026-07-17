@@ -10,11 +10,51 @@ action. Fill this last, keep it first. -->
 
 - _(TODO)_
 
+## Developer overview
+
+| Field | Value |
+|---|---|
+| Status | `needs_info` / `planning` / `ready_for_sync` / `blocked` |
+| Cards drafted | `0` |
+| Critical open decisions | `0` |
+| Next action | _(ask user / fill tasks / sync)_ |
+
+## Charts (when useful)
+
+```mermaid
+flowchart LR
+  Scope[Scope] --> Inventory[Work inventory]
+  Inventory --> Cards[Micro-tasks]
+  Cards --> Ready{Ready?}
+  Ready -->|No| Blockers[Ask / resolve]
+  Ready -->|Yes| Sync[Sync]
+```
+
+<!-- Add a progress/risk Mermaid chart when the task set is large. -->
+
 ## Context (5W1H, when useful)
 
 | What | Why | Who | When | Where | How |
 |---|---|---|---|---|---|
 | _(TODO/N/A)_ | _(TODO/N/A)_ | _(TODO/N/A)_ | _(TODO/N/A)_ | _(TODO/N/A)_ | _(TODO/N/A)_ |
+
+## Pre-planning decision gate
+
+<!-- Inherit unresolved items from DISCUSSION/BA/design. Also add issues found
+during planning. Do not fill strategy/tasks while a blocking row is open. -->
+
+| Issue ID/source | Issue / decision | Severity | Clarity | Blocking? | Visual need/format | Resolution evidence | Status |
+|---|---|---|---|---|---|---|---|
+| _(TODO)_ | _(TODO)_ | Critical / High / Medium / Low | Clear / Partial / Unknown | Yes / No | none / text / table / diagram / html-recommended | _(user answer/path)_ | Open / Resolved |
+
+### Questions requiring user input
+
+| Issue | Focused question | Why the plan changes | Answer |
+|---|---|---|---|
+| _(TODO)_ | _(TODO)_ | _(TODO)_ | _(wait for user)_ |
+
+> **STOP gate:** Strategy and TASKS stay unfilled while any Critical issue,
+> blocking unknown, or unconfirmed `html-recommended` item is open.
 
 ## Goal
 

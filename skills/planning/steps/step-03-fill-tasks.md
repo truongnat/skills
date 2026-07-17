@@ -77,6 +77,11 @@ Prefer **more smaller cards**. Large features often need **15–40+** cards — 
 
 ## C. Card specificity (hard) — reject vague prose
 
+Before creating cards, re-check PLAN's decision gate. If an issue discovered
+during inventory changes scope, contracts, data behavior, acceptance criteria,
+or visual interaction and is Critical/blocking, add it to the gate, stop, and
+ask the user. Never turn ambiguity into an implementation task.
+
 Every kept `### T-00x` card **FAILS** unless **all** hold:
 
 1. **Title:** names a concrete unit (endpoint name, type name, control IDs, screen id) — not only a layer.

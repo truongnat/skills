@@ -1,9 +1,9 @@
 display_name: "Business Analysis"
 short_description: "Clarify business problems, stakeholder needs, scope, processes, user stories, business rules, data sources, assumptions, acceptance criteria, and functional specs."
 default_prompt: "Use $business-analysis to clarify business requirements before basic design, planning, implementation, or testing."
-required_input: "User request, business context, existing requirements, data samples (Excel, CSV, SQL, JSON, API response), screenshots, stakeholder feedback."
+required_input: "User request, business context, existing requirements, data samples (Excel, CSV, SQL, JSON, API response), screenshots or demo recordings, stakeholder feedback."
 required_output: "BUSINESS_ANALYSIS.md with problem statement, stakeholders, scope, user stories/use cases, business rules, data assumptions, acceptance criteria, open questions, and handoff."
-note_important: "Do NOT treat assumptions as requirements. Do NOT decide for stakeholders. Do NOT write vague or untestable acceptance criteria. Do NOT produce technical architecture — hand off to basic-design."
+note_important: "Do NOT treat assumptions as requirements. Do NOT decide for stakeholders. Do NOT write vague or untestable acceptance criteria. Do NOT produce technical architecture — hand off to basic-design. For supplied demo video, use video-keyframes and cite sampled frames as observations, not approved requirements."
 artifacts:
   BUSINESS_ANALYSIS.md:
     required: true
@@ -12,6 +12,14 @@ artifacts:
         type: array
         required: true
         description: "Maximum five bullets with the problem, key rule/decision, top risk, and next action."
+      developer_overview:
+        type: object
+        required: true
+        description: "Status, top rules/AC gaps, open questions, next action."
+      charts:
+        type: array
+        required: false
+        description: "Mermaid process/actor flow when useful; otherwise N/A."
       context_5w1h:
         type: object
         required: false

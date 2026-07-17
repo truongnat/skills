@@ -29,6 +29,8 @@ and conventions.
 - `AGENTS.md`: Entrypoint. Read this first.
 - `.agents/settings.yaml`: Project-level agent settings (language, etc.). Read first.
 - `.agents/PRJ_REFERENCE.md`: Generated project context shared by all skills.
+- `.agents/tools/`: Local utilities copied on install (for example the HTML
+  decision server that logs user choices).
 - `.agents/DESIGN_SYSTEM.md`: Optional template containing references to the host project's design system.
 - `.agents/THIRD_PARTY_SKILLS.md`: Sources, revisions, and licenses for vendored skills.
 - `.agents/skills/`: Each directory is an independent skill (or shared helper such as `office-common`).
@@ -109,6 +111,46 @@ During execution/coding:
   `.agents/settings.yaml`; update comments when behavior changes.
 - Avoid comments that merely repeat clear code. If no comment is needed, keep
   the code self-explanatory through naming and structure.
+
+## Decision and visual gates
+
+Brainstorming and planning must fail closed:
+
+- Classify material issues by severity, clarity, blocking status, owner, and
+  visual need.
+- When a Critical issue or blocking unknown is unresolved, **stop and ask the
+  user**. Do not select a default, continue filling downstream artifacts, or
+  bury the issue as an assumption.
+- Ask focused blocking questions in small batches (default maximum: three),
+  explain why each answer changes the direction, and record the answer.
+- Triage visual format by decision value:
+  - text/table for simple comparisons;
+  - diagram for architecture, sequence, state, or data flow;
+  - HTML for UI layout, responsive/before-after/multi-state, or spatial option
+    comparisons where a static table/diagram is insufficient.
+- Do not generate HTML for every complex issue. Honor
+  `rules.visuals.html` in settings; default is ask before creating it.
+- When a confirmed HTML decision page is ready, serve it with
+  `.agents/tools/session-serve/serve.py`, read the result with
+  `.agents/tools/choice-reader/read.py --issue-id <issue-id>`, and record that
+  answer in the clarification checkpoint before continuing.
+- Visual HTML must be self-contained, accessible, contain no external
+  scripts/network calls/sensitive data (except the local decision-server
+  client), and be treated as a decision aid rather than production UI.
+
+## Video evidence
+
+- When a screen recording or demo video is supplied to business-analysis,
+  investigate, or tester, extract periodic frames with
+  `.agents/tools/video-keyframes/extract.py` before detailed visual analysis.
+- Store generated frames in the active session, then cite `manifest.json` and
+  specific frame paths in the artifact instead of treating the whole video as
+  an opaque source.
+- Choose an interval appropriate to the clip and cap frame count. Sampling can
+  miss short transitions, does not analyze audio, and must not be presented as
+  proof of continuous behavior.
+- If FFmpeg is unavailable, report the evidence limitation; do not silently
+  claim the recording was analyzed.
 
 ## Contract Compliance
 
@@ -193,14 +235,43 @@ traceability, test data, or verification evidence.
 - Every human-readable report starts with **Executive summary (80/20)**:
   at most five bullets containing the decision, outcome, top findings/risks,
   and next action. Readers should understand the important 20% first.
+- Immediately after the summary, include a **Developer overview** panel:
+  status, progress, blockers, next action, and owner. A developer must
+  understand the state in under 30 seconds without reading the full report.
 - Add a **5W1H context** block (What, Why, Who, When, Where, How) when it
   materially clarifies scope or ownership. Use `N/A`/`Unknown` instead of
   padding or inventing details.
-- Put supporting evidence and implementation detail after the summary. Detail
-  remains mandatory where contracts, safety, verification, or reproducibility
-  require it.
+- Add **Charts/diagrams** when they improve scanability:
+  - Mermaid flowcharts for architecture, options, and process flows;
+  - Mermaid sequence diagrams for request/response or error paths;
+  - Mermaid state diagrams for lifecycle/status;
+  - Progress boards, pie/bar-style Mermaid charts, or status tables for
+    completion/risk distribution.
+  Prefer one clear chart over many decorative ones. If a chart adds no
+  decision value, write `N/A` with reason.
+- Put supporting evidence and implementation detail after the overview.
+  Detail remains mandatory where contracts, safety, verification, or
+  reproducibility require it.
+- Keep a session landing page at
+  `.agents/sessions/<Task-N-short-description>/OVERVIEW.md`. Sync,
+  execution, review, and done must refresh it so developers have one place
+  to check status, progress charts, and next action.
 - Apply project-specific report sections from `.agents/settings.yaml`.
 - Output must be **short, structured, decision-oriented**.
 - Use bullet lists and tables over paragraphs.
 - No filler sections. No marketing language.
 - Keep it clear and simple, in the language set by `.agents/settings.yaml`.
+
+## Developer UX / DX
+
+Agents write for humans who skim. Optimize for developer experience:
+
+1. **Scan first**: overview panel and chart before long prose.
+2. **Actionable**: every overview ends with a concrete next command/skill.
+3. **Traceable**: link Issue IDs, task IDs, files, and evidence paths.
+4. **Honest status**: use `todo` / `in_progress` / `done` / `blocked` /
+   `needs_info`; never imply green when blockers remain.
+5. **Low friction**: prefer Mermaid in Markdown over external tools; keep
+   charts small enough to render in common Markdown previews.
+6. **No noise**: no decorative visuals, no empty sections, no duplicated
+   walls of text already present in another artifact.

@@ -26,6 +26,8 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 #### `REVIEW.md`
 - Required: yes
 - **executive_summary** (required, array): Maximum five bullets with recommendation, top findings/risks, verification status, and next action.
+- **developer_overview** (required, object): Recommendation, finding counts by severity, verification gaps, next action.
+- **charts** (optional, array): Mermaid finding-severity or coverage chart when useful; otherwise N/A.
 - **context_5w1h** (optional, object): What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly.
 - **scope_reviewed** (required, string): What changes were reviewed.
 - **inputs** (required, array): What was read: PLAN.md, TASKS.md, EXECUTION.md, diff, test results.
@@ -36,6 +38,10 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 - **residual_risks** (optional, array): Risk, impact, acceptance/mitigation.
 - **recommendation** (required, string): Ready / Ready with risks / Needs fix / Blocked / Needs more verification.
 - **handoff** (required, string): Next action/skill, owner, and blocking status.
+
+#### `OVERVIEW.md`
+- Required: yes (update in place).
+- Refresh status/recommendation, open findings, and next action.
 
 ### Reference
 

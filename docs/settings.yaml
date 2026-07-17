@@ -33,6 +33,10 @@ rules:
     description_sections: []
     required_checks: []
   reports:
+    # User-facing lifecycle artifact format.
+    # Supported: markdown (default) | html
+    # HTML uses one enterprise theme (Tailwind CDN) — see DESIGN_SYSTEM.md
+    output_format: markdown
     style: 80-20
     context: 5w1h-when-useful
     executive_summary_max_items: 5

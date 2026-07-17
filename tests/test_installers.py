@@ -25,6 +25,9 @@ def make_source(tmp_path: Path) -> Path:
     decision_server.mkdir()
     (decision_server / "server.py").write_text("# decision server\n", encoding="utf-8")
     (decision_server / "client.js").write_text("// client\n", encoding="utf-8")
+    (decision_server / "animate.js").write_text("// animate\n", encoding="utf-8")
+    (decision_server / "styles.css").write_text("/* styles */\n", encoding="utf-8")
+    (decision_server / "tailwind-theme.js").write_text("tailwind.config = {};\n", encoding="utf-8")
     (decision_server / "README.md").write_text("decision server\n", encoding="utf-8")
     choice_reader = tools / "choice-reader"
     choice_reader.mkdir()
@@ -123,6 +126,10 @@ def test_tools_are_installed_and_logs_preserved(tmp_path: Path) -> None:
     decision_server = tools / "decision-server"
     assert (decision_server / "server.py").read_text(encoding="utf-8") == "# decision server\n"
     assert (decision_server / "client.js").is_file()
+    assert (decision_server / "animate.js").is_file()
+    assert (decision_server / "styles.css").is_file()
+    assert (decision_server / "tailwind-theme.js").is_file()
+    assert (root / ".agents" / "DESIGN_SYSTEM.md").read_text(encoding="utf-8") == "design\n"
     assert (tools / "choice-reader" / "read.py").is_file()
     assert (tools / "session-serve" / "serve.py").is_file()
     assert (tools / "video-keyframes" / "extract.py").is_file()

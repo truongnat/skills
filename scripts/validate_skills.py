@@ -152,10 +152,46 @@ def main() -> int:
     agents = (ROOT / "docs" / "AGENTS.md").read_text(encoding="utf-8")
     if "Developer UX / DX" not in agents:
         errors.append("docs/AGENTS.md missing Developer UX / DX section")
-    if "session_overview: required" not in (
-        ROOT / "docs" / "settings.yaml"
-    ).read_text(encoding="utf-8"):
+    settings = (ROOT / "docs" / "settings.yaml").read_text(encoding="utf-8")
+    if "session_overview: required" not in settings:
         errors.append("docs/settings.yaml missing session_overview setting")
+    if "output_format: markdown" not in settings:
+        errors.append("docs/settings.yaml missing default report output_format")
+    if "## Artifact format resolution" not in agents:
+        errors.append("docs/AGENTS.md missing artifact format resolution rules")
+    design_system = (ROOT / "docs" / "DESIGN_SYSTEM.md").read_text(encoding="utf-8")
+    if "cdn.tailwindcss.com" not in design_system and "ss-card" not in design_system:
+        errors.append("docs/DESIGN_SYSTEM.md missing Tailwind CDN / ss-card enterprise theme")
+    if "astryx.atmeta.com" in design_system.lower():
+        errors.append("docs/DESIGN_SYSTEM.md must not depend on Astryx")
+    decision_dir = ROOT / "tools" / "decision-server"
+    if not (decision_dir / "styles.css").is_file():
+        errors.append("tools/decision-server/styles.css missing")
+    if not (decision_dir / "tailwind-theme.js").is_file():
+        errors.append("tools/decision-server/tailwind-theme.js missing")
+    if not (decision_dir / "animate.js").is_file():
+        errors.append("tools/decision-server/animate.js missing")
+    if "DESIGN_SYSTEM.md" not in agents:
+        errors.append("docs/AGENTS.md missing DESIGN_SYSTEM reference")
+    styles = (decision_dir / "styles.css").read_text(encoding="utf-8")
+    if "--ss-interactive:" not in styles or "--ss-background:" not in styles:
+        errors.append("tools/decision-server/styles.css missing shared --ss-* tokens")
+    if "#10a37f" not in styles:
+        errors.append("tools/decision-server/styles.css missing Apps SDK accent token")
+    theme_js = (decision_dir / "tailwind-theme.js").read_text(encoding="utf-8")
+    if "tailwind.config" not in theme_js:
+        errors.append("tools/decision-server/tailwind-theme.js missing enterprise palette")
+    animate_js = (decision_dir / "animate.js").read_text(encoding="utf-8")
+    if "SimpleSkillsAnimate" not in animate_js or "data-ss-animate" not in animate_js:
+        errors.append("tools/decision-server/animate.js missing illustration helpers")
+    if "animejs" not in design_system:
+        errors.append("docs/DESIGN_SYSTEM.md missing anime.js illustration guidance")
+    if "ss-card" not in design_system or "token" not in design_system.lower():
+        errors.append("docs/DESIGN_SYSTEM.md missing compact ss-* / token guidance")
+    if "frontend-design" not in design_system and "Apps SDK" not in design_system:
+        errors.append("docs/DESIGN_SYSTEM.md missing Claude/OpenAI guideline attribution")
+    if "ss-prose" not in design_system and "semantic" not in design_system.lower():
+        errors.append("docs/DESIGN_SYSTEM.md missing semantic/reading-first guidance")
 
     for required in (
         ".agents/settings.yaml",

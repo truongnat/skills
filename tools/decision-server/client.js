@@ -27,22 +27,80 @@
     return data;
   }
 
-  function statusNode() {
-    let node = document.getElementById("decision-server-status");
-    if (!node) {
-      node = document.createElement("p");
-      node.id = "decision-server-status";
-      node.setAttribute("role", "status");
-      node.style.marginTop = "1rem";
-      document.body.appendChild(node);
+  function ensureBanner() {
+    let banner = document.getElementById("decision-banner");
+    if (!banner) {
+      banner = document.createElement("div");
+      banner.id = "decision-banner";
+      document.body.prepend(banner);
     }
-    return node;
+    banner.setAttribute("role", "status");
+    banner.setAttribute("aria-live", "polite");
+    if (!banner.querySelector(".ss-banner-inner")) {
+      banner.innerHTML =
+        '<div class="ss-banner-inner">' +
+        '<div class="ss-banner-mark" aria-hidden="true"></div>' +
+        '<div class="ss-banner-copy"><strong></strong><span></span></div>' +
+        "</div>";
+    }
+    return banner;
   }
 
-  function setStatus(text, ok) {
-    const node = statusNode();
-    node.textContent = text;
-    node.style.color = ok ? "inherit" : "#b00020";
+  function setBanner(state, title, detail) {
+    const banner = ensureBanner();
+    banner.dataset.state = state;
+    const mark = banner.querySelector(".ss-banner-mark");
+    const strong = banner.querySelector(".ss-banner-copy strong");
+    const span = banner.querySelector(".ss-banner-copy span");
+    if (!mark || !strong || !span) {
+      banner.textContent = `${title}${detail ? ` — ${detail}` : ""}`;
+      banner.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+    mark.textContent =
+      state === "ok" ? "✓" : state === "error" ? "!" : "…";
+    strong.textContent = title;
+    span.textContent = detail || "";
+    banner.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function optionRoot(button) {
+    return (
+      button.closest(".ss-option, .option, article, [data-choice-option]") ||
+      button.parentElement
+    );
+  }
+
+  function markSelection(selectedButton) {
+    const selected = optionRoot(selectedButton);
+    document.querySelectorAll("[data-choice]").forEach((button) => {
+      const root = optionRoot(button);
+      const isSelected = button === selectedButton;
+      // Keep enabled so the user can change their mind; choice-reader uses latest.
+      button.disabled = false;
+      if (!root) {
+        return;
+      }
+      root.classList.toggle("is-selected", isSelected);
+      root.classList.toggle("is-dimmed", !isSelected);
+      root.querySelectorAll(".ss-selected-badge").forEach((node) => node.remove());
+      if (isSelected) {
+        const badge = document.createElement("span");
+        badge.className = "ss-tag ss-selected-badge";
+        badge.textContent = "Selected";
+        root.prepend(badge);
+      }
+    });
+    if (selected) {
+      selected.classList.add("is-selected");
+      selected.classList.remove("is-dimmed");
+    }
+  }
+
+  function setChoicesBusy(busy) {
+    document.querySelectorAll("[data-choice]").forEach((button) => {
+      button.disabled = Boolean(busy);
+    });
   }
 
   async function recordChoice(choice, note, issueId) {
@@ -73,17 +131,35 @@
   function wireButtons() {
     document.querySelectorAll("[data-choice]").forEach((button) => {
       button.addEventListener("click", async () => {
+        if (button.disabled) {
+          return;
+        }
+        const choice = button.getAttribute("data-choice");
+        const issueId = button.getAttribute("data-issue-id");
+        const note = button.getAttribute("data-note") || "";
+        const label = button.textContent.trim() || choice;
         try {
-          button.disabled = true;
-          const choice = button.getAttribute("data-choice");
-          const issueId = button.getAttribute("data-issue-id");
-          const note = button.getAttribute("data-note") || "";
+          setChoicesBusy(true);
+          setBanner(
+            "pending",
+            "Saving your choice…",
+            `${label} (${choice})`
+          );
           await recordChoice(choice, note, issueId);
-          setStatus(`Logged choice: ${choice}`, true);
+          markSelection(button);
+          setBanner(
+            "ok",
+            "Choice recorded",
+            `${label} → ${choice}. Click another option to change.`
+          );
           await recordEvent("choice_ui_ack", { choice });
         } catch (err) {
-          setStatus(String(err.message || err), false);
-          button.disabled = false;
+          setBanner(
+            "error",
+            "Could not save choice",
+            String(err.message || err)
+          );
+          setChoicesBusy(false);
         }
       });
     });
@@ -92,10 +168,45 @@
   window.SimpleSkillsDecision = {
     recordChoice,
     recordEvent,
+    setBanner,
   };
 
+  function wireReveals() {
+    const nodes = document.querySelectorAll(
+      ".ss-reveal, main.ss-main > section, main.ss-main > .ss-grid"
+    );
+    if (!nodes.length) {
+      return;
+    }
+    if (!("IntersectionObserver" in window)) {
+      nodes.forEach((node) => node.classList.add("is-visible"));
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
+          }
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
+    );
+    nodes.forEach((node, index) => {
+      if (!node.classList.contains("ss-reveal")) {
+        node.classList.add("ss-reveal");
+      }
+      node.style.transitionDelay = `${Math.min(index * 40, 200)}ms`;
+      observer.observe(node);
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
+    ensureBanner();
     wireButtons();
+    wireReveals();
     recordEvent("page_view", { path: location.pathname }).catch(() => {});
   });
 })();

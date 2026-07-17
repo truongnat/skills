@@ -36,6 +36,10 @@ on first use.
 
 `.agents/settings.yaml` configures agent behavior. Set `language: en` or
 `language: vi` to control the language of agent replies and saved artifacts.
+Set `rules.reports.output_format` to `markdown` (default) or `html` to choose
+the representation of lifecycle reports while keeping the same contract
+sections and logical filenames. HTML uses one enterprise theme (Tailwind CDN);
+see `.agents/DESIGN_SYSTEM.md`.
 Reinstalling preserves an existing `settings.yaml`.
 
 After installation, run the `init` skill once. It inspects the project and

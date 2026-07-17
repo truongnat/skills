@@ -9,6 +9,8 @@ Skills with Snyk High Risk (for example `secrets-management`) were excluded.
 |---|---|---|---|---|
 | Web frontend | `web-component-design`, `accessibility-compliance` | [wshobson/agents](https://github.com/wshobson/agents) | `b6af3711058190e4b5c5274b9758498fe626ec5a` | MIT |
 | Design system | `design-system-patterns`, `visual-design-foundations` | [wshobson/agents](https://github.com/wshobson/agents) | `b6af3711058190e4b5c5274b9758498fe626ec5a` | MIT |
+| Frontend taste | `design-taste-frontend`, `minimalist-ui`, `high-end-visual-design`, `industrial-brutalist-ui`, `redesign-existing-projects` | [leonxlnx/taste-skill](https://github.com/leonxlnx/taste-skill) | vendored MIT copy | MIT |
+| Frontend taste (Anthropic) | `frontend-design` | [anthropics/skills](https://github.com/anthropics/skills) | `2235be7c60b551f5de82ade908fd3816455afcda` | Apache-2.0 |
 | Apps | `expo-native-ui`, `expo-data-fetching` | [expo/skills](https://github.com/expo/skills) | `8d72763f53c4fe11ed3ae0441b921bda821d2a74` | MIT |
 | Backend / API | `nodejs-backend-patterns`, `api-design-principles` | [wshobson/agents](https://github.com/wshobson/agents) | `b6af3711058190e4b5c5274b9758498fe626ec5a` | MIT |
 | Database | `postgresql-table-design`, `sql-optimization-patterns`, `database-migration` | [wshobson/agents](https://github.com/wshobson/agents) | `b6af3711058190e4b5c5274b9758498fe626ec5a` | MIT |

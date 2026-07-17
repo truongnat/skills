@@ -4,56 +4,66 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Visual decision — replace title</title>
-  <style>
-    :root {
-      color-scheme: light dark;
-      font-family: system-ui, sans-serif;
-      line-height: 1.5;
+  <link rel="stylesheet" href="/styles.css">
+  <script>
+    if (location.protocol === "file:") {
+      document.addEventListener("DOMContentLoaded", () => {
+        const banner = document.getElementById("decision-banner");
+        if (!banner) return;
+        banner.dataset.state = "error";
+        banner.style.display = "block";
+        banner.style.background = "#facecb";
+        banner.style.color = "#a50c25";
+        banner.style.padding = "12px 16px";
+        banner.innerHTML =
+          "<strong>Do not open this file via file://</strong><br>" +
+          "Serve it with <code>python .agents/tools/session-serve/serve.py &lt;session&gt;</code>, " +
+          "then open the printed <code>http://127.0.0.1:...</code> URL.";
+      });
     }
-    body { margin: 0 auto; max-width: 72rem; padding: 2rem; }
-    header, section { margin-bottom: 2rem; }
-    .summary { border-inline-start: .35rem solid #4f7cff; padding-inline-start: 1rem; }
-    .options { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
-    .option { border: 1px solid #8888; border-radius: .75rem; padding: 1rem; }
-    .state { background: #8881; border-radius: .5rem; padding: .75rem; }
-    table { border-collapse: collapse; width: 100%; }
-    th, td { border: 1px solid #8888; padding: .65rem; text-align: start; vertical-align: top; }
-    button {
-      margin-top: .75rem;
-      padding: .55rem .9rem;
-      border-radius: .5rem;
-      border: 1px solid #4f7cff;
-      background: #4f7cff;
-      color: white;
-      cursor: pointer;
-    }
-    button:disabled { opacity: .6; cursor: not-allowed; }
-    :focus-visible { outline: .2rem solid #4f7cff; outline-offset: .15rem; }
-  </style>
+  </script>
 </head>
 <body>
+  <div id="decision-banner" role="status" aria-live="polite">
+    <div class="ss-banner-inner">
+      <div class="ss-banner-mark" aria-hidden="true"></div>
+      <div class="ss-banner-copy"><strong></strong><span></span></div>
+    </div>
+  </div>
+
   <header>
-    <p>Issue: ISS-000 · Status: awaiting decision</p>
+    <p class="ss-eyebrow">Issue ISS-000 · Awaiting decision</p>
     <h1>Replace with the decision question</h1>
-    <div class="summary">
+    <p class="ss-summary">
       <strong>Why a visual is needed:</strong>
       Replace with the spatial/state ambiguity this page resolves.
-    </div>
+    </p>
   </header>
 
   <main>
+    <section aria-labelledby="overview-heading">
+      <h2 id="overview-heading">Developer overview</h2>
+      <div class="ss-overview">
+        <div class="ss-panel"><strong>Status</strong>needs_info</div>
+        <div class="ss-panel"><strong>Blocking</strong>ISS-000</div>
+        <div class="ss-panel"><strong>Next action</strong>Choose one option</div>
+        <div class="ss-panel"><strong>Owner</strong>Product / BA</div>
+      </div>
+    </section>
+
     <section aria-labelledby="options-heading">
       <h2 id="options-heading">Options or states</h2>
-      <div class="options">
-        <article class="option">
+      <div class="ss-options">
+        <article class="ss-option recommended">
+          <span class="ss-tag">Recommended</span>
           <h3>Option A</h3>
-          <div class="state">Replace with a simple visual representation.</div>
+          <div class="ss-state">Replace with a simple visual representation.</div>
           <p>Benefit, limitation, risk.</p>
           <button type="button" data-choice="A" data-issue-id="ISS-000">Choose A</button>
         </article>
-        <article class="option">
+        <article class="ss-option">
           <h3>Option B</h3>
-          <div class="state">Replace with a simple visual representation.</div>
+          <div class="ss-state">Replace with a simple visual representation.</div>
           <p>Benefit, limitation, risk.</p>
           <button type="button" data-choice="B" data-issue-id="ISS-000">Choose B</button>
         </article>
@@ -72,8 +82,13 @@
       <h2 id="decision-heading">Decision requested</h2>
       <p>State exactly what the user needs to confirm and what changes based on it.</p>
       <p>Serve with <code>python .agents/tools/session-serve/serve.py &lt;session&gt;</code>.</p>
+      <p>Follow <code>.agents/DESIGN_SYSTEM.md</code> for layout and choice feedback.</p>
     </section>
   </main>
+
+  <footer>
+    Agent decision aid · Local decision client only · No external assets.
+  </footer>
   <script src="/client.js" defer></script>
 </body>
 </html>

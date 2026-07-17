@@ -18,6 +18,12 @@ and conventions.
   unchanged regardless of `language`.
 - If `.agents/settings.yaml` is missing or the value is unknown, default to
   `en`. A direct instruction in the current user request overrides the file.
+- `rules.reports.output_format`: `markdown` (default) or `html`. Controls the
+  extension and representation of human-readable lifecycle artifacts while
+  preserving the same contract schema and logical basename. HTML uses one
+  enterprise theme via short `.ss-*` classes in `/styles.css` (see
+  `.agents/DESIGN_SYSTEM.md`). Prefer those classes over long Tailwind stacks
+  to keep agent tokens low.
 - Project-specific branch, commit, PR, report, and code-comment rules live
   under `rules` in settings. Apply only populated values.
 - If `.agents/PRJ_REFERENCE.md` is missing or materially stale, run the `init`
@@ -31,7 +37,8 @@ and conventions.
 - `.agents/PRJ_REFERENCE.md`: Generated project context shared by all skills.
 - `.agents/tools/`: Local utilities copied on install (for example the HTML
   decision server that logs user choices).
-- `.agents/DESIGN_SYSTEM.md`: Optional template containing references to the host project's design system.
+- `.agents/DESIGN_SYSTEM.md`: Compact enterprise HTML recipe (semantic +
+  short `.ss-*` classes; beauty in CSS, not utility soup).
 - `.agents/THIRD_PARTY_SKILLS.md`: Sources, revisions, and licenses for vendored skills.
 - `.agents/skills/`: Each directory is an independent skill (or shared helper such as `office-common`).
   - `SKILL.md`: **Authoritative** skill definition when present.
@@ -230,6 +237,36 @@ Use when researching external sources or making technical decisions.
 Use when requirements, plans, or implemented changes need test design,
 traceability, test data, or verification evidence.
 
+## Artifact format resolution
+
+- Resolve `rules.reports.output_format` before creating or reading a
+  human-readable first-party lifecycle artifact:
+  - `markdown`: write the contract basename with `.md`;
+  - `html`: write the same basename with `.html`.
+- Artifact names shown as `*.md` in skill contracts and templates are logical
+  names whose default representation is Markdown. For example, logical
+  `BUSINESS_ANALYSIS` resolves to `BUSINESS_ANALYSIS.html` in HTML mode.
+- Downstream skills first read the configured extension, then fall back to the
+  alternate extension so existing sessions remain compatible. Non-report
+  formats such as CSV, JSON, office files, source code, and manifests are not
+  changed by this setting.
+- Markdown templates remain authoritative for required sections and order.
+  In HTML mode, map them to semantic headings, sections, lists, tables, and
+  code blocks without omitting contract fields.
+- HTML reports must be accessible and **reading-first**: semantic landmarks
+  (`header` / `main` / `footer`), one `h1`, ordered headings, real lists/tables.
+  Prefer short `.ss-*` classes from `.agents/DESIGN_SYSTEM.md` (do not invent
+  long Tailwind utility stacks). Theme follows Anthropic frontend-design +
+  OpenAI Apps SDK UI (system fonts, hairline cards, green accent signature).
+  Runtime may inject Tailwind CDN, `/tailwind-theme.js`, `/styles.css`,
+  anime.js, `/animate.js`, `/client.js`. Allowed external CDNs:
+  `cdn.tailwindcss.com`, `cdn.jsdelivr.net/npm/animejs@3.2.2`. No sensitive
+  data. Replace Mermaid with an accessible table or inline SVG.
+- Interactive HTML decisions use `data-issue-id` and `data-choice` and must be
+  served with `.agents/tools/session-serve/serve.py <session> --file
+  <ARTIFACT>.html`. After the user chooses, the sticky banner confirmation is
+  required; read the result with `choice-reader` and record it in the artifact.
+
 ## Artifact Quality
 
 - Every human-readable report starts with **Executive summary (80/20)**:
@@ -253,7 +290,7 @@ traceability, test data, or verification evidence.
   Detail remains mandatory where contracts, safety, verification, or
   reproducibility require it.
 - Keep a session landing page at
-  `.agents/sessions/<Task-N-short-description>/OVERVIEW.md`. Sync,
+  `.agents/sessions/<Task-N-short-description>/OVERVIEW.<ext>`. Sync,
   execution, review, and done must refresh it so developers have one place
   to check status, progress charts, and next action.
 - Apply project-specific report sections from `.agents/settings.yaml`.

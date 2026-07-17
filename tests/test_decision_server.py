@@ -43,8 +43,15 @@ def decision_http(tmp_path: Path):
     )
     log_dir = tmp_path / "logs"
     log_dir.mkdir()
-    client_js = REPO_ROOT / "tools" / "decision-server" / "client.js"
+    tools = REPO_ROOT / "tools" / "decision-server"
+    client_js = tools / "client.js"
+    animate_js = tools / "animate.js"
+    styles_css = tools / "styles.css"
+    tailwind_theme_js = tools / "tailwind-theme.js"
     assert client_js.is_file()
+    assert animate_js.is_file()
+    assert styles_css.is_file()
+    assert tailwind_theme_js.is_file()
 
     server = decision_server.ThreadingHTTPServer(
         ("127.0.0.1", 0), decision_server.DecisionHandler
@@ -52,6 +59,9 @@ def decision_http(tmp_path: Path):
     server.root = root
     server.log_dir = log_dir
     server.client_js = client_js
+    server.animate_js = animate_js
+    server.styles_css = styles_css
+    server.tailwind_theme_js = tailwind_theme_js
     server.default_file = "VISUAL_DECISION.html"
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
@@ -81,6 +91,16 @@ def _post_json(host: str, port: int, path: str, payload: dict) -> tuple[int, dic
         conn.close()
 
 
+def _get(host: str, port: int, path: str) -> tuple[int, bytes]:
+    conn = HTTPConnection(host, port, timeout=5)
+    try:
+        conn.request("GET", path)
+        response = conn.getresponse()
+        return response.status, response.read()
+    finally:
+        conn.close()
+
+
 def test_choice_endpoint_appends_jsonl(decision_http) -> None:
     status, data = _post_json(
         decision_http["host"],
@@ -99,7 +119,7 @@ def test_choice_endpoint_appends_jsonl(decision_http) -> None:
     assert "received_at" in record
 
 
-def test_html_injects_client_script(decision_http) -> None:
+def test_html_injects_enterprise_assets(decision_http) -> None:
     status, body = _get(
         decision_http["host"],
         decision_http["port"],
@@ -107,14 +127,49 @@ def test_html_injects_client_script(decision_http) -> None:
     )
     assert status == 200
     html = body.decode("utf-8")
+    assert "cdn.tailwindcss.com" in html
+    assert "animejs@3.2.2" in html
+    assert 'src="/tailwind-theme.js"' in html
+    assert 'href="/styles.css"' in html
+    assert 'src="/animate.js"' in html
     assert 'src="/client.js"' in html
+    assert 'data-ss-theme="enterprise"' in html
 
 
-def _get(host: str, port: int, path: str) -> tuple[int, bytes]:
-    conn = HTTPConnection(host, port, timeout=5)
-    try:
-        conn.request("GET", path)
-        response = conn.getresponse()
-        return response.status, response.read()
-    finally:
-        conn.close()
+def test_styles_and_theme_endpoints(decision_http) -> None:
+    status, body = _get(
+        decision_http["host"],
+        decision_http["port"],
+        "/styles.css",
+    )
+    assert status == 200
+    assert b"--ss-interactive:" in body
+    assert b"--ss-background:" in body
+
+    status, body = _get(
+        decision_http["host"],
+        decision_http["port"],
+        "/tailwind-theme.js",
+    )
+    assert status == 200
+    assert b"tailwind.config" in body
+    assert b"accent" in body or b"ink" in body
+
+    status, body = _get(
+        decision_http["host"],
+        decision_http["port"],
+        "/animate.js",
+    )
+    assert status == 200
+    assert b"SimpleSkillsAnimate" in body
+    assert b"data-ss-animate" in body
+
+    status, raw = _get(
+        decision_http["host"],
+        decision_http["port"],
+        "/api/health",
+    )
+    assert status == 200
+    data = json.loads(raw.decode("utf-8"))
+    assert data["ok"] is True
+    assert data["theme"] == "enterprise"

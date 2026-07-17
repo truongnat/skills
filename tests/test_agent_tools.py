@@ -79,6 +79,21 @@ def test_session_serve_resolves_latest_and_named_session(tmp_path: Path) -> None
     assert filename == "VISUAL_DECISION.html"
 
 
+def test_session_serve_supports_report_html(tmp_path: Path) -> None:
+    sessions = tmp_path / "sessions"
+    session = sessions / "business-analysis"
+    session.mkdir(parents=True)
+    report = session / "BUSINESS_ANALYSIS.html"
+    report.write_text("<!doctype html>", encoding="utf-8")
+
+    resolved, filename = session_serve.resolve_session(
+        None, sessions, "BUSINESS_ANALYSIS.html"
+    )
+
+    assert resolved == session
+    assert filename == "BUSINESS_ANALYSIS.html"
+
+
 def test_session_serve_builds_decision_server_command(tmp_path: Path) -> None:
     server = tmp_path / "server.py"
     session = tmp_path / "session"

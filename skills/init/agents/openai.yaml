@@ -7,7 +7,7 @@ note_important: "Read-only discovery. Never read or record secret values. Preser
 workflow:
   - "Read settings and existing reference; choose init, refresh, or explicit force mode."
   - "Inventory git metadata, manifests, configs, CI, architecture, tests, docs, business rules, and constraints without executing project code."
-  - "Deep workspace scan (mandatory): detect monorepo/workspace roots (pnpm-workspace.yaml, turbo.json, nx.json, package.json workspaces, Cargo/Go/Gradle workspaces) and enumerate every member under apps/*, packages/*, services/*; read each member manifest and record its OWN stack (e.g. a Flutter/Dart pubspec.yaml app beside Next.js/NestJS apps). Never collapse a multi-stack monorepo into one root stack."
+  - "Deep workspace scan (mandatory): run `bash .agents/skills/init/scripts/scan_workspaces.sh` — a deterministic filesystem sweep that finds EVERY project manifest across ecosystems, independent of any JS/TS workspace config. Record every row; each ecosystem is a distinct stack (e.g. a Flutter/Dart pubspec.yaml app under apps/ that pnpm-workspace.yaml does NOT list). Never enumerate from the workspace config alone and never collapse a multi-stack monorepo into one root stack."
   - "Classify facts as confirmed, inferred, or unknown and cite sources."
   - "Fill templates/PRJ_REFERENCE.template.md with an 80/20 summary at the top."
   - "Merge only evidenced or user-confirmed conventions into settings.yaml; preserve language and custom values."

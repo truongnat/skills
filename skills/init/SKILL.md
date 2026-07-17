@@ -28,7 +28,7 @@ project-specific behavior without inventing conventions.
 |---|---|
 | Inputs | Repository root, existing `.agents/settings.yaml` and `.agents/PRJ_REFERENCE.md` when present, source/config/docs/tests, git metadata, user-confirmed project rules. |
 | Outputs | `.agents/PRJ_REFERENCE.md` and a merged `.agents/settings.yaml`. |
-| Safety | Read-only discovery. Never read or record secret values. Never execute project code, install dependencies, or mutate source files. Preserve existing user settings unless explicitly replaced. Mark uncertain facts; do not invent business or workflow rules. |
+| Safety | Read-only discovery. Never read or record secret values. Never execute **project** code, install dependencies, or mutate source files. Running the bundled read-only `scripts/scan_workspaces.sh` (filesystem sweep only) is allowed. Preserve existing user settings unless explicitly replaced. Mark uncertain facts; do not invent business or workflow rules. |
 
 ### Required artifacts
 
@@ -78,21 +78,32 @@ project-specific behavior without inventing conventions.
    - manifests, lockfiles, build/test/lint configs, CI, containers, migrations;
    - source layout, entry points, public interfaces, tests, documentation;
    - business rules and constraints evidenced by docs, tests, schemas, or code.
-4. **Deep workspace scan (mandatory — do not scan only the root).** Detect
-   whether the repo is a monorepo/workspace and, if so, enumerate **every**
-   member and record its own stack. Do not assume the root manifest represents
-   all apps.
-   - Detect workspace roots: `pnpm-workspace.yaml`, `turbo.json`, `nx.json`,
-     `lerna.json`, a `workspaces` field in root `package.json`, Cargo
-     `[workspace]`, `go.work`, Gradle `settings.gradle(.kts)`, Bazel, etc.
-   - Enumerate members under `apps/*`, `packages/*`, `services/*`, `libs/*`,
-     and any globs the workspace config declares.
-   - For **each** member, read its own manifest to classify its stack — e.g.
-     a `package.json` Next.js app, a `package.json` NestJS API, and a
-     `pubspec.yaml` **Flutter/Dart** app can all coexist. A member with a
-     manifest of a different ecosystem is a distinct stack and MUST be recorded.
-   - Record path, type, stack, entry point, and per-app commands in the
-     `workspaces` table; keep `tech_stack` per workspace.
+4. **Deep workspace scan (mandatory — do not scan only the root, and do not
+   enumerate from the workspace config).** Run the bundled deterministic
+   scanner, which sweeps the **filesystem** for every project manifest across
+   all ecosystems — independent of any JS/TS workspace config:
+
+   ```bash
+   bash .agents/skills/init/scripts/scan_workspaces.sh
+   ```
+
+   It prints one `DIR<TAB>STACK<TAB>MANIFEST` row per project (Node/TS,
+   Flutter/Dart, Go, Rust, Python, JVM, .NET, PHP, Ruby, Swift, …).
+   - **Record every row.** Each row with a manifest of a different ecosystem is
+     a distinct stack that MUST appear in the `workspaces` table and in
+     per-workspace `tech_stack`.
+   - **Why the config is not enough:** a `pnpm-workspace.yaml` / `turbo.json` /
+     root `package.json "workspaces"` lists only JS/TS members. A Flutter/Dart,
+     Go, Rust, or Python app under `apps/` is typically **not** listed there, so
+     enumerating from the config silently drops whole stacks. The script is the
+     source of truth for enumeration; the config is only supporting evidence.
+   - For each detected project, read its own manifest for the entry point and
+     per-app commands, and record path, type, stack, entry point, and commands.
+   - If the script cannot run in this environment, fall back to a manual
+     recursive manifest sweep (`package.json`, `pubspec.yaml`, `Cargo.toml`,
+     `go.mod`, `pom.xml`, `build.gradle*`, `pyproject.toml`, `*.csproj`, …)
+     while pruning `node_modules`, build/generated, and native platform dirs —
+     never bound the sweep by the workspace config.
 6. Classify every important statement:
    - `confirmed`: direct source or user confirmation;
    - `inferred`: evidence exists but is indirect;

@@ -20,7 +20,7 @@ Fill `PLAN.md` as **strategy only**. Full task cards stay in `TASKS.md` (step-03
 2. Scope / Non-goals — Scope: enumerate separable units (endpoints, services, screens, validations), not only layers
 3. Assumptions (risk + confirmed)
 4. Approach (phases only)
-5. Affected areas (paths + confidence) — under `OPASS/branches/features/VIETIS/<module>_main/…` per AGENTS Workspace; inspect repo when possible
+5. Affected areas (paths + confidence) — inspect repo when possible
 6. Test strategy (optional — after-code)
 7. Verification strategy
 8. Definition of done

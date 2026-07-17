@@ -1,13 +1,18 @@
-# Design System Baseline
+# Design System Reference
 
-Baseline for any HTML preview, tool UI, artifact UI, or interface template in this repo.
+Use this file to point agents to the design system used by the host project.
+Replace the placeholders below after installation. Do not duplicate the design
+system here when an authoritative source already exists.
 
-- Docs: https://astryx.atmeta.com/docs/getting-started
-- Principles: https://astryx.atmeta.com/docs/principles
-- Theme System: https://astryx.atmeta.com/docs/theme
-- Color: https://astryx.atmeta.com/docs/color
-- Shape: https://astryx.atmeta.com/docs/shape
-- Spacing: https://astryx.atmeta.com/docs/spacing
-- Typography: https://astryx.atmeta.com/docs/typography
-- Motion: https://astryx.atmeta.com/docs/motion
-- Gallery: https://astryx.atmeta.com/themes
+## References
+
+- Primary documentation: `<path-or-url>`
+- UI/component library: `<path-or-url>`
+- Design tokens/theme: `<path-or-url>`
+- Assets/icons: `<path-or-url>`
+
+## Project notes
+
+- Framework: `<framework-or-not-applicable>`
+- Required conventions: `<short-summary-or-not-applicable>`
+- Exceptions: `<known-exceptions-or-none>`

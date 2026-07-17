@@ -30,9 +30,9 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 
 | Field | Requirement |
 |-------|-------------|
-| Inputs | Session path, PLAN.md, TASKS.md, workspace state (default code root from `AGENTS.md` Workspace — `OPASS/branches/features/VIETIS/` unless overridden), git/svn state, dependency/config metadata, known affected files, user constraints. |
-| Outputs | Sync summary with observed facts, inferred context, drift, dirty changes, risks, blockers, recommended next step. |
-| Safety | Read-only by default. Do NOT mutate workspace. Do NOT read secrets or sensitive files without a clear reason. Do NOT run destructive commands. Do NOT auto-resolve conflicts or unrelated dirty changes. Do NOT move to execution when PLAN.md or TASKS.md is stale, PLAN Ready=No / open blockers, SYNC.md is older than PLAN/TASKS, or blockers are unhandled. |
+| Inputs | Session path, PLAN.md, TASKS.md (including Progress board/Status/checkboxes when present), workspace state, git state, dependency/config metadata, known affected files, user constraints. |
+| Outputs | Sync summary with observed facts (include TASKS resume point / in_progress|blocked IDs), inferred context, drift, dirty changes, risks, blockers, recommended next step. |
+| Safety | Read-only by default. Do NOT mutate TASKS progress during sync. Prefer scope from PLAN/TASKS affected areas. Do NOT read secrets or sensitive files without a clear reason. Do NOT run destructive commands. Do NOT auto-resolve conflicts or unrelated dirty changes. Do NOT move to execution when PLAN Ready=No, blockers open, PLAN.md/TASKS.md stale, or SYNC.md older than PLAN/TASKS. |
 
 ### Required artifacts
 
@@ -98,7 +98,7 @@ Before moving to execution, verify:
 - PLAN.md and TASKS.md are present and aligned (both required before execution).
 - **PLAN.md Handoff Ready = Yes** and PLAN Handoff blockers are empty/`none`. If Ready=No or open blockers exist → **not** ready for execution (recommend resolve / re-plan / ask user).
 - If `SYNC.md` exists but is **older** than PLAN.md or TASKS.md (mtime or version/date) → treat prior SYNC as **stale**; rewrite SYNC.md this run.
-- Code workspace exists and is readable — default **`OPASS/branches/features/VIETIS/`** (active `<module>_main` from PLAN); do not sync against `develop` as the write target.
+- Code workspace exists and is readable — prefer paths from PLAN/TASKS affected areas.
 - Git/SVN repo is initialized if needed.
 - No dirty changes outside scope.
 - No conflict markers or merge/rebase state.

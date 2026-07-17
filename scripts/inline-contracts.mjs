@@ -288,6 +288,11 @@ function updateFrontmatterDescription(md) {
   if (!descMatch) return md;
 
   let descRaw = descMatch[1].trim();
+  // Skip YAML block scalars (`>` / `|`) — their value spans multiple lines, so a
+  // single-line rewrite would corrupt the frontmatter. Leave them untouched.
+  if (descRaw === "" || descRaw.startsWith(">") || descRaw.startsWith("|")) {
+    return md;
+  }
   // Only handle single-line quoted/unquoted descriptions (this repo's shape)
   let desc = unquote(descRaw);
   if (desc.includes(HARD_CONTRACT_NOTE)) {
@@ -429,6 +434,14 @@ function main() {
     } catch (err) {
       console.error(`parse fail ${skillName}: ${err.message}`);
       process.exitCode = 1;
+      continue;
+    }
+    if (
+      !("required_input" in doc) ||
+      !("required_output" in doc) ||
+      !("note_important" in doc)
+    ) {
+      console.log(`skip third-party metadata: ${skillName} (${yamlPath})`);
       continue;
     }
 

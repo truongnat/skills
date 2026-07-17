@@ -41,11 +41,9 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 - Append sync summary if workflow requires it. Not required for Lite Mode.
 
 #### `SYNC.md`
-- Required: no
-- Optional standalone sync report for Full Mode.
-
-#### `schema`
-- Required: shared (applies to sync report content)
+- Required: yes in Full Mode; optional in Lite Mode when the summary is appended to `EXECUTION.md`.
+- **executive_summary** (required, array): Maximum five bullets with readiness, drift, blockers, and next action.
+- **context_5w1h** (optional, object): What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly.
 - **scope** (required, string): What was synced (artifacts, workspace, git, dependencies).
 - **observed_facts** (required, array): List of observed facts with source for each.
 - **inferred_context** (optional, array): Inferences with basis and confidence level.

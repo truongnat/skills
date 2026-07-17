@@ -23,8 +23,10 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 
 ### Required artifacts
 
-#### `testcases.md`
+#### `TESTCASES.md`
 - Required: yes
+- **executive_summary** (required, array): Maximum five bullets with scope, highest-risk coverage, critical gaps, and next action.
+- **context_5w1h** (optional, object): What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly.
 - **session_timestamp** (required, string): ISO 8601 with timezone.
 - **test_scope** (required, string): In scope, out of scope, assumptions.
 - **applicable_groups** (required, string): Which test groups apply (A/B/C/D) and which are skipped with reasons.
@@ -33,7 +35,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 - **test_data** (optional, array): Data, purpose, source/setup, notes.
 - **testing_gaps** (optional, array): Gap, risk, suggested follow-up.
 
-#### `testcases.csv`
+#### `TESTCASES.csv`
 - Required: no
 - CSV file for Excel/Google Sheets import when user requests.
 
@@ -81,7 +83,7 @@ Note: All test data is fake. Emails use safe domain (example.com).
 | Situation | Handling |
 |---|---|
 | Acceptance criteria are not testable | Document as testing gap. Suggest rewording for testability. |
-| User wants CSV export | Create testcases.csv with same columns after the Markdown table. |
+| User wants CSV export | Create `TESTCASES.csv` with the same columns after the Markdown table. |
 | Existing tests already cover some cases | Reference existing tests. Do NOT duplicate them. |
 | No test environment available | Document as constraint. Suggest manual verification only. |
 | Business rules are missing | Mark as assumption. Recommend business-analysis first. |

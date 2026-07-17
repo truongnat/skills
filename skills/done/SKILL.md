@@ -25,6 +25,8 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 
 #### `DONE.md`
 - Required: yes
+- **executive_summary** (required, array): Maximum five bullets with final status, delivered value, verification, residual risk, and next action.
+- **context_5w1h** (optional, object): What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly.
 - **status** (required, string): Done / Done with risks / Needs fix / Blocked / Partial.
 - **summary** (required, string): Outcome-focused summary (not file list).
 - **scope_completed** (required, array): Scope item, status, evidence.

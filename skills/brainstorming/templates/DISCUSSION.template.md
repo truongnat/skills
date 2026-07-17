@@ -3,6 +3,19 @@
 > Seeded by brainstorming step-01. Fill via steps 02–04. Do **not** invent PLAN/TASKS/design detail here.
 > Separate **facts** vs **assumptions** vs **unknowns**. End with one clear **recommendation** + **handoff**.
 
+## Executive summary (80/20)
+
+<!-- Maximum five bullets: direction, key facts/unknowns, recommendation, top
+risk, and next action. Fill this last, keep it first. -->
+
+- _(TODO)_
+
+## Context (5W1H, when useful)
+
+| What | Why | Who | When | Where | How |
+|---|---|---|---|---|---|
+| _(TODO/N/A)_ | _(TODO/N/A)_ | _(TODO/N/A)_ | _(TODO/N/A)_ | _(TODO/N/A)_ | _(TODO/N/A)_ |
+
 ## Goal
 
 <!-- One sentence. -->

@@ -2,5 +2,53 @@ display_name: "Business Analysis"
 short_description: "Clarify business problems, stakeholder needs, scope, processes, user stories, business rules, data sources, assumptions, acceptance criteria, and functional specs."
 default_prompt: "Use $business-analysis to clarify business requirements before basic design, planning, implementation, or testing."
 required_input: "User request, business context, existing requirements, data samples (Excel, CSV, SQL, JSON, API response), screenshots, stakeholder feedback."
-required_output: "Requirement notes: problem statement, stakeholders, scope, user stories/use cases, business rules, data assumptions, acceptance criteria, open questions, handoff (usually basic-design when technical work follows)."
+required_output: "BUSINESS_ANALYSIS.md with problem statement, stakeholders, scope, user stories/use cases, business rules, data assumptions, acceptance criteria, open questions, and handoff."
 note_important: "Do NOT treat assumptions as requirements. Do NOT decide for stakeholders. Do NOT write vague or untestable acceptance criteria. Do NOT produce technical architecture — hand off to basic-design."
+artifacts:
+  BUSINESS_ANALYSIS.md:
+    required: true
+    schema:
+      executive_summary:
+        type: array
+        required: true
+        description: "Maximum five bullets with the problem, key rule/decision, top risk, and next action."
+      context_5w1h:
+        type: object
+        required: false
+        description: "What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly."
+      problem_statement:
+        type: string
+        required: true
+        description: "One-sentence business problem."
+      stakeholders:
+        type: array
+        required: true
+        description: "Actor, goal, pain point, authority."
+      scope:
+        type: object
+        required: true
+        description: "In scope, out of scope, non-goals."
+      user_stories:
+        type: array
+        required: true
+        description: "ID, actor, need, value."
+      business_rules:
+        type: array
+        required: true
+        description: "BR ID, rule, source, confidence."
+      data_assumptions:
+        type: array
+        required: false
+        description: "Assumption, risk, confirmation owner."
+      acceptance_criteria:
+        type: array
+        required: true
+        description: "AC ID, Given/When/Then, rule mapping."
+      open_questions:
+        type: array
+        required: true
+        description: "Question, owner, blocking status."
+      handoff:
+        type: string
+        required: true
+        description: "Recommended next skill and readiness."

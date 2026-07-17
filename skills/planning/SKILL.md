@@ -57,10 +57,13 @@ This skill is a **hard contract**. Obey it before any other action.
 ### Required artifacts
 
 #### `PLAN.md` (from template)
-Strategy only: goal, scope, non_goals, assumptions, approach, affected_areas, test_strategy (optional), verification_strategy, definition_of_done, rollback_strategy, risks, **task_index** (ID + title only), handoff.
+Strategy only: executive_summary, context_5w1h (when useful), goal, scope,
+non_goals, assumptions, approach, affected_areas, test_strategy (optional),
+verification_strategy, definition_of_done, rollback_strategy, risks,
+**task_index** (ID + title only), handoff.
 
 #### `TASKS.md` (from template)
-Work inventory table, Progress board (Done checkbox + Status per ID), plan_ref, execution_order, micro-task cards (Trace with §/AC, Status=`todo`, Work items ≥2 as `- [ ] N. …`, Description, AC observable, Verify, Files/scope concrete, confidence, out-of-scope). Implement before automated tests. Planning seeds progress; execution marks completion.
+Work inventory table, Progress board (Done checkbox + Status per ID), plan_ref, execution_order, micro-task cards (Trace with §/AC, Status=`todo`, Work items ≥2 as `- [ ] N. …`, Description, AC observable, Verify, Flow/comment notes, Files/scope concrete, confidence, out-of-scope). Implement before automated tests. Planning seeds progress; execution marks completion.
 
 ### Reference
 

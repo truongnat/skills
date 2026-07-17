@@ -17,7 +17,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 
 | Field | Requirement |
 |-------|-------------|
-| Inputs | TASKS.md (task cards + Progress board + execution_order), PLAN.md (strategy/DoD/rollback), locked scope from PLAN/TASKS, repo context, affected files, constraints, verification commands. |
+| Inputs | TASKS.md (task cards + Progress board + execution_order), PLAN.md (strategy/DoD/rollback), `.agents/PRJ_REFERENCE.md`, project settings, locked scope, affected files, constraints, verification commands. |
 | Outputs | Workspace changes within scope; **updated TASKS.md progress** (Status, Done column, Work item checkboxes); EXECUTION.md with files changed, commands run, verification evidence, blockers, deviations. |
 | Safety | Do NOT modify outside scope. Execute by task ID from TASKS.md; use PLAN.md for DoD/rollback only. Do NOT put secrets in files/logs. Do NOT delete sensitive files/config/migration/data without a plan or confirmation. Do NOT revert changes not belonging to you without permission. Do NOT claim completion without verification or documenting skipped checks. Do NOT leave TASKS.md progress stale after finishing a Work item or card (must check off / set Status). |
 
@@ -33,6 +33,8 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 
 #### `EXECUTION.md`
 - Required: yes
+- **executive_summary** (required, array): Maximum five bullets with outcome, progress, verification, blocker/risk, and next action.
+- **context_5w1h** (optional, object): What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly.
 - **plan_source** (required, string): Reference to PLAN.md and TASKS.md (or clear scope source).
 - **current_task** (required, string): Task ID from TASKS.md currently being executed.
 - **scope** (required, string): Scope this execution covers.
@@ -80,6 +82,11 @@ Work items: - [x] 1. …  - [x] 2. …  - [x] 3. …
 - [ ] TASKS.md Progress board, card Status, and Work item checkboxes match reality at handoff.
 - [ ] Deviations from PLAN/TASKS are documented with justification.
 - [ ] Rollback notes exist for all changed areas.
+- [ ] Non-obvious flows, business rules, invariants, security boundaries, and
+      trade-offs have concise **why/rationale** comments at the relevant
+      boundary.
+- [ ] Comments do not narrate obvious code and remain accurate after the
+      change.
 
 ## WRONG vs CORRECT
 

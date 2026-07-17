@@ -53,7 +53,9 @@ This skill is a **hard contract**. Obey it before any other action.
 ### Required artifact
 
 #### `DISCUSSION.md` (from template)
-goal, desired_outcome, confirmed_facts, constraints, assumptions, unknowns, scope_in, scope_out, non_goals, options_considered, recommendation, risks, handoff.
+executive_summary, context_5w1h (when useful), goal, desired_outcome,
+confirmed_facts, constraints, assumptions, unknowns, scope_in, scope_out,
+non_goals, options_considered, recommendation, risks, handoff.
 
 ### Reference
 

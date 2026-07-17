@@ -88,6 +88,9 @@ Every kept `### T-00x` card **FAILS** unless **all** hold:
 7. **Files/scope:** concrete path(s) or “create `…/NamedFile.ext`”; confidence `known|inferred|unknown`. Not `backend` / `frontend` alone.
 8. **No placeholders:** no `_(TODO)_`, `_(short title)_`, `_(…)_` left on kept cards.
 9. **Progress board:** one row per card with matching ID/title, `Status: todo`, Done=`[ ]`.
+10. **Flow/comment notes:** identify where implementation needs concise
+    why/rationale comments for non-obvious flow, business rules, invariants, or
+    security boundaries; otherwise write `N/A` with a reason.
 
 ### WRONG vs CORRECT (card body)
 

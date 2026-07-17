@@ -15,16 +15,19 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 
 | Field | Requirement |
 |-------|-------------|
-| Inputs | PR diff, branch diff, base/head, PR description, changed files, test/CI results, codebase context. |
-| Outputs | REVIEW_PR.md with scope, findings, testing gaps, residual risks, PR description coverage, merge recommendation. |
-| Safety | Do NOT auto-fix the PR if the user only requested review. Do NOT approve on behalf of the user. Do NOT create findings without evidence. Do NOT claim merge-safe if verification is missing. Do NOT ignore security/data risks. |
+| Inputs | Base ref, head ref (branch/PR/commit), PR description when available, changed files, test/CI results, codebase context. Head may differ from the currently checked-out branch. |
+| Outputs | REVIEW_PR.md with review mode, base/head, findings, testing gaps, residual risks, PR description coverage, merge recommendation. |
+| Safety | Do NOT `checkout`, `stash`, reset, edit `.gitignore`, or otherwise change the current branch or working tree. Do NOT auto-fix the PR if the user only requested review. Do NOT approve on behalf of the user. Do NOT create findings without evidence. Do NOT claim merge-safe if verification is missing. Do NOT ignore security/data risks. Create review worktrees outside the repository, or use an existing ignored location. Never force-remove a dirty worktree. |
 
 ### Required artifacts
 
 #### `REVIEW_PR.md`
 - Required: yes
-- **base** (required, string): Base branch or commit.
-- **head** (required, string): Head branch or commit.
+- **executive_summary** (required, array): Maximum five bullets with merge recommendation, top findings/risks, verification status, and next action.
+- **context_5w1h** (optional, object): What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly.
+- **review_mode** (required, string): remote-diff / worktree / current-branch.
+- **base** (required, string): Base branch or commit (e.g. `origin/develop`).
+- **head** (required, string): Head branch or commit being reviewed (e.g. `origin/A`).
 - **pr_description_accuracy** (required, string): Does the diff match the description? yes/partial/no.
 - **changed_areas** (required, array): Area, files, risk level, notes.
 - **findings** (optional, array): Finding ID, severity, category, location, evidence, impact, recommendation, confidence.
@@ -37,8 +40,94 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 
 `agents/openai.yaml` is a machine-readable duplicate for tooling. The Contract in this SKILL.md is authoritative for agents.
 
+## Workflow (step by step)
+
+Reviewing a PR must never disturb the current branch or its uncommitted work.
+
+### Step 1 — Resolve base and head
+
+1. `git fetch origin` to get the latest refs.
+2. Base = the PR target branch (e.g. `origin/develop`), not the currently
+   checked-out branch. Ask the user if ambiguous.
+3. Head = the branch/PR under review (e.g. `origin/A` or a PR number).
+4. If GitHub CLI is available, pull PR metadata:
+
+```bash
+gh pr view <number-or-url> --json title,body,baseRefName,headRefName,files,statusCheckRollup
+```
+
+### Step 2 — Choose review mode
+
+| Situation | Mode |
+|---|---|
+| Only need to read the diff | `remote-diff` (default) |
+| Need to run tests / build / inspect full source of head | `worktree` |
+| Head PR is already the currently checked-out branch and tree is clean | `current-branch` |
+
+Default to `remote-diff`. Escalate to `worktree` only when runtime
+verification is required. Record the chosen mode in `REVIEW_PR.md`.
+
+### Step 3 — Get the diff
+
+`remote-diff` (no checkout, no worktree):
+
+```bash
+git diff --find-renames origin/develop...origin/A
+git diff --find-renames --stat origin/develop...origin/A
+```
+
+`worktree` (isolated, for tests/full source — current branch untouched):
+
+```bash
+repo_root=$(git rev-parse --show-toplevel)
+review_root="$(dirname "$repo_root")/.$(basename "$repo_root")-worktrees"
+mkdir -p "$review_root"
+git worktree add --detach "$review_root/review-A" origin/A
+cd "$review_root/review-A"
+git diff --find-renames origin/develop...HEAD
+```
+
+An existing project-local `.worktrees/` may be used only when
+`git check-ignore -q .worktrees` succeeds. Never edit `.gitignore` as part of a
+review.
+
+`current-branch` (only if head is already checked out and tree is clean):
+
+```bash
+git status --porcelain   # must be empty
+git diff --find-renames origin/develop...HEAD
+```
+
+Use three-dot (`base...head`) so the diff is scoped to what head added since
+the merge-base.
+
+### Step 4 — Verification evidence
+
+- `remote-diff`: rely on CI/PR status checks; mark local runtime checks
+  `skipped` (never false-pass).
+- `worktree` / `current-branch`: run the project-appropriate test/build command
+  and record results. Distinguish pre-existing failures from PR-introduced ones.
+
+### Step 5 — Write the artifact and clean up
+
+1. Write `REVIEW_PR.md` to `.agents/sessions/<Task-N-short-description>/`
+   (the repo root `.agents/` is git-ignored — never write it inside a worktree).
+2. If a worktree was created, remove it:
+
+```bash
+cd <main-repo-root>
+git -C <review-worktree-path> status --porcelain
+git worktree remove <review-worktree-path>
+```
+
+If the worktree is dirty, do not use `--force`; report the cleanup blocker.
+Confirm the current branch and working tree are unchanged.
+
 ## Quality Standards
 
+- [ ] Review mode (remote-diff / worktree / current-branch) is recorded with base and head.
+- [ ] Base is the PR target ref, not assumed from the current branch.
+- [ ] Current branch and uncommitted work are untouched; any worktree is outside the repo (or already ignored) and safely removed.
 - [ ] PR description is checked against actual diff (coverage column).
 - [ ] Each finding has severity, file/location, evidence, and recommendation.
 - [ ] Finding severity is one of: Critical / High / Medium / Low / Info.
@@ -80,6 +169,8 @@ Follow-up: Add a negative API permission test.
 | Lockfile changes without manifest changes | Flag as potential unintended dependency change. |
 | Binary files in the diff | Note they cannot be code-reviewed. Flag if large or unexpected. |
 | CI evidence is missing | Note as testing gap. If changes are high-risk, recommend Needs more verification. |
+| Head is a different branch while current branch has WIP | Use `remote-diff`, or a detached external worktree. Never checkout/stash/edit `.gitignore`. |
+| Runtime verification needed but sandbox blocks worktree | Fall back to `remote-diff`, mark runtime checks `skipped`, and say so. |
 
 ## Limitations
 

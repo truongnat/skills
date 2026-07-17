@@ -56,6 +56,8 @@ T-001 → T-002 → _(extend)_
 - Description: _(1–2 lines summary of the card; details live in Work items)_
 - AC: _(observable outcome — not “works” / “per spec”)_
 - Verify: _(command, request, or UI check for this card only)_
+- Flow/comment notes: _(where rationale comments are required for non-obvious
+  flow/business rules/security boundaries, or N/A with reason)_
 - Files/scope: _(concrete path or create `…/File.ext`)_ (confidence: known | inferred | unknown)
 - Out of scope for this card: _(what the next cards own)_
 
@@ -70,6 +72,7 @@ T-001 → T-002 → _(extend)_
 - Description: _(…)_
 - AC: _(…)_
 - Verify: _(…)_
+- Flow/comment notes: _(…)_
 - Files/scope: _(…)_ (confidence: known | inferred | unknown)
 - Out of scope for this card: _(…)_
 

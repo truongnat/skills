@@ -23,6 +23,8 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 
 #### `RESEARCH.md`
 - Required: yes
+- **executive_summary** (required, array): Maximum five bullets with answer, strongest evidence, caveat/risk, recommendation, and next action.
+- **context_5w1h** (optional, object): What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly.
 - **question** (required, string): Research question.
 - **decision_context** (required, string): What decision this research supports.
 - **status** (required, string): Complete / Complete with caveats / Partial / Blocked.

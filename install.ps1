@@ -69,6 +69,11 @@ try {
         Write-Host "Installing skill $($skill.Name) ..."
         $dest = Join-Path ".agents/skills" $skill.Name
         New-Item -ItemType Directory -Force -Path $dest | Out-Null
+        # Mirror managed content so removed/renamed files do not remain stale.
+        # Preserve only the skill-local virtual environment.
+        Get-ChildItem -Path $dest -Force |
+            Where-Object { $_.Name -ne ".venv" } |
+            Remove-Item -Recurse -Force
         Get-ChildItem -Path $skill.FullName -Force |
             Where-Object { $_.Name -ne ".venv" } |
             Copy-Item -Destination $dest -Recurse -Force
@@ -82,6 +87,14 @@ try {
 
     Copy-Item -Path (Join-Path $Source "docs/DESIGN_SYSTEM.md") -Destination ".agents/DESIGN_SYSTEM.md" -Force
     Copy-Item -Path (Join-Path $Source "docs/THIRD_PARTY_SKILLS.md") -Destination ".agents/THIRD_PARTY_SKILLS.md" -Force
+
+    # Preserve the user's existing settings (e.g. language choice) on reinstall.
+    $settingsDest = Join-Path ".agents" "settings.yaml"
+    if (Test-Path $settingsDest -PathType Leaf) {
+        Write-Host "Keeping existing .agents/settings.yaml."
+    } else {
+        Copy-Item -Path (Join-Path $Source "docs/settings.yaml") -Destination $settingsDest -Force
+    }
 
     $installAgentsFile = $true
     $agentsPath = Join-Path $Target.Path "AGENTS.md"

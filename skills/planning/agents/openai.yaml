@@ -3,7 +3,7 @@ short_description: "Step workflow: seed PLAN/TASKS, inventory→specific micro-t
 default_prompt: "Use $planning: follow steps/step-01-init.md then step-02..04. Copy templates first; build Work inventory before cards; never vague epics or PLAN-only."
 required_input: "DETAIL_DESIGN.md when present; else BASIC_DESIGN.md / DISCUSSION.md / BA notes; user request; codebase mapping; session path; constraints."
 required_output: "Session PLAN.md + TASKS.md with Work inventory and specific cards. Incomplete if steps skipped, PLAN-only, empty template, or vague layer/epic tasks."
-note_important: "Do NOT skip step-01. Do NOT fill TASKS before PLAN. Do NOT skip Work inventory. Do NOT emit vague layer titles or multi-endpoint/multi-screen cards. Each card needs Trace§ + Work items≥2 + concrete Files/scope + observable AC. Do NOT set Ready=Yes while blockers remain. Do NOT implement code."
+note_important: "Do NOT skip step-01. Do NOT fill TASKS before PLAN. Do NOT skip Work inventory. Do NOT emit vague layer titles or multi-endpoint/multi-screen cards. Each card needs Trace§ + Work items≥2 + concrete Files/scope + observable AC + Flow/comment notes (or N/A with reason). Do NOT set Ready=Yes while blockers remain. Do NOT implement code."
 artifacts:
   PLAN.md:
     required: true
@@ -12,6 +12,14 @@ artifacts:
         type: string
         required: true
         description: "Must be seeded from templates/PLAN.template.md via step-01."
+      executive_summary:
+        type: array
+        required: true
+        description: "Maximum five bullets with goal, approach, key risk, readiness, and next action."
+      context_5w1h:
+        type: object
+        required: false
+        description: "What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly."
       goal:
         type: string
         required: true
@@ -82,7 +90,7 @@ artifacts:
       tasks:
         type: array
         required: true
-        description: "Micro-task cards: Trace§, Status=todo, Work items≥2 as unchecked checkboxes, observable AC, concrete Files/scope, confidence. No vague layer epithets."
+        description: "Micro-task cards: Trace§, Status=todo, Work items≥2, observable AC, Flow/comment notes (or N/A), concrete Files/scope, confidence. No vague layer epithets."
       progress_board:
         type: array
         required: true

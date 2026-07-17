@@ -28,6 +28,8 @@ Fill `PLAN.md` as **strategy only**. Full task cards stay in `TASKS.md` (step-03
 10. Risks
 11. Task index (**draft** ID + title OK; refined in step-03)
 12. Handoff (blockers; Ready stays No until step-04)
+13. Context 5W1H when useful; use N/A/Unknown instead of filler.
+14. Executive summary (maximum five bullets) — fill last, keep it first.
 
 ## Done when
 

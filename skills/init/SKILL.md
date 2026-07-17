@@ -1,0 +1,95 @@
+---
+name: init
+description: >-
+  Initializes or refreshes project knowledge for all other skills. Use first
+  when entering a project, when .agents/PRJ_REFERENCE.md is missing or stale,
+  or when the user asks to force-regenerate project context and rules.
+---
+
+# Project Init
+
+## Purpose
+
+Build a reliable project reference before other lifecycle skills run. Collect
+facts from the repository, record sources and confidence, and configure
+project-specific behavior without inventing conventions.
+
+## Contract (mandatory)
+
+| Field | Requirement |
+|---|---|
+| Inputs | Repository root, existing `.agents/settings.yaml` and `.agents/PRJ_REFERENCE.md` when present, source/config/docs/tests, git metadata, user-confirmed project rules. |
+| Outputs | `.agents/PRJ_REFERENCE.md` and a merged `.agents/settings.yaml`. |
+| Safety | Read-only discovery. Never read or record secret values. Never execute project code, install dependencies, or mutate source files. Preserve existing user settings unless explicitly replaced. Mark uncertain facts; do not invent business or workflow rules. |
+
+### Required artifacts
+
+#### `.agents/PRJ_REFERENCE.md`
+
+- Required: yes.
+- **executive_summary**: The most useful 20% of project context.
+- **context_5w1h**: What, Why, Who, When, Where, How.
+- **project_identity**: Purpose, users, domain, lifecycle status.
+- **tech_stack**: Languages, frameworks, runtime, package/build tools.
+- **architecture**: Components, boundaries, entry points, data flows.
+- **business_rules**: Rule, source, affected area, confidence.
+- **key_constraints**: Technical, business, compliance, compatibility.
+- **commands**: Setup, build, test, lint, run, migration commands.
+- **conventions**: Code, branch, commit, PR, reporting conventions.
+- **security_notes**: Security boundaries and handling rules, without secrets.
+- **references**: Authoritative file/path/URL references.
+- **unknowns**: Missing or conflicting information requiring confirmation.
+- **freshness**: Generated/updated time, source commit, mode.
+
+#### `.agents/settings.yaml`
+
+- Required: yes; merge in place.
+- Preserve `language` and any user-authored values.
+- Populate only repository-evidenced or user-confirmed project rules.
+- Do not copy descriptive project facts here; link to
+  `.agents/PRJ_REFERENCE.md`.
+
+## Modes
+
+| Mode | Use | Behavior |
+|---|---|---|
+| `init` | Reference is missing | Create from the template. |
+| `refresh` | Existing reference may be stale | Update changed facts and preserve confirmed content. |
+| `force` | User explicitly requests regeneration | Re-scan all sources and rebuild the reference; merge settings without silently resetting user choices. |
+
+## Workflow (step by step)
+
+1. Read `.agents/settings.yaml` and existing project reference, if any.
+2. Select mode: `init`, `refresh`, or explicit `force`.
+3. Inventory repository facts using read-only inspection:
+   - git root, remotes (redact credentials), branches, default/base branch;
+   - manifests, lockfiles, build/test/lint configs, CI, containers, migrations;
+   - source layout, entry points, public interfaces, tests, documentation;
+   - business rules and constraints evidenced by docs, tests, schemas, or code.
+4. Classify every important statement:
+   - `confirmed`: direct source or user confirmation;
+   - `inferred`: evidence exists but is indirect;
+   - `unknown`: unresolved or conflicting.
+5. Seed from `templates/PRJ_REFERENCE.template.md`, fill all applicable
+   sections, and keep source references close to each fact.
+6. Merge confirmed project conventions into `.agents/settings.yaml`.
+   Preserve `language`, security hard rules, and custom user values.
+7. Validate:
+   - no secret values or sensitive file contents;
+   - executive summary appears first and is decision-oriented;
+   - 5W1H is complete or explicitly `Unknown`/`N/A`;
+   - commands are sourced, not guessed;
+   - unknowns and conflicts are visible.
+8. Report created/updated files and the highest-priority unknowns.
+
+## Discovery boundaries
+
+Do not open `.env`, credential stores, private keys, production dumps, or
+secret-manager payloads. File names may be listed when needed; values must
+never be read or copied.
+
+## Handoff
+
+All subsequent skills must read `.agents/settings.yaml` and
+`.agents/PRJ_REFERENCE.md` before making project-specific decisions. If the
+reference is missing or materially stale, run this skill first.

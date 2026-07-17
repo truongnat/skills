@@ -11,33 +11,42 @@ artifacts:
     description: "Append sync summary if workflow requires it. Not required for Lite Mode."
   SYNC.md:
     required: false
-    description: "Optional standalone sync report for Full Mode."
-  schema:
-    scope:
-      type: string
-      required: true
-      description: "What was synced (artifacts, workspace, git, dependencies)."
-    observed_facts:
-      type: array
-      required: true
-      description: "List of observed facts with source for each."
-    inferred_context:
-      type: array
-      required: false
-      description: "Inferences with basis and confidence level."
-    drift_detected:
-      type: array
-      required: false
-      description: "Drift items with type, impact, suggested action."
-    dirty_changes:
-      type: array
-      required: false
-      description: "Classified dirty changes with scope check (in-scope/out-of-scope/unknown)."
-    risks_blockers:
-      type: array
-      required: true
-      description: "Blockers with type, impact, next action."
-    recommendation:
-      type: string
-      required: true
-      description: "Ready for execution: Yes/No. Suggested next step."
+    required_when: "Full Mode"
+    description: "Standalone sync report; Lite Mode may append the same content to EXECUTION.md."
+    schema:
+      executive_summary:
+        type: array
+        required: true
+        description: "Maximum five bullets with readiness, drift, blockers, and next action."
+      context_5w1h:
+        type: object
+        required: false
+        description: "What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly."
+      scope:
+        type: string
+        required: true
+        description: "What was synced (artifacts, workspace, git, dependencies)."
+      observed_facts:
+        type: array
+        required: true
+        description: "List of observed facts with source for each."
+      inferred_context:
+        type: array
+        required: false
+        description: "Inferences with basis and confidence level."
+      drift_detected:
+        type: array
+        required: false
+        description: "Drift items with type, impact, suggested action."
+      dirty_changes:
+        type: array
+        required: false
+        description: "Classified dirty changes with scope check (in-scope/out-of-scope/unknown)."
+      risks_blockers:
+        type: array
+        required: true
+        description: "Blockers with type, impact, next action."
+      recommendation:
+        type: string
+        required: true
+        description: "Ready for execution: Yes/No. Suggested next step."

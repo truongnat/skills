@@ -3,6 +3,19 @@
 > Filled by planning step-02. Strategy only — **no** full task cards (`### T-00x` with AC/Verify/Files) in this file.
 > Session path: replace placeholders. See `TASKS.md` for executable work.
 
+## Executive summary (80/20)
+
+<!-- Maximum five bullets: goal, approach, top risk, readiness, and next
+action. Fill this last, keep it first. -->
+
+- _(TODO)_
+
+## Context (5W1H, when useful)
+
+| What | Why | Who | When | Where | How |
+|---|---|---|---|---|---|
+| _(TODO/N/A)_ | _(TODO/N/A)_ | _(TODO/N/A)_ | _(TODO/N/A)_ | _(TODO/N/A)_ | _(TODO/N/A)_ |
+
 ## Goal
 
 <!-- One sentence. -->

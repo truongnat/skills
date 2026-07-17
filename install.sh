@@ -94,11 +94,18 @@ for skill_path in "${SOURCE}"/skills/*/; do
   [ -d "$skill_path" ] || continue
   skill="$(basename "$skill_path")"
   echo "Installing skill ${skill} ..."
-  mkdir -p "${TARGET}/.agents/skills/${skill}"
+  skill_dest="${TARGET}/.agents/skills/${skill}"
+  mkdir -p "$skill_dest"
   shopt -s dotglob nullglob
+  # Mirror managed skill content so removed/renamed files do not remain stale.
+  # Preserve only the skill-local virtual environment.
+  for item in "${skill_dest}"/*; do
+    [ "$(basename "$item")" = ".venv" ] && continue
+    rm -rf "$item"
+  done
   for item in "${skill_path}"*; do
     [ "$(basename "$item")" = ".venv" ] && continue
-    cp -R "$item" "${TARGET}/.agents/skills/${skill}/"
+    cp -R "$item" "${skill_dest}/"
   done
   shopt -u dotglob nullglob
 done
@@ -111,6 +118,13 @@ fi
 
 cp -f "${SOURCE}/docs/DESIGN_SYSTEM.md" "${TARGET}/.agents/DESIGN_SYSTEM.md"
 cp -f "${SOURCE}/docs/THIRD_PARTY_SKILLS.md" "${TARGET}/.agents/THIRD_PARTY_SKILLS.md"
+
+# Preserve the user's existing settings (e.g. language choice) on reinstall.
+if [ -f "${TARGET}/.agents/settings.yaml" ]; then
+  echo "Keeping existing .agents/settings.yaml."
+else
+  cp -f "${SOURCE}/docs/settings.yaml" "${TARGET}/.agents/settings.yaml"
+fi
 
 install_agents_file=true
 if [ -f "${TARGET}/AGENTS.md" ]; then

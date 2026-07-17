@@ -1,0 +1,73 @@
+display_name: "Project Init"
+short_description: "Collect project context and configure project-specific agent behavior."
+default_prompt: "Use $init to initialize or refresh .agents/PRJ_REFERENCE.md and merge confirmed project rules into .agents/settings.yaml."
+required_input: "Repository root, existing settings/reference, source/config/docs/tests, git metadata, user-confirmed rules."
+required_output: ".agents/PRJ_REFERENCE.md plus merged .agents/settings.yaml."
+note_important: "Read-only discovery. Never read or record secret values. Preserve user settings. Do not invent commands, business rules, or conventions. Force mode rebuilds the reference but does not silently reset settings."
+workflow:
+  - "Read settings and existing reference; choose init, refresh, or explicit force mode."
+  - "Inventory git metadata, manifests, configs, CI, architecture, tests, docs, business rules, and constraints without executing project code."
+  - "Classify facts as confirmed, inferred, or unknown and cite sources."
+  - "Fill templates/PRJ_REFERENCE.template.md with an 80/20 summary and 5W1H context."
+  - "Merge only evidenced or user-confirmed conventions into settings.yaml; preserve language and custom values."
+  - "Validate no secrets, no guessed commands, and visible unknowns; then report handoff."
+artifacts:
+  .agents/PRJ_REFERENCE.md:
+    required: true
+    schema:
+      executive_summary:
+        type: array
+        required: true
+        description: "The most useful 20% of project context, maximum five bullets."
+      context_5w1h:
+        type: object
+        required: true
+        description: "What, Why, Who, When, Where, How; use Unknown/N/A explicitly."
+      project_identity:
+        type: object
+        required: true
+        description: "Purpose, users, domain, lifecycle status."
+      tech_stack:
+        type: array
+        required: true
+        description: "Technology, role, version/source, confidence."
+      architecture:
+        type: array
+        required: true
+        description: "Components, boundaries, entry points, data flows."
+      business_rules:
+        type: array
+        required: true
+        description: "Rule, source, affected area, confidence."
+      key_constraints:
+        type: array
+        required: true
+        description: "Constraint, reason/source, impact."
+      commands:
+        type: array
+        required: true
+        description: "Purpose, command, source, confidence."
+      conventions:
+        type: object
+        required: true
+        description: "Code, branch, commit, PR, and report conventions."
+      security_notes:
+        type: array
+        required: true
+        description: "Security boundaries and handling rules; never secret values."
+      references:
+        type: array
+        required: true
+        description: "Authoritative source and purpose."
+      unknowns:
+        type: array
+        required: true
+        description: "Question, impact, owner, blocking."
+      freshness:
+        type: object
+        required: true
+        description: "Generated/updated time, source commit, mode."
+  .agents/settings.yaml:
+    required: true
+    update: true
+    description: "Merge confirmed project rules while preserving language, security hard rules, and custom values."

@@ -23,6 +23,8 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 
 #### `INVESTIGATE.md`
 - Required: yes
+- **executive_summary** (required, array): Maximum five bullets with status, likely/confirmed cause, strongest evidence, impact, and next action.
+- **context_5w1h** (optional, object): What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly.
 - **question** (required, string): The investigation question.
 - **status** (required, string): Root Cause Confirmed / Likely Root Cause / Hypotheses Identified / Needs More Evidence / Blocked.
 - **context** (optional, string): Environment, version, related setup.

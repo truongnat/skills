@@ -16,12 +16,24 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 | Field | Requirement |
 |-------|-------------|
 | Inputs | User request, business context, existing requirements, data samples (Excel, CSV, SQL, JSON, API response), screenshots, stakeholder feedback. |
-| Outputs | Requirement notes: problem statement, stakeholders, scope, user stories/use cases, business rules, data assumptions, acceptance criteria, open questions, handoff (usually basic-design when technical work follows). |
+| Outputs | `BUSINESS_ANALYSIS.md`: problem statement, stakeholders, scope, user stories/use cases, business rules, data assumptions, acceptance criteria, open questions, handoff. |
 | Safety | Do NOT treat assumptions as requirements. Do NOT decide for stakeholders. Do NOT write vague or untestable acceptance criteria. Do NOT produce technical architecture — hand off to basic-design. |
 
 ### Required artifacts
 
-_No file artifacts — follow Outputs above._
+#### `BUSINESS_ANALYSIS.md`
+- Required: yes.
+- **executive_summary** (required, array): Maximum five bullets with the problem, key rule/decision, top risk, and next action.
+- **context_5w1h** (optional, object): What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly.
+- **problem_statement** (required, string): One-sentence business problem.
+- **stakeholders** (required, array): Actor, goal, pain point, authority.
+- **scope** (required, object): In scope, out of scope, non-goals.
+- **user_stories** (required, array): ID, actor, need, value.
+- **business_rules** (required, array): BR ID, rule, source, confidence.
+- **data_assumptions** (optional, array): Assumption, risk, confirmation owner.
+- **acceptance_criteria** (required, array): AC ID, Given/When/Then, rule mapping.
+- **open_questions** (required, array): Question, owner, blocking status.
+- **handoff** (required, string): Recommended next skill and readiness.
 
 ### Reference
 

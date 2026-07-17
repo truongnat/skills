@@ -1,0 +1,37 @@
+# Project-level agent settings. Edit and keep this file in your project.
+# Agents MUST read this at the start of every task.
+
+# Language for agent communication AND the prose written into saved artifacts.
+# Supported values:
+#   en  English (default)
+#   vi  Vietnamese
+# Code, identifiers, file paths, CLI commands, and template section keys stay
+# unchanged regardless of this value.
+language: en
+
+# Generated/maintained by the init skill from confirmed project evidence.
+# Descriptive project facts belong in PRJ_REFERENCE.md, not here.
+project:
+  reference: .agents/PRJ_REFERENCE.md
+
+rules:
+  branch:
+    base: ""
+    naming: ""
+  commit:
+    convention: ""
+    format: ""
+  pull_request:
+    title_format: ""
+    description_sections: []
+    required_checks: []
+  reports:
+    style: 80-20
+    context: 5w1h-when-useful
+    executive_summary_max_items: 5
+    custom_sections: []
+  code:
+    comments:
+      non_obvious_flow: required
+      rationale_and_constraints: required
+      obvious_code_narration: avoid

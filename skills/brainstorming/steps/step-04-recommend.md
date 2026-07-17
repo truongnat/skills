@@ -19,12 +19,15 @@ Write a clear recommendation, risks, and next-skill handoff in `DISCUSSION.md`.
 1. Recommendation (Choose / Reason / Not choosing / Confidence)
 2. Risks (impact + mitigation)
 3. Handoff (Next skill / Why / Blockers) — blockers must be non-empty if Unknowns still block implementation
+4. Context 5W1H when it materially clarifies scope/ownership; use N/A/Unknown.
+5. Executive summary (maximum five bullets) — fill last, keep it at the top.
 
 ## Done when
 
 - [ ] Recommendation names an option + confidence.
 - [ ] Handoff names exactly one next skill.
 - [ ] Blocking unknowns appear under Handoff blockers (do not hide them because next skill is planning).
+- [ ] Executive summary exposes the direction, top unknown/risk, and next action.
 
 ## Next
 

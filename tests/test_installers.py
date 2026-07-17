@@ -17,6 +17,7 @@ def make_source(tmp_path: Path) -> Path:
     (docs / "AGENTS.md").write_text("installed rules\n", encoding="utf-8")
     (docs / "DESIGN_SYSTEM.md").write_text("design\n", encoding="utf-8")
     (docs / "THIRD_PARTY_SKILLS.md").write_text("licenses\n", encoding="utf-8")
+    (docs / "settings.yaml").write_text("language: en\n", encoding="utf-8")
     for skill in ("planning", "execution"):
         root = tmp_path / "skills" / skill
         root.mkdir(parents=True)
@@ -65,3 +66,33 @@ def test_agents_created_at_project_root(tmp_path: Path) -> None:
 
     assert (root / "AGENTS.md").read_text(encoding="utf-8") == "installed rules\n"
     assert not (root / ".agents" / "AGENTS.md").exists()
+    assert (root / ".agents" / "settings.yaml").read_text(encoding="utf-8") == "language: en\n"
+
+
+def test_existing_settings_are_preserved(tmp_path: Path) -> None:
+    root = make_source(tmp_path)
+    settings = root / ".agents" / "settings.yaml"
+    settings.parent.mkdir()
+    settings.write_text("language: vi\nrules:\n  branch:\n    base: develop\n", encoding="utf-8")
+
+    run_installer(root, "replace")
+
+    assert settings.read_text(encoding="utf-8") == (
+        "language: vi\nrules:\n  branch:\n    base: develop\n"
+    )
+
+
+def test_skill_reinstall_removes_stale_files_and_preserves_venv(tmp_path: Path) -> None:
+    root = make_source(tmp_path)
+    run_installer(root, "replace")
+    installed = root / ".agents" / "skills" / "planning"
+    (installed / "stale.md").write_text("obsolete\n", encoding="utf-8")
+    venv_marker = installed / ".venv" / "keep.txt"
+    venv_marker.parent.mkdir()
+    venv_marker.write_text("preserve\n", encoding="utf-8")
+
+    run_installer(root, "replace")
+
+    assert not (installed / "stale.md").exists()
+    assert venv_marker.read_text(encoding="utf-8") == "preserve\n"
+    assert (installed / "SKILL.md").is_file()

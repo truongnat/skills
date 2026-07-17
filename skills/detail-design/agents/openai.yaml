@@ -8,6 +8,14 @@ artifacts:
   DETAIL_DESIGN.md:
     required: true
     schema:
+      executive_summary:
+        type: array
+        required: true
+        description: "Maximum five bullets with implementation direction, key contract/flow, top risk, and next action."
+      context_5w1h:
+        type: object
+        required: false
+        description: "What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly."
       goal:
         type: string
         required: true

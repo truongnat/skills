@@ -103,6 +103,7 @@ Before moving to execution, verify:
 - No dirty changes outside scope.
 - No conflict markers or merge/rebase state.
 - Files referenced in TASKS.md still exist (or confidence unknown is documented).
+- TASKS.md Progress board / Status / Work item checkboxes are readable; note resume point (first non-`done` ID) and any `in_progress`/`blocked` cards as observed facts (do not mutate progress during sync).
 - Affected areas have not drifted significantly vs PLAN/TASKS.
 - Dependency/config assumptions still hold if the plan depends on them.
 - No sensitive files need special handling.
@@ -155,6 +156,8 @@ Action: Update plan file paths or inspect new location before execution.
 | PLAN Handoff Ready=No or open blockers | Block execution. Resolve blockers or return to planning/ask user. |
 | SYNC.md older than PLAN.md/TASKS.md | Stale sync — rewrite SYNC.md this run before any Ready recommendation. |
 | TASKS.md stale vs PLAN task_index | Block execution. Return to planning to realign. |
+| TASKS.md missing Progress board / Status / checkboxes | Do not block if cards are clear; recommend execution add Progress board + checkboxes before/while running. Note as drift/risk. |
+| Partial progress (`in_progress` / some `[x]`) | Ready may still be Yes; recommend resume at first non-`done` ID. |
 | Dirty changes with unknown ownership | Block execution. Ask user to confirm ownership or commit/stash first. |
 | Merge conflict markers detected | Block execution. Recommend conflict resolution before proceeding. |
 | Workspace directory does not exist | Block. Cannot proceed without a valid workspace. |

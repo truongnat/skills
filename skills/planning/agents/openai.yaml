@@ -82,7 +82,11 @@ artifacts:
       tasks:
         type: array
         required: true
-        description: "Micro-task cards: Trace§, Work items≥2, observable AC, concrete Files/scope, confidence, status. No vague layer epithets."
+        description: "Micro-task cards: Trace§, Status=todo, Work items≥2 as unchecked checkboxes, observable AC, concrete Files/scope, confidence. No vague layer epithets."
+      progress_board:
+        type: array
+        required: true
+        description: "One row per card: Done checkbox, ID, Title, Status (seeded todo)."
       execution_order:
         type: array
         required: true

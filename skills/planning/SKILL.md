@@ -60,7 +60,7 @@ This skill is a **hard contract**. Obey it before any other action.
 Strategy only: goal, scope, non_goals, assumptions, approach, affected_areas, test_strategy (optional), verification_strategy, definition_of_done, rollback_strategy, risks, **task_index** (ID + title only), handoff.
 
 #### `TASKS.md` (from template)
-Work inventory table, plan_ref, execution_order, micro-task cards (Trace with §/AC, Work items ≥2, Description, AC observable, Verify, Files/scope concrete, confidence, status, out-of-scope). Implement before automated tests.
+Work inventory table, Progress board (Done checkbox + Status per ID), plan_ref, execution_order, micro-task cards (Trace with §/AC, Status=`todo`, Work items ≥2 as `- [ ] N. …`, Description, AC observable, Verify, Files/scope concrete, confidence, out-of-scope). Implement before automated tests. Planning seeds progress; execution marks completion.
 
 ### Reference
 
@@ -82,7 +82,8 @@ Work inventory table, plan_ref, execution_order, micro-task cards (Trace with §
 
 - Traceable to a **design section / AC** (`Trace:` with § or id).
 - One inventory unit (not entire screen/service/layer).
-- Numbered **Work items** an executor can follow without re-reading the whole design.
+- Numbered **checkbox Work items** (`- [ ] 1. …`) an executor can follow and check off without re-reading the whole design.
+- A **Progress board** row per card so status is visible at a glance.
 - Independently verifiable after deps exist.
 - Order: models → service → API → UI → **then** tests.
 

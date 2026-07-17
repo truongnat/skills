@@ -81,11 +81,13 @@ Every kept `### T-00x` card **FAILS** unless **all** hold:
 
 1. **Title:** names a concrete unit (endpoint name, type name, control IDs, screen id) — not only a layer.
 2. **Trace:** cites design/doc **section or AC id** (e.g. `DETAIL_DESIGN §API Print`, `spec §10 JOIN`, `BR-03`) — not bare `spec` / `DISCUSSION`.
-3. **Work items:** numbered list **≥2** concrete steps (symbols, fields, behaviors). No single sentence “Implement X per spec.”
-4. **AC:** observable outcome (compile, status code, field present, file downloaded, message id) — not “works correctly” / “per spec”.
-5. **Verify:** command, request example, or UI check tied to this card only.
-6. **Files/scope:** concrete path(s) or “create `…/NamedFile.ext`”; confidence `known|inferred|unknown`. Not `backend` / `frontend` alone.
-7. **No placeholders:** no `_(TODO)_`, `_(short title)_`, `_(…)_` left on kept cards.
+3. **Status:** `todo` at planning time (execution later moves it to `in_progress` / `done` / `blocked` / `skipped`).
+4. **Work items:** **≥2** checkbox steps (`- [ ] 1. …`, `- [ ] 2. …`) with concrete symbols/fields/behaviors. No single sentence “Implement X per spec.” Leave boxes unchecked during planning.
+5. **AC:** observable outcome (compile, status code, field present, file downloaded, message id) — not “works correctly” / “per spec”.
+6. **Verify:** command, request example, or UI check tied to this card only.
+7. **Files/scope:** concrete path(s) or “create `…/NamedFile.ext`”; confidence `known|inferred|unknown`. Not `backend` / `frontend` alone.
+8. **No placeholders:** no `_(TODO)_`, `_(short title)_`, `_(…)_` left on kept cards.
+9. **Progress board:** one row per card with matching ID/title, `Status: todo`, Done=`[ ]`.
 
 ### WRONG vs CORRECT (card body)
 
@@ -100,11 +102,12 @@ Every kept `### T-00x` card **FAILS** unless **all** hold:
 ```markdown
 // CORRECT — specific + split (one card shown)
 ### T-003: Compose BD08001 search JOIN (8 tables)
+- Status: todo
 - Trace: `BD08001_SCREEN_DESIGN_DETAIL` §10 Search query / JOIN list
 - Work items:
-  1. Add service method `SearchAsync` (or project pattern) on `…/FBD08001SearchService.cs`
-  2. Join tables listed in §10 with operators (= / LIKE / range) mapped from Search request fields: OrderNo, SupplierCode, …
-  3. Apply date-range + status filters from request; no grid persistence
+  - [ ] 1. Add service method `SearchAsync` (or project pattern) on `…/FBD08001SearchService.cs`
+  - [ ] 2. Join tables listed in §10 with operators (= / LIKE / range) mapped from Search request fields: OrderNo, SupplierCode, …
+  - [ ] 3. Apply date-range + status filters from request; no grid persistence
 - AC: Method returns rows shaped for §8 Search response mapping; empty input filters do not throw.
 - Verify: Unit or manual call with sample request from §11; SQL/logic matches JOIN list in §10.
 - Files/scope: `genka/backend/.../Services/.../FBD08001SearchService.cs` (confidence: inferred)
@@ -116,14 +119,16 @@ Every kept `### T-00x` card **FAILS** unless **all** hold:
 
 1. Write `## Work inventory` (complete table).
 2. Fill `plan_ref`, Notes (point at blockers / inventory).
-3. Create one `### T-00x` per mapped inventory row (use template fields including **Work items**).
-4. Set `## Execution order` to the full ID chain.
-5. Update **PLAN.md Task index** to the same IDs + short titles (still no card bodies in PLAN).
+3. Create one `### T-00x` per mapped inventory row (template fields: Status=`todo`, checkbox **Work items**, Trace, AC, …).
+4. Fill `## Progress board` with one row per card (Done=`[ ]`, Status=`todo`).
+5. Set `## Execution order` to the full ID chain.
+6. Update **PLAN.md Task index** to the same IDs + short titles (still no card bodies in PLAN).
 
 ## Done when
 
 - [ ] Work inventory table is filled and passes the count/split checks in §A.
 - [ ] Every Execution-order ID has a card; every card passes §B size + §C specificity.
+- [ ] Progress board rows match card IDs/titles; all Status=`todo` and Done unchecked.
 - [ ] PLAN Task index matches TASKS (no orphan IDs).
 - [ ] No template placeholders remain on kept cards.
 - [ ] Automated test tasks (if any) come after implement tasks for those surfaces.

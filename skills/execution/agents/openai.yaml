@@ -1,10 +1,17 @@
 display_name: "Execution"
-short_description: "Execute TASKS.md (task cards + order) guided by PLAN.md strategy/DoD/rollback: modify files, run verification, record EXECUTION.md, handle failures, and handoff to review."
-default_prompt: "Use $execution to execute locked TASKS.md items (guided by PLAN.md DoD/rollback) in a controlled, safe, and verifiable way."
-required_input: "TASKS.md (task cards + execution_order), PLAN.md (strategy/DoD/rollback), locked scope, repo context, affected files, constraints, verification commands."
-required_output: "Workspace changes within scope, EXECUTION.md with files changed, commands run, verification evidence, blockers, deviations."
-note_important: "Do NOT modify outside scope. Default writes under OPASS/branches/features/VIETIS/<module>_main/ — not develop. Execute by task ID from TASKS.md; use PLAN.md for DoD/rollback only. Do NOT put secrets in files/logs. Do NOT delete sensitive files/config/migration/data without a plan or confirmation. Do NOT revert changes not belonging to you without permission. Do NOT claim completion without verification or documenting skipped checks."
+short_description: "Execute TASKS.md (task cards + order) guided by PLAN.md: modify files, mark TASKS progress, run verification, record EXECUTION.md, handle failures, and handoff to review."
+default_prompt: "Use $execution to execute locked TASKS.md items (guided by PLAN.md DoD/rollback) in a controlled, safe, and verifiable way. Update TASKS.md Status, Progress board, and Work item checkboxes as you go."
+required_input: "TASKS.md (task cards + Progress board + execution_order), PLAN.md (strategy/DoD/rollback), locked scope, repo context, affected files, constraints, verification commands."
+required_output: "Workspace changes within scope, updated TASKS.md progress, EXECUTION.md with files changed, commands run, verification evidence, tasks_progress, blockers, deviations."
+note_important: "Do NOT modify outside scope. Default writes under OPASS/branches/features/VIETIS/<module>_main/ — not develop. Execute by task ID from TASKS.md; use PLAN.md for DoD/rollback only. Do NOT leave TASKS.md progress stale after finishing a Work item or card. Do NOT put secrets in files/logs. Do NOT delete sensitive files/config/migration/data without a plan or confirmation. Do NOT revert changes not belonging to you without permission. Do NOT claim completion without verification or documenting skipped checks."
 artifacts:
+  TASKS.md:
+    required: true
+    schema:
+      progress_updates:
+        type: string
+        required: true
+        description: "In-place progress: card Status, Work item checkboxes ([ ]→[x]), Progress board Done/Status kept in sync."
   EXECUTION.md:
     required: true
     schema:
@@ -24,6 +31,10 @@ artifacts:
         type: array
         required: true
         description: "Step, Task ID, Action, Files, Result, Notes per step."
+      tasks_progress:
+        type: array
+        required: true
+        description: "Task ID, Status, Work items done/total, notes — mirror of TASKS.md at handoff."
       files_changed:
         type: array
         required: true
@@ -55,4 +66,4 @@ artifacts:
       handoff:
         type: string
         required: true
-        description: "Ready for review? Suggested focus area."
+        description: "Ready for review? Suggested focus area. List remaining todo/in_progress/blocked IDs."

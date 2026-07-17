@@ -61,7 +61,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 - [ ] Review result is included.
 - [ ] PR_MESSAGE.md follows Conventional Commits format.
 - [ ] PR_DESCRIPTION.md answers: what changed, why, how verified, reviewer focus.
-- [ ] When TASKS.md exists, DONE summary reflects completed vs remaining task IDs honestly.
+- [ ] When TASKS.md exists, DONE summary reflects completed vs remaining task IDs honestly (use Progress board / Status / checkboxes; do not claim Done if open `todo`/`in_progress`/`blocked` IDs remain without documented blockers).
 
 ## WRONG vs CORRECT
 

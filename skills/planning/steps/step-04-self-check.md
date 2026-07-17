@@ -10,8 +10,8 @@ Verify artifacts against the planning contract. Fail closed — do not set Ready
 
 1. Session folder listing shows both `PLAN.md` and `TASKS.md`.
 2. `PLAN.md` has **no** `### T-00x` sections with AC/Verify/Files/Status/Work-items bodies.
-3. `TASKS.md` has `plan_ref`, a filled `## Work inventory` table (Full Mode), and at least one real `### T-00x` card.
-4. Every ID in PLAN Task index appears in TASKS.md Execution order and as a heading; counts match.
+3. `TASKS.md` has `plan_ref`, a filled `## Work inventory` table (Full Mode), a `## Progress board`, and at least one real `### T-00x` card.
+4. Every ID in PLAN Task index appears in TASKS.md Execution order, Progress board, and as a heading; counts match. Progress board Status=`todo` and Done=`[ ]` at planning handoff.
 5. No template leftovers on kept content: `_(TODO)_`, `_(short title)_`, `_(…)_`, `T-002 → _(extend)_` left as the only order, empty inventory row only.
 
 ### Quality — size & specificity
@@ -20,7 +20,7 @@ Verify artifacts against the planning contract. Fail closed — do not set Ready
 7. Every TASKS card passes **Task size** and **Card specificity** from `step-03-fill-tasks.md` (§B and §C).
 8. Spot-check fail patterns (any one → FAIL, return to step-03):
    - Titles that are only layer epithets: `BE Search`, `FE form`, `API`, `UI`, `tests` with no named unit
-   - Description / Work items missing numbered steps or only “Implement X per spec”
+   - Description / Work items missing numbered checkbox steps (`- [ ] N. …`) or only “Implement X per spec”
    - One card owns multiple endpoints **or** multiple child screens **or** Export+Print together
    - Trace has no section/AC id
    - Files/scope is only `backend` / `frontend` / `services`

@@ -84,8 +84,9 @@ Base folder for **code** changes: `OPASS/branches/features/VIETIS/` (see Workspa
 6. `sync`
    - Read-only refresh of codebase, git state, and artifacts before execution.
    - Respect PLAN Ready/blockers; rewrite `SYNC.md` if older than PLAN/TASKS.
-7. `execution` → `EXECUTION.md`
+7. `execution` → `EXECUTION.md` (+ live progress in `TASKS.md`)
    - Implement changes step by step, record commands and verification.
+   - As each Work item / card finishes: check off `- [ ]` → `- [x]`, set Status (`in_progress` / `done` / `blocked`), update Progress board Done column.
 8. `review` → `REVIEW.md`
    - Check correctness, regression, security, maintainability.
 9. `done` → `DONE.md`, `PR_MESSAGE.md`, `PR_DESCRIPTION.md`

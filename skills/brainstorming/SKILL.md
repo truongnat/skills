@@ -13,10 +13,10 @@ description: >-
 Turn an initial request into a clear direction via a **forced step sequence**:
 
 1. Seed `DISCUSSION.md` from template  
-2. Frame goal / facts / assumptions / unknowns; triage issues; **stop and ask**
-   on unresolved critical/blocking items
-3. Scope + options matrix  
-4. Resolve visual decision aids; recommendation + handoff
+2. Frame goal / facts / assumptions / unknowns; **Spec quality review**; triage issues; **stop and ask**
+   on unresolved critical/blocking/Spec-quality items
+3. Scope + options matrix (only after Spec quality gate passes)
+4. Finalize Spec quality; recommendation + handoff
 5. Self-check  
 
 Do not invent PLAN/TASKS or implement code here.
@@ -24,18 +24,23 @@ Do not invent PLAN/TASKS or implement code here.
 ## Workflow architecture (mandatory)
 
 - Read **one** step fully; finish it before the next.
+- Keep the **Step ledger** in `DISCUSSION.md` updated every step.
 - **NEVER** skip step-01 (template seed).
-- **NEVER** jump to recommendation before frame + scope/options.
-- **NEVER** continue past step-02 while a Critical issue or blocking unknown is
-  unresolved. Ask focused questions and wait for the user.
+- **NEVER** jump to recommendation before frame + Spec quality + scope/options.
+- **NEVER** skip Spec quality review (Feasibility / Correctness / Capability).
+- **NEVER** continue past step-02 while a Critical issue, blocking unknown, or
+  blocking Spec quality finding is unresolved. Ask focused questions and wait
+  for the user.
 - **NEVER** claim complete until step-05 passes (or blockers documented).
+- Each step has a **Precondition**. If it fails, return to the previous step —
+  do not “catch up” by filling later sections first.
 
 | Path | Role |
 |------|------|
 | [templates/DISCUSSION.template.md](./templates/DISCUSSION.template.md) | Seed for session `DISCUSSION.md` |
 | [templates/VISUAL_DECISION.template.html](./templates/VISUAL_DECISION.template.html) | Optional self-contained visual decision aid |
 | [steps/step-01-init.md](./steps/step-01-init.md) | Copy template into session |
-| [steps/step-02-frame.md](./steps/step-02-frame.md) | Goal, facts, constraints, assumptions, unknowns |
+| [steps/step-02-frame.md](./steps/step-02-frame.md) | Goal, facts, Spec quality review, triage |
 | [steps/step-03-scope-options.md](./steps/step-03-scope-options.md) | Scope + options matrix |
 | [steps/step-04-recommend.md](./steps/step-04-recommend.md) | Recommendation, risks, handoff |
 | [steps/step-05-self-check.md](./steps/step-05-self-check.md) | Verify + stop |
@@ -52,7 +57,7 @@ This skill is a **hard contract**. Obey it before any other action.
 |-------|-------------|
 | Inputs | Initial request, repo context, existing documents, constraints, current behavior, desired outcome, stakeholder feedback if available. |
 | Outputs | Session `DISCUSSION.md` seeded from template, with issue/visual triage and clarification decisions; session `OVERVIEW.md`; optional `VISUAL_DECISION.html`. |
-| Safety | Do NOT implement code. Do NOT skip steps. Stop and ask before continuing when Critical issues or blocking unknowns are unresolved. Do NOT treat assumptions as facts. Do NOT create PLAN/TASKS or detailed design before a clear recommendation. Do NOT hide blocking unknowns. HTML must be self-contained, accessible, free of external network calls/sensitive data (local decision-server client only), and created only after user confirmation (unless explicitly requested). |
+| Safety | Do NOT implement code. Do NOT skip steps. Stop and ask before continuing when Critical issues, blocking unknowns, or blocking Spec quality findings are unresolved. Do NOT treat specs/assumptions as automatically correct or feasible. Do NOT create PLAN/TASKS or detailed design before a clear recommendation. Do NOT hide blocking unknowns or omitted feature capabilities. HTML must be self-contained, accessible, free of external network calls/sensitive data (local decision-server client only), and created only after user confirmation (unless explicitly requested). |
 
 ### Required artifact
 
@@ -60,7 +65,8 @@ This skill is a **hard contract**. Obey it before any other action.
 executive_summary, developer_overview, charts (Mermaid when useful),
 context_5w1h (when useful), goal, desired_outcome,
 confirmed_facts, constraints, assumptions, unknowns, issue_triage,
-clarification_checkpoint, visual_triage, scope_in, scope_out, non_goals,
+clarification_checkpoint, spec_quality_review (feasibility, correctness,
+capability_recommendations), visual_triage, scope_in, scope_out, non_goals,
 options_considered, recommendation, risks, handoff.
 
 #### `OVERVIEW.md`
@@ -85,8 +91,11 @@ options_considered, recommendation, risks, handoff.
 |---------|-----|
 | No template seed | Restart step-01 |
 | Chat-only brainstorm | Write `DISCUSSION.md` |
+| Step ledger skipped / later step `done` while earlier `todo`/`blocked` | Fix ledger; return to earliest incomplete step |
 | Assumptions labeled as facts | Move to Assumptions / Unknowns |
 | Continued with unresolved Critical/blocking issue | Stop, ask focused questions, wait for answers |
+| Specs accepted without feasibility/correctness/capability review | Fill Spec quality review; ask blocking gaps |
+| Scope/options filled before Spec quality done | Return to step-02; clear premature scope if needed |
 | Generated HTML for every issue | Triage first; use table/diagram/text when sufficient |
 | No recommendation or no handoff skill | Complete step-04 |
 | “No blockers” while blocking Unknowns remain | List them under Handoff Blockers |
@@ -107,7 +116,8 @@ Still run **all five steps**. Keep sections short; options may be 1–2 rows.
 - [ ] Goal is one sentence.
 - [ ] Facts / assumptions / unknowns separated.
 - [ ] Issues classified by severity, clarity, blocking status, and visual need.
-- [ ] No unresolved Critical/blocking issue was bypassed; questions and answers are recorded.
+- [ ] Spec quality review covers Feasibility, Correctness, and Capability recommendations.
+- [ ] No unresolved Critical/blocking issue or blocking Spec quality finding was bypassed; questions and answers are recorded.
 - [ ] HTML is used only when spatial/state comparison materially improves the decision.
 - [ ] Scope in and out separated.
 - [ ] Options matrix used; recommendation has reason + confidence.

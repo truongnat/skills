@@ -17,7 +17,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 |-------|-------------|
 | Inputs | Research question, decision context, local evidence, external source constraints, freshness requirement, quality bar. |
 | Outputs | RESEARCH.md with source strategy, evidence, findings, comparison matrix, recommendation, confidence, caveats, residual risks. |
-| Safety | Do NOT fabricate citations. Do NOT copy long source content. Do NOT use stale sources for decisions needing fresh information. Do NOT present inference as fact. Do NOT omit caveats or residual risks. |
+| Safety | Do NOT fabricate citations. Do NOT copy long source content. Do NOT use stale sources for decisions needing fresh information. Do NOT present inference as fact. Do NOT omit caveats, residual risks, or Spec quality challenges (feasibility/correctness/capability gaps). |
 
 ### Required artifacts
 
@@ -35,6 +35,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 - **findings** (required, array): Finding, evidence, confidence.
 - **comparison_matrix** (optional, table): Option columns x criteria rows.
 - **recommendation** (required, string): Recommended option, confidence, reason, why not alternatives.
+- **spec_quality_review** (required when research supports a feature/spec decision, object): Feasibility, Correctness, Capability recommendations inferred from evidence.
 - **caveats** (optional, array): Caveat with impact and mitigation.
 - **residual_risks** (optional, array): Risk, impact, suggested follow-up.
 - **handoff** (required, string): Ready for planning/execution? Required verification?
@@ -50,6 +51,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 - [ ] Facts, inferences, and opinions are separated.
 - [ ] Comparison matrix exists when multiple options are evaluated.
 - [ ] Recommendation includes confidence level (High/Medium/Low).
+- [ ] When researching a feature/spec, Spec quality review covers Feasibility, Correctness, and Capability gaps suggested by evidence.
 - [ ] Caveats and residual risks are documented.
 
 ## WRONG vs CORRECT

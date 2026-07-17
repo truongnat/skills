@@ -15,6 +15,16 @@ Then align `PLAN.md` Task index IDs/titles with the final cards.
 - Do **not** make T-001 a test-case matrix before feature code.
 - Lite Mode: inventory may be 1–3 rows; still no vague cards.
 
+## Precondition (fail closed)
+
+- [ ] Step ledger 01 = `done`
+- [ ] Step ledger 02 = `done` (not `todo` / `blocked`)
+- [ ] PLAN Spec quality Feasibility + Correctness verdicts are filled
+- [ ] No open Blocking=Yes capability gaps remain unanswered
+
+If precondition fails → return to step-02 / ask user. Do **not** invent tasks that
+silently decide omitted feature policy.
+
 ---
 
 ## A. Work inventory (mandatory — write into TASKS.md first)
@@ -77,10 +87,11 @@ Prefer **more smaller cards**. Large features often need **15–40+** cards — 
 
 ## C. Card specificity (hard) — reject vague prose
 
-Before creating cards, re-check PLAN's decision gate. If an issue discovered
-during inventory changes scope, contracts, data behavior, acceptance criteria,
-or visual interaction and is Critical/blocking, add it to the gate, stop, and
-ask the user. Never turn ambiguity into an implementation task.
+Before creating cards, re-check PLAN's decision gate **and Spec quality review**.
+If an issue discovered during inventory changes scope, contracts, data behavior,
+acceptance criteria, visual interaction, feasibility, correctness, or omitted
+capabilities and is Critical/blocking, add it to the gate, stop, and ask the
+user. Never turn ambiguity into an implementation task.
 
 Every kept `### T-00x` card **FAILS** unless **all** hold:
 
@@ -131,6 +142,7 @@ Every kept `### T-00x` card **FAILS** unless **all** hold:
 4. Fill `## Progress board` with one row per card (Done=`[ ]`, Status=`todo`).
 5. Set `## Execution order` to the full ID chain.
 6. Update **PLAN.md Task index** to the same IDs + short titles (still no card bodies in PLAN).
+7. Set Step ledger 03 = `done` (or `blocked` if stopped for questions).
 
 ## Done when
 
@@ -138,8 +150,10 @@ Every kept `### T-00x` card **FAILS** unless **all** hold:
 - [ ] Every Execution-order ID has a card; every card passes §B size + §C specificity.
 - [ ] Progress board rows match card IDs/titles; all Status=`todo` and Done unchecked.
 - [ ] PLAN Task index matches TASKS (no orphan IDs).
+- [ ] Spec quality review still present on PLAN; not skipped.
 - [ ] No template placeholders remain on kept cards.
 - [ ] Automated test tasks (if any) come after implement tasks for those surfaces.
+- [ ] Step ledger 03 = `done`.
 
 ## Next
 

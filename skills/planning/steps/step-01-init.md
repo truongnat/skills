@@ -4,6 +4,14 @@
 
 Create session folder artifacts from templates **before** filling content.
 
+## Precondition (fail closed)
+
+- [ ] Planning `SKILL.md` contract was read fully
+- [ ] Session path is known or can be created safely
+- [ ] PLAN, TASKS, and OVERVIEW templates exist
+
+If any template is missing, stop and report it. Do **not** invent a replacement.
+
 ## Rules
 
 - Read this step fully. Do **not** skip to filling strategy or tasks yet.
@@ -27,21 +35,24 @@ Create session folder artifacts from templates **before** filling content.
 4. If `PLAN.md` / `TASKS.md` already exist and are non-template content:
    - Ask user: overwrite with fresh templates, or keep and continue from step-02/03.
    - Default if user says redo planning: overwrite with templates.
-5. Copy unresolved issues/unknowns from DISCUSSION, BUSINESS_ANALYSIS, and
-   design artifacts into PLAN's decision gate. Classify severity, clarity,
-   blocking status, and visual need.
-6. If any Critical/blocking/unconfirmed `html-recommended` item is open, ask
-   focused questions (at most three at a time), record answers, and **stop**.
+5. Copy unresolved issues/unknowns **and Spec quality findings** from DISCUSSION,
+   BUSINESS_ANALYSIS, and design artifacts into PLAN's decision gate + Spec
+   quality review. Classify severity, clarity, blocking status, and visual need.
+6. If any Critical/blocking/unconfirmed `html-recommended` item or blocking Spec
+   quality finding is open, ask focused questions (at most three at a time),
+   record answers, and **stop**.
 7. Seed/refresh `OVERVIEW.md` At a glance + Open decisions from the gate.
-8. List the session directory and confirm files exist.
+8. Set Step ledger 01 = `done` with evidence that PLAN.md + TASKS.md exist.
+9. List the session directory and confirm files exist.
 
 ## Done when
 
 - [ ] `PLAN.md` exists in session (from template).
 - [ ] `TASKS.md` exists in session (from template).
 - [ ] `OVERVIEW.md` exists as the developer landing page.
+- [ ] Step ledger 01 = `done`.
 - [ ] Confirmed via directory listing.
-- [ ] Upstream issues were triaged; unresolved blockers caused a user-question stop.
+- [ ] Upstream issues/Spec quality were triaged; unresolved blockers caused a user-question stop.
 
 ## Next
 

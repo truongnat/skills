@@ -4,6 +4,14 @@
 
 Verify artifacts against the planning contract. Fail closed — do not set Ready=Yes if checks fail or blockers remain.
 
+## Precondition (fail closed)
+
+- [ ] Step ledger 01–03 marked (`done` or earlier `blocked` with questions)
+- [ ] `PLAN.md` contains Spec quality review before Goal
+- [ ] Spec quality Feasibility + Correctness verdicts filled (or ledger 02 = `blocked`)
+
+If precondition fails → return to the earliest incomplete step. Do **not** set Ready=Yes.
+
 ## Checks (run all)
 
 ### Structure
@@ -13,40 +21,49 @@ Verify artifacts against the planning contract. Fail closed — do not set Ready
 3. `TASKS.md` has `plan_ref`, a filled `## Work inventory` table (Full Mode), a `## Progress board`, and at least one real `### T-00x` card.
 4. Every ID in PLAN Task index appears in TASKS.md Execution order, Progress board, and as a heading; counts match. Progress board Status=`todo` and Done=`[ ]` at planning handoff.
 5. No template leftovers on kept content: `_(TODO)_`, `_(short title)_`, `_(…)_`, `T-002 → _(extend)_` left as the only order, empty inventory row only.
-6. PLAN starts with an Executive summary of at most five decision-oriented
+6. PLAN starts with Step ledger + Executive summary of at most five decision-oriented
    bullets; 5W1H uses N/A/Unknown rather than invented filler.
-7. Pre-planning decision gate classifies severity/clarity/blocking/visual need;
+7. Step ledger is sequential: no later step `done` while an earlier step is `todo`.
+8. Pre-planning decision gate classifies severity/clarity/blocking/visual need;
    every Critical/blocking item has recorded resolution evidence. No confirmed
    HTML need is left without a completed visual decision handoff.
+9. Spec quality review exists with Feasibility, Correctness, and Capability
+   recommendations; no leftover `_(TODO)_` on verdicts unless ledger 02 is
+   `blocked`. Ready stays No while any of those are Fail/Unknown+blocking
+   or Blocking=Yes capability gaps remain open.
 
 ### Quality — size & specificity
 
-8. First implement-oriented task is **not** “write test cases / TC matrix / 6 dimensions” before feature code.
-9. Every TASKS card passes **Task size** and **Card specificity** from `step-03-fill-tasks.md` (§B and §C).
-10. Spot-check fail patterns (any one → FAIL, return to step-03):
+10. First implement-oriented task is **not** “write test cases / TC matrix / 6 dimensions” before feature code.
+11. Every TASKS card passes **Task size** and **Card specificity** from `step-03-fill-tasks.md` (§B and §C).
+12. Spot-check fail patterns (any one → FAIL, return to step-03):
    - Titles that are only layer epithets: `BE Search`, `FE form`, `API`, `UI`, `tests` with no named unit
    - Description / Work items missing numbered checkbox steps (`- [ ] N. …`) or only “Implement X per spec”
    - One card owns multiple endpoints **or** multiple child screens **or** Export+Print together
    - Trace has no section/AC id
    - Files/scope is only `backend` / `frontend` / `services`
    - AC is only “works” / “correct” / “per spec”
-11. Full Mode inventory: row count is credible vs Scope (e.g. “6 child screens” ⇒ ≥6 related inventory rows or shell+N — not one row).
-12. Confirmed assumptions in PLAN: any **High-impact** row still `Confirmed?: No` counts as a **blocker**.
+13. Full Mode inventory: row count is credible vs Scope (e.g. “6 child screens” ⇒ ≥6 related inventory rows or shell+N — not one row).
+14. Confirmed assumptions in PLAN: any **High-impact** row still `Confirmed?: No` counts as a **blocker**.
 
 ### Blockers → Ready (critical)
 
-13. Re-read `DISCUSSION.md` Handoff blockers (if present). Copy any **still unresolved** items into PLAN Handoff blockers.
-14. **Ready for sync/execution? must be No** if any of:
-    - Checks 1–12 fail
+15. Re-read `DISCUSSION.md` / `BUSINESS_ANALYSIS.md` Spec quality findings and
+    Handoff blockers (if present). Copy any **still unresolved** items into PLAN
+    Handoff blockers.
+16. **Ready for sync/execution? must be No** if any of:
+    - Checks 1–14 fail
     - PLAN Handoff blockers list is non-empty (unresolved)
-    - DISCUSSION listed blockers that were never resolved/struck
-15. **Ready = Yes** only when checks 1–12 pass **and** Handoff blockers are `none` (or explicitly marked resolved with evidence).
+    - DISCUSSION/BA listed blockers that were never resolved/struck
+17. **Ready = Yes** only when checks 1–14 pass **and** Handoff blockers are `none` (or explicitly marked resolved with evidence).
+18. Mark Step ledger 04 `done` or `blocked` with checklist evidence.
 
 Never write Ready=Yes while the same document’s Blockers line still lists open items.
 
 ## Done when
 
-- [ ] PLAN Handoff Ready matches rules 13–15.
+- [ ] PLAN Handoff Ready matches rules 15–17.
+- [ ] Step ledger 04 updated.
 - [ ] Failures are listed in Blockers or fixed by returning to step-02/step-03.
 - [ ] User is told:
   - If Ready=Yes → next skill `sync` (old `SYNC.md` is stale; must re-run sync).

@@ -16,7 +16,17 @@ project:
 
 rules:
   decisions:
-    stop_on: [critical-unresolved, blocking-unknown]
+    # Applies to brainstorming, business-analysis, and planning.
+    # Step files remain authoritative; these values make the shared policy
+    # explicit for hosts and tooling.
+    stop_on:
+      - critical-unresolved
+      - blocking-unknown
+      - feasibility-fail-or-unknown
+      - correctness-fail-or-unknown
+      - blocking-capability-gap
+    require_sequential_step_ledger: true
+    require_spec_quality_before_downstream_work: true
     max_blocking_questions_per_round: 3
   visuals:
     triage: required

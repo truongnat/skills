@@ -3,11 +3,12 @@ short_description: "Step workflow: seed DISCUSSION template, then frame → scop
 default_prompt: "Use $brainstorming: seed the template, triage issues and visual needs, stop to ask about unresolved Critical/blocking items, then scope/options/recommend/self-check."
 required_input: "Initial request, repo context, existing documents, constraints, current behavior, desired outcome, stakeholder feedback if available; session path."
 required_output: "Session DISCUSSION.md seeded from templates/DISCUSSION.template.md and filled via steps/. Incomplete if chat-only or steps skipped."
-note_important: "Do NOT skip step-01-init. Stop and ask focused questions when a Critical issue or blocking unknown is unresolved; never continue by choosing defaults. Classify visual need as text/table/diagram/html-recommended/none. Create self-contained accessible HTML only after user confirmation unless explicitly requested. Do NOT treat assumptions as facts, hide blockers, implement code, or create PLAN/TASKS."
+note_important: "Do NOT skip step-01-init. Stop and ask focused questions when a Critical issue, blocking unknown, or blocking Spec quality finding is unresolved; never continue by choosing defaults. Challenge Feasibility, Correctness, and Capability gaps before recommending. Classify visual need as text/table/diagram/html-recommended/none. Create self-contained accessible HTML only after user confirmation unless explicitly requested. Do NOT treat assumptions/specs as facts, hide blockers, implement code, or create PLAN/TASKS."
 workflow:
   - "Seed DISCUSSION.md from the template."
   - "Frame facts/assumptions/unknowns; classify material issues by severity, clarity, blocking status, owner, and visual need."
-  - "STOP and ask at most three focused blocking questions when Critical/blocking items remain; record answers before continuing."
+  - "Challenge specs with Feasibility, Correctness, and Capability recommendations; promote blocking gaps to clarification."
+  - "STOP and ask at most three focused blocking questions when Critical/blocking/Spec-quality items remain; record answers before continuing."
   - "Choose text/table/diagram/HTML by decision value; HTML only for spatial/state comparison and with user confirmation."
   - "Fill scope/options, recommendation/handoff, then run self-check."
 artifacts:
@@ -26,6 +27,10 @@ artifacts:
         type: object
         required: true
         description: "Status, open Critical/blocking count, visual decisions pending, next action."
+      step_ledger:
+        type: table
+        required: true
+        description: "Steps 01–05 status; no later step done while earlier is todo; Spec quality cannot be skipped."
       charts:
         type: array
         required: false
@@ -66,6 +71,10 @@ artifacts:
         type: array
         required: true
         description: "Issue ID, focused question, why it blocks, user answer/evidence, resolved status."
+      spec_quality_review:
+        type: object
+        required: true
+        description: "Feasibility, Correctness, and Capability recommendations that challenge specs before recommending."
       visual_triage:
         type: array
         required: true

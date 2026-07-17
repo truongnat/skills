@@ -24,8 +24,10 @@ AGENTS.md
 └── skills/
     ├── brainstorming/
     │   ├── SKILL.md
-    │   └── agents/
-    │       └── openai.yaml
+    │   ├── agents/
+    │   │   └── openai.yaml
+    │   ├── steps/         # Ordered, fail-closed workflow
+    │   └── templates/     # Mandatory artifact seeds
     ├── planning/
     └── ...
 ```
@@ -97,11 +99,11 @@ install.cmd -AgentsMode prompt
 | Skill | Purpose |
 | --- | --- |
 | `init` | Collect project context and generate `.agents/PRJ_REFERENCE.md` plus project settings |
-| `brainstorming` | Step workflow: seed DISCUSSION template → frame → options → recommend → self-check |
-| `business-analysis` | Clarify business requirements, scope, and process documentation |
+| `brainstorming` | Step workflow: seed DISCUSSION → frame + Spec quality → options → recommend → self-check |
+| `business-analysis` | Step workflow: seed BUSINESS_ANALYSIS → frame + Spec quality → stories/rules/AC → self-check |
 | `basic-design` | System-level design: boundaries, components, flows, interfaces, data ownership |
 | `detail-design` | Implementable design: contracts, data model, sequences, rules/operations (dynamic depth) |
-| `planning` | Step workflow: seed PLAN/TASKS templates → fill strategy → micro-tasks → self-check |
+| `planning` | Step workflow: seed PLAN/TASKS → decision + Spec quality gate → strategy → micro-tasks → self-check |
 | `sync` | Sync codebase understanding, git state, and context (read-only by default) |
 | `execution` | Record execution steps and changes made |
 | `review` | Review correctness, regression risk, security, and maintainability |
@@ -158,7 +160,9 @@ simple-skills/
 ├── skills/
 │   └── <skill-name>/
 │       ├── SKILL.md       # Authoritative skill definition
-│       └── agents/        # Required metadata for first-party skills
+│       ├── agents/        # Required metadata for first-party skills
+│       ├── steps/         # Ordered workflow steps when the skill is step-based
+│       └── templates/     # Artifact seeds required by step-01
 ├── install.sh             # Installer for Linux / macOS
 ├── install.ps1            # Installer for Windows (PowerShell)
 └── install.cmd            # Wrapper calling install.ps1 on Windows
@@ -187,6 +191,12 @@ starts by reading `.agents/settings.yaml` and the init-generated
 
 Reports are skim-first: executive summary, developer overview panel, and
 Mermaid charts when they improve scanability. Detail stays after the overview.
+
+Brainstorming, business-analysis, and planning are fail-closed step workflows.
+Their artifact Step ledger must be updated in order, and agents must complete
+the Feasibility, Correctness, and Capability recommendations review before
+writing downstream scope, stories/acceptance criteria, recommendations, or
+task cards. Blocking findings stop the workflow for focused user questions.
 
 Visual decision HTML pages can be served locally:
 

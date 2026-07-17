@@ -125,13 +125,23 @@ def main() -> int:
         "brainstorming": (
             "issue_triage:",
             "clarification_checkpoint:",
+            "spec_quality_review:",
+            "step_ledger:",
             "visual_triage:",
             "developer_overview:",
         ),
         "planning": (
             "pre_planning_decision_gate:",
             "clarification_questions:",
+            "spec_quality_review:",
+            "step_ledger:",
             "visual_triage:",
+            "developer_overview:",
+        ),
+        "business-analysis": (
+            "spec_quality_review:",
+            "step_ledger:",
+            "open_questions:",
             "developer_overview:",
         ),
     }.items():
@@ -142,14 +152,134 @@ def main() -> int:
             if field not in yaml_text:
                 errors.append(f"{name}: decision gate missing {field[:-1]}")
 
+    discussion_template = (
+        SKILLS_ROOT / "brainstorming" / "templates" / "DISCUSSION.template.md"
+    ).read_text(encoding="utf-8")
+    if "Spec quality review" not in discussion_template:
+        errors.append("brainstorming DISCUSSION template missing Spec quality review")
+    if "Step ledger" not in discussion_template:
+        errors.append("brainstorming DISCUSSION template missing Step ledger")
+    if "Feasibility" not in discussion_template or "Correctness" not in discussion_template:
+        errors.append("brainstorming DISCUSSION template missing Feasibility/Correctness")
+    if "Capability recommendations" not in discussion_template:
+        errors.append("brainstorming DISCUSSION template missing Capability recommendations")
+    sq_d = discussion_template.find("## Spec quality review")
+    scope_d = discussion_template.find("## Scope in")
+    if sq_d < 0 or scope_d < 0 or sq_d > scope_d:
+        errors.append("brainstorming DISCUSSION: Spec quality review must appear before Scope in")
+    plan_template = (
+        SKILLS_ROOT / "planning" / "templates" / "PLAN.template.md"
+    ).read_text(encoding="utf-8")
+    if "Spec quality review" not in plan_template:
+        errors.append("planning PLAN template missing Spec quality review")
+    if "Step ledger" not in plan_template:
+        errors.append("planning PLAN template missing Step ledger")
+    sq_p = plan_template.find("## Spec quality review")
+    goal_p = plan_template.find("## Goal")
+    if sq_p < 0 or goal_p < 0 or sq_p > goal_p:
+        errors.append("planning PLAN: Spec quality review must appear before Goal")
+    ba_template = (
+        SKILLS_ROOT / "business-analysis" / "templates" / "BUSINESS_ANALYSIS.template.md"
+    )
+    if not ba_template.is_file():
+        errors.append("business-analysis missing BUSINESS_ANALYSIS.template.md")
+    else:
+        ba_template_text = ba_template.read_text(encoding="utf-8")
+        if "Spec quality review" not in ba_template_text or "Step ledger" not in ba_template_text:
+            errors.append("business-analysis template missing Spec quality review / Step ledger")
+        # Spec quality must appear before stories so agents cannot fill AC first
+        sq_pos = ba_template_text.find("## Spec quality review")
+        us_pos = ba_template_text.find("## User stories")
+        if sq_pos < 0 or us_pos < 0 or sq_pos > us_pos:
+            errors.append(
+                "business-analysis template: Spec quality review must appear before User stories"
+            )
+    for ba_step in (
+        "step-01-init.md",
+        "step-02-frame-quality.md",
+        "step-03-stories-rules-ac.md",
+        "step-04-self-check.md",
+    ):
+        if not (SKILLS_ROOT / "business-analysis" / "steps" / ba_step).is_file():
+            errors.append(f"business-analysis missing steps/{ba_step}")
+    for skill_name, step_names in {
+        "brainstorming": (
+            "step-01-init.md",
+            "step-02-frame.md",
+            "step-03-scope-options.md",
+            "step-04-recommend.md",
+            "step-05-self-check.md",
+        ),
+        "planning": (
+            "step-01-init.md",
+            "step-02-fill-plan.md",
+            "step-03-fill-tasks.md",
+            "step-04-self-check.md",
+        ),
+    }.items():
+        for step_name in step_names:
+            step_path = SKILLS_ROOT / skill_name / "steps" / step_name
+            if not step_path.is_file():
+                errors.append(f"{skill_name} missing steps/{step_name}")
+                continue
+            step_text = step_path.read_text(encoding="utf-8")
+            if "Precondition" not in step_text:
+                errors.append(f"{skill_name}/{step_name} missing Precondition gate")
+            if "Spec quality" not in step_text and step_name in {
+                "step-02-frame.md",
+                "step-02-fill-plan.md",
+                "step-03-scope-options.md",
+                "step-03-fill-tasks.md",
+                "step-04-recommend.md",
+                "step-04-self-check.md",
+                "step-05-self-check.md",
+            }:
+                errors.append(f"{skill_name}/{step_name} missing Spec quality enforcement")
+    for ba_step_name in (
+        "step-01-init.md",
+        "step-02-frame-quality.md",
+        "step-03-stories-rules-ac.md",
+        "step-04-self-check.md",
+    ):
+        ba_step_path = SKILLS_ROOT / "business-analysis" / "steps" / ba_step_name
+        if ba_step_path.is_file():
+            ba_step_text = ba_step_path.read_text(encoding="utf-8")
+            if ba_step_name != "step-01-init.md" and "Spec quality" not in ba_step_text:
+                errors.append(f"business-analysis/{ba_step_name} missing Spec quality enforcement")
+            if "Precondition" not in ba_step_text:
+                errors.append(f"business-analysis/{ba_step_name} missing Precondition gate")
+            if "Step ledger" not in ba_step_text:
+                errors.append(f"business-analysis/{ba_step_name} missing Step ledger update")
+    ba_skill = (SKILLS_ROOT / "business-analysis" / "SKILL.md").read_text(encoding="utf-8")
+    if "spec_quality_review" not in ba_skill:
+        errors.append("business-analysis missing spec_quality_review contract")
+    if "step-01-init.md" not in ba_skill:
+        errors.append("business-analysis SKILL.md missing step workflow entry")
+    if "Step ledger" not in ba_skill:
+        errors.append("business-analysis SKILL.md missing Step ledger")
     for overview_template in (
         SKILLS_ROOT / "brainstorming" / "templates" / "OVERVIEW.template.md",
         SKILLS_ROOT / "planning" / "templates" / "OVERVIEW.template.md",
     ):
         if not overview_template.is_file():
             errors.append(f"missing overview template: {overview_template}")
-
     agents = (ROOT / "docs" / "AGENTS.md").read_text(encoding="utf-8")
+    if "Spec quality review" not in agents and "Capability recommendations" not in agents:
+        errors.append("docs/AGENTS.md missing Spec quality review gates")
+    if "Step ledger" not in agents:
+        errors.append("docs/AGENTS.md missing Step ledger enforcement")
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    for phrase in ("Spec quality", "Step ledger", "business-analysis"):
+        if phrase not in readme:
+            errors.append(f"README.md missing workflow documentation: {phrase}")
+    settings = (ROOT / "docs" / "settings.yaml").read_text(encoding="utf-8")
+    for setting in (
+        "require_sequential_step_ledger: true",
+        "require_spec_quality_before_downstream_work: true",
+        "blocking-capability-gap",
+    ):
+        if setting not in settings:
+            errors.append(f"docs/settings.yaml missing decision policy: {setting}")
     if "Developer UX / DX" not in agents:
         errors.append("docs/AGENTS.md missing Developer UX / DX section")
     settings = (ROOT / "docs" / "settings.yaml").read_text(encoding="utf-8")

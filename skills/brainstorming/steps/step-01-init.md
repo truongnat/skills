@@ -4,6 +4,14 @@
 
 Create session `DISCUSSION.md` from the skill template **before** filling content.
 
+## Precondition (fail closed)
+
+- [ ] Brainstorming `SKILL.md` contract was read fully
+- [ ] Session path is known or can be created safely
+- [ ] `templates/DISCUSSION.template.md` exists
+
+If the template is missing, stop and report it. Do **not** invent a replacement.
+
 ## Rules
 
 - Read this step fully. Do **not** skip to recommendation yet.
@@ -23,13 +31,16 @@ Create session `DISCUSSION.md` from the skill template **before** filling conten
    - Default if user says redo brainstorming: overwrite DISCUSSION with template;
      refresh OVERVIEW only if it is still a template or missing.
 5. List the session directory and confirm both files exist.
+6. Set Step ledger row 01 to `done` with evidence = path to `DISCUSSION.md`.
 
 ## Done when
 
 - [ ] `DISCUSSION.md` exists in session (from template).
 - [ ] `OVERVIEW.md` exists in session (developer landing page).
+- [ ] Step ledger 01 = `done`.
 - [ ] Confirmed via directory listing.
 
 ## Next
 
 Only after Done: Read and follow `./step-02-frame.md`.
+Do **not** fill Goal/Options/Recommendation yet.

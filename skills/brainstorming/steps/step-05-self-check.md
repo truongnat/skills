@@ -4,29 +4,43 @@
 
 Verify `DISCUSSION.md` against the brainstorming contract. Fail closed.
 
+## Precondition (fail closed)
+
+- [ ] Step ledger 01–04 marked (`done` or earlier `blocked` with questions)
+- [ ] Spec quality review section exists before Scope/Options
+
+If precondition fails → return to the earliest incomplete step.
+
 ## Checks (run all)
 
 1. Session folder listing shows `DISCUSSION.md`.
-2. File was seeded from template (has Executive summary first, then expected
-   headings: Goal, Facts, Scope, Options, Recommendation, Handoff).
-3. Goal is one sentence — not a paragraph.
-4. Facts / assumptions / unknowns are separated (no assumption labeled as fact).
-5. Scope in and scope out both present.
-6. Options matrix has ≥1 real option with verify method.
-7. Recommendation has Choose + Reason + Confidence.
-8. Handoff names one of: business-analysis, basic-design, planning, research, execution.
-9. If Unknowns/Risks still block code merge, Handoff **Blockers** is not empty (must not claim “no blockers” while Unknowns list open decision/data/auth items).
-10. No PLAN.md/TASKS.md/code changes invented by this skill (unless user explicitly asked outside contract).
-11. Executive summary has at most five decision-oriented bullets; 5W1H uses
+2. File was seeded from template (has Step ledger, Spec quality review, then
+   Goal, Facts, Scope, Options, Recommendation, Handoff).
+3. Step ledger is sequential: no later step `done` while an earlier step is `todo`.
+4. Goal is one sentence — not a paragraph.
+5. Facts / assumptions / unknowns are separated (no assumption labeled as fact).
+6. Scope in and scope out both present.
+7. Options matrix has ≥1 real option with verify method.
+8. Recommendation has Choose + Reason + Confidence.
+9. Handoff names one of: business-analysis, basic-design, planning, research, execution.
+10. If Unknowns/Risks/Capability gaps still block code merge, Handoff **Blockers** is not empty (must not claim “no blockers” while Unknowns list open decision/data/auth items).
+11. No PLAN.md/TASKS.md/code changes invented by this skill (unless user explicitly asked outside contract).
+12. Executive summary has at most five decision-oriented bullets; 5W1H uses
     N/A/Unknown rather than invented filler.
-12. Issue triage covers material decisions; no Critical/blocking item was
+13. Issue triage covers material decisions; no Critical/blocking item was
     bypassed without a recorded user answer.
-13. Visual triage distinguishes text/table/diagram/HTML. Any generated HTML is
+14. Spec quality review exists with Feasibility, Correctness, and Capability
+    recommendations; no leftover `_(TODO)_` on verdicts unless ledger 02/04 is
+    `blocked`. No recommendation was made while Feasibility/Correctness is
+    Fail/Unknown+blocking, or while Blocking=Yes capability gaps are open.
+15. Visual triage distinguishes text/table/diagram/HTML. Any generated HTML is
     user-confirmed, self-contained, accessible, and linked to an Issue ID.
+16. Mark Step ledger 05 `done` or `blocked` with checklist evidence.
 
 ## Done when
 
 - [ ] All checks pass **or** remaining issues sit under Unknowns + Handoff Blockers.
+- [ ] Step ledger 05 updated.
 - [ ] User is told next skill and path to `DISCUSSION.md` (and that blockers still apply downstream).
 
 ## Stop

@@ -121,13 +121,32 @@ During execution/coding:
 
 ## Decision and visual gates
 
-Brainstorming and planning must fail closed:
+Brainstorming, business-analysis, and planning must fail closed:
 
+- Follow the skill **step files in order**. Each step has a Precondition and a
+  Step ledger entry in the artifact. Do not mark a later step done while an
+  earlier step is still `todo`/`blocked`. If a precondition fails, return to
+  the earliest incomplete step instead of filling later sections first.
 - Classify material issues by severity, clarity, blocking status, owner, and
   visual need.
-- When a Critical issue or blocking unknown is unresolved, **stop and ask the
-  user**. Do not select a default, continue filling downstream artifacts, or
-  bury the issue as an assumption.
+- Challenge specs/design with **Spec quality review** before recommending or
+  planning:
+  1. **Feasibility (tính khả thi)** — can this actually be delivered with current
+     stack, data, auth, ops, and timeline?
+  2. **Correctness (tính đúng đắn)** — do specs match the real system/domain, or
+     are the specs (or the system) wrong?
+  3. **Capability recommendations (khả năng feature / gaps)** — ask for capabilities
+     a feature of this type should normally include even if specs omit them
+     (example: upload without max size, MIME allowlist, overwrite policy, progress,
+     retry, audit, permissions, error recovery).
+- When a Critical issue, blocking unknown, Feasibility/Correctness Fail/Unknown,
+  or Blocking=Yes capability gap is unresolved, **stop and ask the user**. Do not
+  select a default, continue filling downstream artifacts, or bury the issue as an
+  assumption.
+- Downstream work means Scope/Options and Recommendation in brainstorming,
+  User stories/Business rules/Acceptance criteria in business-analysis, and
+  Goal/Approach/TASKS in planning. These sections must remain unfilled until
+  the Spec quality gate passes.
 - Ask focused blocking questions in small batches (default maximum: three),
   explain why each answer changes the direction, and record the answer.
 - Triage visual format by decision value:
@@ -187,17 +206,21 @@ current repository while preserving user settings.
 ### Dev Lifecycle per Task
 
 1. `brainstorming` → `DISCUSSION.md`
-   - Step workflow: seed template → frame → scope/options → recommend → self-check.
+   - Step workflow: seed template → frame + Spec quality → scope/options → recommend → self-check.
    - Templates: `.agents/skills/brainstorming/templates/`; steps: `step-01` … `step-05`.
+   - Scope/options and recommendation cannot start until blocking Spec quality findings are resolved.
 2. `business-analysis` (optional) → `BUSINESS_ANALYSIS.md`
-   - Clarify business rules, AC, and process when needed.
+   - Templates: `.agents/skills/business-analysis/templates/`; steps: `step-01` … `step-04`.
+   - Step workflow: seed template → frame + Spec quality → stories/rules/AC → self-check.
+   - Stories, rules, and AC cannot start until the Spec quality gate passes; stop on Blocking=Yes gaps.
 3. `basic-design` → `BASIC_DESIGN.md`
    - System-level design: architecture, components, flows, interfaces, data ownership (omit unused sections).
 4. `detail-design` → `DETAIL_DESIGN.md`
    - Implementable design: contracts, data model, sequences, rules/operations, optional client mapping (omit unused sections; mark gaps).
 5. `planning` → `PLAN.md` + `TASKS.md` (**both required on disk**)
-   - Step workflow: seed templates → fill PLAN (slim) → **Work inventory → specific micro-TASKS** → self-check.
+   - Step workflow: seed templates → decision + Spec quality gate → fill PLAN (slim) → **Work inventory → specific micro-TASKS** → self-check.
    - Templates: `.agents/skills/planning/templates/`; steps: `.agents/skills/planning/steps/step-01` … `step-04`.
+   - TASKS must remain unfilled until Spec quality passes.
    - Reject if: steps skipped, PLAN-only, empty TASKS template, tasks inside PLAN, test-matrix as T-001 before code, missing inventory, vague/epic cards (layer-only titles, no Work items, multi-endpoint/screen), or **Ready=Yes with open blockers**.
 6. `sync`
    - Read-only refresh of codebase, git state, and artifacts before execution.

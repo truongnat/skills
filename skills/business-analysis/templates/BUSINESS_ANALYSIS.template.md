@@ -42,12 +42,6 @@ flowchart LR
   AC --> Handoff[Handoff]
 ```
 
-## Context (5W1H, when useful)
-
-| What | Why | Who | When | Where | How |
-|---|---|---|---|---|---|
-| _(TODO/N/A)_ | _(TODO/N/A)_ | _(TODO/N/A)_ | _(TODO/N/A)_ | _(TODO/N/A)_ | _(TODO/N/A)_ |
-
 ## Problem statement
 
 <!-- One sentence. -->

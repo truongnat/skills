@@ -34,9 +34,8 @@ If precondition fails → return to the incomplete earlier step.
 2. Recommendation (Choose / Reason / Not choosing / Confidence)
 3. Risks (impact + mitigation)
 4. Handoff (Next skill / Why / Blockers) — blockers must be non-empty if Unknowns still block implementation
-5. Context 5W1H when it materially clarifies scope/ownership; use N/A/Unknown.
-6. Executive summary (maximum five bullets) — fill last, keep it at the top.
-7. Step ledger 04
+5. Executive summary (maximum five bullets) — fill last, keep it at the top.
+6. Step ledger 04
 
 ## Done when
 

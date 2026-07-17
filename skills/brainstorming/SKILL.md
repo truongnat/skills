@@ -71,7 +71,7 @@ This skill is a **hard contract**. Obey it before any other action.
 
 #### `DISCUSSION.md` (from template)
 executive_summary, developer_overview, charts (Mermaid when useful),
-context_5w1h (when useful), goal, desired_outcome,
+goal, desired_outcome,
 confirmed_facts, constraints, assumptions, unknowns, issue_triage,
 clarification_checkpoint, spec_quality_review (feasibility, correctness,
 capability_recommendations), visual_triage, scope_in, scope_out, non_goals,

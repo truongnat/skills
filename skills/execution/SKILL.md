@@ -45,7 +45,6 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 - **executive_summary** (required, array): Maximum five bullets with outcome, progress, verification, blocker/risk, and next action.
 - **developer_overview** (required, object): Status, current task, done/total, blockers, next action.
 - **charts** (optional, array): Mermaid progress/flow chart when useful; otherwise N/A.
-- **context_5w1h** (optional, object): What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly.
 - **plan_source** (required, string): Reference to PLAN.md and TASKS.md (or clear scope source).
 - **current_task** (required, string): Task ID from TASKS.md currently being executed.
 - **scope** (required, string): Scope this execution covers.

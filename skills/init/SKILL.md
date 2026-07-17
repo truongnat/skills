@@ -36,9 +36,13 @@ project-specific behavior without inventing conventions.
 
 - Required: yes.
 - **executive_summary**: The most useful 20% of project context.
-- **context_5w1h**: What, Why, Who, When, Where, How.
 - **project_identity**: Purpose, users, domain, lifecycle status.
-- **tech_stack**: Languages, frameworks, runtime, package/build tools.
+- **workspaces**: For a monorepo, one row per app/package/service with its
+  path, type, and its **own** stack, entry point, and commands. Never collapse
+  a multi-stack monorepo into a single root stack.
+- **tech_stack**: Languages, frameworks, runtime, package/build tools. In a
+  monorepo, record the stack **per workspace** (see `workspaces`), not only the
+  root manifest.
 - **architecture**: Components, boundaries, entry points, data flows.
 - **business_rules**: Rule, source, affected area, confidence.
 - **key_constraints**: Technical, business, compliance, compatibility.
@@ -74,21 +78,37 @@ project-specific behavior without inventing conventions.
    - manifests, lockfiles, build/test/lint configs, CI, containers, migrations;
    - source layout, entry points, public interfaces, tests, documentation;
    - business rules and constraints evidenced by docs, tests, schemas, or code.
-4. Classify every important statement:
+4. **Deep workspace scan (mandatory — do not scan only the root).** Detect
+   whether the repo is a monorepo/workspace and, if so, enumerate **every**
+   member and record its own stack. Do not assume the root manifest represents
+   all apps.
+   - Detect workspace roots: `pnpm-workspace.yaml`, `turbo.json`, `nx.json`,
+     `lerna.json`, a `workspaces` field in root `package.json`, Cargo
+     `[workspace]`, `go.work`, Gradle `settings.gradle(.kts)`, Bazel, etc.
+   - Enumerate members under `apps/*`, `packages/*`, `services/*`, `libs/*`,
+     and any globs the workspace config declares.
+   - For **each** member, read its own manifest to classify its stack — e.g.
+     a `package.json` Next.js app, a `package.json` NestJS API, and a
+     `pubspec.yaml` **Flutter/Dart** app can all coexist. A member with a
+     manifest of a different ecosystem is a distinct stack and MUST be recorded.
+   - Record path, type, stack, entry point, and per-app commands in the
+     `workspaces` table; keep `tech_stack` per workspace.
+6. Classify every important statement:
    - `confirmed`: direct source or user confirmation;
    - `inferred`: evidence exists but is indirect;
    - `unknown`: unresolved or conflicting.
-5. Seed from `templates/PRJ_REFERENCE.template.md`, fill all applicable
+7. Seed from `templates/PRJ_REFERENCE.template.md`, fill all applicable
    sections, and keep source references close to each fact.
-6. Merge confirmed project conventions into `.agents/settings.yaml`.
+8. Merge confirmed project conventions into `.agents/settings.yaml`.
    Preserve `language`, security hard rules, and custom user values.
-7. Validate:
+9. Validate:
    - no secret values or sensitive file contents;
    - executive summary appears first and is decision-oriented;
-   - 5W1H is complete or explicitly `Unknown`/`N/A`;
    - commands are sourced, not guessed;
+   - every workspace member with its own manifest has its own stack recorded
+     (no multi-stack monorepo collapsed to a single root stack);
    - unknowns and conflicts are visible.
-8. Report created/updated files and the highest-priority unknowns.
+10. Report created/updated files and the highest-priority unknowns.
 
 ## Discovery boundaries
 

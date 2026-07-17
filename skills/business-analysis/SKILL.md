@@ -66,7 +66,6 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 - **executive_summary** (required, array): Maximum five bullets with the problem, key rule/decision, top Spec quality finding, top risk, and next action.
 - **developer_overview** (required, object): Status, Spec quality summary, open questions, next action.
 - **charts** (optional, array): Mermaid process/actor flow when useful; otherwise N/A.
-- **context_5w1h** (optional, object): What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly.
 - **problem_statement** (required, string): One-sentence business problem.
 - **stakeholders** (required, array): Actor, goal, pain point, authority.
 - **scope** (required, object): In scope, out of scope, non-goals.

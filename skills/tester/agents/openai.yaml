@@ -20,10 +20,6 @@ artifacts:
         type: array
         required: false
         description: "Mermaid coverage/priority chart when useful; otherwise N/A."
-      context_5w1h:
-        type: object
-        required: false
-        description: "What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly."
       session_timestamp:
         type: string
         required: true

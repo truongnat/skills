@@ -48,7 +48,11 @@ rules:
     # HTML uses one enterprise theme (Tailwind CDN) — see DESIGN_SYSTEM.md
     output_format: markdown
     style: 80-20
-    context: 5w1h-when-useful
+    # 80/20 executive summary sits at the TOP of every report so readers get
+    # the important 20% without reading the detail.
+    # 5W1H is an on-demand diagnostic METHOD for hard/ambiguous problems or
+    # unclear/incorrect features — never a default report section.
+    context: 5w1h-on-hard-or-unclear
     executive_summary_max_items: 5
     overview: required
     charts: mermaid-when-useful

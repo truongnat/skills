@@ -22,7 +22,7 @@ If precondition fails → return to the earliest incomplete step. Do **not** set
 4. Every ID in PLAN Task index appears in TASKS.md Execution order, Progress board, and as a heading; counts match. Progress board Status=`todo` and Done=`[ ]` at planning handoff.
 5. No template leftovers on kept content: `_(TODO)_`, `_(short title)_`, `_(…)_`, `T-002 → _(extend)_` left as the only order, empty inventory row only.
 6. PLAN starts with Step ledger + Executive summary of at most five decision-oriented
-   bullets; 5W1H uses N/A/Unknown rather than invented filler.
+   bullets.
 7. Step ledger is sequential: no later step `done` while an earlier step is `todo`.
 8. Pre-planning decision gate classifies severity/clarity/blocking/visual need;
    every Critical/blocking item has recorded resolution evidence. No confirmed

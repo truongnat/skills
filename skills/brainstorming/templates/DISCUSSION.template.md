@@ -45,12 +45,6 @@ flowchart TD
 <!-- Replace with a real options/risk chart when trade-offs exist. Use N/A if a
 chart adds no decision value. -->
 
-## Context (5W1H, when useful)
-
-| What | Why | Who | When | Where | How |
-|---|---|---|---|---|---|
-| _(TODO/N/A)_ | _(TODO/N/A)_ | _(TODO/N/A)_ | _(TODO/N/A)_ | _(TODO/N/A)_ | _(TODO/N/A)_ |
-
 ## Goal
 
 <!-- One sentence. -->

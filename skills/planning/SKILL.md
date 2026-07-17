@@ -72,7 +72,7 @@ This skill is a **hard contract**. Obey it before any other action.
 
 #### `PLAN.md` (from template)
 Strategy only: executive_summary, developer_overview, charts (Mermaid when
-useful), context_5w1h (when useful), pre_planning_decision_gate,
+useful), pre_planning_decision_gate,
 clarification_questions, visual_triage, spec_quality_review (feasibility,
 correctness, capability_recommendations), goal, scope, non_goals, assumptions,
 approach, affected_areas, test_strategy (optional), verification_strategy,

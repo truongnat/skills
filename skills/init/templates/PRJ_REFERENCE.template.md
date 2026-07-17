@@ -7,17 +7,6 @@ workflow, and biggest unknown/risk. Put the most decision-useful facts first. --
 
 - TODO
 
-## Context (5W1H)
-
-| Dimension | Project context | Source / confidence |
-|---|---|---|
-| What | TODO | TODO |
-| Why | TODO | TODO |
-| Who | TODO | TODO |
-| When | TODO | TODO |
-| Where | TODO | TODO |
-| How | TODO | TODO |
-
 ## Project identity
 
 - Purpose:
@@ -25,11 +14,24 @@ workflow, and biggest unknown/risk. Put the most decision-useful facts first. --
 - Domain:
 - Lifecycle/status:
 
+## Workspaces / apps (monorepo)
+
+<!-- Omit this section (or mark N/A) for a single-package repo. For a monorepo,
+add ONE row per app/package/service, each with its OWN stack — never collapse
+different stacks (e.g. a Flutter app next to Next.js/NestJS apps) into one. -->
+
+| Path | Type | Stack | Entry point | Key commands | Source |
+|---|---|---|---|---|---|
+| apps/TODO | app/package/service | TODO (e.g. Next.js / NestJS / Flutter) | TODO | TODO | manifest path |
+
 ## Technology stack
 
-| Technology | Role | Version | Source | Confidence |
-|---|---|---|---|---|
-| TODO | TODO | TODO | TODO | TODO |
+<!-- In a monorepo, list the stack PER workspace (mirror the table above), not
+only the root manifest. -->
+
+| Technology | Role | Version | Workspace(s) | Source | Confidence |
+|---|---|---|---|---|---|
+| TODO | TODO | TODO | root / apps/TODO | TODO | TODO |
 
 ## Architecture and key flows
 
@@ -85,7 +87,6 @@ workflow, and biggest unknown/risk. Put the most decision-useful facts first. --
 - Developer overview panel:
 - Charts/diagrams (Mermaid):
 - Session OVERVIEW.md policy:
-- 5W1H usage:
 - Custom sections:
 
 ### Decision and visual gates

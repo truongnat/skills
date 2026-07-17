@@ -44,12 +44,6 @@ flowchart LR
 
 <!-- Add a progress/risk Mermaid chart when the task set is large. -->
 
-## Context (5W1H, when useful)
-
-| What | Why | Who | When | Where | How |
-|---|---|---|---|---|---|
-| _(TODO/N/A)_ | _(TODO/N/A)_ | _(TODO/N/A)_ | _(TODO/N/A)_ | _(TODO/N/A)_ | _(TODO/N/A)_ |
-
 ## Pre-planning decision gate
 
 <!-- Inherit unresolved items from DISCUSSION/BA/design. Also add issues found

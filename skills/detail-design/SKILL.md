@@ -58,7 +58,6 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 - **executive_summary** (required, array): Maximum five bullets with implementation direction, key contract/flow, top risk, and next action.
 - **developer_overview** (required, object): Status, critical contracts/flows, gaps, next action.
 - **charts** (required, array): At least one Mermaid sequence/state/data-flow diagram for the main path, or N/A with reason.
-- **context_5w1h** (optional, object): What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly.
 - **goal** (required, string): One sentence linked to basic-design decisions.
 - **contracts** (optional, array): In-scope contracts: HTTP/RPC/events/CLI/library APIs with inputs, outputs, and errors. Omit if no external or public surface.
 - **data_model** (optional, array): Entities/collections, key fields, relations; confidence known or inferred. Omit if no durable data.

@@ -55,7 +55,6 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 - **executive_summary** (required, array): Maximum five bullets with direction, key boundaries, top risk, and next action.
 - **developer_overview** (required, object): Status, key components/boundaries, open questions, next action.
 - **charts** (required, array): At least one Mermaid architecture/boundary/flow diagram, or N/A with reason when a diagram adds no value.
-- **context_5w1h** (optional, object): What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly.
 - **goal** (required, string): One sentence aligned with DISCUSSION recommendation.
 - **context** (required, string): Chosen direction and scope summary from DISCUSSION (and BA if present).
 - **architecture_overview** (required, string): Short overview of system shape; optional mermaid for boundaries.

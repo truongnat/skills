@@ -53,7 +53,6 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 - **executive_summary** (required, array): Maximum five bullets with readiness, drift, blockers, and next action.
 - **developer_overview** (required, object): Status, resume task IDs, blocker count, next action.
 - **charts** (optional, array): Mermaid readiness/drift chart when useful; otherwise N/A.
-- **context_5w1h** (optional, object): What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly.
 - **scope** (required, string): What was synced (artifacts, workspace, git, dependencies).
 - **observed_facts** (required, array): List of observed facts with source for each.
 - **inferred_context** (optional, array): Inferences with basis and confidence level.

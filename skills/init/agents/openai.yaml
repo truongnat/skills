@@ -7,8 +7,9 @@ note_important: "Read-only discovery. Never read or record secret values. Preser
 workflow:
   - "Read settings and existing reference; choose init, refresh, or explicit force mode."
   - "Inventory git metadata, manifests, configs, CI, architecture, tests, docs, business rules, and constraints without executing project code."
+  - "Deep workspace scan (mandatory): detect monorepo/workspace roots (pnpm-workspace.yaml, turbo.json, nx.json, package.json workspaces, Cargo/Go/Gradle workspaces) and enumerate every member under apps/*, packages/*, services/*; read each member manifest and record its OWN stack (e.g. a Flutter/Dart pubspec.yaml app beside Next.js/NestJS apps). Never collapse a multi-stack monorepo into one root stack."
   - "Classify facts as confirmed, inferred, or unknown and cite sources."
-  - "Fill templates/PRJ_REFERENCE.template.md with an 80/20 summary and 5W1H context."
+  - "Fill templates/PRJ_REFERENCE.template.md with an 80/20 summary at the top."
   - "Merge only evidenced or user-confirmed conventions into settings.yaml; preserve language and custom values."
   - "Validate no secrets, no guessed commands, and visible unknowns; then report handoff."
 artifacts:
@@ -19,18 +20,18 @@ artifacts:
         type: array
         required: true
         description: "The most useful 20% of project context, maximum five bullets."
-      context_5w1h:
-        type: object
-        required: true
-        description: "What, Why, Who, When, Where, How; use Unknown/N/A explicitly."
       project_identity:
         type: object
         required: true
         description: "Purpose, users, domain, lifecycle status."
+      workspaces:
+        type: array
+        required: false
+        description: "Monorepo only: one entry per app/package/service with path, type, and its own stack, entry point, and commands. Never collapse multiple stacks into one."
       tech_stack:
         type: array
         required: true
-        description: "Technology, role, version/source, confidence."
+        description: "Technology, role, version/source, confidence. In a monorepo, per workspace — not only the root manifest."
       architecture:
         type: array
         required: true

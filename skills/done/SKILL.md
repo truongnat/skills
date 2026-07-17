@@ -36,7 +36,6 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 - **executive_summary** (required, array): Maximum five bullets with final status, delivered value, verification, residual risk, and next action.
 - **developer_overview** (required, object): Final status, verification summary, residual risks, next action.
 - **charts** (optional, array): Mermaid delivery/verification chart when useful; otherwise N/A.
-- **context_5w1h** (optional, object): What, Why, Who, When, Where, How when useful; use Unknown/N/A explicitly.
 - **status** (required, string): Done / Done with risks / Needs fix / Blocked / Partial.
 - **summary** (required, string): Outcome-focused summary (not file list).
 - **scope_completed** (required, array): Scope item, status, evidence.

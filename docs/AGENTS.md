@@ -309,9 +309,13 @@ traceability, test data, or verification evidence.
 - Immediately after the summary, include a **Developer overview** panel:
   status, progress, blockers, next action, and owner. A developer must
   understand the state in under 30 seconds without reading the full report.
-- Add a **5W1H context** block (What, Why, Who, When, Where, How) when it
-  materially clarifies scope or ownership. Use `N/A`/`Unknown` instead of
-  padding or inventing details.
+- **5W1H is a diagnostic method, not a default section.** Never stamp a 5W1H
+  block into reports by default. Apply 5W1H (What, Why, Who, When, Where, How)
+  only as a clarification technique when a problem is genuinely hard or
+  ambiguous, or a feature is unclear, incorrect, or underspecified — during
+  framing, Spec-quality review, or investigation — to surface unknowns and
+  drive a decision. Capture the answers inline where they matter; do not add
+  an empty or `N/A`-filled 5W1H table to satisfy a template.
 - Add **Charts/diagrams** when they improve scanability:
   - Mermaid flowcharts for architecture, options, and process flows;
   - Mermaid sequence diagrams for request/response or error paths;

@@ -54,8 +54,7 @@ questions at a time.
 12. Risks
 13. Task index (**draft** ID + title OK; refined in step-03)
 14. Handoff (blockers; Ready stays No until step-04)
-15. Context 5W1H when useful; use N/A/Unknown instead of filler.
-16. Executive summary (maximum five bullets) — fill last, keep it first.
+15. Executive summary (maximum five bullets) — fill last, keep it first.
 
 ## Spec quality rules
 

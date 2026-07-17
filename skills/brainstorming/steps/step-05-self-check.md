@@ -25,8 +25,7 @@ If precondition fails → return to the earliest incomplete step.
 9. Handoff names one of: business-analysis, basic-design, planning, research, execution.
 10. If Unknowns/Risks/Capability gaps still block code merge, Handoff **Blockers** is not empty (must not claim “no blockers” while Unknowns list open decision/data/auth items).
 11. No PLAN.md/TASKS.md/code changes invented by this skill (unless user explicitly asked outside contract).
-12. Executive summary has at most five decision-oriented bullets; 5W1H uses
-    N/A/Unknown rather than invented filler.
+12. Executive summary has at most five decision-oriented bullets.
 13. Issue triage covers material decisions; no Critical/blocking item was
     bypassed without a recorded user answer.
 14. Spec quality review exists with Feasibility, Correctness, and Capability

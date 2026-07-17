@@ -102,8 +102,10 @@ def main() -> int:
             if name in REPORT_SKILLS:
                 if "executive_summary:" not in yaml_text:
                     errors.append(f"{name}: report schema missing executive_summary")
-                if "context_5w1h:" not in yaml_text:
-                    errors.append(f"{name}: report schema missing context_5w1h")
+                # 5W1H is an on-demand diagnostic method, not a required report
+                # field; it must not be stamped into artifact schemas.
+                if "context_5w1h:" in yaml_text:
+                    errors.append(f"{name}: report schema must not include context_5w1h (5W1H is a method, not a default section)")
         elif f"`{name}`" not in third_party_notice:
             errors.append(f"{name}: vendored skill missing third-party attribution")
 

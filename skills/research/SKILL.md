@@ -5,6 +5,14 @@ description: "Research internal or external sources before making technical/prod
 
 # Research
 
+## Language (do this first)
+
+**Re-read `.agents/settings.yaml` now** — do not reuse a `language` value cached
+earlier in this session. Write every saved artifact and reply in that `language`
+(`en` or `vi`); keep code, identifiers, paths, commands, and template section
+keys unchanged. If the user just edited settings, the freshly read value wins. A
+direct instruction in the current user request overrides the file.
+
 ## Purpose
 
 Collect, verify, and synthesize evidence to support technical, product, or operational decisions.

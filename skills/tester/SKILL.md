@@ -5,6 +5,14 @@ description: "Support tester/QA in the agent lifecycle: analyze acceptance crite
 
 # Tester
 
+## Language (do this first)
+
+**Re-read `.agents/settings.yaml` now** — do not reuse a `language` value cached
+earlier in this session. Write every saved artifact and reply in that `language`
+(`en` or `vi`); keep code, identifiers, paths, commands, and template section
+keys unchanged. If the user just edited settings, the freshly read value wins. A
+direct instruction in the current user request overrides the file.
+
 ## Purpose
 
 Act as a tester/QA in the agent workflow to ensure requirements, plans, or changes have clear verification methods.

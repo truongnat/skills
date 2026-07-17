@@ -16,6 +16,11 @@ and conventions.
     explanations, summaries, findings, and commit/PR messages.
 - Keep code, identifiers, file paths, CLI commands, and template section keys
   unchanged regardless of `language`.
+- **Re-read `.agents/settings.yaml` at the start of every task and every skill
+  invocation. Never reuse a `language` (or other settings) value cached earlier
+  in the session.** If the user edits `.agents/settings.yaml` mid-session and
+  asks to re-run a skill, re-read the file first and apply the new value — do
+  not answer from the previously loaded value.
 - If `.agents/settings.yaml` is missing or the value is unknown, default to
   `en`. A direct instruction in the current user request overrides the file.
 - `rules.reports.output_format`: `markdown` (default) or `html`. Controls the

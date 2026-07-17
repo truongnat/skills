@@ -5,6 +5,14 @@ description: "Read-only sync of session artifacts, codebase context, git state, 
 
 # Sync
 
+## Language (do this first)
+
+**Re-read `.agents/settings.yaml` now** — do not reuse a `language` value cached
+earlier in this session. Write every saved artifact and reply in that `language`
+(`en` or `vi`); keep code, identifiers, paths, commands, and template section
+keys unchanged. If the user just edited settings, the freshly read value wins. A
+direct instruction in the current user request overrides the file.
+
 ## Purpose
 
 Ensure the agent has the latest, reliable, and safe state before execution.

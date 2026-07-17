@@ -5,6 +5,14 @@ description: "Execute TASKS.md guided by PLAN.md: modify files, mark task/step p
 
 # Execution
 
+## Language (do this first)
+
+**Re-read `.agents/settings.yaml` now** — do not reuse a `language` value cached
+earlier in this session. Write every saved artifact and reply in that `language`
+(`en` or `vi`); keep code, identifiers, paths, commands, and template section
+keys unchanged. If the user just edited settings, the freshly read value wins. A
+direct instruction in the current user request overrides the file.
+
 ## Purpose
 
 Execute locked work from TASKS.md (fine-grained micro-tasks + order), guided by PLAN.md strategy/DoD/rollback, in a controlled and verifiable way. Follow `execution_order`: implement feature tasks before automated test tasks for the same surface.

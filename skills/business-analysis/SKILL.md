@@ -17,6 +17,14 @@ earlier in this session. Write every saved artifact and reply in that `language`
 keys unchanged. If the user just edited settings, the freshly read value wins. A
 direct instruction in the current user request overrides the file.
 
+## Memory (read first)
+
+Before framing, researching, or deciding, read `.agents/memory/INDEX.md` and
+open the entries whose hook matches this task. Reuse prior decisions, gotchas,
+and conventions instead of re-deriving them; if memory conflicts with current
+evidence, trust current evidence and note the drift. If none apply, continue.
+(Memory is written by `done` — the 80/20 vital few.)
+
 ## Purpose
 
 Clarify business requirements before basic design, planning, implementation, or testing via a **forced step sequence**:

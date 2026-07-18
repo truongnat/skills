@@ -2,7 +2,7 @@ display_name: "Done"
 short_description: "Close a task after execution/review with DONE.md, PR_MESSAGE.md, PR_DESCRIPTION.md, and optional RELEASE_NOTE.md."
 default_prompt: "Use $done to close a task with clear, honest, reviewable artifacts."
 required_input: "PLAN.md, TASKS.md when present, EXECUTION.md, REVIEW.md, diff/file changes, verification evidence, skipped checks, blockers, risks, PR/MR template."
-required_output: "DONE.md, PR_MESSAGE.md, PR_DESCRIPTION.md, optional RELEASE_NOTE.md."
+required_output: "DONE.md, refreshed OVERVIEW.md, .agents/memory/<Task-N-slug>.md + updated .agents/memory/INDEX.md, PR_MESSAGE.md, PR_DESCRIPTION.md, optional RELEASE_NOTE.md."
 note_important: "Do NOT overclaim verification. Do NOT hide skipped/failed checks. Do NOT mark complete if blockers remain. Do NOT describe changes that were not made. Do NOT put secrets into final artifacts."
 artifacts:
   DONE.md:
@@ -73,3 +73,10 @@ artifacts:
     required: true
     update: true
     description: "Refresh developer landing page: status, progress chart, open decisions, next action."
+  .agents/memory/<Task-N-slug>.md:
+    required: true
+    description: "Distilled cross-task memory from templates/MEMORY_ENTRY.template.md. 80/20 vital few only (non-obvious decisions + why, gotchas, reusable conventions, pointers). Not a changelog; no padding; do not duplicate an existing entry."
+  .agents/memory/INDEX.md:
+    required: true
+    update: true
+    description: "One-line pointer per memory entry (seed from templates/MEMORY_INDEX.template.md if missing; newest on top). Lifecycle skills read this first for prior lessons."

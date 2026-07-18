@@ -41,7 +41,10 @@ and conventions.
 - `.agents/settings.yaml`: Project-level agent settings (language, etc.). Read first.
 - `.agents/PRJ_REFERENCE.md`: Generated project context shared by all skills.
 - `.agents/tools/`: Local utilities copied on install (for example the HTML
-  decision server that logs user choices).
+  decision server that logs user choices, and `session/session.sh`).
+- `.agents/memory/`: Cross-task, durable knowledge base. `INDEX.md` is the
+  80/20 map; each entry holds the vital few from a finished task. `done` writes
+  it; any skill may read it.
 - `.agents/DESIGN_SYSTEM.md`: Compact enterprise HTML recipe (semantic +
   short `.ss-*` classes; beauty in CSS, not utility soup).
 - `.agents/THIRD_PARTY_SKILLS.md`: Sources, revisions, and licenses for vendored skills.
@@ -233,6 +236,21 @@ Base folder for runtime artifacts: `.agents/sessions/<Task-N-short-description>/
   `COMPLETE: yes` **and** the review verdict passed. Never show `100%`, a full
   "done" pie, or Status `done` while any card is `todo`/`in_progress`/`blocked`/
   `review` — the tool reports those as `COMPLETE: no`.
+
+### Project memory (`.agents/memory/`)
+
+- **Durable, cross-task knowledge** (survives across sessions). `done` distills
+  each finished task into `.agents/memory/<Task-N-slug>.md` — the **vital few**
+  (80/20): non-obvious decisions + why, gotchas, reusable conventions, and
+  pointers. It is not a changelog.
+- **Read before deciding/analyzing.** At the start of any step that frames,
+  researches, investigates, designs, or plans (`brainstorming`, `research`,
+  `investigate`, `business-analysis`, `basic-design`, `detail-design`,
+  `planning`, …), read `.agents/memory/INDEX.md` first and open the entries
+  whose hook matches the task. Any step may read memory whenever it helps.
+- Prefer prior lessons over re-deriving them; if memory conflicts with current
+  evidence, trust current evidence and note the drift so `done` can update the
+  entry.
 
 ### Project initialization
 

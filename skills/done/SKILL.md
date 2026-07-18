@@ -25,8 +25,8 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 
 | Field | Requirement |
 |-------|-------------|
-| Inputs | PLAN.md, TASKS.md when present, EXECUTION.md, REVIEW.md, diff/file changes, verification evidence, skipped checks, blockers, risks, PR/MR template. |
-| Outputs | DONE.md, refreshed `OVERVIEW.md`, PR_MESSAGE.md, PR_DESCRIPTION.md, optional RELEASE_NOTE.md. |
+| Inputs | PLAN.md, TASKS.md when present, EXECUTION.md, REVIEW.md, diff/file changes, verification evidence, skipped checks, blockers, risks, PR/MR template, existing `.agents/memory/INDEX.md`. |
+| Outputs | DONE.md, refreshed `OVERVIEW.md`, a distilled `.agents/memory/<Task-N-slug>.md` + updated `.agents/memory/INDEX.md`, PR_MESSAGE.md, PR_DESCRIPTION.md, optional RELEASE_NOTE.md. |
 | Safety | Do NOT overclaim verification. Do NOT hide skipped/failed checks. Do NOT mark complete if blockers remain. Do NOT describe changes that were not made. Do NOT put secrets into final artifacts. |
 
 ### Required artifacts
@@ -50,6 +50,23 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 #### `OVERVIEW.md`
 - Required: yes (update in place to final status).
 - Mark lifecycle complete or blocked; keep next action concrete.
+
+#### Project memory (`.agents/memory/`)
+- Required: yes. Persists **across tasks** (not per session) — sibling to
+  `.agents/sessions/`.
+- Write one distilled entry `.agents/memory/<Task-N-slug>.md` from
+  `templates/MEMORY_ENTRY.template.md`, then add/refresh a one-line pointer in
+  `.agents/memory/INDEX.md` (seed it from `templates/MEMORY_INDEX.template.md`
+  if missing; newest on top).
+- **80/20 rule (mandatory):** capture only the **vital few** — the ~20% of
+  knowledge (non-obvious decisions + why, gotchas, reusable conventions,
+  pointers) that will help ~80% of future work. It is **not** a changelog:
+  omit anything reconstructable from git, `DONE.md`, or the code. If nothing
+  durable was learned, still create the entry with `Outcome` filled and each
+  section `None.` — do not pad.
+- **De-duplicate:** before writing, scan `.agents/memory/INDEX.md`; if this
+  supersedes or extends an existing entry, update that entry instead of adding
+  a near-duplicate.
 
 #### `PR_MESSAGE.md`
 - Required: no
@@ -77,6 +94,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 - [ ] PR_MESSAGE.md follows Conventional Commits format.
 - [ ] PR_DESCRIPTION.md answers: what changed, why, how verified, reviewer focus.
 - [ ] When TASKS.md exists, DONE summary reflects completed vs remaining task IDs honestly (use Progress board / Status / checkboxes; do not claim Done if open `todo`/`in_progress`/`blocked` IDs remain without documented blockers).
+- [ ] A `.agents/memory/<Task-N-slug>.md` entry exists and `.agents/memory/INDEX.md` has its pointer. The entry holds only the vital few (80/20), no changelog, no padding, and does not duplicate an existing entry.
 
 ## WRONG vs CORRECT
 

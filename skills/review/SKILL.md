@@ -60,6 +60,11 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 - [ ] Every finding has evidence (file path, line, or diff context).
 - [ ] No findings → explicitly state "No findings found" + document residual risks.
 - [ ] Security/data/migration risks checked if changes touch those areas.
+- [ ] Code comment convention checked against `.agents/CODE_COMMENTS.md`
+      (`rules.code.comments`): public/exported symbols have doc comments;
+      non-obvious/multi-stage logic has a numbered flow + `Step N:` markers;
+      business rules/security noted; markers owned; **no stale comment
+      contradicting the code** and no obvious-narration/commented-out noise.
 - [ ] Recommendation uses one of: Ready / Ready with risks / Needs fix / Blocked / Needs more verification.
 - [ ] When TASKS.md exists, check unfinished or unverified task IDs against EXECUTION evidence (Progress board Status / Done / Work item checkboxes must match claimed completion).
 

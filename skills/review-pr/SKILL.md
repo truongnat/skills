@@ -142,6 +142,7 @@ Confirm the current branch and working tree are unchanged.
 - [ ] Finding severity is one of: Critical / High / Medium / Low / Info.
 - [ ] Merge recommendation is one of the defined taxonomy.
 - [ ] Security/auth/permission is reviewed if changes touch those areas.
+- [ ] Code comment convention checked against `.agents/CODE_COMMENTS.md`: public symbols documented, non-obvious flow explained, markers owned, no stale/contradicting comments.
 - [ ] Testing gaps are documented even when no blocker findings exist.
 
 ## WRONG vs CORRECT

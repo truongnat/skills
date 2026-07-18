@@ -117,6 +117,7 @@ if [ -d "${TARGET}/.agents/skills/office-mcp" ]; then
 fi
 
 cp -f "${SOURCE}/docs/DESIGN_SYSTEM.md" "${TARGET}/.agents/DESIGN_SYSTEM.md"
+cp -f "${SOURCE}/docs/CODE_COMMENTS.md" "${TARGET}/.agents/CODE_COMMENTS.md"
 cp -f "${SOURCE}/docs/THIRD_PARTY_SKILLS.md" "${TARGET}/.agents/THIRD_PARTY_SKILLS.md"
 
 # Install local agent tools (HTML decision server, etc.).

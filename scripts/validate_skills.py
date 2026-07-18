@@ -304,6 +304,12 @@ def main() -> int:
         errors.append("docs/settings.yaml missing branch.mode policy (checkout|direct)")
     if "rules.branch.mode" not in agents:
         errors.append("docs/AGENTS.md missing enforced branch.mode rule")
+    if not (ROOT / "docs" / "CODE_COMMENTS.md").is_file():
+        errors.append("docs/CODE_COMMENTS.md missing (code comment convention)")
+    if "standard: .agents/CODE_COMMENTS.md" not in settings:
+        errors.append("docs/settings.yaml missing code.comments.standard")
+    if "CODE_COMMENTS.md" not in agents:
+        errors.append("docs/AGENTS.md missing code comment convention reference")
     if "## Artifact format resolution" not in agents:
         errors.append("docs/AGENTS.md missing artifact format resolution rules")
     design_system = (ROOT / "docs" / "DESIGN_SYSTEM.md").read_text(encoding="utf-8")

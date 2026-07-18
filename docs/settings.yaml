@@ -83,6 +83,16 @@ rules:
     sync_strategy: with-commit
   code:
     comments:
+      # Full standard (per-language doc comments, flow docs, markers, examples):
+      standard: .agents/CODE_COMMENTS.md
+      # Doc comments on exported/public symbols: public-api | all | off
+      doc_comments: public-api
+      # Numbered flow blocks for logic: non-obvious | complex-only | off
+      flow_comments: non-obvious
       non_obvious_flow: required
       rationale_and_constraints: required
       obvious_code_narration: avoid
+      # Standardized, owned markers the reviewer enforces.
+      markers: [TODO, FIXME, NOTE, HACK, SECURITY, PERF]
+      # Optional per-language override, e.g. python: numpy | google
+      language_style: {}

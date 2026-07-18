@@ -67,6 +67,7 @@ only the root manifest. -->
 
 - Structure/naming:
 - Error handling:
+- Doc-comment style (detected): _(TSDoc/JSDoc, PEP 257, Javadoc, GoDoc, … or none)_
 - Flow/rationale comments:
 
 ### Git

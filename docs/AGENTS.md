@@ -38,6 +38,14 @@ and conventions.
     branch in this mode. If the working tree is on the base branch, branch first.
   - If `mode` is unset, default to `checkout` (the safer policy). A direct user
     instruction overrides the file for the current task only.
+- **`rules.code.comments` — code comment convention (enforced when writing/
+  reviewing code):** follow `.agents/CODE_COMMENTS.md`. Comment the **why**, not
+  the what; give every exported/public symbol a doc comment in the language's
+  standard format (`doc_comments`); document non-obvious/multi-stage logic with
+  a numbered **flow block** + `Step N:` markers (`flow_comments`); note business
+  rules (with `Trace:`) and security boundaries; use only the standard
+  `markers`; never leave a stale comment that contradicts the code. Prefer the
+  repo's existing style when it has one (`PRJ_REFERENCE.md`).
 - Project-specific branch, commit, PR, report, and code-comment rules live
   under `rules` in settings. Apply only populated values.
 - If `.agents/PRJ_REFERENCE.md` is missing or materially stale, run the `init`
@@ -57,6 +65,9 @@ and conventions.
 - `.agents/wiki/`: Human-facing project wiki maintained by the `docs` skill
   (location/format/strategy from `rules.docs`). Distinct from `PRJ_REFERENCE.md`
   (agent context).
+- `.agents/CODE_COMMENTS.md`: The code comment convention (per-language doc
+  comments, flow documentation, markers). `execution` applies it; `review`
+  checks it. Knobs in `rules.code.comments`.
 - `.agents/DESIGN_SYSTEM.md`: Compact enterprise HTML recipe (semantic +
   short `.ss-*` classes; beauty in CSS, not utility soup).
 - `.agents/THIRD_PARTY_SKILLS.md`: Sources, revisions, and licenses for vendored skills.

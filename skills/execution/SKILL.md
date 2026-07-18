@@ -82,6 +82,18 @@ Read `rules.branch.mode` in `.agents/settings.yaml` **before editing any file**:
 Record the branch you are working on in `EXECUTION.md` (developer_overview).
 Do not start the Progress protocol until this preflight passes.
 
+## Code comment convention (mandatory when writing code)
+
+Apply `.agents/CODE_COMMENTS.md` per `rules.code.comments` to every file you
+create or modify:
+- Comment the **why**, not the what; no obvious narration, no commented-out code.
+- Give each exported/public symbol a **doc comment** in the language's standard
+  format (TSDoc/JSDoc, PEP 257, Javadoc, GoDoc, rustdoc, KDoc, …).
+- For non-obvious/multi-stage logic, add a **numbered flow block** at the top +
+  `Step N:` markers; link `Trace:` for business flows.
+- Note business rules and security boundaries; use only the standard `markers`.
+- Follow the repo's existing style when it has one (`PRJ_REFERENCE.md`).
+
 ## Progress protocol (mandatory)
 
 On every task card in `execution_order`:

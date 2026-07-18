@@ -86,6 +86,7 @@ try {
     }
 
     Copy-Item -Path (Join-Path $Source "docs/DESIGN_SYSTEM.md") -Destination ".agents/DESIGN_SYSTEM.md" -Force
+    Copy-Item -Path (Join-Path $Source "docs/CODE_COMMENTS.md") -Destination ".agents/CODE_COMMENTS.md" -Force
     Copy-Item -Path (Join-Path $Source "docs/THIRD_PARTY_SKILLS.md") -Destination ".agents/THIRD_PARTY_SKILLS.md" -Force
 
     $toolsSource = Join-Path $Source "tools"

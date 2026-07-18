@@ -129,6 +129,7 @@ Residual risk: Main flow not verified by automated tests. Manual check done.
 | User only needs summary, no PR | Use Lite Mode. No file creation needed. |
 | Review found issues that were fixed | Document finding → resolution → evidence in review_result section. |
 | Scope changed during execution | Document deviation in DONE.md. Note whether deviation was reviewed. |
+| Defect found AFTER done (reviewer/QA/PR) | Task is not done. In the same session, set DONE status → `Needs fix`, reopen the affected TASKS card(s), then follow the **Post-done defect loop** in `AGENTS.md`: fix via execution (investigate/planning first if the cause is unclear or a spec/design gap), re-run `review`, and only re-run `done` when review passes and `session.sh status` is `COMPLETE: yes`. |
 
 ## Limitations
 

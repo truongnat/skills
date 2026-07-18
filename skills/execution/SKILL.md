@@ -76,7 +76,12 @@ On every task card in `execution_order`:
 3. **Finish card:** run card Verify; if pass → Status=`done`, Progress board Done=`[x]`; if blocked → Status=`blocked` and note reason (leave unfinished Work items as `[ ]`).
 4. **Stop mid-run / user stop:** leave accurate Status (`in_progress` or `blocked`); do not mark Done; handoff lists remaining IDs.
 5. **Never** mark Status=`done` if Verify failed or was skipped without documenting risk + Status=`blocked`/`skipped`.
-6. **Refresh OVERVIEW.md** At a glance + progress chart so a developer can skim status without opening EXECUTION.md.
+6. **Refresh OVERVIEW.md** At a glance + progress chart. Do not type the
+   counts — run `bash .agents/tools/session/session.sh status` and paste its
+   pie + `Progress`/`PERCENT_DONE` verbatim into `OVERVIEW.md` and `TASKS.md`.
+   Status may read `done` only when it prints `COMPLETE: yes`; while any card is
+   `in_progress`/`blocked`/`review`/`todo` it prints `COMPLETE: no`, so keep
+   Status `in_progress` and never show a full/100% pie.
 
 ```markdown
 // WRONG — code done but TASKS still all todo

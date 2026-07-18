@@ -21,7 +21,12 @@ If the template is missing, stop and report it. Do **not** invent a replacement.
 
 ## Actions
 
-1. Resolve session dir: `.agents/sessions/<Task-N-short-description>/` (create if missing).
+1. Resolve the active session dir (do **not** invent a folder name):
+   - Reuse if one is active: `bash .agents/tools/session/session.sh current`.
+   - Otherwise create + record it (brainstorming usually starts the task):
+     `bash .agents/tools/session/session.sh new <short-slug>`.
+   Use the printed `.agents/sessions/<Task-N-…>/` path as `{session}` below.
+   Never write artifacts to a temp/cache/scratchpad path.
 2. Locate templates:
    - `{skill-root}/templates/DISCUSSION.template.md`
    - `{skill-root}/templates/OVERVIEW.template.md`

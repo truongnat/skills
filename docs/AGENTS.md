@@ -202,6 +202,38 @@ The agent MUST obey the Contract strictly — it is not advisory. If the contrac
 
 Base folder for runtime artifacts: `.agents/sessions/<Task-N-short-description>/` (repo root).
 
+### Session discipline (mandatory)
+
+- **One active session, resolved deterministically.** The active session dir is
+  recorded in `.agents/sessions/.current`. Resolve it at the **start of every
+  lifecycle skill** — do not guess or re-derive the folder name:
+
+  ```bash
+  bash .agents/tools/session/session.sh current
+  ```
+
+  The first skill of a task creates it with `session.sh new <slug>`; every later
+  skill **reuses** the path that `session.sh current` returns. Never invent a
+  second `<Task-N-…>` folder for the same task.
+- **Artifacts live ONLY in the active session.** Write DISCUSSION, PLAN, TASKS,
+  EXECUTION, REVIEW, OVERVIEW, and every other runtime artifact **inside** that
+  dir. **Never** write them to an OS temp dir, a scratchpad, a `cache/` folder,
+  or anywhere outside `.agents/`. Redoing an artifact (e.g. re-writing `PLAN.md`
+  during review) overwrites it **in the same active session** — not a new
+  folder, not a side/cache copy.
+- **Progress is computed, never hand-written.** Refresh OVERVIEW/TASKS progress
+  from the real card states instead of typing counts:
+
+  ```bash
+  bash .agents/tools/session/session.sh status
+  ```
+
+  Paste its mermaid pie into `OVERVIEW.md` and `TASKS.md` and copy its counts
+  verbatim. A task/session is `done` **only** when the tool prints
+  `COMPLETE: yes` **and** the review verdict passed. Never show `100%`, a full
+  "done" pie, or Status `done` while any card is `todo`/`in_progress`/`blocked`/
+  `review` — the tool reports those as `COMPLETE: no`.
+
 ### Project initialization
 
 Run `init` first when entering a project or when `.agents/PRJ_REFERENCE.md` is

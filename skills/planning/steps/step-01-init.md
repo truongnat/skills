@@ -22,7 +22,14 @@ If any template is missing, stop and report it. Do **not** invent a replacement.
 
 ## Actions
 
-1. Resolve session dir: `.agents/sessions/<Task-N-short-description>/` (create if missing).
+1. Resolve the **active** session dir — do **not** create a new one and do
+   **not** write to a temp/cache/scratchpad path:
+   `bash .agents/tools/session/session.sh current`. Reuse the printed
+   `.agents/sessions/<Task-N-…>/` path as the session folder. (If truly no
+   session exists yet, `session.sh new <short-slug>` first.) When re-running
+   planning during a later phase (e.g. review asked you to redo the plan),
+   this returns the **same** session so `PLAN.md`/`TASKS.md` are overwritten in
+   place — never in a new or cache location.
 2. Locate skill templates:
    - `{skill-root}/templates/PLAN.template.md`
    - `{skill-root}/templates/TASKS.template.md`

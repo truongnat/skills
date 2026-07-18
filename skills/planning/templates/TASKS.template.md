@@ -35,6 +35,9 @@ plan_ref: PLAN.md
 
 ## Progress chart
 
+<!-- Do NOT hand-edit. Regenerate from card states:
+`bash .agents/tools/session/session.sh status` and paste its pie here. -->
+
 ```mermaid
 pie title Card status
   "todo" : 2

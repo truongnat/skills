@@ -21,7 +21,10 @@ If the template is missing, stop and report it. Do **not** invent a replacement.
 
 ## Actions
 
-1. Resolve session dir: `.agents/sessions/<Task-N-short-description>/` (create if missing).
+1. Resolve the active session dir (do **not** invent a folder name):
+   `bash .agents/tools/session/session.sh current` — reuse that path as
+   `{session}` below. If none is active yet, create one with
+   `session.sh new <short-slug>`. Never write to a temp/cache/scratchpad path.
 2. Locate template: `{skill-root}/templates/BUSINESS_ANALYSIS.template.md`
 3. Copy (Write tool) → `{session}/BUSINESS_ANALYSIS.md`
 4. If file already exists with real content:

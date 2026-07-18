@@ -16,6 +16,10 @@
 
 ## Progress chart
 
+<!-- Do NOT hand-edit these numbers. Regenerate from real card states with
+`bash .agents/tools/session/session.sh status` and paste its pie + counts here.
+Status stays `done` only when that tool prints COMPLETE: yes and review passed. -->
+
 ```mermaid
 pie title Task status
   "done" : 0

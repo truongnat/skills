@@ -12,9 +12,15 @@ def test_default_report_output_format_is_markdown() -> None:
 
 
 def test_agent_rules_define_html_artifact_compatibility() -> None:
-    rules = (REPO_ROOT / "docs" / "AGENTS.md").read_text(encoding="utf-8")
+    rules = (REPO_ROOT / "docs" / "AGENT_POLICY.md").read_text(encoding="utf-8")
     assert "## Artifact format resolution" in rules
     assert "then fall back to the" in rules
     assert "alternate extension" in rules
     assert "session-serve/serve.py" in rules
     assert "choice-reader" in rules
+
+
+def test_entrypoint_points_at_policy() -> None:
+    agents = (REPO_ROOT / "docs" / "AGENTS.md").read_text(encoding="utf-8")
+    assert "AGENT_POLICY.md" in agents
+    assert len(agents.splitlines()) <= 120

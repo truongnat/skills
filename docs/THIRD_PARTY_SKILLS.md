@@ -21,6 +21,14 @@ Skills with Snyk High Risk (for example `secrets-management`) were excluded.
 | DevOps / CI | `deployment-pipeline-design`, `github-actions-templates` | [wshobson/agents](https://github.com/wshobson/agents) | `b6af3711058190e4b5c5274b9758498fe626ec5a` | MIT |
 | Observability / debug | `distributed-tracing`, `debugging-strategies` | [wshobson/agents](https://github.com/wshobson/agents) | `b6af3711058190e4b5c5274b9758498fe626ec5a` | MIT |
 
+### Upstream metadata exception (Expo)
+
+`expo-native-ui` and `expo-data-fetching` keep their upstream
+`agents/openai.yaml` files. That metadata is **optional host tooling only**.
+They remain third-party skills: no first-party `Contract (mandatory)`, not listed
+in `docs/first-party-skills.json`, and not validated as report/office skills.
+Do not treat the presence of `openai.yaml` as a first-party signal.
+
 Office document skills (`xlsx`, `docx`, `pptx`, `pdf`) are first-party Python
 skills in this repository (MIT). Anthropic document skills were intentionally
 not vendored: their license does not permit retaining or redistributing copies

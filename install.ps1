@@ -1,6 +1,8 @@
 param(
     [ValidateSet("prompt", "replace", "skip")]
-    [string]$AgentsMode
+    [string]$AgentsMode,
+
+    [string]$Profile
 )
 
 $ErrorActionPreference = "Stop"
@@ -19,6 +21,13 @@ if (-not $AgentsMode) {
 if ($AgentsMode -notin @("prompt", "replace", "skip")) {
     throw "AgentsMode must be prompt, replace, or skip."
 }
+if (-not $Profile) {
+    $Profile = if ($env:SIMPLE_SKILLS_PROFILE) {
+        $env:SIMPLE_SKILLS_PROFILE
+    } else {
+        "core"
+    }
+}
 
 $Target = Get-Location
 $Source = $null
@@ -28,6 +37,31 @@ function Remove-Tmp {
     if ($Tmp -and (Test-Path $Tmp)) {
         Remove-Item -Path $Tmp -Recurse -Force
     }
+}
+
+function Resolve-InstallSkills {
+    param(
+        [string]$SourceRoot,
+        [string]$ProfileName
+    )
+    $resolver = Join-Path $SourceRoot "scripts/resolve_install_profile.py"
+    $python = Get-Command python3 -ErrorAction SilentlyContinue
+    if (-not $python) {
+        $python = Get-Command python -ErrorAction SilentlyContinue
+    }
+    if ($python) {
+        $output = & $python.Source $resolver --source $SourceRoot --profile $ProfileName --check
+        if ($LASTEXITCODE -ne 0) {
+            throw "Failed to resolve install profile '$ProfileName'."
+        }
+        return @($output | Where-Object { $_ -and $_.Trim() })
+    }
+    if ($ProfileName -ne "all") {
+        throw "Python is required to resolve install profile '$ProfileName'. Use -Profile all."
+    }
+    return @(Get-ChildItem -Path (Join-Path $SourceRoot "skills") -Directory |
+        Sort-Object Name |
+        ForEach-Object { $_.Name })
 }
 
 try {
@@ -56,27 +90,44 @@ try {
         $Source = Get-ChildItem -Path $Extract -Directory | Select-Object -First 1 -ExpandProperty FullName
     }
 
-    Write-Host "Installing skills into $((Get-Location).Path)\.agents ..."
+    Write-Host "Installing skills into $((Get-Location).Path)\.agents (profile: $Profile) ..."
 
     New-Item -ItemType Directory -Force -Path ".agents" | Out-Null
     New-Item -ItemType Directory -Force -Path ".agents/skills" | Out-Null
 
-    $skills = Get-ChildItem -Path (Join-Path $Source "skills") -Directory | Sort-Object Name
+    $selected = Resolve-InstallSkills -SourceRoot $Source -ProfileName $Profile
+    if ($selected.Count -eq 0) {
+        throw "Profile '$Profile' resolved to zero skills."
+    }
+    Write-Host "Installing $($selected.Count) skills."
 
-    Write-Host "Found $($skills.Count) skills."
-
-    foreach ($skill in $skills) {
-        Write-Host "Installing skill $($skill.Name) ..."
-        $dest = Join-Path ".agents/skills" $skill.Name
+    foreach ($skillName in $selected) {
+        Write-Host "Installing skill $skillName ..."
+        $skillPath = Join-Path $Source "skills/$skillName"
+        if (-not (Test-Path $skillPath -PathType Container)) {
+            throw "Missing skill source: $skillName"
+        }
+        $dest = Join-Path ".agents/skills" $skillName
         New-Item -ItemType Directory -Force -Path $dest | Out-Null
         # Mirror managed content so removed/renamed files do not remain stale.
         # Preserve only the skill-local virtual environment.
         Get-ChildItem -Path $dest -Force |
             Where-Object { $_.Name -ne ".venv" } |
             Remove-Item -Recurse -Force
-        Get-ChildItem -Path $skill.FullName -Force |
+        Get-ChildItem -Path $skillPath -Force |
             Where-Object { $_.Name -ne ".venv" } |
             Copy-Item -Destination $dest -Recurse -Force
+    }
+
+    $selectedSet = [System.Collections.Generic.HashSet[string]]::new(
+        [string[]]$selected,
+        [System.StringComparer]::OrdinalIgnoreCase
+    )
+    Get-ChildItem -Path ".agents/skills" -Directory | ForEach-Object {
+        if (-not $selectedSet.Contains($_.Name)) {
+            Write-Host "Removing skill not in profile: $($_.Name) ..."
+            Remove-Item -Path $_.FullName -Recurse -Force
+        }
     }
 
     $obsoleteOfficeMcp = Join-Path ".agents/skills" "office-mcp"
@@ -88,6 +139,8 @@ try {
     Copy-Item -Path (Join-Path $Source "docs/DESIGN_SYSTEM.md") -Destination ".agents/DESIGN_SYSTEM.md" -Force
     Copy-Item -Path (Join-Path $Source "docs/CODE_COMMENTS.md") -Destination ".agents/CODE_COMMENTS.md" -Force
     Copy-Item -Path (Join-Path $Source "docs/THIRD_PARTY_SKILLS.md") -Destination ".agents/THIRD_PARTY_SKILLS.md" -Force
+    Copy-Item -Path (Join-Path $Source "docs/SKILL_PREAMBLE.md") -Destination ".agents/SKILL_PREAMBLE.md" -Force
+    Copy-Item -Path (Join-Path $Source "docs/AGENT_POLICY.md") -Destination ".agents/AGENT_POLICY.md" -Force
 
     $toolsSource = Join-Path $Source "tools"
     if (Test-Path $toolsSource -PathType Container) {
@@ -101,6 +154,10 @@ try {
             Where-Object { $_.Name -ne "decision-logs" } |
             Copy-Item -Destination $toolsDest -Recurse -Force
     }
+
+    New-Item -ItemType Directory -Force -Path ".agents/tools/session" | Out-Null
+    Copy-Item -Path (Join-Path $Source "docs/artifact-schemas.json") `
+        -Destination ".agents/tools/session/artifact-schemas.json" -Force
 
     # Preserve the user's existing settings (e.g. language choice) on reinstall.
     $settingsDest = Join-Path ".agents" "settings.yaml"
@@ -148,7 +205,7 @@ try {
         Remove-Item -Path $obsoleteAgentsPath -Force
     }
 
-    Write-Host "Skills installed successfully."
+    Write-Host "Skills installed successfully (profile: $Profile)."
 }
 finally {
     Remove-Tmp

@@ -3,7 +3,7 @@ short_description: "Close a task after execution/review with DONE.md, PR_MESSAGE
 default_prompt: "Use $done to close a task with clear, honest, reviewable artifacts."
 required_input: "PLAN.md, TASKS.md when present, EXECUTION.md, REVIEW.md, diff/file changes, verification evidence, skipped checks, blockers, risks, PR/MR template."
 required_output: "DONE.md, refreshed OVERVIEW.md, .agents/memory/<Task-N-slug>.md + updated .agents/memory/INDEX.md, PR_MESSAGE.md, PR_DESCRIPTION.md, optional RELEASE_NOTE.md."
-note_important: "Do NOT overclaim verification. Do NOT hide skipped/failed checks. Do NOT mark complete if blockers remain. Do NOT describe changes that were not made. Do NOT put secrets into final artifacts."
+note_important: "Do NOT overclaim verification. Do NOT hide skipped/failed checks. Do NOT mark complete if blockers remain. Do NOT describe changes that were not made. Do NOT put secrets into final artifacts. Do NOT mark Done while session.sh status is COMPLETE: no or while validate_artifacts.py fails."
 artifacts:
   DONE.md:
     required: true

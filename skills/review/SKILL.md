@@ -5,13 +5,11 @@ description: "Review changes after execution: bugs, regression, missing tests, s
 
 # Review
 
-## Language (do this first)
+## Shared preamble (do this first)
 
-**Re-read `.agents/settings.yaml` now** — do not reuse a `language` value cached
-earlier in this session. Write every saved artifact and reply in that `language`
-(`en` or `vi`); keep code, identifiers, paths, commands, and template section
-keys unchanged. If the user just edited settings, the freshly read value wins. A
-direct instruction in the current user request overrides the file.
+Read and follow `.agents/SKILL_PREAMBLE.md` now (Language + Memory) before
+Purpose, Contract, or steps. Do not skip it; do not reuse a cached `language`
+from earlier in the session. Source copy in this repo: `docs/SKILL_PREAMBLE.md`.
 
 ## Purpose
 
@@ -27,7 +25,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 |-------|-------------|
 | Inputs | Diff/file changes, PLAN.md, TASKS.md when present, EXECUTION.md, test/check results, verification evidence, scope/context. |
 | Outputs | REVIEW.md with scope reviewed, findings, testing gaps, residual risks, recommendation, handoff. |
-| Safety | Do NOT auto-fix code if user only requested review. Do NOT create findings without evidence. Do NOT claim safe if verification is missing. Do NOT ignore security/data risks when changes touch input, auth, permission, secrets, files, network, DB, or infra. |
+| Safety | Do NOT auto-fix code if user only requested review. Do NOT create findings without evidence. Do NOT claim safe if verification is missing. Do NOT ignore security/data risks when changes touch input, auth, permission, secrets, files, network, DB, or infra. Do NOT recommend Ready / Ready with risks while `python .agents/tools/session/validate_artifacts.py` fails on the active session. |
 
 ### Required artifacts
 
@@ -67,6 +65,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
       contradicting the code** and no obvious-narration/commented-out noise.
 - [ ] Recommendation uses one of: Ready / Ready with risks / Needs fix / Blocked / Needs more verification.
 - [ ] When TASKS.md exists, check unfinished or unverified task IDs against EXECUTION evidence (Progress board Status / Done / Work item checkboxes must match claimed completion).
+- [ ] `python .agents/tools/session/validate_artifacts.py` exits 0 for the active session before Ready / Ready with risks.
 
 ## WRONG vs CORRECT
 

@@ -5,13 +5,11 @@ description: "Close a task after execution/review with DONE.md, PR_MESSAGE.md, P
 
 # Done
 
-## Language (do this first)
+## Shared preamble (do this first)
 
-**Re-read `.agents/settings.yaml` now** — do not reuse a `language` value cached
-earlier in this session. Write every saved artifact and reply in that `language`
-(`en` or `vi`); keep code, identifiers, paths, commands, and template section
-keys unchanged. If the user just edited settings, the freshly read value wins. A
-direct instruction in the current user request overrides the file.
+Read and follow `.agents/SKILL_PREAMBLE.md` now (Language + Memory) before
+Purpose, Contract, or steps. Do not skip it; do not reuse a cached `language`
+from earlier in the session. Source copy in this repo: `docs/SKILL_PREAMBLE.md`.
 
 ## Purpose
 
@@ -27,7 +25,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 |-------|-------------|
 | Inputs | PLAN.md, TASKS.md when present, EXECUTION.md, REVIEW.md, diff/file changes, verification evidence, skipped checks, blockers, risks, PR/MR template, existing `.agents/memory/INDEX.md`. |
 | Outputs | DONE.md, refreshed `OVERVIEW.md`, a distilled `.agents/memory/<Task-N-slug>.md` + updated `.agents/memory/INDEX.md`, PR_MESSAGE.md, PR_DESCRIPTION.md, optional RELEASE_NOTE.md. |
-| Safety | Do NOT overclaim verification. Do NOT hide skipped/failed checks. Do NOT mark complete if blockers remain. Do NOT describe changes that were not made. Do NOT put secrets into final artifacts. |
+| Safety | Do NOT overclaim verification. Do NOT hide skipped/failed checks. Do NOT mark complete if blockers remain. Do NOT describe changes that were not made. Do NOT put secrets into final artifacts. Do NOT mark Done while `session.sh status` is `COMPLETE: no` or while `python .agents/tools/session/validate_artifacts.py` fails. |
 
 ### Required artifacts
 
@@ -103,6 +101,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 - [ ] PR_DESCRIPTION.md answers: what changed, why, how verified, reviewer focus.
 - [ ] When TASKS.md exists, DONE summary reflects completed vs remaining task IDs honestly (use Progress board / Status / checkboxes; do not claim Done if open `todo`/`in_progress`/`blocked` IDs remain without documented blockers).
 - [ ] A `.agents/memory/<Task-N-slug>.md` entry exists and `.agents/memory/INDEX.md` has its pointer. The entry holds only the vital few (80/20), no changelog, no padding, and does not duplicate an existing entry.
+- [ ] `python .agents/tools/session/validate_artifacts.py` exits 0 and `session.sh status` prints `COMPLETE: yes` before marking Done.
 
 ## WRONG vs CORRECT
 
@@ -137,7 +136,7 @@ Residual risk: Main flow not verified by automated tests. Manual check done.
 | User only needs summary, no PR | Use Lite Mode. No file creation needed. |
 | Review found issues that were fixed | Document finding → resolution → evidence in review_result section. |
 | Scope changed during execution | Document deviation in DONE.md. Note whether deviation was reviewed. |
-| Defect found AFTER done (reviewer/QA/PR) | Task is not done. In the same session, set DONE status → `Needs fix`, reopen the affected TASKS card(s), then follow the **Post-done defect loop** in `AGENTS.md`: fix via execution (investigate/planning first if the cause is unclear or a spec/design gap), re-run `review`, and only re-run `done` when review passes and `session.sh status` is `COMPLETE: yes`. |
+| Defect found AFTER done (reviewer/QA/PR) | Task is not done. In the same session, set DONE status → `Needs fix`, reopen the affected TASKS card(s), then follow the **Post-done defect loop** in `.agents/AGENT_POLICY.md`: fix via execution (investigate/planning first if the cause is unclear or a spec/design gap), re-run `review`, and only re-run `done` when review passes and `session.sh status` is `COMPLETE: yes`. |
 
 ## Limitations
 

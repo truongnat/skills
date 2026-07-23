@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "default": "core",
+  "profiles": {
+    "core": {
+      "description": "First-party lifecycle and workflow skills (no office, no third-party)",
+      "skills": [
+        "init",
+        "scaffold",
+        "brainstorming",
+        "business-analysis",
+        "basic-design",
+        "detail-design",
+        "planning",
+        "sync",
+        "execution",
+        "review",
+        "done",
+        "investigate",
+        "research",
+        "review-pr",
+        "tester",
+        "docs"
+      ]
+    },
+    "office": {
+      "description": "core + first-party office Python skills and shared helpers",
+      "includes": ["core"],
+      "skills": ["xlsx", "docx", "pptx", "pdf", "office-common"]
+    },
+    "frontend": {
+      "description": "core + web/design/expo third-party skills",
+      "includes": ["core"],
+      "skills": [
+        "web-component-design",
+        "accessibility-compliance",
+        "design-system-patterns",
+        "visual-design-foundations",
+        "design-taste-frontend",
+        "minimalist-ui",
+        "high-end-visual-design",
+        "industrial-brutalist-ui",
+        "redesign-existing-projects",
+        "frontend-design",
+        "expo-native-ui",
+        "expo-data-fetching"
+      ]
+    },
+    "backend": {
+      "description": "core + backend/API/DB/security/devops third-party skills",
+      "includes": ["core"],
+      "skills": [
+        "nodejs-backend-patterns",
+        "api-design-principles",
+        "postgresql-table-design",
+        "sql-optimization-patterns",
+        "database-migration",
+        "microservices-patterns",
+        "hybrid-cloud-networking",
+        "architecture-patterns",
+        "architecture-decision-records",
+        "sast-configuration",
+        "auth-implementation-patterns",
+        "stride-analysis-patterns",
+        "javascript-testing-patterns",
+        "e2e-testing-patterns",
+        "deployment-pipeline-design",
+        "github-actions-templates",
+        "distributed-tracing",
+        "debugging-strategies"
+      ]
+    },
+    "all": {
+      "description": "Every skill under skills/ (default; preserves prior install behavior)",
+      "all_skills": true
+    }
+  }
+}

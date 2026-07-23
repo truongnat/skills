@@ -5,13 +5,11 @@ description: "Read-only sync of session artifacts, codebase context, git state, 
 
 # Sync
 
-## Language (do this first)
+## Shared preamble (do this first)
 
-**Re-read `.agents/settings.yaml` now** — do not reuse a `language` value cached
-earlier in this session. Write every saved artifact and reply in that `language`
-(`en` or `vi`); keep code, identifiers, paths, commands, and template section
-keys unchanged. If the user just edited settings, the freshly read value wins. A
-direct instruction in the current user request overrides the file.
+Read and follow `.agents/SKILL_PREAMBLE.md` now (Language + Memory) before
+Purpose, Contract, or steps. Do not skip it; do not reuse a cached `language`
+from earlier in the session. Source copy in this repo: `docs/SKILL_PREAMBLE.md`.
 
 ## Purpose
 

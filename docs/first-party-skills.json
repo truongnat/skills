@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "report_skills": [
+    "init",
+    "brainstorming",
+    "business-analysis",
+    "basic-design",
+    "detail-design",
+    "planning",
+    "sync",
+    "execution",
+    "review",
+    "done",
+    "investigate",
+    "research",
+    "review-pr",
+    "tester"
+  ],
+  "step_skills": {
+    "brainstorming": [
+      "step-01-init.md",
+      "step-02-frame.md",
+      "step-03-scope-options.md",
+      "step-04-recommend.md",
+      "step-05-self-check.md"
+    ],
+    "business-analysis": [
+      "step-01-init.md",
+      "step-02-frame-quality.md",
+      "step-03-stories-rules-ac.md",
+      "step-04-self-check.md"
+    ],
+    "planning": [
+      "step-01-init.md",
+      "step-02-fill-plan.md",
+      "step-03-fill-tasks.md",
+      "step-04-self-check.md"
+    ]
+  },
+  "skills": [
+    {"name": "init", "kind": "workflow"},
+    {"name": "scaffold", "kind": "workflow"},
+    {"name": "brainstorming", "kind": "workflow"},
+    {"name": "business-analysis", "kind": "workflow"},
+    {"name": "basic-design", "kind": "workflow"},
+    {"name": "detail-design", "kind": "workflow"},
+    {"name": "planning", "kind": "workflow"},
+    {"name": "sync", "kind": "workflow"},
+    {"name": "execution", "kind": "workflow"},
+    {"name": "review", "kind": "workflow"},
+    {"name": "done", "kind": "workflow"},
+    {"name": "investigate", "kind": "workflow"},
+    {"name": "research", "kind": "workflow"},
+    {"name": "review-pr", "kind": "workflow"},
+    {"name": "tester", "kind": "workflow"},
+    {"name": "docs", "kind": "workflow"},
+    {"name": "xlsx", "kind": "office"},
+    {"name": "docx", "kind": "office"},
+    {"name": "pptx", "kind": "office"},
+    {"name": "pdf", "kind": "office"}
+  ],
+  "helpers": ["office-common"],
+  "preamble_required_for": [
+    "init",
+    "scaffold",
+    "brainstorming",
+    "business-analysis",
+    "basic-design",
+    "detail-design",
+    "planning",
+    "sync",
+    "execution",
+    "review",
+    "done",
+    "investigate",
+    "research",
+    "review-pr",
+    "tester",
+    "docs"
+  ],
+  "contract_table_fields": ["Inputs", "Outputs", "Safety"],
+  "third_party_metadata_allowed": [
+    "expo-native-ui",
+    "expo-data-fetching"
+  ],
+  "third_party_metadata_note": "Upstream Expo skills keep agents/openai.yaml as optional host metadata. They are not first-party: no Contract (mandatory) requirement and they are not validated as report/office skills."
+}

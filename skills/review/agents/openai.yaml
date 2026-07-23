@@ -3,7 +3,7 @@ short_description: "Review changes after execution: bugs, regression, missing te
 default_prompt: "Use $review to evaluate changes after execution before marking done, creating a PR, or handing off."
 required_input: "Diff/file changes, PLAN.md, TASKS.md when present, EXECUTION.md, test/check results, verification evidence, scope/context."
 required_output: "REVIEW.md with scope reviewed, findings, testing gaps, residual risks, recommendation, handoff."
-note_important: "Do NOT auto-fix code if user only requested review. Do NOT create findings without evidence. Do NOT claim safe if verification is missing. Do NOT ignore security/data risks when changes touch input, auth, permission, secrets, files, network, DB, or infra."
+note_important: "Do NOT auto-fix code if user only requested review. Do NOT create findings without evidence. Do NOT claim safe if verification is missing. Do NOT ignore security/data risks when changes touch input, auth, permission, secrets, files, network, DB, or infra. Do NOT recommend Ready while validate_artifacts.py fails on the active session."
 artifacts:
   REVIEW.md:
     required: true

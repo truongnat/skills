@@ -9,17 +9,11 @@ description: >-
 
 # Scaffold (new project bootstrap)
 
-## Language (do this first)
+## Shared preamble (do this first)
 
-**Re-read `.agents/settings.yaml` now** — do not reuse a `language` value cached
-earlier in this session. Write prose/artifacts and reply in that `language`
-(`en` or `vi`); keep code, identifiers, paths, commands, and config keys
-unchanged. A direct instruction in the current user request overrides the file.
-
-## Memory (read first)
-
-Read `.agents/memory/INDEX.md` and open entries whose hook matches (stack, past
-scaffolds, gotchas). Reuse prior conventions instead of re-deriving them.
+Read and follow `.agents/SKILL_PREAMBLE.md` now (Language + Memory) before
+Purpose, Contract, or steps. Do not skip it; do not reuse a cached `language`
+from earlier in the session. Source copy in this repo: `docs/SKILL_PREAMBLE.md`.
 
 ## Purpose
 

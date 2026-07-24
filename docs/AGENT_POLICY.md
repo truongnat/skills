@@ -372,9 +372,12 @@ Order for a new project: `scaffold` → `init` → lifecycle (`brainstorming`/
    - Step workflow: seed template → frame + Spec quality → stories/rules/AC → self-check.
    - Stories, rules, and AC cannot start until the Spec quality gate passes; stop on Blocking=Yes gaps.
 3. `basic-design` → `BASIC_DESIGN.md` (**skip on Quick** unless architecture is the task)
-   - System-level design: architecture, components, flows, interfaces, data ownership (omit unused sections).
+   - Template: `.agents/skills/basic-design/templates/BASIC_DESIGN.template.md`.
+   - **Doc reality check** (docs/wiki ↔ codebase) **before** architecture/components/flows.
+   - Blocking mismatches → **stop and ask** (max 3 questions); do not design as if docs were automatically true.
 4. `detail-design` → `DETAIL_DESIGN.md`
-   - Implementable design: contracts, data model, sequences, rules/operations, optional client mapping (omit unused sections; mark gaps).
+   - Template: `.agents/skills/detail-design/templates/DETAIL_DESIGN.template.md`.
+   - Re-run **Doc reality check**; contracts/data_model only after gate; High-impact assumptions need `Confirmed?` or user accept.
 5. `planning` → `PLAN.md` + `TASKS.md` (**both required on disk**)
    - Step workflow: seed templates → decision + Spec quality gate → fill PLAN (slim) → **Work inventory → specific micro-TASKS with Dev context** → self-check.
    - Each TASK card must include `#### Dev context` with `[Source: …]` cites (or
@@ -449,7 +452,7 @@ task is **not** done. Do not patch silently and do not open a new session.
 
 ### Investigation
 
-`investigate` → `INVESTIGATE.md`
+`investigate` → `INVESTIGATE.md` (Doc reality check when docs/specs cited; stop and ask on Blocking mismatches)
 
 Use when debugging or tracing root cause — no commitment to implement.
 

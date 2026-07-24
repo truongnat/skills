@@ -5,6 +5,7 @@ __pycache__/
 .pytest_cache/
 *.egg-info/
 .venv/
+.tmp/
 
 # Keep repository documentation visible even when a user globally ignores docs/.
 !docs/

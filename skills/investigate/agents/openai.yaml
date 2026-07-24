@@ -1,9 +1,9 @@
 display_name: "Investigate"
-short_description: "Investigate codebase, bugs, system behavior, or technical questions before implementing. Root-cause analysis, reproduction, impact mapping, and evidence-based recommendations."
-default_prompt: "Use $investigate to find technical truth before deciding to fix, plan, or implement."
-required_input: "Problem description, expected/actual behavior, logs/errors/reproduction, screenshots or screen recordings, codebase context, environment details."
-required_output: "INVESTIGATE.md with question, status, evidence, reproduction, observed facts, hypotheses, code path, impact map, root cause, recommendation, open questions."
-note_important: "Read-only by default. Do NOT modify code unless requested. Do NOT run destructive commands. Do NOT read secrets without a clear reason. Do NOT claim root cause when evidence is insufficient. For supplied video evidence, use video-keyframes and cite sampled frames while documenting temporal/audio limitations."
+short_description: "Evidence-based investigation with Doc reality check when specs/docs are involved — before fix or design."
+default_prompt: "Use $investigate. Prefer INVESTIGATE.template.md. When docs/specs are cited, fill Doc reality check and stop-and-ask on Blocking mismatches before claiming root cause."
+required_input: "Problem, expected/actual, logs/repro, codebase context; docs/specs when cited or implied."
+required_output: "INVESTIGATE.md with evidence, status, Doc reality check (or N/A+reason), recommendation, handoff."
+note_important: "Read-only by default. Do NOT treat 設計書/wiki as root cause without code/runtime evidence. Do NOT close Confirmed on doc alone when Doc reality Blocking=Yes."
 artifacts:
   INVESTIGATE.md:
     required: true
@@ -11,64 +11,40 @@ artifacts:
       executive_summary:
         type: array
         required: true
-        description: "Maximum five bullets with status, likely/confirmed cause, strongest evidence, impact, and next action."
+        description: "Max five bullets: status, cause, evidence, impact, next action."
       developer_overview:
         type: object
         required: true
-        description: "Investigation status, strongest hypothesis, evidence gap, next action."
-      charts:
-        type: array
-        required: false
-        description: "Mermaid cause/flow chart when useful; otherwise N/A."
+        description: "Status, Doc reality blockers or n/a, hypothesis, next action."
+      doc_reality_check:
+        type: object
+        required: true
+        description: "Doc vs code/runtime table, or N/A with reason."
       question:
         type: string
         required: true
-        description: "The investigation question."
+        description: "Investigation question."
       status:
         type: string
         required: true
-        description: "Root Cause Confirmed / Likely Root Cause / Hypotheses Identified / Needs More Evidence / Blocked."
-      context:
-        type: string
-        required: false
-        description: "Environment, version, related setup."
+        description: "Root Cause Confirmed / Likely / Hypotheses / Needs More Evidence / Blocked."
       evidence:
         type: array
         required: true
-        description: "Evidence ID, source, observation, supports hypothesis?, confidence."
-      reproduction:
-        type: array
-        required: false
-        description: "Step, action, expected, actual, result."
+        description: "Evidence rows with source and confidence."
       observed_facts:
         type: array
         required: true
-        description: "Fact with source."
-      hypotheses:
-        type: array
-        required: false
-        description: "Hypothesis, supporting evidence, counter evidence, verification method, confidence."
-      code_path:
-        type: array
-        required: false
-        description: "Layer, file/component, role, observation."
-      root_cause:
-        type: string
-        required: false
-        description: "Confirmed or likely root cause."
+        description: "Facts with sources."
       impact:
         type: array
         required: true
-        description: "Area affected, impact, confidence."
+        description: "Impact areas with confidence."
       recommendation:
         type: string
         required: true
-        description: "Fix recommendation / workaround / next investigation."
-      open_questions:
-        type: array
-        required: false
-        description: "Question, owner, blocking status."
+        description: "Fix / workaround / next investigation / docs refresh."
       handoff:
         type: string
         required: true
-        description: "Ready for planning? Ready for execution? Suggested next skill."
+        description: "Next skill suggestion."

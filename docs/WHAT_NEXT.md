@@ -19,6 +19,7 @@ Situation → skill. Prefer the smallest path that fits.
 | Write tests / evidence | — | `tester` |
 | Project wiki / ADR set | — | `docs` |
 | Office files (xlsx/docx/…) | — | install `--profile office` |
+| Excel 設計書 / 方眼紙 → MD/HTML | — | `excel-doc-convert` (office profile) |
 | Don’t know | — | stay on **Quick** unless blocked; then upgrade Lite/Full |
 
 ## Commands

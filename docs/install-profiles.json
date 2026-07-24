@@ -27,7 +27,7 @@
     "office": {
       "description": "core + first-party office Python skills and shared helpers",
       "includes": ["core"],
-      "skills": ["xlsx", "docx", "pptx", "pdf", "office-common"]
+      "skills": ["xlsx", "excel-doc-convert", "docx", "pptx", "pdf", "office-common"]
     },
     "frontend": {
       "description": "core + web/design/expo third-party skills",

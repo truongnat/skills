@@ -18,9 +18,15 @@ Source copy: `docs/SKILL_PREAMBLE.md` / `docs/AGENT_WORK.md`.
 
 Turn an approved direction into a system-level design: what is being built, where boundaries sit, and which parts own which data.
 
+**Before drawing architecture:** run **Doc reality check** — challenge whether
+session/wiki docs match the codebase (stale specs, common libs that differ from
+prose, missing surfaces). **Stop and ask** on Blocking mismatches; do not design
+as if docs were automatically true.
+
 This skill focuses on:
 
 - Capture the chosen recommendation from DISCUSSION.md as design context.
+- **Doc reality check** (docs ↔ code) with user confirm when Blocking.
 - Define architecture overview and major components.
 - Describe main actor or system flows (happy paths only).
 - Name external interfaces at purpose level (not full contracts).
@@ -37,7 +43,7 @@ The goal: lock boundaries before writing implementable contracts or task plans. 
 - Include only sections that apply to the task.
 - Omit unused optional sections (do not invent filler).
 - Mark gaps as open questions instead of guessing.
-- Lite Mode: short goal + components + flows + handoff (5–10 bullets).
+- Lite Mode: Doc reality (short table) + goal + components + flows + handoff.
 
 ## Contract (mandatory)
 
@@ -45,21 +51,23 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 
 | Field | Requirement |
 |-------|-------------|
-| Inputs | DISCUSSION.md with clear recommendation; business-analysis notes if available; repo context or investigate findings when useful. |
-| Outputs | BASIC_DESIGN.md with goal, context, architecture overview, components, flows, data ownership, optional surfaces/data sources/interfaces/NFRs, open questions, handoff to detail-design. Omit sections that do not apply. |
-| Safety | Do NOT implement code. Do NOT invent file paths without inspecting the codebase. Do NOT write full contracts or field/query specs (detail-design). Do NOT re-litigate business rules — point to BA. Do NOT force domain-specific or UI-only sections. Do NOT create PLAN.md. If Path=`Quick`, **stop** and use `quick-fix` (or upgrade Path). |
+| Inputs | DISCUSSION.md with clear recommendation; BA notes if available; **repo inspection**; wiki/HLD under `rules.docs.location` when docs enabled; investigate findings when useful. |
+| Outputs | `BASIC_DESIGN.md` from template (or equivalent) including **Doc reality check**, goal, context, architecture, components, flows, data ownership, optional surfaces/NFRs, open questions, handoff. |
+| Safety | Do NOT implement code. Do NOT invent file paths without inspecting the codebase. Do NOT treat docs/wiki as truth without Doc reality check. Do NOT fill architecture/components/flows while Doc reality has Blocking=`Yes` unresolved — **stop and ask** (max 3 focused questions). Do NOT write full contracts (detail-design). Do NOT re-litigate BR — point to BA. Do NOT create PLAN.md. If Path=`Quick`, **stop** and use `quick-fix` (or upgrade Path). |
 
 ### Required artifacts
 
 #### `BASIC_DESIGN.md`
 - Required: yes
-- **executive_summary** (required, array): Maximum five bullets with direction, key boundaries, top risk, and next action.
-- **developer_overview** (required, object): Status, key components/boundaries, open questions, next action.
+- Prefer seed: `templates/BASIC_DESIGN.template.md`
+- **executive_summary** (required, array): Maximum five bullets with direction, key boundaries, top Doc reality finding/risk, and next action.
+- **developer_overview** (required, object): Status, Doc reality blockers count, key components/boundaries, open questions, next action.
+- **doc_reality_check** (required, object): Table of vital claims with doc evidence, code evidence, verdict (`Match`/`Mismatch`/`Missing-in-docs`/`Missing-in-code`/`Stale`/`Unknown`), Blocking, and Ask user?; plus Clarification checkpoint when any Blocking=`Yes`.
 - **charts** (required, array): At least one Mermaid architecture/boundary/flow diagram, or N/A with reason when a diagram adds no value.
 - **goal** (required, string): One sentence aligned with DISCUSSION recommendation.
 - **context** (required, string): Chosen direction and scope summary from DISCUSSION (and BA if present).
 - **architecture_overview** (required, string): Short overview of system shape; optional mermaid for boundaries.
-- **components** (required, array): Components/modules with responsibility.
+- **components** (required, array): Components/modules with responsibility (real packages when they exist, else mark Proposed).
 - **user_or_system_flows** (required, array): Main actor or system flows (happy paths only).
 - **data_ownership** (required, array): Logical entities/stores and which component owns them.
 - **surfaces_or_entry_points** (optional, array): Major in-scope entry points or surfaces (API routes area, UI areas, jobs, CLI commands, message topics). Omit if single obvious surface.
@@ -74,6 +82,20 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 ### Reference
 
 `agents/openai.yaml` is a machine-readable duplicate for tooling. The Contract in this SKILL.md is authoritative for agents.
+
+## Doc reality check (mandatory)
+
+Run **before** architecture/components/flows. ≤5 vital claims the design depends on.
+
+| Check | Rule |
+|---|---|
+| Locate sources | Session DISCUSSION/BA + wiki HLD/API if docs enabled (`.docmap.md` / Last-synced when present). |
+| Inspect code | Real modules/routes/tables for those claims — no invented paths. |
+| Verdict | `Match` / `Mismatch` / `Missing-in-docs` / `Missing-in-code` / `Stale` / `Unknown`. |
+| Stale wiki | Missing Last-synced or behind HEAD → `Stale`/`Unknown`; ask: trust wiki, trust code, or refresh docs first? |
+| Common vs spec | Spec describes flow A but shared/common code does B → `Mismatch`, Blocking unless user accepts. |
+| Stop gate | Any Blocking=`Yes` → ask (max 3 questions), wait; do not continue design body. |
+| Source of truth | Record in Clarification checkpoint: doc / code / refresh-docs-first. |
 
 ## When to Use
 
@@ -100,9 +122,11 @@ Do NOT use this skill when:
 
 ## Quality Standards
 
+- [ ] Doc reality check filled **before** architecture/components/flows.
+- [ ] No Blocking=`Yes` left unresolved (asked + answered, or user accepted risk).
 - [ ] Goal is one sentence aligned with DISCUSSION recommendation.
 - [ ] Architecture overview is short; diagram only if it clarifies boundaries.
-- [ ] Each component has a clear responsibility.
+- [ ] Each component has a clear responsibility (real path or Proposed).
 - [ ] Flows cover main paths only — no task IDs or full contracts.
 - [ ] External interfaces are purpose-level only.
 - [ ] Unused optional sections are omitted (not filled with N/A spam).
@@ -115,6 +139,16 @@ Do NOT use this skill when:
 
 
 ## WRONG vs CORRECT
+
+```markdown
+// WRONG — design from 画面設計書 alone, never opened the repo
+Components: PrintService owns PDF (as in design doc §3).
+
+// CORRECT — Doc reality first
+| Claim | Doc | Code | Verdict | Blocking |
+| Print via ExcelCreator | 帳票設計書 RBD… | src/.../CommonPrint uses different pipeline | Mismatch | Yes |
+Ask: follow doc, follow common code, or investigate first?
+```
 
 ```markdown
 // WRONG — detail dumped into basic design
@@ -138,9 +172,11 @@ Flows: Load config → parse input → emit result events.
 
 | Situation | Handling |
 |---|---|
-| DISCUSSION conflicts with repo patterns | Prefer existing patterns. Document conflict as open question. |
+| DISCUSSION conflicts with repo patterns | Prefer existing patterns. Doc reality `Mismatch`; ask which wins. |
+| Spec vs common library behavior | Blocking until user chooses doc update vs design-to-code-as-is. |
+| Wiki Last-synced missing/stale | Verdict `Stale`/`Unknown`; ask refresh docs vs trust code. |
 | Blocking unknown | Stop short of fake design. Handoff to research or investigate. |
-| Single-module change | Lite Mode — skip unused optional sections. |
+| Single-module change | Lite Mode — short Doc reality table; skip unused optional sections. |
 | Multi-artifact pack (hub + children) | One BASIC_DESIGN with surfaces list; detail-design may split per surface later. |
 | No BA notes but rules implied | Mark as assumptions; do not invent BR IDs. |
 
@@ -152,4 +188,5 @@ Flows: Load config → parse input → emit result events.
 - Does NOT produce full contract/query/field detail (use detail-design).
 - Does NOT produce PLAN.md task breakdown (use planning).
 - Does NOT invent file paths without inspecting the codebase.
+- Does NOT accept documentation as correct without Doc reality check.
 - Does NOT hardcode a product domain, screen type, or stack.

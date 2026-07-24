@@ -72,7 +72,8 @@
     "INVESTIGATE": {
       "required_headings": [
         "Executive summary",
-        "Developer overview"
+        "Developer overview",
+        "Doc reality check"
       ]
     },
     "RESEARCH": {
@@ -96,13 +97,15 @@
     "BASIC_DESIGN": {
       "required_headings": [
         "Executive summary",
-        "Developer overview"
+        "Developer overview",
+        "Doc reality check"
       ]
     },
     "DETAIL_DESIGN": {
       "required_headings": [
         "Executive summary",
-        "Developer overview"
+        "Developer overview",
+        "Doc reality check"
       ]
     }
   }

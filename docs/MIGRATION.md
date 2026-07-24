@@ -16,6 +16,8 @@ Breaking or behavior changes hosts should know after reinstall.
 | Docs `START_HERE` / `WHAT_NEXT` / `MIGRATION` | Installed under `.agents/` |
 | Installer `doctor` / `uninstall` | `./install.sh doctor`; `./install.sh uninstall --yes` (optional `--purge-work`, `--keep-settings`) |
 | CLI `sk` | PyPI `pipx install simple-skills` then `sk install` / `doctor` / `uninstall` (see README Publish) |
+| Skill `excel-doc-convert` | Office profile: Excel 設計書/方眼紙 → HTML+MD + `convert-report.json` |
+| Doc reality check | `investigate` / `basic-design` / `detail-design` must compare docs↔code and **stop and ask** on Blocking mismatches |
 
 ## How to upgrade a host project
 

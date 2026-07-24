@@ -79,9 +79,11 @@ decoding jargon. If a teammate new to the task cannot act from it, rewrite.
 1. Concrete names: file paths, API routes, table/field IDs, screen IDs,
    commands, ticket/AC IDs, exact error strings.
 2. Short sentences. One claim per bullet. Tables for lists of facts.
-3. Spec quality / review findings = **specific** finding + evidence path +
+3. Spec quality / Doc reality findings = **specific** finding + evidence path +
    verdict. Example: `FBD13001 Search ignores BaseCd — see api/… line 40 —
-   Fail` — not “cần align architecture với domain”.
+   Mismatch` — not “cần align architecture với domain”. When designing or
+   investigating from docs: **ask** on Blocking mismatches (docs vs code /
+   common vs 設計書 / stale wiki) before continuing.
 4. Delete unused sections. Finished artifacts must not contain `_(TODO)_` or
    leftover template scaffolding.
 5. Charts only when they change a decision; otherwise omit (no decorative

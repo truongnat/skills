@@ -1,9 +1,9 @@
 display_name: "Detail Design"
-short_description: "Produce implementable design from BASIC_DESIGN.md — contracts, data model, sequences, rules, operations, and optional client mapping — before planning."
-default_prompt: "Use $detail-design to produce DETAIL_DESIGN.md from BASIC_DESIGN.md before planning. Include only sections that apply; mark gaps instead of inventing."
-required_input: "BASIC_DESIGN.md (required); DISCUSSION.md and business-analysis notes for AC/BR traceability when available."
-required_output: "DETAIL_DESIGN.md with goal, applicable contracts/models/sequences/rules/operations, optional client mapping and persistence, errors/states, gaps, assumptions, handoff to planning. Omit unused sections."
-note_important: "Do NOT implement code. Do NOT expand scope beyond BASIC_DESIGN.md. Do NOT invent fields or joins as facts — mark inferred. Do NOT force UI-only or domain-specific sections. Do NOT create PLAN.md, task IDs, DoD, or rollback."
+short_description: "Implementable design from BASIC_DESIGN after Doc reality check — contracts, data model, sequences — before planning."
+default_prompt: "Use $detail-design. Seed DETAIL_DESIGN.template.md. Re-run Doc reality check; stop-and-ask on Blocking or unconfirmed high-impact assumptions before contracts."
+required_input: "BASIC_DESIGN.md; DISCUSSION/BA when available; repo inspection of existing contracts; wiki LLD/API when docs enabled."
+required_output: "DETAIL_DESIGN.md with Doc reality check, contracts/models/sequences as applicable, assumptions with Confirmed?, handoff to planning."
+note_important: "Do NOT invent fields as facts. Do NOT fill contracts while Doc reality Blocking=Yes. Do NOT hand off with High-impact Confirmed?=No unless user accepts. Do NOT create PLAN.md."
 artifacts:
   DETAIL_DESIGN.md:
     required: true
@@ -11,68 +11,36 @@ artifacts:
       executive_summary:
         type: array
         required: true
-        description: "Maximum five bullets with implementation direction, key contract/flow, top risk, and next action."
+        description: "Max five bullets: direction, key contract, top Doc reality risk, next action."
       developer_overview:
         type: object
         required: true
-        description: "Status, critical contracts/flows, gaps, next action."
+        description: "Status, Doc reality blockers, unconfirmed assumptions, gaps, next action."
+      doc_reality_check:
+        type: object
+        required: true
+        description: "Claims/surfaces with doc vs code (known) or Proposed; Blocking; Clarification checkpoint."
       charts:
         type: array
         required: true
-        description: "At least one Mermaid sequence/state/data-flow diagram for the main path, or N/A with reason."
+        description: "Mermaid sequence/state/data-flow or N/A."
       goal:
         type: string
         required: true
-        description: "One sentence linked to basic-design decisions."
-      contracts:
-        type: array
-        required: false
-        description: "In-scope contracts: HTTP/RPC/events/CLI/library APIs with inputs, outputs, and errors. Omit if no external or public surface."
-      data_model:
-        type: array
-        required: false
-        description: "Entities/collections, key fields, relations; confidence known or inferred. Omit if no durable data."
+        description: "One sentence linked to basic-design."
       sequences:
         type: array
         required: true
-        description: "Main happy path plus 1–2 error paths when errors matter."
-      rules_and_validation:
-        type: array
-        required: false
-        description: "Validation and business-rule application at design level (when, condition, severity or outcome)."
-      operations:
-        type: array
-        required: false
-        description: "Structured data/ops access when relevant: base source, joins/links, filters with operators, sort/group, projections."
-      client_mapping:
-        type: array
-        required: false
-        description: "Consumer mapping when UI/CLI/SDK is in scope: inputs/views → contract fields; optional initial state and interaction steps."
-      persistence_spec:
-        type: array
-        required: false
-        description: "Write/update behavior when stores change; or state read-only. Omit if no persistence side effects."
-      field_provenance:
-        type: array
-        required: false
-        description: "When outputs or views need it: display/export field → source field/entity + confidence."
+        description: "Happy path plus error paths when needed."
       error_and_state_handling:
         type: array
         required: true
-        description: "Error codes/states and how callers or clients should behave."
-      gaps:
-        type: array
-        required: false
-        description: "Missing inputs or undecided details that block or soften the design. Do not invent to fill these."
-      traceability:
-        type: array
-        required: false
-        description: "BR/AC IDs mapped to design sections when BA exists."
+        description: "Error codes/states and caller behavior."
       assumptions:
         type: array
         required: true
-        description: "Assumptions with risk and confirmation status."
+        description: "Assumptions with risk and Confirmed? Yes/No."
       handoff:
         type: string
         required: true
-        description: "Suggested next skill: planning. Call out blocking items."
+        description: "Next skill: planning; call out blockers."

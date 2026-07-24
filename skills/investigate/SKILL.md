@@ -18,22 +18,28 @@ Source copy: `docs/SKILL_PREAMBLE.md` / `docs/AGENT_WORK.md`.
 
 Find technical truth before deciding to fix, plan, or implement.
 
+When the question involves **docs/specs** (設計書, wiki, README-as-spec, “expected
+per document”): run **Doc reality check** — docs ↔ code/runtime — and **ask**
+before treating either side as the sole root cause.
+
 ## Contract (mandatory)
 
 This skill is a **hard contract**. Obey it before any other action. Do NOT treat as optional. Do NOT skip required artifacts.
 
 | Field | Requirement |
 |-------|-------------|
-| Inputs | Problem description, expected/actual behavior, logs/errors/reproduction, screenshots or screen recordings, codebase context, environment details. |
-| Outputs | INVESTIGATE.md with question, status, evidence, reproduction, observed facts, hypotheses, code path, impact map, root cause, recommendation, open questions. |
-| Safety | Read-only by default. Do NOT modify code unless requested. Do NOT run destructive commands. Do NOT read secrets without a clear reason. Do NOT claim root cause when evidence is insufficient. |
+| Inputs | Problem description, expected/actual behavior, logs/errors/reproduction, screenshots or recordings, codebase context, environment details; **docs/specs when cited or implied**. |
+| Outputs | `INVESTIGATE.md` (prefer template) with question, status, evidence, reproduction, observed facts, hypotheses, code path, impact, root cause, recommendation, open questions; **Doc reality check** when docs are in play (or N/A + reason). |
+| Safety | Read-only by default. Do NOT modify code unless requested. Do NOT run destructive commands. Do NOT read secrets without a clear reason. Do NOT claim root cause when evidence is insufficient. Do NOT treat wiki/設計書 prose as root cause without code/runtime evidence. When Doc reality Blocking=`Yes`, **stop and ask** (max 3 focused questions) before closing the investigation. |
 
 ### Required artifacts
 
 #### `INVESTIGATE.md`
 - Required: yes
-- **executive_summary** (required, array): Maximum five bullets with status, likely/confirmed cause, strongest evidence, impact, and next action.
-- **developer_overview** (required, object): Investigation status, strongest hypothesis, evidence gap, next action.
+- Prefer seed: `templates/INVESTIGATE.template.md`
+- **executive_summary** (required, array): Maximum five bullets with status, likely/confirmed cause, strongest evidence, impact, and next action (include top Doc mismatch if any).
+- **developer_overview** (required, object): Investigation status, Doc reality blockers or n/a, strongest hypothesis, evidence gap, next action.
+- **doc_reality_check** (required, object): Table of doc claims vs code/runtime with verdict and Blocking; or explicit N/A with reason when no docs/specs are involved. Clarification checkpoint when Blocking=`Yes`.
 - **charts** (optional, array): Mermaid cause/flow chart when useful; otherwise N/A.
 - **question** (required, string): The investigation question.
 - **status** (required, string): Root Cause Confirmed / Likely Root Cause / Hypotheses Identified / Needs More Evidence / Blocked.
@@ -45,25 +51,46 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 - **code_path** (optional, array): Layer, file/component, role, observation.
 - **root_cause** (optional, string): Confirmed or likely root cause.
 - **impact** (required, array): Area affected, impact, confidence.
-- **recommendation** (required, string): Fix recommendation / workaround / next investigation.
+- **recommendation** (required, string): Fix recommendation / workaround / next investigation / docs refresh.
 - **open_questions** (optional, array): Question, owner, blocking status.
-- **handoff** (required, string): Ready for planning? Ready for execution? Suggested next skill.
+- **handoff** (required, string): Ready for planning? Ready for execution? Suggested next skill (`docs`, `detail-design`, `execution`, …).
 
 ### Reference
 
 `agents/openai.yaml` is a machine-readable duplicate for tooling. The Contract in this SKILL.md is authoritative for agents.
+
+## Doc reality check (when docs/specs matter)
+
+| Check | Rule |
+|---|---|
+| Trigger | User cites 設計書/wiki/spec, or “expected” comes from documents, or bug is “differs from design”. |
+| Table | Claim \| Doc evidence \| Code/runtime evidence \| Verdict \| Blocking \| Ask? |
+| Verdicts | `Match` / `Mismatch` / `Missing-in-docs` / `Missing-in-code` / `Stale` / `Unknown` |
+| Stop | Blocking=`Yes` → ask which source wins or what to verify next; do not close as Confirmed on doc alone. |
+| N/A | Pure runtime/infra with no doc claim → section N/A + one-line reason. |
 
 ## Quality Standards
 
 - [ ] Status is one of the defined taxonomy values.
 - [ ] Observed facts have explicit sources.
 - [ ] Inferences are separated from observed facts with confidence levels.
+- [ ] Doc reality filled or N/A with reason; Blocking items asked.
 - [ ] If root cause is claimed: evidence is sufficient to explain all observed symptoms.
-- [ ] Recommendation distinguishes: fix / workaround / next investigation.
+- [ ] Recommendation distinguishes: fix / workaround / next investigation / docs update.
 - [ ] Reproduction steps include environment, preconditions, and both expected and actual results.
 - [ ] When video evidence is supplied, keyframes and timestamps are cited; unsampled transitions and audio are documented as limitations.
 
 ## WRONG vs CORRECT
+
+```markdown
+// WRONG — “design says X so code is wrong” with no code cite
+Root cause: implementation ignores 画面設計書.
+
+// CORRECT
+Doc: FBD13001 §イベント F10 → search all tabs.
+Code: Handler only refreshes active tab (path/…).
+Verdict: Mismatch. Ask: bug vs intentional? update doc or code?
+```
 
 ```markdown
 // WRONG — no source, no confidence
@@ -92,11 +119,12 @@ Next step: Inspect the database value for user 11716's password attribute safely
 
 | Situation | Handling |
 |---|---|
-| Cannot reproduce the issue | Status = Not Reproduced. Document conditions tried and possible reasons. |
+| Cannot reproduce the issue | Status = Needs More Evidence / Not Reproduced. Document conditions tried. |
 | Log is truncated or incomplete | Document as limitation. Do NOT over-claim from partial data. |
 | Sensitive data in logs (PII, tokens) | Redact before quoting. Document as security risk if exposure is found. |
 | Multiple root causes are possible | List as multiple hypotheses with confidence for each. Do NOT pick one arbitrarily. |
 | Issue is environment-specific | Document environment differences. Recommend cross-env comparison. |
+| Docs stale vs code | Doc reality `Stale`/`Mismatch`; ask refresh docs vs fix code vs accept drift. |
 | Screen recording is supplied | Extract session-local keyframes with `.agents/tools/video-keyframes/extract.py`; cite specific frames and do not infer continuous behavior from samples. |
 
 ## Limitations
@@ -104,3 +132,4 @@ Next step: Inspect the database value for user 11716's password attribute safely
 - Does NOT guarantee a fix exists.
 - Does NOT replace planning or execution.
 - Does NOT replace deep security audit.
+- Does NOT treat documentation as authoritative without code/runtime evidence.

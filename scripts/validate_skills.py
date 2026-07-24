@@ -305,6 +305,42 @@ def main() -> int:
                 "business-analysis template: Spec quality review must appear before User stories"
             )
 
+    for skill_name, template_rel, before_heading in (
+        (
+            "basic-design",
+            "templates/BASIC_DESIGN.template.md",
+            "## Goal",
+        ),
+        (
+            "detail-design",
+            "templates/DETAIL_DESIGN.template.md",
+            "## Goal",
+        ),
+        (
+            "investigate",
+            "templates/INVESTIGATE.template.md",
+            "## Evidence",
+        ),
+    ):
+        tmpl_path = SKILLS_ROOT / skill_name / template_rel
+        if not tmpl_path.is_file():
+            errors.append(f"{skill_name} missing {template_rel}")
+            continue
+        tmpl = tmpl_path.read_text(encoding="utf-8")
+        if "Doc reality check" not in tmpl:
+            errors.append(f"{skill_name} template missing Doc reality check")
+        dr = tmpl.find("## Doc reality check")
+        after = tmpl.find(before_heading)
+        if dr < 0 or after < 0 or dr > after:
+            errors.append(
+                f"{skill_name} template: Doc reality check must appear before {before_heading}"
+            )
+        skill_text = (SKILLS_ROOT / skill_name / "SKILL.md").read_text(encoding="utf-8")
+        if "doc_reality_check" not in skill_text:
+            errors.append(f"{skill_name} SKILL.md missing doc_reality_check contract")
+        if "stop and ask" not in skill_text.lower():
+            errors.append(f"{skill_name} SKILL.md must require stop and ask on blockers")
+
     for skill_name, step_names in step_skills.items():
         for step_name in step_names:
             step_path = SKILLS_ROOT / skill_name / "steps" / step_name

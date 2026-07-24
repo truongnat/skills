@@ -14,7 +14,8 @@ This is the **short entrypoint**. Prefer layered reading — do not load every d
 Re-read settings at the start of every task and every skill invocation. Never
 cache `language` across turns. Default language: `en`. Prose follows `language`;
 **headings and template keys stay English** (shared form). Do not mix VI/EN in
-one artifact body.
+one artifact body. Blocking unknowns → **Confirm-first** + **Ask method** in
+`SKILL_PREAMBLE.md` (STOP, then ask — never quiz-as-document).
 
 ## Architecture (map)
 
@@ -30,7 +31,7 @@ one artifact body.
 | `.agents/SKILL_PREAMBLE.md` | Shared skill rules |
 | `.agents/skills/` | Invokable skills |
 | `.agents/tools/` | session, lint, build_context, … |
-| `.agent-work/` | **Work** — sessions + memory (nested git) |
+| `.agent-work/` | **Work** — sessions + memory (nested git; `session.sh commit` / `archive`) |
 | `.agents/examples/` | Good/bad session shapes |
 | `.agents/MIGRATION.md` | Host upgrade notes |
 

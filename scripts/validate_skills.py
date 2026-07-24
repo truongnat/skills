@@ -346,8 +346,17 @@ def main() -> int:
         skill_text = (SKILLS_ROOT / skill_name / "SKILL.md").read_text(encoding="utf-8")
         if "doc_reality_check" not in skill_text:
             errors.append(f"{skill_name} SKILL.md missing doc_reality_check contract")
-        if "stop and ask" not in skill_text.lower():
-            errors.append(f"{skill_name} SKILL.md must require stop and ask on blockers")
+        low = skill_text.lower()
+        if not any(
+            needle in low
+            for needle in ("stop and ask", "stop immediately", "confirm-first")
+        ):
+            errors.append(
+                f"{skill_name} SKILL.md must require Confirm-first / stop on blockers"
+            )
+        if skill_name in {"investigate", "basic-design", "detail-design"}:
+            if "ask method" not in low:
+                errors.append(f"{skill_name} SKILL.md missing Ask method classification")
 
     research_tmpl = SKILLS_ROOT / "research" / "templates" / "RESEARCH.template.md"
     if not research_tmpl.is_file():
@@ -493,14 +502,57 @@ def main() -> int:
         errors.append("SKILL_PREAMBLE.md missing Keywords glossary criteria")
     if "Where seen" not in preamble_lang:
         errors.append("SKILL_PREAMBLE Keywords must define Where seen column")
+    if "Confirm-first" not in preamble_lang:
+        errors.append("SKILL_PREAMBLE.md missing Confirm-first (ask before finish) rule")
+    if "Complete-with-questions" not in preamble_lang:
+        errors.append("SKILL_PREAMBLE.md missing Complete-with-questions ban")
+    if "Ask method" not in preamble_lang:
+        errors.append("SKILL_PREAMBLE.md missing Ask method classification")
+    for method in ("confirm", "choice", "fact", "table", "diagram", "html"):
+        # table row uses backticks around method names
+        if f"`{method}`" not in preamble_lang:
+            errors.append(f"SKILL_PREAMBLE Ask methods missing `{method}`")
+    if "STOP immediately" not in preamble_lang:
+        errors.append("SKILL_PREAMBLE Confirm-first must require STOP immediately")
     if "Who commits what" not in (ROOT / "docs" / "AGENT_WORK.md").read_text(
         encoding="utf-8"
     ):
         errors.append("AGENT_WORK.md missing ownership / Who commits what")
-    if "cmd_doctor" not in (ROOT / "tools" / "session" / "session.sh").read_text(
+    work_doc_early = (ROOT / "docs" / "AGENT_WORK.md").read_text(encoding="utf-8")
+    if "Work commit protocol" not in work_doc_early:
+        errors.append("AGENT_WORK.md missing Work commit protocol")
+    if "session.sh archive" not in work_doc_early:
+        errors.append("AGENT_WORK.md must document session.sh archive")
+    session_sh = (ROOT / "tools" / "session" / "session.sh").read_text(encoding="utf-8")
+    if "cmd_doctor" not in session_sh:
+        errors.append("session.sh missing doctor command")
+    if "cmd_commit" not in session_sh:
+        errors.append("session.sh missing commit command")
+    if "cmd_archive" not in session_sh:
+        errors.append("session.sh missing archive command")
+    if "Work commit protocol" not in preamble_lang:
+        errors.append("SKILL_PREAMBLE.md missing Work commit protocol")
+    for life in (
+        "brainstorming",
+        "investigate",
+        "research",
+        "business-analysis",
+        "basic-design",
+        "detail-design",
+        "planning",
+        "sync",
+        "execution",
+        "review",
+        "quick-fix",
+        "done",
+    ):
+        skill_text = (SKILLS_ROOT / life / "SKILL.md").read_text(encoding="utf-8")
+        if "session.sh commit" not in skill_text:
+            errors.append(f"{life} SKILL.md missing session.sh commit checklist")
+    if "session.sh archive" not in (SKILLS_ROOT / "done" / "SKILL.md").read_text(
         encoding="utf-8"
     ):
-        errors.append("session.sh missing doctor command")
+        errors.append("done SKILL.md missing session.sh archive")
     install_sh = (ROOT / "install.sh").read_text(encoding="utf-8")
     if "START_HERE.md" not in install_sh:
         errors.append("install.sh must copy START_HERE.md")
@@ -527,8 +579,14 @@ def main() -> int:
     policy = policy_path.read_text(encoding="utf-8") if policy_path.is_file() else ""
     combined = agents + "\n" + policy
 
-    if "SKILL_PREAMBLE.md" not in agents:
-        errors.append("docs/AGENTS.md missing SKILL_PREAMBLE reference")
+    if "Work commit protocol" not in policy and "session.sh commit" not in policy:
+        errors.append("AGENT_POLICY.md missing Work commit protocol / session.sh commit")
+    if "Confirm-first" not in policy:
+        errors.append("AGENT_POLICY.md missing Confirm-first decision gate")
+    if "Ask method" not in policy and "require_ask_method_classification" not in policy:
+        errors.append("AGENT_POLICY.md missing Ask method classification")
+    if "stop_immediately_on_blocking_question" not in policy:
+        errors.append("AGENT_POLICY.md missing stop_immediately_on_blocking_question")
     if "AGENT_POLICY.md" not in agents:
         errors.append("docs/AGENTS.md missing AGENT_POLICY reference")
     if "AGENT_WORK.md" not in agents and "agent-work" not in agents:

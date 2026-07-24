@@ -57,7 +57,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 |-------|-------------|
 | Inputs | User request, business context, existing requirements, data samples (Excel, CSV, SQL, JSON, API response), screenshots or demo recordings, stakeholder feedback. |
 | Outputs | Session `BUSINESS_ANALYSIS.md` seeded from template and filled via steps/, including Spec quality review and Step ledger. |
-| Safety | Do NOT treat assumptions as requirements. Do NOT accept specs as automatically correct or feasible. Do NOT decide for stakeholders. Do NOT write vague or untestable acceptance criteria. Do NOT omit capability gaps a feature of this type should normally have. Do NOT produce technical architecture — hand off to basic-design. Do NOT skip Spec quality review. If Path=`Quick`, **stop** and use `quick-fix` (or upgrade Path). |
+| Safety | Do NOT treat assumptions as requirements. Do NOT accept specs as automatically correct or feasible. Do NOT decide for stakeholders. Do NOT write vague or untestable acceptance criteria. Do NOT omit capability gaps a feature of this type should normally have. Do NOT produce technical architecture — hand off to basic-design. Do NOT skip Spec quality review. **Confirm-first:** STOP on Blocking Spec/Unknowns; classify Ask method; reuse prior answers; do not finish BA as an open-questions dump. If Path=`Quick`, **stop** and use `quick-fix` (or upgrade Path). |
 
 ### Required artifacts
 
@@ -121,6 +121,9 @@ Write findings under `spec_quality_review` and promote Blocking=Yes gaps into `o
 - [ ] No leftover `_(TODO)_` or placeholder Mermaid in finished sections.
 - [ ] Spec/review findings state finding + evidence + verdict (not essays).
 
+- [ ] Work nested git: ran `session.sh commit 'docs(business-analysis): …'` after writing artifacts (or `WORK_COMMIT=clean`). See AGENT_WORK.md.
+
+- [ ] Confirm-first: on Blocking need, STOP immediately; classify Ask method (`confirm`/`choice`/`fact`/`table`/`diagram`/`html`); ask that way; finished artifact is not a quiz — residual Open questions non-blocking only (SKILL_PREAMBLE).
 
 ## WRONG vs CORRECT
 
@@ -168,6 +171,7 @@ Needs confirmation from: Product owner.
 | Specs conflict with existing system behavior | Record under Correctness; ask whether to change the system or fix the specs. |
 | Specs omit common feature capabilities | List Capability recommendations; mark Blocking=Yes when implementation would invent policy. |
 | Demo recording is supplied | Extract keyframes with `.agents/tools/video-keyframes/extract.py`; cite frames as observed UI/process evidence, not stakeholder-approved requirements. |
+
 
 ## Limitations
 

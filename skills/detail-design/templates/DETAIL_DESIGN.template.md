@@ -23,7 +23,8 @@
 ## Doc reality check (mandatory — before contracts)
 
 > Re-check BASIC claims + any wiki LLD/API vs **code**. Label known vs proposed.
-> Blocking=`Yes` → **stop and ask**.
+> Blocking=`Yes` → **STOP immediately**. Classify Ask method, ask in chat,
+> then fill contracts — do not finish DETAIL_DESIGN as an open-questions quiz.
 
 | # | Claim / contract surface | Doc evidence | Code evidence (known) or Proposed | Verdict | Blocking | Ask user? |
 |---|---|---|---|---|---|---|
@@ -31,9 +32,11 @@
 
 ### Clarification checkpoint
 
-- Questions asked:
-- User answers:
-- Accepted source of truth:
+<!-- STOP → Ask method → chat → record → rewrite Contracts/Data model. -->
+
+| Ask method | Questions asked | User answers | Accepted source of truth |
+|---|---|---|---|
+| confirm / choice / fact / table / diagram / html |  |  |  |
 
 ## Goal
 

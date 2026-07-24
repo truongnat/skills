@@ -142,6 +142,7 @@ Work items: - [x] 1. …  - [x] 2. …  - [x] 3. …
 - [ ] No leftover `_(TODO)_` or placeholder Mermaid in finished sections.
 - [ ] Spec/review findings state finding + evidence + verdict (not essays).
 
+- [ ] Work nested git: ran `session.sh commit 'docs(execution): …'` after writing artifacts (or `WORK_COMMIT=clean`). See AGENT_WORK.md.
 
 ## WRONG vs CORRECT
 
@@ -179,6 +180,7 @@ Checks:
 | User asks to stop mid-execution | Record partial state in EXECUTION.md. Update TASKS.md to `in_progress`/`blocked` with checkboxes accurate. Handoff lists incomplete task IDs. |
 | TASKS.md missing Progress board / checkboxes | Add Progress board + convert Work items to `- [ ] N. …` before or while executing; do not invent new task scope. |
 | Resume after partial run | Start from first non-`done` ID in execution_order; trust unchecked Work items as remaining work. |
+
 
 ## Limitations
 

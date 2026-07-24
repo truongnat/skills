@@ -55,7 +55,11 @@ Do **not** read all of `AGENT_POLICY.md` up front. Open a section only when bloc
 - Progress = `TASKS.md` + `session.sh status` (no `OVERVIEW.md`).
 - Quick path must not create BA/design/Spec matrices.
 - Before code: sync readiness `PASS` (or `CONCERNS` + your OK).
-- Product git ignores `.agent-work/`; Work has its own nested git — see AGENT_WORK.md.
+- Product git ignores `.agent-work/`; Work has nested git + **commit protocol**
+  (`session.sh commit` / `archive`) — see AGENT_WORK.md.
+- **Confirm-first:** on Blocking need, STOP immediately; classify **Ask method**
+  (`confirm`/`choice`/`fact`/`table`/`diagram`/`html`); ask that way — do not
+  finish artifacts as a quiz (SKILL_PREAMBLE).
 
 ## Settings you might edit
 

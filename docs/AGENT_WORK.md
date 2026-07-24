@@ -30,7 +30,8 @@ cites). There is no separate `OVERVIEW.md`. Before execution, `sync` records
 ├── README.md
 ├── sessions/
 │   ├── .current          # pointer to active Task-N-…
-│   └── Task-N-<slug>/    # fixed artifact templates for one task
+│   ├── Task-N-<slug>/    # active task artifacts
+│   └── _archive/         # closed tasks (after session.sh archive)
 └── memory/
     ├── INDEX.md
     └── Task-N-<slug>.md  # durable lessons (vital few)
@@ -63,14 +64,46 @@ and `PRJ_REFERENCE.md`); leave Work out of the product history.
 | Tree | Commit where? | Who |
 | --- | --- | --- |
 | Product source | Host root git | Humans / normal PR flow |
+| Product wiki (`rules.docs` / `with-commit`) | Host root git (same PR as the task) | `docs` skill + `done` |
 | `.agents/settings.yaml`, `PRJ_REFERENCE.md` (optional) | Host root git | Team (shared conventions) |
 | `.agents/skills`, tools, policy | Usually **not** committed — reinstall from kit | Installer |
-| `.agent-work/sessions`, `memory` | **Nested** git inside `.agent-work/` only | Agents / you locally; not product PRs |
+| `.agent-work/sessions`, `memory` | **Nested** git inside `.agent-work/` only | Agents via `session.sh commit` / `archive` |
 
-**Do not** force-add `.agent-work/` into the product repo. To keep Work history:
-`cd .agent-work && git status|commit|branch` as needed. Losing the host clone
+**Do not** force-add `.agent-work/` into the product repo. Losing the host clone
 without the nested `.agent-work/.git` loses session history — back up Work if
 it matters. Run `session.sh doctor` after install to verify ignore + nested git.
+
+**Not the same as** `rules.docs.sync_strategy: with-commit` — that stages the
+**product wiki** into the **host** feature commit/PR. Work nested commits never
+belong in product PRs.
+
+### Work commit protocol (mandatory when git is available)
+
+Nested git is **required** when `git` exists on the machine (`session.sh` inits
+it). Agents **MUST** milestone-commit Work after changing session or memory
+files — do not leave dirty trees. Memory stays the **vital few**; full artifact
+history lives in nested git (so memory does not bloat with dumps).
+
+| Event | Command |
+| --- | --- |
+| `session.sh new <slug>` | Auto: `chore(session): create Task-N-slug` |
+| Lifecycle skill finished writing/updating artifacts | `session.sh commit 'docs(<skill>): <artifact> — <short why>'` |
+| `done` after DONE + memory | `session.sh commit 'chore(done): Task-N-slug memory + close'` |
+| Task closed successfully (no defect loop) | `session.sh archive` → `chore(archive): Task-N-slug` |
+
+Helper behavior:
+
+- `commit` → `WORK_COMMIT=<sha>` or `WORK_COMMIT=clean` (no-op if clean).
+- `archive` → moves `sessions/Task-N-…` → `sessions/_archive/Task-N-…`, clears
+  `.current` if it pointed there, then commits.
+- Defect loop after `done`: **do not archive** yet; keep the active session and
+  reuse it until review/`done` truly finish.
+
+```bash
+bash .agents/tools/session/session.sh commit 'docs(basic-design): BASIC_DESIGN — auth flow'
+bash .agents/tools/session/session.sh archive          # after successful done
+bash .agents/tools/session/session.sh doctor            # work_dirty / last_commit
+```
 
 ### Commands
 
@@ -81,6 +114,8 @@ bash .agents/tools/session/session.sh work-root
 bash .agents/tools/session/session.sh new <slug>
 bash .agents/tools/session/session.sh current
 bash .agents/tools/session/session.sh status
+bash .agents/tools/session/session.sh commit [message]
+bash .agents/tools/session/session.sh archive [slug|current]
 ```
 
 Inside `.agent-work`, use normal git (`status`, `diff`, `log`, branches) to

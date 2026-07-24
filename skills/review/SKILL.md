@@ -72,6 +72,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 - [ ] No leftover `_(TODO)_` or placeholder Mermaid in finished sections.
 - [ ] Spec/review findings state finding + evidence + verdict (not essays).
 
+- [ ] Work nested git: ran `session.sh commit 'docs(review): …'` after writing artifacts (or `WORK_COMMIT=clean`). See AGENT_WORK.md.
 
 ## WRONG vs CORRECT
 
@@ -110,6 +111,7 @@ Residual risk: Missing permission check needs to be addressed before merge.
 | Review input is incomplete (no diff) | Document limitation in scope. Do NOT claim full review. |
 | Pre-existing issue found during review | Document as info finding. Note it's pre-existing, not introduced. |
 | Security review without enough context | Document as testing gap. Do NOT claim security is safe. |
+
 
 ## Limitations
 

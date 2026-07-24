@@ -66,7 +66,7 @@ This skill is a **hard contract**. Obey it before any other action.
 |-------|-------------|
 | Inputs | Initial request, repo context, existing documents, constraints, current behavior, desired outcome, stakeholder feedback if available. |
 | Outputs | Session `DISCUSSION.md` seeded from template, with issue/visual triage and clarification decisions; optional `VISUAL_DECISION.html`. |
-| Safety | Do NOT implement code. Do NOT skip steps. Stop and ask before continuing when Critical issues, blocking unknowns, or blocking Spec quality findings are unresolved. Do NOT treat specs/assumptions as automatically correct or feasible. Do NOT create PLAN/TASKS or detailed design before a clear recommendation. Do NOT hide blocking unknowns or omitted feature capabilities. HTML must include Tailwind + anime.js CDN tags for static viewing, stay accessible, avoid sensitive data, and be created only after user confirmation (unless explicitly requested). Choice logging still requires session-serve. If session Path is `Quick`, stop and use `quick-fix` instead (or upgrade Path to Lite/Full). |
+| Safety | Do NOT implement code. Do NOT skip steps. **Confirm-first:** on Blocking need STOP immediately, classify Ask method (`confirm`/`choice`/`fact`/`table`/`diagram`/`html`), ask that way — reuse Clarification/memory; do not finish DISCUSSION as a quiz. Do NOT treat specs/assumptions as automatically correct or feasible. Do NOT create PLAN/TASKS or detailed design before a clear recommendation. Do NOT hide blocking unknowns or omitted feature capabilities. HTML must include Tailwind + anime.js CDN tags for static viewing, stay accessible, avoid sensitive data, and be created only after user confirmation (unless explicitly requested). Choice logging still requires session-serve. If session Path is `Quick`, stop and use `quick-fix` instead (or upgrade Path to Lite/Full). |
 
 ### Required artifact
 
@@ -132,14 +132,15 @@ rows; Spec quality can be one concrete finding per table.
 - **Diverge then converge:** do not lock Recommendation while still gathering
   facts/options. Step-03 = diverge (scope/options); step-04 = converge.
 - **One focused question per chat message** while clarifying (exception: up to
-  three independent blockers in one round). No multi-choice walls that invite
-  lazy picking.
+  three independent `confirm`/`choice`/`fact` blockers in one round). Classify
+  **Ask method** first. No multi-choice walls that invite lazy picking; no
+  `html` for abstract strategy.
 
 ## Quality Standards
 
 - [ ] Goal is one sentence.
 - [ ] Facts / assumptions / unknowns separated.
-- [ ] Issues classified by severity, clarity, blocking status, and visual need.
+- [ ] Issues classified by severity, clarity, blocking status, visual need, and Ask method.
 - [ ] Spec quality review covers Feasibility, Correctness, and Capability recommendations.
 - [ ] No unresolved Critical/blocking issue or blocking Spec quality finding was bypassed; questions and answers are recorded.
 - [ ] HTML is used only when spatial/state comparison materially improves the decision.
@@ -153,6 +154,9 @@ rows; Spec quality can be one concrete finding per table.
 - [ ] No leftover `_(TODO)_` or placeholder Mermaid in finished sections.
 - [ ] Spec/review findings state finding + evidence + verdict (not essays).
 
+- [ ] Work nested git: ran `session.sh commit 'docs(brainstorming): …'` after writing artifacts (or `WORK_COMMIT=clean`). See AGENT_WORK.md.
+
+- [ ] Confirm-first: on Blocking need, STOP immediately; classify Ask method (`confirm`/`choice`/`fact`/`table`/`diagram`/`html`); ask that way; finished artifact is not a quiz — residual Open questions non-blocking only (SKILL_PREAMBLE).
 
 ## Limitations
 
@@ -162,12 +166,17 @@ rows; Spec quality can be one concrete finding per table.
 
 ## Visual triage rubric
 
-| Need | Use |
-|---|---|
-| Simple factual question or one-dimensional choice | Text / Markdown table |
-| Architecture, sequence, state, or data flow | Mermaid/diagram |
-| UI layout, responsive behavior, before/after, multiple visual states, or spatial option comparison | `html-recommended` |
-| No decision benefit from a visual | `none` |
+Ask methods are defined in `.agents/SKILL_PREAMBLE.md` → Confirm-first.
+This table is the **visual subset** only (`diagram` / `html`):
 
-Do not confuse “complex” with “needs HTML.” HTML is justified only when a
-visual/spatial representation reduces decision ambiguity.
+| Need | Ask method | Use |
+|---|---|---|
+| Simple factual / Yes-No / pick one | `confirm` / `fact` / `choice` | Chat — no visual |
+| Multi-criteria option compare | `table` | Markdown table in chat |
+| Architecture, sequence, state, or data flow | `diagram` | Mermaid/diagram |
+| UI layout, responsive, before/after, multi-state, spatial options | `html` | `html-recommended` → ask-before-create → VISUAL_DECISION.html |
+| No decision benefit from a visual | — | `none` |
+
+Do not confuse “complex” or “abstract” with “needs HTML.” HTML is justified
+only when a **spatial** representation reduces decision ambiguity. Abstract
+product strategy → `choice` / `table`, not `html`.

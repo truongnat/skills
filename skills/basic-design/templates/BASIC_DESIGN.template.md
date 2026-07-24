@@ -23,7 +23,9 @@
 
 > Compare session/wiki docs to the **codebase**. Do not treat specs as truth.
 > Verdict per row: `Match` / `Mismatch` / `Missing-in-docs` / `Missing-in-code` / `Stale` / `Unknown`.
-> Blocking=`Yes` → **stop and ask** (max 3 focused questions). Wait for answer.
+> Blocking=`Yes` → **STOP immediately**. Classify Ask method
+> (`confirm`/`choice`/`fact`/`table`/`diagram`/`html`), ask that way in chat
+> (max 3). Wait for answer, then fill design body — no quiz-as-document.
 
 | # | Claim the design will depend on | Doc evidence (path/§) | Code evidence (path) | Verdict | Blocking | Ask user? |
 |---|---|---|---|---|---|---|
@@ -31,9 +33,11 @@
 
 ### Clarification checkpoint
 
-- Questions asked (this turn):
-- User answers:
-- Accepted source of truth (doc / code / refresh docs first):
+<!-- STOP → Ask method → chat → record → rewrite Architecture/Components. -->
+
+| Ask method | Questions asked (this turn) | User answers | Accepted source of truth |
+|---|---|---|---|
+| confirm / choice / fact / table / diagram / html |  |  | doc / code / refresh docs first |
 
 ## Goal
 

@@ -6,10 +6,10 @@
 #
 # Kit vs Work:
 #   .agents/       installer kit (skills, tools, settings, policy)
-#   .agent-work/   feature work (sessions + memory), optional nested git
+#   .agent-work/   feature work (sessions + memory), nested git (when git available)
 #
 # The active session is recorded in .agent-work/sessions/.current (one line: the
-# repo-relative session dir). Read-only except `set`/`new`, which only touch
+# repo-relative session dir). Read-only except `set`/`new`/`archive`, which touch
 # that pointer and the session dir.
 #
 # Usage (run from the repo root, or any subdir — walks up to find .agents or
@@ -18,15 +18,20 @@
 #   session.sh doctor               Check Work layout / gitignore / tools
 #   session.sh current              Print the active session dir (exit 1 if unset)
 #   session.sh set <dir|slug>       Point .current at an existing session dir
-#   session.sh new <slug>           Create .agent-work/sessions/Task-N-<slug>, set current
+#   session.sh new <slug>           Create .agent-work/sessions/Task-N-<slug>, set current, commit
 #   session.sh status [dir]         Compute real task progress from <dir>/TASKS.md
 #   session.sh work-root            Print .agent-work path (creates + ensures git)
+#   session.sh commit [message]     Milestone commit of dirty Work tree (or WORK_COMMIT=clean)
+#   session.sh archive [slug|current]  Move session → sessions/_archive/, commit
 #
 # `status` prints a summary, a COMPLETE flag, and a corrected mermaid pie to
 # paste into TASKS.md. COMPLETE=yes only when every card is done/skipped with
 # nothing blocked or in any other state (e.g. in_progress, review). Never
 # report 100%/done while COMPLETE=no. Do not maintain a separate OVERVIEW.md —
 # TASKS.md + this command are the status source of truth.
+#
+# Work commit protocol: agents MUST run `commit` after writing/changing Work
+# artifacts (lifecycle skill end). See AGENT_WORK.md → Work commit protocol.
 set -eu
 
 find_root() {
@@ -44,10 +49,21 @@ find_root() {
 ROOT="$(find_root)"
 WORK_DIR="$ROOT/.agent-work"
 SESS_DIR="$WORK_DIR/sessions"
+ARCH_DIR="$SESS_DIR/_archive"
 MEM_DIR="$WORK_DIR/memory"
 POINTER="$SESS_DIR/.current"
 
 die() { printf '%s\n' "$*" >&2; exit 1; }
+
+work_git() {
+  git -C "$WORK_DIR" -c user.email="agent-work@localhost" -c user.name="agent-work" "$@"
+}
+
+work_dirty() {
+  [ -d "$WORK_DIR/.git" ] || return 1
+  # Untracked or modified?
+  [ -n "$(git -C "$WORK_DIR" status --porcelain 2>/dev/null || true)" ]
+}
 
 # Ensure Work tree exists. Init a nested git repo once so session+memory history
 # stays out of the product root git and can be branched/diffed cheaply.
@@ -68,17 +84,43 @@ ensure_work() {
 This directory is the **Work** layer for Simple Skills:
 
 - `sessions/` — per-task artifacts (fixed templates)
+- `sessions/_archive/` — closed tasks (after `session.sh archive`)
 - `memory/` — durable lessons (vital few) across tasks
 
 It is intentionally separate from `.agents/` (the installer **Kit**: skills,
-tools, settings, policy). Version this tree with its own git; keep the product
-root git focused on source code.
+tools, settings, policy). Version this tree with its own git via
+`session.sh commit` / `archive`; keep the product root git focused on source.
 EOF
       fi
       git -C "$WORK_DIR" add -A
-      git -C "$WORK_DIR" -c user.email="agent-work@localhost" -c user.name="agent-work" \
-        commit -q -m "chore: initialize agent-work" 2>/dev/null || true
+      work_git commit -q -m "chore: initialize agent-work" 2>/dev/null || true
     fi
+  fi
+}
+
+# Commit dirty Work tree. Prints WORK_COMMIT=<sha>|clean|skipped.
+# Args: optional commit message (default: chore(work): checkpoint).
+cmd_commit() {
+  ensure_work
+  if [ ! -d "$WORK_DIR/.git" ]; then
+    printf 'WORK_COMMIT=skipped (no nested git)\n'
+    return 0
+  fi
+  msg="${1:-chore(work): checkpoint}"
+  if ! work_dirty; then
+    sha="$(git -C "$WORK_DIR" rev-parse --short HEAD 2>/dev/null || true)"
+    printf 'WORK_COMMIT=clean'
+    [ -n "$sha" ] && printf ' HEAD=%s' "$sha"
+    printf '\n'
+    return 0
+  fi
+  git -C "$WORK_DIR" add -A
+  if work_git commit -q -m "$msg"; then
+    sha="$(git -C "$WORK_DIR" rev-parse --short HEAD)"
+    printf 'WORK_COMMIT=%s\n' "$sha"
+  else
+    printf 'WORK_COMMIT=failed\n' >&2
+    return 1
   fi
 }
 
@@ -112,27 +154,76 @@ cmd_set() {
   ensure_work
   [ "$#" -ge 1 ] || die "Usage: session.sh set <dir|slug>"
   arg="$1"; base="$(basename "$arg")"
-  target="$SESS_DIR/$base"
-  [ -d "$target" ] || die "Session dir does not exist: .agent-work/sessions/$base (use 'session.sh new <slug>' to create it)."
-  printf '%s\n' ".agent-work/sessions/$base" > "$POINTER"
-  printf '%s\n' ".agent-work/sessions/$base"
+  # Allow active sessions/ or _archive/
+  if [ -d "$SESS_DIR/$base" ]; then
+    target_rel=".agent-work/sessions/$base"
+  elif [ -d "$ARCH_DIR/$base" ]; then
+    target_rel=".agent-work/sessions/_archive/$base"
+  else
+    die "Session dir does not exist: .agent-work/sessions/$base (use 'session.sh new <slug>' to create it)."
+  fi
+  printf '%s\n' "$target_rel" > "$POINTER"
+  printf '%s\n' "$target_rel"
+}
+
+next_task_n() {
+  n=1
+  for d in "$SESS_DIR"/Task-*/ "$ARCH_DIR"/Task-*/; do
+    [ -d "$d" ] || continue
+    num="$(basename "$d" | sed -n 's/^Task-\([0-9]\{1,\}\)-.*/\1/p')"
+    [ -n "$num" ] && [ "$num" -ge "$n" ] && n=$((num + 1))
+  done
+  printf '%s\n' "$n"
 }
 
 cmd_new() {
   ensure_work
   [ "$#" -ge 1 ] || die "Usage: session.sh new <slug>"
   slug="$(printf '%s' "$1" | tr ' /' '--' | tr -cd 'A-Za-z0-9._-')"
-  # Next Task-N number across existing Task-* dirs.
-  n=1
-  for d in "$SESS_DIR"/Task-*/; do
-    [ -d "$d" ] || continue
-    num="$(basename "$d" | sed -n 's/^Task-\([0-9]\{1,\}\)-.*/\1/p')"
-    [ -n "$num" ] && [ "$num" -ge "$n" ] && n=$((num + 1))
-  done
+  n="$(next_task_n)"
   name="Task-${n}-${slug}"
   mkdir -p "$SESS_DIR/$name"
   printf '%s\n' ".agent-work/sessions/$name" > "$POINTER"
+  # Milestone commit so the new session is in nested-git history immediately.
+  cmd_commit "chore(session): create ${name}" >/dev/null || true
   printf '%s\n' ".agent-work/sessions/$name"
+}
+
+cmd_archive() {
+  ensure_work
+  rel=""
+  if [ "$#" -ge 1 ] && [ -n "${1:-}" ]; then
+    arg="$1"
+    base="$(basename "$arg")"
+    if [ -d "$SESS_DIR/$base" ] && [ "$base" != "_archive" ]; then
+      rel=".agent-work/sessions/$base"
+    elif [ -d "$ARCH_DIR/$base" ]; then
+      die "Session already archived: .agent-work/sessions/_archive/$base"
+    else
+      die "Session dir does not exist: .agent-work/sessions/$base"
+    fi
+  else
+    rel="$(cmd_current)"
+  fi
+  base="$(basename "$rel")"
+  case "$rel" in
+    */_archive/*) die "Session already archived: $rel" ;;
+  esac
+  src="$ROOT/$rel"
+  [ -d "$src" ] || die "Session path missing: $rel"
+  mkdir -p "$ARCH_DIR"
+  dest="$ARCH_DIR/$base"
+  [ ! -e "$dest" ] || die "Archive target already exists: .agent-work/sessions/_archive/$base"
+  mv "$src" "$dest"
+  # Clear pointer if it pointed at the archived session.
+  if [ -f "$POINTER" ]; then
+    cur="$(head -n1 "$POINTER" | tr -d '\r\n')"
+    if [ "$cur" = "$rel" ] || [ "$(basename "$cur")" = "$base" ]; then
+      rm -f "$POINTER"
+    fi
+  fi
+  cmd_commit "chore(archive): ${base}" >/dev/null || true
+  printf '%s\n' ".agent-work/sessions/_archive/$base"
 }
 
 cmd_status() {
@@ -183,13 +274,20 @@ cmd_help() {
   cat <<'EOF'
 Simple Skills — session helper
 
-  session.sh help                 This text
-  session.sh doctor               Check Work layout + pointer + tools
-  session.sh work-root            Ensure .agent-work (+ nested git)
-  session.sh new <slug>           Create Task-N-<slug> and set current
-  session.sh set <dir|slug>       Point .current at an existing session
-  session.sh current              Print active session path
-  session.sh status [dir]         Progress from TASKS.md (source of truth)
+  session.sh help                      This text
+  session.sh doctor                    Check Work layout + pointer + tools
+  session.sh work-root                 Ensure .agent-work (+ nested git)
+  session.sh new <slug>                Create Task-N-<slug>, set current, commit
+  session.sh set <dir|slug>            Point .current at an existing session
+  session.sh current                   Print active session path
+  session.sh status [dir]              Progress from TASKS.md (source of truth)
+  session.sh commit [message]          Milestone commit dirty Work (or clean)
+  session.sh archive [slug|current]    Move session → sessions/_archive/, commit
+
+Work commit protocol (see AGENT_WORK.md):
+  After writing/changing session or memory artifacts, run:
+    bash .agents/tools/session/session.sh commit 'docs(<skill>): <why>'
+  On successful done (no defect loop): archive the session.
 
 Related (from repo / host root):
   python .agents/tools/session/validate_artifacts.py
@@ -206,8 +304,22 @@ cmd_doctor() {
   printf 'work=%s\n' "$WORK_DIR"
   if [ -d "$WORK_DIR/.git" ]; then
     printf 'nested_git=yes\n'
+    if work_dirty; then
+      printf 'work_dirty=yes — run: session.sh commit '\''docs(…): …'\''\n'
+    else
+      printf 'work_dirty=no\n'
+    fi
+    sha="$(git -C "$WORK_DIR" rev-parse --short HEAD 2>/dev/null || true)"
+    if [ -n "$sha" ]; then
+      subj="$(git -C "$WORK_DIR" log -1 --pretty=%s 2>/dev/null || true)"
+      printf 'last_commit=%s %s\n' "$sha" "$subj"
+    else
+      printf 'last_commit=(none)\n'
+    fi
   else
     printf 'nested_git=no (run work-root / new to init)\n'
+    printf 'work_dirty=n/a\n'
+    printf 'last_commit=n/a\n'
   fi
   if [ -f "$POINTER" ]; then
     rel="$(head -n1 "$POINTER" | tr -d '\r\n')"
@@ -226,7 +338,7 @@ cmd_doctor() {
   else
     printf 'gitignore_agent_work=MISSING — product git may track Work\n'
   fi
-  for f in START_HERE.md WHAT_NEXT.md SKILL_PREAMBLE.md AGENT_POLICY.md; do
+  for f in START_HERE.md WHAT_NEXT.md SKILL_PREAMBLE.md AGENT_POLICY.md AGENT_WORK.md; do
     if [ -f "$ROOT/.agents/$f" ] || [ -f "$ROOT/docs/$f" ]; then
       printf 'doc_%s=yes\n' "$f"
     else
@@ -252,5 +364,7 @@ case "$sub" in
   new)       cmd_new "$@" ;;
   status)    cmd_status "$@" ;;
   work-root) cmd_work_root "$@" ;;
-  *) die "Usage: session.sh {help|doctor|current|set <dir>|new <slug>|status [dir]|work-root}" ;;
+  commit)    cmd_commit "$@" ;;
+  archive)   cmd_archive "$@" ;;
+  *) die "Usage: session.sh {help|doctor|current|set <dir>|new <slug>|status [dir]|work-root|commit [msg]|archive [slug]}" ;;
 esac

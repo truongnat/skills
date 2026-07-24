@@ -17,9 +17,11 @@ Breaking or behavior changes hosts should know after reinstall.
 | Installer `doctor` / `uninstall` | `./install.sh doctor`; `./install.sh uninstall --yes` (optional `--purge-work`, `--keep-settings`) |
 | CLI `sk` | PyPI `pipx install simple-skills` then `sk install` / `doctor` / `uninstall` (see README Publish) |
 | Skill `excel-doc-convert` | Office profile: Excel 設計書/方眼紙 → HTML+MD + `convert-report.json` |
-| Doc reality check | `investigate` / `basic-design` / `detail-design` must compare docs↔code and **stop and ask** on Blocking mismatches |
+| Doc reality check | `investigate` / `basic-design` / `detail-design`: docs↔code; Blocking → STOP + Ask method (Confirm-first) |
 | Language `vi` | Prose in Vietnamese; **headings/template keys/enums stay English**; no mixed VI/EN bodies |
 | Keywords glossary | brainstorming / investigate / research: `## Keywords` (Term/Meaning/Where seen); criteria in SKILL_PREAMBLE |
+| Work commit protocol | `session.sh commit` after lifecycle artifact writes; `session.sh archive` after successful `done`; see AGENT_WORK.md |
+| Confirm-first + Ask methods | STOP immediately on Blocking; classify `confirm`/`choice`/`fact`/`table`/`diagram`/`html` then ask; no quiz-as-document — SKILL_PREAMBLE |
 
 ## How to upgrade a host project
 

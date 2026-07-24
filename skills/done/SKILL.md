@@ -28,7 +28,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 |-------|-------------|
 | Inputs | PLAN.md, TASKS.md when present, EXECUTION.md, REVIEW.md, diff/file changes, verification evidence, skipped checks, blockers, risks, PR/MR template, existing `.agent-work/memory/INDEX.md`. |
 | Outputs | DONE.md, a distilled `.agent-work/memory/<Task-N-slug>.md` + updated `.agent-work/memory/INDEX.md`, PR_MESSAGE.md, PR_DESCRIPTION.md, optional RELEASE_NOTE.md. |
-| Safety | Do NOT overclaim verification. Do NOT hide skipped/failed checks. Do NOT mark complete if blockers remain. Do NOT describe changes that were not made. Do NOT put secrets into final artifacts. Do NOT mark Done while `session.sh status` is `COMPLETE: no` or while `validate_artifacts.py` / `lint_artifacts.py` fails. |
+| Safety | Do NOT overclaim verification. Do NOT hide skipped/failed checks. Do NOT mark complete if blockers remain. Do NOT describe changes that were not made. Do NOT put secrets into final artifacts. Do NOT mark Done while `session.sh status` is `COMPLETE: no` or while `validate_artifacts.py` / `lint_artifacts.py` fails. Do NOT skip Work `session.sh commit` after DONE+memory; archive only when Done/Done with risks and no defect loop (see AGENT_WORK.md). |
 
 ### Required artifacts
 
@@ -69,7 +69,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
   It is **not** a changelog: omit anything reconstructable from git, `DONE.md`,
   or the code. If nothing durable was learned, still create the entry with
   `Outcome` filled and each section `None.` — do not pad. Do not title the
-  entry or its sections `80/20`.
+  entry or its sections `80/20`. Full session history belongs in Work nested git (`session.sh commit`), not in memory dumps.
 - **De-duplicate:** before writing, scan `.agent-work/memory/INDEX.md`; if this
   supersedes or extends an existing entry, update that entry instead of adding
   a near-duplicate.
@@ -107,6 +107,8 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 - [ ] No leftover `_(TODO)_` or placeholder Mermaid in finished sections.
 - [ ] Spec/review findings state finding + evidence + verdict (not essays).
 
+- [ ] Work nested git: after DONE + memory, ran `session.sh commit 'chore(done): Task-N-slug memory + close'` (or clean).
+- [ ] If status is Done / Done with risks and there is no open defect loop, ran `session.sh archive` (session under `sessions/_archive/`).
 
 ## WRONG vs CORRECT
 

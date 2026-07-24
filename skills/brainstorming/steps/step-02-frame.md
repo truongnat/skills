@@ -23,10 +23,13 @@ If precondition fails → return to step-01. Do **not** continue.
 - Do **not** write PLAN/TASKS or basic/detail design.
 - Do **not** fill Scope/Options/Recommendation in this step.
 - Classify every material issue by severity, clarity, blocking status, owner,
-  and visual need.
-- Use the structured question tool when available. Ask **one focused blocking
-  question per message** (up to three in one round only when they are
-  independent blockers). Explain why the answer changes direction. No question walls.
+  visual need, and **Ask method** (`confirm`/`choice`/`fact`/`table`/
+  `diagram`/`html` — see SKILL_PREAMBLE Confirm-first).
+- On any Blocking need: **STOP immediately**. Classify Ask method, then ask
+  with that method. Default: **one focused question** (or one visual) per
+  message; up to three only when they are independent `confirm`/`choice`/
+  `fact` blockers. Explain why the answer changes direction. No question walls;
+  no quiz-as-document.
 - **Diverge, do not converge yet:** fill facts/unknowns/Spec quality/triage here;
   do not write Recommendation (that is step-04 after scope/options).
 - Update Step ledger 02 to `done` or `blocked` before leaving this step.

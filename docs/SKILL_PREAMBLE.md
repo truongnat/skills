@@ -66,6 +66,14 @@ Rules:
 4. Do **not** put task artifacts into `.agents/skills` or other kit paths.
 5. Prefer the product root `.gitignore` to include `.agent-work/` so Work history
    stays in its nested git, not the product repo.
+6. **Work commit protocol:** when nested git exists, after writing or updating
+   any session/memory artifact in this skill, run:
+   ```bash
+   bash .agents/tools/session/session.sh commit 'docs(<skill>): <short why>'
+   ```
+   Do not claim the skill finished while `session.sh doctor` reports
+   `work_dirty=yes`. Full cadence + archive: `.agents/AGENT_WORK.md` → Work
+   commit protocol. This is **not** product `rules.docs` `with-commit`.
 
 ## Memory (read first)
 
@@ -74,7 +82,8 @@ writing durable docs, read `.agent-work/memory/INDEX.md` and open the entries
 whose hook matches this task. Reuse prior decisions, gotchas, and conventions
 instead of re-deriving them; if memory conflicts with current evidence, trust
 current evidence and note the drift. If none apply, continue.
-(Memory is written by `done` — the vital few only.)
+(Memory is written by `done` — the **vital few** only. Do **not** dump full
+session artifacts into memory; nested-git history is the version store.)
 
 Skills that only execute, sync, review, or test still obey Language and Work
 layout. Memory is optional for those unless the task needs prior decisions.
@@ -114,6 +123,10 @@ decoding jargon. If a teammate new to the task cannot act from it, rewrite.
    placeholder Mermaid).
 6. **Keywords** (discovery artifacts): when the report uses domain/opaque terms
    a busy teammate would not know, fill `## Keywords` — see below.
+7. **Confirm-first:** if Blocking clarity is missing, **STOP immediately**,
+   classify **Ask method** (`confirm` / `choice` / `fact` / `table` /
+   `diagram` / `html`), ask that way in chat, then finish the artifact — see
+   Confirm-first below. Do not ship a “done” document whose main job is a quiz.
 
 **Do not:**
 
@@ -125,6 +138,47 @@ decoding jargon. If a teammate new to the task cannot act from it, rewrite.
    them; never invent translation noise for ceremony.
 5. Answer method prompts (5W1H / vital-few) as trivia sections.
 6. Narrate your process (“I will now analyze…”, “As an AI…”).
+7. **Complete-with-questions:** fill Goal / Recommendation / Architecture / …
+   while Critical or Blocking items are still unanswered, or dump a long Open
+   questions list as the deliverable. That wastes a write cycle and forces
+   every reader to re-parse unresolved work.
+
+### Confirm-first (stop → classify → ask → answer → then finish)
+
+When clarity is missing for a **Blocking** decision:
+
+1. **STOP immediately** — do not keep writing Goal / Architecture /
+   Recommendation / contracts. Mark the Step ledger / Status `blocked` if
+   needed. Do not “finish the doc then list questions.”
+2. **Reuse** — scan Clarification checkpoint, memory INDEX, Answered Unknowns,
+   prior user messages. Prefer a short **confirm** (“Still X?”) over re-asking.
+3. **Classify Ask method** (mandatory — pick one before asking):
+
+   | Ask method | Use when | How to ask (method) |
+   | --- | --- | --- |
+   | `confirm` | Prior answer / assumption likely still true; Yes/No | One chat line: claim + Y/N. No essay. |
+   | `choice` | 2–5 discrete options (pick one) | Numbered A/B/C in chat; one line why each changes the doc. |
+   | `fact` | Need a concrete value (path, ID, env, owner, limit) | One short question + expected shape (e.g. “path or N/A”). |
+   | `table` | Compare ≥2 options on ≥2 criteria | Markdown table in chat (or Clarification); ask which row/column wins. |
+   | `diagram` | Ambiguity is about flow, boundary, sequence, or state | Mermaid (or equivalent) in session/chat; ask which path/edge. |
+   | `html` | Ambiguity is spatial/UI: layout, responsive, before/after, multi-state | Classify `html-recommended` → ask-before-create → seed `VISUAL_DECISION.html` + session-serve; never for pure strategy text. |
+
+4. **Ask in chat** with that method — default **one** question (or one visual)
+   per message. Exception: up to **3** independent `confirm` / `choice` /
+   `fact` blockers in one round. Never mix `html`/`diagram` with a wall of
+   text questions in the same turn.
+5. **Record** method + answer in Clarification checkpoint, then **rewrite the
+   real sections** with the decision — not with the question left open.
+6. **Finished bar** — residual Unknowns / Open questions = **non-blocking**
+   only. Blocking unanswered → Status=`blocked`, no fake downstream sections.
+
+**Wrong:** keep filling BASIC_DESIGN, then dump “Open questions” for the reader.  
+**Right:** Blocking Doc reality row → STOP → `choice` or `confirm` in chat →
+fold answer → then write Architecture.
+
+Self-check before saving: *Would I paste this into a PR for a busy reviewer?*
+If no → cut half, name concrete things. If blocked on the user → STOP and ask
+with the right Ask method; do not finish the quiz-as-document.
 
 ### Keywords (glossary for discovery reports)
 
@@ -155,9 +209,6 @@ Excel; bilingual triple rows for ceremony.
 
 **Cap:** vital few — typically **3–12** rows. Prefer linking Meaning to Where
 seen over essays. If no opaque terms → `_(none — plain language)_` once.
-
-Self-check before saving: *Would I paste this into a PR for a busy reviewer?*
-If no → cut half, name concrete things, move guesses to Unknowns.
 
 ## Scale (Quick / Lite / Full)
 

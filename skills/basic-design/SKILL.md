@@ -42,7 +42,9 @@ The goal: lock boundaries before writing implementable contracts or task plans. 
 
 - Include only sections that apply to the task.
 - Omit unused optional sections (do not invent filler).
-- Mark gaps as open questions instead of guessing.
+- Mark gaps as Blocking Unknowns; **ask in chat** (Confirm-first) instead of
+  finishing BASIC_DESIGN with a long Open questions quiz. Residual non-blocking
+  unknowns only after answers are folded into architecture/components/flows.
 - Lite Mode: Doc reality (short table) + goal + components + flows + handoff.
 
 ## Contract (mandatory)
@@ -53,7 +55,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 |-------|-------------|
 | Inputs | DISCUSSION.md with clear recommendation; BA notes if available; **repo inspection**; wiki/HLD under `rules.docs.location` when docs enabled; investigate findings when useful. |
 | Outputs | `BASIC_DESIGN.md` from template (or equivalent) including **Doc reality check**, goal, context, architecture, components, flows, data ownership, optional surfaces/NFRs, open questions, handoff. |
-| Safety | Do NOT implement code. Do NOT invent file paths without inspecting the codebase. Do NOT treat docs/wiki as truth without Doc reality check. Do NOT fill architecture/components/flows while Doc reality has Blocking=`Yes` unresolved — **stop and ask** (max 3 focused questions). Do NOT write full contracts (detail-design). Do NOT re-litigate BR — point to BA. Do NOT create PLAN.md. If Path=`Quick`, **stop** and use `quick-fix` (or upgrade Path). |
+| Safety | Do NOT implement code. Do NOT invent file paths without inspecting the codebase. Do NOT treat docs/wiki as truth without Doc reality check. Do NOT fill architecture/components/flows while Doc reality has Blocking=`Yes` unresolved — **Confirm-first**: STOP immediately, classify Ask method, ask in chat (max 3), then finish with answers — do not ship a design as an open-questions quiz. Do NOT write full contracts (detail-design). Do NOT re-litigate BR — point to BA. Do NOT create PLAN.md. If Path=`Quick`, **stop** and use `quick-fix` (or upgrade Path). |
 
 ### Required artifacts
 
@@ -137,6 +139,9 @@ Do NOT use this skill when:
 - [ ] No leftover `_(TODO)_` or placeholder Mermaid in finished sections.
 - [ ] Spec/review findings state finding + evidence + verdict (not essays).
 
+- [ ] Work nested git: ran `session.sh commit 'docs(basic-design): …'` after writing artifacts (or `WORK_COMMIT=clean`). See AGENT_WORK.md.
+
+- [ ] Confirm-first: on Blocking need, STOP immediately; classify Ask method (`confirm`/`choice`/`fact`/`table`/`diagram`/`html`); ask that way; finished artifact is not a quiz — residual Open questions non-blocking only (SKILL_PREAMBLE).
 
 ## WRONG vs CORRECT
 
@@ -179,6 +184,7 @@ Flows: Load config → parse input → emit result events.
 | Single-module change | Lite Mode — short Doc reality table; skip unused optional sections. |
 | Multi-artifact pack (hub + children) | One BASIC_DESIGN with surfaces list; detail-design may split per surface later. |
 | No BA notes but rules implied | Mark as assumptions; do not invent BR IDs. |
+
 
 ## Limitations
 

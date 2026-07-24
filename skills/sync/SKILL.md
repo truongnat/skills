@@ -160,6 +160,8 @@ Sync output must pass these checks:
 - [ ] No leftover `_(TODO)_` or placeholder Mermaid in finished sections.
 - [ ] Spec/review findings state finding + evidence + verdict (not essays).
 
+- [ ] Work nested git: ran `session.sh commit 'docs(sync): …'` after writing artifacts (or `WORK_COMMIT=clean`). See AGENT_WORK.md.
+
 ## WRONG vs CORRECT
 
 ```markdown
@@ -222,6 +224,7 @@ Action: Update plan file paths or inspect new location before execution.
 15. Set **Implementation readiness** (`PASS` / `CONCERNS` / `FAIL`) with reason.
 16. Recommend next step matching the verdict.
 17. Only move to execution on `PASS`, or on `CONCERNS` after explicit user accept.
+
 
 ## Limitations
 

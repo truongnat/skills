@@ -49,14 +49,18 @@ Optional (add only when the repo has a convention; `init` may merge them):
 
 Use these unless the host explicitly overrides them in settings:
 
-**Decisions** (brainstorming / BA / planning): stop on `critical-unresolved`,
-`blocking-unknown`, `feasibility-fail-or-unknown`, `correctness-fail-or-unknown`,
-`blocking-capability-gap`; `require_sequential_step_ledger: true`;
+**Decisions** (brainstorming / BA / planning / design / investigate when blocked):
+stop on `critical-unresolved`, `blocking-unknown`, `feasibility-fail-or-unknown`,
+`correctness-fail-or-unknown`, `blocking-capability-gap`;
+`require_sequential_step_ledger: true`;
 `require_spec_quality_before_downstream_work: true`;
+`stop_immediately_on_blocking_question: true`;
+`require_ask_method_classification: true`;
 `max_blocking_questions_per_round: 3`.
 
-**Visuals:** `triage: required`; `html: ask-before-create`;
-`prefer_diagram_for_flows: true`.
+**Visuals / Ask methods:** `triage: required`; `html: ask-before-create`;
+`prefer_diagram_for_flows: true`. Ask method taxonomy (confirm/choice/fact/
+table/diagram/html): `.agents/SKILL_PREAMBLE.md` → Confirm-first.
 
 **Reports (skim structure):** open with a short **Executive summary** (≤5
 decision bullets) then a **Developer overview** panel **inside that same
@@ -85,8 +89,8 @@ from `PRJ_REFERENCE.md` when it conflicts with defaults.
 ## Architecture
 
 **Kit** (`.agents/`) is installer-owned. **Work** (`.agent-work/`) holds
-sessions + memory together under an optional nested git — see
-`.agents/AGENT_WORK.md`.
+sessions + memory together under a nested git (required when `git` is
+available) — see `.agents/AGENT_WORK.md` → Work commit protocol.
 
 - `AGENTS.md`: Entrypoint. Read this first.
 - `.agents/settings.yaml`: Project-level agent settings (language, etc.). Read first.
@@ -221,16 +225,28 @@ Brainstorming, business-analysis, and planning must fail closed:
      (example: upload without max size, MIME allowlist, overwrite policy, progress,
      retry, audit, permissions, error recovery).
 - When a Critical issue, blocking unknown, Feasibility/Correctness Fail/Unknown,
-  or Blocking=Yes capability gap is unresolved, **stop and ask the user**. Do not
-  select a default, continue filling downstream artifacts, or bury the issue as an
-  assumption.
+  or Blocking=Yes capability gap is unresolved, **STOP immediately** and ask the
+  user in chat (**Confirm-first** + **Ask method** — see
+  `.agents/SKILL_PREAMBLE.md`). Do not select a default, keep filling the current
+  artifact, continue downstream sections, bury the issue as an assumption, or
+  hand the user a “finished” document whose payload is still open questions.
+- **Classify Ask method before asking** (`confirm` / `choice` / `fact` /
+  `table` / `diagram` / `html`). Basic Yes/No or value → `confirm`/`fact`/
+  `choice` in chat. Multi-criteria → `table`. Flow/boundary → `diagram`.
+  Spatial/UI/multi-state → `html` (ask-before-create). Do not use HTML for
+  abstract strategy text.
+- **Reuse before re-ask:** check Clarification checkpoint, memory, and already
+  Answered Unknowns; prefer `confirm` on prior decisions when they still apply.
 - Downstream work means Scope/Options and Recommendation in brainstorming,
   User stories/Business rules/Acceptance criteria in business-analysis, and
   Goal/Approach/TASKS in planning. These sections must remain unfilled until
   the Spec quality gate passes.
-- Ask focused blocking questions in small batches (default maximum: three),
-  explain why each answer changes the direction, and record the answer.
-- Triage visual format by decision value:
+- Ask with the chosen method — default **one** question/visual per message
+  (max three independent `confirm`/`choice`/`fact` blockers per round). Record
+  method + answer in the Clarification checkpoint, then **rewrite the real
+  sections**. Residual Open questions / Unknowns in a finished artifact are for
+  **non-blocking** items only.
+- Triage visual format by decision value (subset of Ask methods):
   - text/table for simple comparisons;
   - diagram for architecture, sequence, state, or data flow;
   - HTML for UI layout, responsive/before-after/multi-state, or spatial option
@@ -317,6 +333,14 @@ Rules:
   folder, not a side/cache copy.
 - **Host `.gitignore`:** ensure the product root ignores `.agent-work/` so Work
   uses its nested git instead of bloating the product history.
+- **Work commit protocol (mandatory when nested git exists).** After a
+  lifecycle skill writes or updates artifacts under `.agent-work/`, run
+  `session.sh commit 'docs(<skill>): …'` before declaring the skill done.
+  `session.sh new` commits the new session automatically. On successful `done`
+  (no open defect loop), run `session.sh archive` so the session moves to
+  `sessions/_archive/` and the active tree stays lean. Nested Work commits are
+  **not** product PRs and are **not** `rules.docs` `with-commit` (wiki). See
+  `.agents/AGENT_WORK.md`.
 - **Progress is computed, never hand-written.** Refresh TASKS progress from the
   real card states instead of typing counts or maintaining `OVERVIEW.md`:
 
@@ -335,7 +359,8 @@ Rules:
 - **Durable, cross-task knowledge** (survives across sessions). `done` distills
   each finished task into `.agent-work/memory/<Task-N-slug>.md` — the **vital few**:
   non-obvious decisions + why, gotchas, reusable conventions, and pointers. It
-  is not a changelog and must not be titled `80/20`.
+  is not a changelog and must not be titled `80/20`. Do **not** paste full
+  session reports into memory — artifact history belongs in the Work nested git.
 - **Read before deciding/analyzing.** At the start of any step that frames,
   researches, investigates, designs, or plans (`brainstorming`, `research`,
   `investigate`, `business-analysis`, `basic-design`, `detail-design`,
@@ -365,8 +390,10 @@ Order for a new project: `scaffold` → `init` → lifecycle (`brainstorming`/
 1. `brainstorming` → `DISCUSSION.md` (Quick may use a short DISCUSSION or skip
    to planning when the user already stated a clear fix).
    - **Diverge then converge:** gather facts/options before locking a recommendation.
-   - While facilitating clarification: **one focused question per message**
-     (max three only when they are independent blockers). No question walls.
+   - While facilitating clarification: **STOP immediately** on Blocking needs;
+     classify **Ask method**; **one** question/visual per message (max three
+     only when they are independent `confirm`/`choice`/`fact` blockers). No
+     question walls; no quiz-as-document.
    - Step workflow (Full/Lite): seed → frame + Spec quality → scope/options → recommend → self-check.
    - Templates: `.agents/skills/brainstorming/templates/`; steps: `step-01` … `step-05`.
    - Scope/options and recommendation cannot start until blocking Spec quality findings are resolved (Full/Lite).
@@ -377,7 +404,8 @@ Order for a new project: `scaffold` → `init` → lifecycle (`brainstorming`/
 3. `basic-design` → `BASIC_DESIGN.md` (**skip on Quick** unless architecture is the task)
    - Template: `.agents/skills/basic-design/templates/BASIC_DESIGN.template.md`.
    - **Doc reality check** (docs/wiki ↔ codebase) **before** architecture/components/flows.
-   - Blocking mismatches → **stop and ask** (max 3 questions); do not design as if docs were automatically true.
+   - Blocking mismatches → **STOP immediately**; classify Ask method; ask in
+     chat (max 3); do not design as if docs were automatically true.
 4. `detail-design` → `DETAIL_DESIGN.md`
    - Template: `.agents/skills/detail-design/templates/DETAIL_DESIGN.template.md`.
    - Re-run **Doc reality check**; contracts/data_model only after gate; High-impact assumptions need `Confirmed?` or user accept.
@@ -455,7 +483,7 @@ task is **not** done. Do not patch silently and do not open a new session.
 
 ### Investigation
 
-`investigate` → `INVESTIGATE.md` (Doc reality check when docs/specs cited; stop and ask on Blocking mismatches)
+`investigate` → `INVESTIGATE.md` (Doc reality check when docs/specs cited; Blocking → STOP + Ask method / Confirm-first)
 
 Use when debugging or tracing root cause — no commitment to implement.
 

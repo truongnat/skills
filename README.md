@@ -3,7 +3,7 @@
 Skills + rules for AI agents: think → design → plan → execute → review → done.
 
 - **Kit** `.agents/` — skills, tools, settings (installer)
-- **Work** `.agent-work/` — sessions + memory (nested git; auto-gitignored)
+- **Work** `.agent-work/` — sessions + memory (nested git; `session.sh commit` / `archive`; auto-gitignored)
 
 Start with [docs/START_HERE.md](docs/START_HERE.md). Skill map: [docs/WHAT_NEXT.md](docs/WHAT_NEXT.md).
 

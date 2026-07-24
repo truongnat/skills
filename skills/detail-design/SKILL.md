@@ -55,7 +55,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 |-------|-------------|
 | Inputs | BASIC_DESIGN.md (required, with Doc reality or re-do it here); DISCUSSION/BA for AC/BR when available; **repo inspection** of existing contracts/handlers/schemas; wiki LLD/API when docs enabled. |
 | Outputs | `DETAIL_DESIGN.md` from template (or equivalent) including **Doc reality check**, goal, applicable contracts/models/sequences/rules/operations, optional client mapping and persistence, errors/states, gaps, assumptions (with Confirmed?), handoff to planning. |
-| Safety | Do NOT implement code. Do NOT expand scope beyond BASIC_DESIGN.md. Do NOT invent fields/joins as facts — mark inferred. Do NOT fill contracts/data_model while Doc reality Blocking=`Yes` is unresolved — **stop and ask**. Do NOT hand off to planning while High-impact assumptions have `Confirmed?=No` without explicit user accept. Do NOT create PLAN.md/task IDs. If Path=`Quick`, **stop** and use `quick-fix` (or upgrade Path). |
+| Safety | Do NOT implement code. Do NOT expand scope beyond BASIC_DESIGN.md. Do NOT invent fields/joins as facts — mark inferred. Do NOT fill contracts/data_model while Doc reality Blocking=`Yes` is unresolved — **Confirm-first**: STOP immediately, classify Ask method, ask in chat, then finish with answers — do not ship DETAIL_DESIGN as an open-questions quiz. Do NOT hand off to planning while High-impact assumptions have `Confirmed?=No` without explicit user accept. Do NOT create PLAN.md/task IDs. If Path=`Quick`, **stop** and use `quick-fix` (or upgrade Path). |
 
 ### Required artifacts
 
@@ -135,6 +135,9 @@ Do NOT use this skill when:
 - [ ] No leftover `_(TODO)_` or placeholder Mermaid in finished sections.
 - [ ] Spec/review findings state finding + evidence + verdict (not essays).
 
+- [ ] Work nested git: ran `session.sh commit 'docs(detail-design): …'` after writing artifacts (or `WORK_COMMIT=clean`). See AGENT_WORK.md.
+
+- [ ] Confirm-first: on Blocking need, STOP immediately; classify Ask method (`confirm`/`choice`/`fact`/`table`/`diagram`/`html`); ask that way; finished artifact is not a quiz — residual Open questions non-blocking only (SKILL_PREAMBLE).
 
 ## WRONG vs CORRECT
 
@@ -187,6 +190,7 @@ Handoff: planning.
 | Existing contracts reused | Prefer inspect-repo facts; mark new contracts as proposed. |
 | Source incomplete | Record gaps; partial design is OK if handoff states blockers. |
 | BA missing | Trace to DISCUSSION; do not invent BR IDs. |
+
 
 ## Limitations
 

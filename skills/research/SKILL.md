@@ -26,7 +26,7 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 |-------|-------------|
 | Inputs | Research question, decision context, local evidence, external source constraints, freshness requirement, quality bar. |
 | Outputs | `RESEARCH.md` (prefer template) with **keywords**, source strategy, evidence, findings, comparison matrix, recommendation, confidence, caveats, residual risks. |
-| Safety | Do NOT fabricate citations. Do NOT copy long source content. Do NOT use stale sources for decisions needing fresh information. Do NOT present inference as fact. Do NOT omit caveats, residual risks, or Spec quality challenges (feasibility/correctness/capability gaps). Do NOT leave opaque domain terms unexplained — fill Keywords or mark none. |
+| Safety | Do NOT fabricate citations. Do NOT copy long source content. Do NOT use stale sources for decisions needing fresh information. Do NOT present inference as fact. Do NOT omit caveats, residual risks, or Spec quality challenges (feasibility/correctness/capability gaps). Do NOT leave opaque domain terms unexplained — fill Keywords or mark none. **Confirm-first:** Blocking gaps → STOP, classify Ask method, ask in chat before finishing RESEARCH as a quiz-as-document. |
 
 ### Required artifacts
 
@@ -65,6 +65,10 @@ This skill is a **hard contract**. Obey it before any other action. Do NOT treat
 - [ ] When researching a feature/spec, Spec quality review covers Feasibility, Correctness, and Capability gaps suggested by evidence.
 - [ ] Caveats and residual risks are documented.
 
+- [ ] Work nested git: ran `session.sh commit 'docs(research): …'` after writing artifacts (or `WORK_COMMIT=clean`). See AGENT_WORK.md.
+
+- [ ] Confirm-first: on Blocking need, STOP immediately; classify Ask method (`confirm`/`choice`/`fact`/`table`/`diagram`/`html`); ask that way; finished artifact is not a quiz — residual Open questions non-blocking only (SKILL_PREAMBLE).
+
 ## WRONG vs CORRECT
 
 ```markdown
@@ -100,6 +104,7 @@ Recommendation: Option A. Lower risk, better license, lighter bundle.
 | Source is too old (>1 year for fast-moving tools) | Lower confidence, recommend verification before implementation. |
 | No external sources available (offline) | Mark as "offline research only". Document limitations. |
 | Research question is too broad | Narrow to 2-3 sub-questions. Recommend planning the research scope. |
+
 
 ## Limitations
 

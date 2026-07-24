@@ -45,8 +45,13 @@ _(taxonomy value)_
 
 ### Clarification checkpoint
 
-- Questions asked:
-- User answers:
+<!-- Confirm-first: STOP on Blocking. Classify Ask method
+(confirm|choice|fact|table|diagram|html), ask in chat, then close.
+Do not ship INVESTIGATE as an open-questions quiz. -->
+
+| Ask method | Questions asked | User answers |
+|---|---|---|
+| confirm / choice / fact / table / diagram / html |  |  |
 
 ## Evidence
 
@@ -81,6 +86,9 @@ _(only with sufficient evidence)_
 _(fix / workaround / next investigation)_
 
 ## Open questions
+
+<!-- Residual **non-blocking** only. Blocking → STOP + Ask method in chat first;
+fold answers into Root cause / Recommendation. -->
 
 | Question | Owner | Blocking |
 |---|---|---|

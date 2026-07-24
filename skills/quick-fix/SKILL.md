@@ -53,6 +53,8 @@ Ship a **small, clear** change without Full lifecycle ceremony.
 - [ ] First-pass readable; no leftover `_(TODO)_`.
 - [ ] Lint OK.
 
+- [ ] Work nested git: ran `session.sh commit 'docs(quick-fix): …'` after writing artifacts (or `WORK_COMMIT=clean`). See AGENT_WORK.md.
+
 ## Limitations
 
 - Does NOT replace brainstorming/planning for unclear work.

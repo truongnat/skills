@@ -95,12 +95,16 @@ Blocking=Yes means recommendation/planning must stop until answered. -->
 
 ## Clarification checkpoint
 
-| Issue ID | Focused question | Why it blocks | User answer / evidence | Resolved? |
-|---|---|---|---|---|
-| ISS-001 | _(TODO — one question)_ | _(TODO)_ | _(wait for answer)_ | Yes / No |
+<!-- Confirm-first: STOP immediately on Blocking. Classify Ask method
+(confirm|choice|fact|table|diagram|html), ask that way in chat, record answer,
+rewrite real sections. Do not ship DISCUSSION as a quiz. -->
+
+| Issue ID | Ask method | Focused question / prompt | Why it blocks | User answer / evidence | Resolved? |
+|---|---|---|---|---|---|
+| ISS-001 | confirm / choice / fact / table / diagram / html | _(TODO — one question)_ | _(TODO)_ | _(wait for answer)_ | Yes / No |
 
 > **STOP gate:** Do not continue to Scope/Options while any Critical issue or
-> blocking unknown is unresolved.
+> blocking unknown is unresolved. Status=`blocked` until answers land.
 
 ## Spec quality review
 
@@ -134,6 +138,9 @@ BAD:  "Cần đảm bảo tính khả thi với hệ thống hiện tại" -->
 > Blocking=Yes, stop and ask. Blocking capability gaps also stop recommendation.
 
 ## Visual triage
+
+<!-- Ask method `diagram` / `html` only. Map from SKILL_PREAMBLE Question methods.
+`html` requires ask-before-create — never for pure strategy text. -->
 
 | Issue ID | Visual need | Format | Why (one line) | User confirmed? | Artifact |
 |---|---|---|---|---|---|

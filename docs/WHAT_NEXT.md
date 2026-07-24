@@ -27,10 +27,16 @@ Situation → skill. Prefer the smallest path that fits.
 ```bash
 bash .agents/tools/session/session.sh help
 bash .agents/tools/session/session.sh doctor
+bash .agents/tools/session/session.sh commit 'docs(<skill>): …'   # Work milestone
+bash .agents/tools/session/session.sh archive                    # after successful done
 python .agents/tools/session/build_context.py   # refresh CONTEXT.md from session artifacts
 python .agents/tools/session/lint_artifacts.py
 python .agents/tools/session/validate_artifacts.py
 ```
+
+Blocking product/doc unknowns → **STOP**, classify Ask method
+(`confirm`/`choice`/`fact`/`table`/`diagram`/`html`), ask in chat — see
+`SKILL_PREAMBLE.md` Confirm-first. Do not invent answers to stay on Quick.
 
 ## Upgrade path
 

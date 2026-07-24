@@ -67,7 +67,7 @@ This skill is a **hard contract**. Obey it before any other action.
 |-------|-------------|
 | Inputs | DETAIL_DESIGN.md when present; else BASIC_DESIGN.md / DISCUSSION.md / BUSINESS_ANALYSIS.md; issue/visual triage and clarification answers; user request; codebase mapping; constraints. |
 | Outputs | Session folder MUST contain filled `PLAN.md` + `TASKS.md` seeded from templates. `TASKS.md` MUST include Work inventory + specific micro-cards (not layer epithets only). Incomplete if PLAN-only, chat-only, tasks embedded in PLAN, empty template left, or vague epic cards. |
-| Safety | Do NOT implement code. Do NOT skip steps. Stop and ask focused questions before strategy/tasks when Critical issues, blocking unknowns, or blocking Spec quality findings remain. Do NOT silently choose defaults or invent omitted feature policy. Planning classifies visual need but does not create HTML itself; route confirmed HTML needs to brainstorming/basic-design and resume after the decision. Do NOT finish without both files, set Ready=Yes with blockers, invent paths, or treat assumptions/specs as confirmed. |
+| Safety | Do NOT implement code. Do NOT skip steps. **Confirm-first:** STOP immediately on Blocking; classify Ask method before strategy/tasks — reuse Clarification/memory; do not finish PLAN/TASKS as a quiz. Do NOT silently choose defaults or invent omitted feature policy. Planning classifies visual need but does not create HTML itself; route confirmed HTML needs to brainstorming/basic-design and resume after the decision. Do NOT finish without both files, set Ready=Yes with blockers, invent paths, or treat assumptions/specs as confirmed. |
 
 ### Required artifacts
 
@@ -126,6 +126,10 @@ Still run **all four steps**. TASKS may have 1–3 cards; templates still requir
 - [ ] First-pass readable: concrete names (paths/APIs/IDs); no abstract filler.
 - [ ] No leftover `_(TODO)_` or placeholder Mermaid in finished sections.
 - [ ] Ready=Yes only when blockers are `none`.
+
+- [ ] Work nested git: ran `session.sh commit 'docs(planning): …'` after writing artifacts (or `WORK_COMMIT=clean`). See AGENT_WORK.md.
+
+- [ ] Confirm-first: on Blocking need, STOP immediately; classify Ask method (`confirm`/`choice`/`fact`/`table`/`diagram`/`html`); ask that way; finished artifact is not a quiz — residual Open questions non-blocking only (SKILL_PREAMBLE).
 
 ## Limitations
 
